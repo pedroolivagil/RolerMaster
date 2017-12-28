@@ -1,8 +1,17 @@
 <resources>
-    <string name="app_name">RolerMaster</string>
+    <string name="app_name" translatable="false">RolerMaster</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- Menú lateral -->
+    <string name="nav_games">TRADUCIR</string>
+    <string name="nav_trash">TRADUCIR</string>
+    <string name="nav_profile">TRADUCIR</string>
+    <string name="nav_tools_title">TRADUCIR</string>
+    <string name="nav_tools">TRADUCIR</string>
+    <string name="nav_exit">TRADUCIR</string>
+    <string name="nav_logout">TRADUCIR</string>
 </resources>

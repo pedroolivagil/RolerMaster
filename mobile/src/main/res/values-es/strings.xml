@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- Menú lateral -->
+    <string name="nav_games">Partidas</string>
+    <string name="nav_trash">Papelera</string>
+    <string name="nav_profile">Perfil</string>
+    <string name="nav_tools_title">Preferencias</string>
+    <string name="nav_tools">Opciones</string>
+    <string name="nav_logout">Cerrar sesión</string>
+    <string name="nav_exit">Salir</string>
+
+</resources>
