@@ -16,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
+import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import java.util.concurrent.Callable;
 
+import static com.olivadevelop.rolermaster.tools.Tools.TIME_TO_EXIT;
 import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         // Inicilizamos la publicidad
         AdsAdMob.getInstance().initialize(this);
+        SessionManager.getInstance().setLogged(true);
         // Inicializamos el menú lateral izquierdo
         navMenuLeft();
         // Inicializamos el boón flotante
@@ -120,13 +123,19 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        if (SessionManager.getInstance().isLogged()) {
+            navigationView.inflateHeaderView(R.layout.nav_header_main_login);
+            navigationView.inflateMenu(R.menu.activity_main_drawer_login);
+        } else {
+            navigationView.inflateHeaderView(R.layout.nav_header_main_logout);
+            navigationView.inflateMenu(R.menu.activity_main_drawer_logout);
+        }
         /*AdsAdMob.getInstance().printBanner((AdView) findViewById(R.id.navAdView));*/
     }
 
     private void setBasicUserData() {
-        if (navigationView != null) {
-            /*View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+        if (SessionManager.getInstance().isLogged() && navigationView != null) {
+            /*View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main_login);*/
             View headerLayout = navigationView.getHeaderView(0);
             ImageView navHeaderImg = (ImageView) headerLayout.findViewById(R.id.nav_header_image);
             TextView navUserName = (TextView) headerLayout.findViewById(R.id.nav_user_name);
@@ -142,24 +151,45 @@ public class MainActivity extends AppCompatActivity
         Tools.newBooleanDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_exit_message, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                return exitStep1();
+                exitStep1();
+                return null;
             }
         });
     }
 
-    private Void exitStep1() {
+    private void exitStep1() {
         Tools.newInfoDialog(this, R.string.nav_dialog_exit_2_title, R.string.nav_dialog_exit_2_message, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                return exitStep2();
+                exitStep2();
+                return null;
             }
         });
-        return null;
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    int waited = 0;
+                    while (waited < TIME_TO_EXIT) {
+                        sleep(100);
+                        waited += 100;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            exitStep2();
+                        }
+                    });
+                }
+            }
+        }.start();
     }
 
-    private Void exitStep2() {
+    private void exitStep2() {
+        Tools.Logger(this, ".exitStep2 --> Saliendo.... (MOCK)");
         AdsAdMob.getInstance().printIntersicial();
-        Tools.Logger(this, "Saliendo.... (MOCK)");
-        return null;
     }
 }

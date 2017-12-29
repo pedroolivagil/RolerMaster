@@ -11,10 +11,11 @@
     <string name="nav_profile">Perfil</string>
     <string name="nav_tools_title">Preferencias</string>
     <string name="nav_tools">Opciones</string>
-    <string name="nav_logout">Cerrar sesión</string>
     <string name="nav_exit">Salir</string>
+    <string name="nav_login">Iniciar sesión</string>
+    <string name="nav_logout">Cerrar sesión</string>
 
-    <string name="nav_dialog_exit_title">¿Ya nos abandonas…?</string>
+    <string name="nav_dialog_exit_title">¿Ya nos abandonas… T_T?</string>
     <string name="nav_dialog_exit_message">¿Estas seguro?</string>
 
     <string name="nav_dialog_exit_2_title">Hasta la próxima!</string>

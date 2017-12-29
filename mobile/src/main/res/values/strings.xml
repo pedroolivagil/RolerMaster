@@ -4,6 +4,7 @@
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-2083012446340886/7992389109</string>
 
     <string name="app_name" translatable="false">RolerMaster</string>
+    <string name="app_developer" translatable="false">OlivaDevelop</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -17,6 +18,7 @@
     <string name="nav_tools_title">TRADUCIR</string>
     <string name="nav_tools">TRADUCIR</string>
     <string name="nav_exit">TRADUCIR</string>
+    <string name="nav_login">TRADUCIR</string>
     <string name="nav_logout">TRADUCIR</string>
 
     <string name="nav_dialog_exit_title">TRADUCIR</string>
