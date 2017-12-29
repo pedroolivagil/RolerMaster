@@ -1,4 +1,8 @@
 <resources>
+    <string name="id_publisher_ads" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
     <string name="app_name" translatable="false">RolerMaster</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

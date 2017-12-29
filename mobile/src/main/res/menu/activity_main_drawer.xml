@@ -16,6 +16,10 @@
             android:id="@+id/nav_trash"
             android:icon="@drawable/delete_empty"
             android:title="@string/nav_trash" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/account_key"
+            android:title="@string/nav_logout" />
     </group>
 
     <item android:title="@string/nav_tools_title">
@@ -25,14 +29,9 @@
                 android:icon="@drawable/wrench"
                 android:title="@string/nav_tools" />
             <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/account_key"
-                android:title="@string/nav_logout" />
-            <item
                 android:id="@+id/nav_exit"
                 android:icon="@drawable/power"
                 android:title="@string/nav_exit" />
         </menu>
     </item>
-
 </menu>
