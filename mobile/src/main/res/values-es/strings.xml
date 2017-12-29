@@ -14,4 +14,11 @@
     <string name="nav_logout">Cerrar sesión</string>
     <string name="nav_exit">Salir</string>
 
+    <string name="nav_dialog_exit_title">¿Ya nos abandonas…?</string>
+    <string name="nav_dialog_exit_message">¿Estas seguro?</string>
+
+    <string name="nav_dialog_exit_2_title">Hasta la próxima!</string>
+    <string name="nav_dialog_exit_2_message">Vuelve pronto!</string>
+
+
 </resources>

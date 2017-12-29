@@ -28,6 +28,10 @@ public class AdsAdMob {
         return instance;
     }
 
+    private AdsAdMob(){
+
+    }
+
     public void initialize(Context c) {
         setContext(c);
     }
@@ -54,7 +58,11 @@ public class AdsAdMob {
     }
 
     public void printIntersicial() {
-        if (interstitial == null) {
+        printIntersicial(true);
+    }
+
+    public void printIntersicial(boolean newAds) {
+        if (interstitial == null || newAds) {
             loadIntersicial();
         } else {
             if (interstitial.isLoaded()) {

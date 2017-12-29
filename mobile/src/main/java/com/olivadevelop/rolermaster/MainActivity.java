@@ -12,15 +12,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
+import com.olivadevelop.rolermaster.tools.Tools;
+
+import java.util.concurrent.Callable;
+
+import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,8 @@ public class MainActivity extends AppCompatActivity
         navMenuLeft();
         // Inicializamos el boón flotante
         floatingActionButton();
+
+        setBasicUserData();
     }
 
     @Override
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
         } else if (id == R.id.nav_logout) {
         } else if (id == R.id.nav_exit) {
+            navBtnExit();
         }
 
         getDrawer().closeDrawer(GravityCompat.START);
@@ -110,9 +118,48 @@ public class MainActivity extends AppCompatActivity
         getDrawer().addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         /*AdsAdMob.getInstance().printBanner((AdView) findViewById(R.id.navAdView));*/
+    }
+
+    private void setBasicUserData() {
+        if (navigationView != null) {
+            /*View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+            View headerLayout = navigationView.getHeaderView(0);
+            ImageView navHeaderImg = (ImageView) headerLayout.findViewById(R.id.nav_header_image);
+            TextView navUserName = (TextView) headerLayout.findViewById(R.id.nav_user_name);
+            TextView navUserMail = (TextView) headerLayout.findViewById(R.id.nav_user_email);
+
+            // Añadimos datos falsos para el test
+            navUserName.setText("Test Name User");
+            navUserMail.setText("usermail@test.com");
+        }
+    }
+
+    private void navBtnExit() {
+        Tools.newBooleanDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_exit_message, new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                return exitStep1();
+            }
+        });
+    }
+
+    private Void exitStep1() {
+        Tools.newInfoDialog(this, R.string.nav_dialog_exit_2_title, R.string.nav_dialog_exit_2_message, new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                return exitStep2();
+            }
+        });
+        return null;
+    }
+
+    private Void exitStep2() {
+        AdsAdMob.getInstance().printIntersicial();
+        Tools.Logger(this, "Saliendo.... (MOCK)");
+        return null;
     }
 }
