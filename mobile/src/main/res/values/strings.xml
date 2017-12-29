@@ -1,7 +1,7 @@
 <resources>
-    <string name="id_publisher_ads" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="id_publisher_ads" translatable="false">ca-app-pub-2083012446340886~3562189502</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-2083012446340886/6515655906</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-2083012446340886/7992389109</string>
 
     <string name="app_name" translatable="false">RolerMaster</string>
 

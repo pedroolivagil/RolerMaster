@@ -112,5 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*AdsAdMob.getInstance().printBanner((AdView) findViewById(R.id.navAdView));*/
     }
 }

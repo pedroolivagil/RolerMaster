@@ -1,12 +1,15 @@
 package com.olivadevelop.rolermaster.tools;
 
 import android.content.Context;
+import android.provider.Settings;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.olivadevelop.rolermaster.R;
+
+import static com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR;
 
 
 /**
@@ -43,7 +46,9 @@ public class AdsAdMob {
         interstitial = new InterstitialAd(getContext());
         interstitial.setAdUnitId(getContext().getString(R.string.interstitial_ad_unit_id));
         // Create ad request.
-        AdRequest adRequest2 = new AdRequest.Builder().build();
+        AdRequest adRequest2 = new AdRequest.Builder()
+                .addTestDevice(DEVICE_ID_EMULATOR)
+                .build();
         // Begin loading your interstitial.
         interstitial.loadAd(adRequest2);
     }
@@ -59,8 +64,12 @@ public class AdsAdMob {
     }
 
     public void printBanner(AdView mAdView) {
-        MobileAds.initialize(getContext(), getContext().getString(R.string.id_publisher_ads));
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        if (mAdView != null) {
+            MobileAds.initialize(getContext(), getContext().getString(R.string.id_publisher_ads));
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(DEVICE_ID_EMULATOR)
+                    .build();
+            mAdView.loadAd(adRequest);
+        }
     }
 }
