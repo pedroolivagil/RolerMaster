@@ -21,5 +21,10 @@
     <string name="nav_dialog_exit_2_title">Hasta la próxima!</string>
     <string name="nav_dialog_exit_2_message">Vuelve pronto!</string>
 
+    <string name="login_user_title">Iniciar sesión</string>
+    <string name="login_user_username">Usuario o email</string>
+    <string name="login_user_password">Contraseña</string>
+    <string name="login_user_recovery_pass">¿Has olvidado la contraseña?</string>
+    <string name="login_user_login">Entrar</string>
 
 </resources>

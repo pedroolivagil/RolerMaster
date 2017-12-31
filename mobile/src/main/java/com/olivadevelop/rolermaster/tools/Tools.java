@@ -2,6 +2,8 @@ package com.olivadevelop.rolermaster.tools;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
@@ -65,5 +67,14 @@ public abstract class Tools {
     public static void Logger(Context c, int idText) {
         Toast.makeText(c, c.getString(idText), Toast.LENGTH_LONG).show();
         Log.i(c.getClass().getSimpleName(), c.getString(idText));
+    }
+
+    public static void navigateFragment(FragmentManager fragmentManager, Class fragmentClass) {
+        try {
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
+        } catch (Exception e) {
+            Log.i("Error Navigate -> ", e.getMessage());
+        }
     }
 }

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.olivadevelop.rolermaster.activities.UserLoginFragment;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -33,9 +34,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Inicilizamos la publicidad
+        // Inicilizamos la publicidad (moverlo al splashScreen
         AdsAdMob.getInstance().initialize(this);
-        SessionManager.getInstance().setLogged(true);
+        SessionManager.getInstance().setLogged(false);
+
         // Inicializamos el menú lateral izquierdo
         navMenuLeft();
         // Inicializamos el boón flotante
@@ -68,9 +70,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -86,10 +88,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_trash) {
         } else if (id == R.id.nav_manage) {
         } else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_login) {
+            Tools.navigateFragment(getSupportFragmentManager(), UserLoginFragment.class);
         } else if (id == R.id.nav_exit) {
             navBtnExit();
         }
-
         getDrawer().closeDrawer(GravityCompat.START);
         return true;
     }

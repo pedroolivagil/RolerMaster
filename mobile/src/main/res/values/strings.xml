@@ -26,4 +26,6 @@
 
     <string name="true_dialog" translatable="false">@android:string/ok</string>
     <string name="false_dialog" translatable="false">@android:string/cancel</string>
+
+
 </resources>
