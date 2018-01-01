@@ -26,5 +26,6 @@
     <string name="login_user_password">Contraseña</string>
     <string name="login_user_recovery_pass">¿Has olvidado la contraseña?</string>
     <string name="login_user_login">Entrar</string>
+    <string name="login_user_fail_login">Ambos campos son obligatorios</string>
 
 </resources>

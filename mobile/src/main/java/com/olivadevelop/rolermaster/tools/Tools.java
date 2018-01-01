@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.olivadevelop.rolermaster.R;
@@ -86,5 +87,13 @@ public abstract class Tools {
         } catch (Exception e) {
             Log.i("Error Navigate -> ", e.getMessage());
         }
+    }
+
+    public static boolean isNull(TextView view) {
+        return view == null || view.getText() == null || view.getText().toString().equals("");
+    }
+
+    public static boolean isNotNull(TextView view) {
+        return !isNull(view);
     }
 }

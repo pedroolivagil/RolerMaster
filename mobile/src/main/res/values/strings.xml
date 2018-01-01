@@ -26,6 +26,14 @@
 
     <string name="true_dialog" translatable="false">@android:string/ok</string>
     <string name="false_dialog" translatable="false">@android:string/cancel</string>
+    <string name="nav_dialog_exit_2_title">TRADUCIR</string>
+    <string name="nav_dialog_exit_2_message">TRADUCIR</string>
+    <string name="login_user_title">TRADUCIR</string>
+    <string name="login_user_username">TRADUCIR</string>
+    <string name="login_user_password">TRADUCIR</string>
+    <string name="login_user_recovery_pass">TRADUCIR</string>
+    <string name="login_user_login">TRADUCIR</string>
+    <string name="login_user_fail_login">TRADUCIR</string>
 
 
 </resources>

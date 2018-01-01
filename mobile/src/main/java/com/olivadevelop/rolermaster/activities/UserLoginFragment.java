@@ -122,7 +122,11 @@ public class UserLoginFragment extends Fragment implements View.OnClickListener 
         if (v == MainActivity.getFab()) {
             Tools.Logger(this, "FAB ADD user");
         } else if (v == btnLogin) {
-            Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
+            if (validateUserLogin()) {
+                Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
+            } else {
+                Tools.Logger(this, R.string.login_user_fail_login);
+            }
         } else if (v == recoveryPass) {
             Tools.Logger(this, "Recovery btn");
         }
@@ -146,5 +150,13 @@ public class UserLoginFragment extends Fragment implements View.OnClickListener 
     private void setFabIconFunction() {
         MainActivity.getFab().setImageResource(R.drawable.account_plus_white);
         MainActivity.getFab().setOnClickListener(this);
+    }
+
+    private boolean validateUserLogin() {
+        boolean retorno = false;
+        if (Tools.isNotNull(loginUser) && Tools.isNotNull(loginPass)) {
+            retorno = true;
+        }
+        return retorno;
     }
 }
