@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.MainActivity;
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.CustomFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 
@@ -25,7 +26,7 @@ import com.olivadevelop.rolermaster.tools.Tools;
  * Use the {@link UserLoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserLoginFragment extends Fragment implements View.OnClickListener {
+public class UserLoginFragment extends CustomFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -123,7 +124,8 @@ public class UserLoginFragment extends Fragment implements View.OnClickListener 
             Tools.Logger(this, "FAB ADD user");
         } else if (v == btnLogin) {
             if (validateUserLogin()) {
-                Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
+                /*Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());*/
+                /*Tools.navigateFragment();*/
             } else {
                 Tools.Logger(this, R.string.login_user_fail_login);
             }

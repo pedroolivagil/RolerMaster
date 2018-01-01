@@ -82,7 +82,8 @@ public abstract class Tools {
 
     public static void navigateFragment(FragmentManager fragmentManager, Class fragmentClass) {
         try {
-            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
+            fragment.init(fragmentManager);
             fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
         } catch (Exception e) {
             Log.i("Error Navigate -> ", e.getMessage());
