@@ -3,12 +3,18 @@ package com.olivadevelop.rolermaster.activities;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.olivadevelop.rolermaster.MainActivity;
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 
 /**
@@ -19,7 +25,7 @@ import com.olivadevelop.rolermaster.R;
  * Use the {@link UserLoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserLoginFragment extends Fragment{
+public class UserLoginFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,6 +36,11 @@ public class UserLoginFragment extends Fragment{
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private Button btnLogin;
+    private EditText loginUser;
+    private EditText loginPass;
+    private TextView recoveryPass;
 
     public UserLoginFragment() {
         // Required empty public constructor
@@ -60,6 +71,7 @@ public class UserLoginFragment extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setFabIconFunction();
     }
 
     @Override
@@ -67,6 +79,21 @@ public class UserLoginFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_login, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        btnLogin = (Button) getActivity().findViewById(R.id.btnLogin);
+        loginUser = (EditText) getActivity().findViewById(R.id.login_user);
+        loginPass = (EditText) getActivity().findViewById(R.id.login_pass);
+        recoveryPass = (TextView) getActivity().findViewById(R.id.recoveryPass);
+        if (recoveryPass != null) {
+            recoveryPass.setOnClickListener(this);
+        }
+        if (btnLogin != null) {
+            btnLogin.setOnClickListener(this);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,6 +117,17 @@ public class UserLoginFragment extends Fragment{
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == MainActivity.getFab()) {
+            Tools.Logger(this, "FAB ADD user");
+        } else if (v == btnLogin) {
+            Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
+        } else if (v == recoveryPass) {
+            Tools.Logger(this, "Recovery btn");
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -103,5 +141,10 @@ public class UserLoginFragment extends Fragment{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void setFabIconFunction() {
+        MainActivity.getFab().setImageResource(R.drawable.account_plus_white);
+        MainActivity.getFab().setOnClickListener(this);
     }
 }

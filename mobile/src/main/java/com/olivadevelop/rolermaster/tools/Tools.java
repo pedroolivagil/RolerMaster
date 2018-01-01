@@ -64,8 +64,18 @@ public abstract class Tools {
         Log.i(c.getClass().getSimpleName(), text);
     }
 
+    public static void Logger(Fragment c, String text) {
+        Toast.makeText(c.getContext(), text, Toast.LENGTH_LONG).show();
+        Log.i(c.getClass().getSimpleName(), text);
+    }
+
     public static void Logger(Context c, int idText) {
         Toast.makeText(c, c.getString(idText), Toast.LENGTH_LONG).show();
+        Log.i(c.getClass().getSimpleName(), c.getString(idText));
+    }
+
+    public static void Logger(Fragment c, int idText) {
+        Toast.makeText(c.getContext(), c.getContext().getString(idText), Toast.LENGTH_LONG).show();
         Log.i(c.getClass().getSimpleName(), c.getString(idText));
     }
 

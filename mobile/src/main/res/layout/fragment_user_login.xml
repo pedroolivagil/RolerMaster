@@ -1,14 +1,42 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.olivadevelop.rolermaster.activities.UserLoginFragment"
-    android:background="@color/white">
+    tools:context="com.olivadevelop.rolermaster.activities.UserLoginFragment">
 
-    <TextView
-        style="@style/FragmentTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_user_title" />
+        android:orientation="vertical">
 
+        <TextView
+            style="@style/FragmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_user_title" />
+
+        <LinearLayout style="@style/LineSeparator" />
+
+        <EditText
+            android:id="@+id/login_user"
+            style="@style/EditText"
+            android:hint="@string/login_user_username" />
+
+        <EditText
+            android:id="@+id/login_pass"
+            style="@style/EditText"
+            android:hint="@string/login_user_password" />
+
+        <Button
+            style="@style/Button"
+            android:id="@+id/btnLogin"
+            android:text="@string/login_user_login" />
+
+        <TextView
+            style="@style/ButtonLink"
+            android:id="@+id/recoveryPass"
+            android:text="@string/login_user_recovery_pass" />
+
+    </LinearLayout>
 </FrameLayout>
