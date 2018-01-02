@@ -50,6 +50,8 @@
         <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
         <item name="android:padding">7dp</item>
         <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:maxLength">250</item>
+        <item name="android:textColor">@color/darkGray</item>
     </style>
 
     <style name="Button" parent="AlertDialog.AppCompat.Light">
@@ -73,6 +75,26 @@
         <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
         <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
         <item name="android:gravity">center_vertical|right</item>
+    </style>
+
+    <style name="Spinner" parent="AlertDialog.AppCompat.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/border</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="SpinnerInternal" parent="AlertDialog.AppCompat.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
 
 </resources>

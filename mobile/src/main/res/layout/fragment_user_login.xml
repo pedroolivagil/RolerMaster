@@ -29,13 +29,13 @@
             android:hint="@string/login_user_password" />
 
         <Button
-            style="@style/Button"
             android:id="@+id/btnLogin"
+            style="@style/Button"
             android:text="@string/login_user_login" />
 
         <TextView
-            style="@style/ButtonLink"
             android:id="@+id/recoveryPass"
+            style="@style/ButtonLink"
             android:text="@string/login_user_recovery_pass" />
 
     </LinearLayout>

@@ -25,7 +25,19 @@
     <string name="login_user_username">Usuario o email</string>
     <string name="login_user_password">Contraseña</string>
     <string name="login_user_recovery_pass">¿Has olvidado la contraseña?</string>
-    <string name="login_user_login">Entrar</string>
     <string name="login_user_fail_login">Ambos campos son obligatorios</string>
+    <string name="login_user_login">Entrar</string>
+
+    <string name="signup_user_title">Regístrate</string>
+    <string name="signup_user_username">Usuario</string>
+    <string name="signup_user_usermail">Email</string>
+    <string name="signup_user_userpass">Contraseña</string>
+    <string name="signup_user_name">Nombre</string>
+    <string name="signup_user_lastname">Apellidos</string>
+    <string name="signup_user_country">País</string>
+    <string name="signup_user_phone">Teléfono</string>
+    <string name="signup_user_birthdate">Fecha nacimiento</string>
+    <string name="signup_user_gender">Género</string>
+    <string name="signup_user_signup">Crear cuenta</string>
 
 </resources>
