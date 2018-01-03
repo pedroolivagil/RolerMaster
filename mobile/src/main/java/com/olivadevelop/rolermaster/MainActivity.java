@@ -25,13 +25,16 @@ import com.olivadevelop.rolermaster.tools.Tools;
 import java.util.concurrent.Callable;
 
 import static com.olivadevelop.rolermaster.tools.Tools.TIME_TO_EXIT;
-import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static FloatingActionButton fab;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private static FloatingActionButton fab;
+
+    public static FloatingActionButton getFab() {
+        return fab;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +113,6 @@ public class MainActivity extends AppCompatActivity
             drawer = findViewById(R.id.drawer_layout);
         }
         return drawer;
-    }
-
-    public static FloatingActionButton getFab() {
-        return fab;
     }
 
     private void floatingActionButton() {

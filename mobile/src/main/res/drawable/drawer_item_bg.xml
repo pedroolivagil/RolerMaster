@@ -14,10 +14,10 @@
         <shape>
             <solid android:color="@android:color/transparent" />
             <stroke
-                android:dashGap="2dp"
-                android:dashWidth="5dp"
                 android:width="1dp"
-                android:color="#10000000" />
+                android:color="#10000000"
+                android:dashGap="2dp"
+                android:dashWidth="5dp" />
         </shape>
     </item>
 

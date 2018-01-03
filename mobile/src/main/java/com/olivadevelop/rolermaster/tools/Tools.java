@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
+ * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 29/12/2017.
+ * RolerMaster
  */
 
 public abstract class Tools {
