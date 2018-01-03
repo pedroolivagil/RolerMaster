@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.persistence.Entity;
 
 import java.util.List;
 
@@ -16,13 +15,13 @@ import java.util.List;
  * Created by Oliva on 02/01/2018.
  */
 
-public class SpinnerAdapter extends ArrayAdapter<Entity> {
+public class SpinnerAdapter extends ArrayAdapter<KeyValuePair> {
 
     private Activity activity;
-    private List<com.olivadevelop.rolermaster.persistence.Entity> objects;
+    private List<KeyValuePair> objects;
 
 
-    public SpinnerAdapter(Activity activity, int textViewResourceId, List<Entity> objects) {
+    public SpinnerAdapter(Activity activity, int textViewResourceId, List<KeyValuePair> objects) {
         super(activity, textViewResourceId, objects);
         this.objects = objects;
         this.activity = activity;
@@ -41,8 +40,18 @@ public class SpinnerAdapter extends ArrayAdapter<Entity> {
     private View getCustomView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();//for fragment
         View row = inflater.inflate(R.layout.custom_spinner, parent, false);
-        final TextView label = (TextView) row.findViewById(R.id.tv_spinnervalue);
-        label.setText(objects.get(position).toString());
+
+        KeyValuePair map = objects.get(position);
+        if (Tools.isNotNull(map.getKey())) {
+            TextView tvKey = row.findViewById(R.id.spinner_key);
+            Object key = map.getKey();
+            tvKey.setText(key.toString());
+        }
+        if (Tools.isNotNull(map.getKey())) {
+            TextView tvLabel = row.findViewById(R.id.spinner_value);
+            String value = map.getLabel();
+            tvLabel.setText(value);
+        }
         return row;
     }
 }

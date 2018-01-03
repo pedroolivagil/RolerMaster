@@ -49,10 +49,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        Tools.Logger(this, getFragmentManager().getBackStackEntryCount());
         if (getDrawer().isDrawerOpen(GravityCompat.START)) {
             getDrawer().closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getFragmentManager().getBackStackEntryCount() == 0) {
+                /*super.onBackPressed();*/
+                getFragmentManager().popBackStack();
+            } else {
+                navBtnExit();
+            }
         }
     }
 

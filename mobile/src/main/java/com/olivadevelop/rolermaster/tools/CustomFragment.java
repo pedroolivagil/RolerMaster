@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.Spinner;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.activities.UserSignUpFragment;
-import com.olivadevelop.rolermaster.persistence.Entity;
+import com.olivadevelop.rolermaster.persistence.entities.TestEntity;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
 
     protected FragmentManager fragmentManager;
 
-    public void init(FragmentManager fragmentManager){
+    public void init(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
     }
 
@@ -38,8 +37,4 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void createSpinner(Activity a, View view, int idSpinner, List<Entity> values) {
-        Spinner spinner = (Spinner) view.findViewById(idSpinner);
-        spinner.setAdapter(new SpinnerAdapter(a, R.layout.custom_spinner, values)); //if you r using fragment
-    }
 }

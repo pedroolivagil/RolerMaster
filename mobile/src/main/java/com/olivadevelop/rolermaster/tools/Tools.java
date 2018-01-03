@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.olivadevelop.rolermaster.R;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -68,19 +71,31 @@ public abstract class Tools {
         Log.i(c.getClass().getSimpleName(), text);
     }
 
-    public static void Logger(Fragment c, String text) {
-        Toast.makeText(c.getContext(), text, Toast.LENGTH_LONG).show();
-        Log.i(c.getClass().getSimpleName(), text);
-    }
-
     public static void Logger(Context c, int idText) {
         Toast.makeText(c, c.getString(idText), Toast.LENGTH_LONG).show();
         Log.i(c.getClass().getSimpleName(), c.getString(idText));
     }
 
+    public static void Logger(Context c, Exception e) {
+        Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG).show();
+        Log.i(c.getClass().getSimpleName(), e.getLocalizedMessage());
+        e.printStackTrace();
+    }
+
+    public static void Logger(Fragment c, String text) {
+        Toast.makeText(c.getContext(), text, Toast.LENGTH_LONG).show();
+        Log.i(c.getClass().getSimpleName(), text);
+    }
+
     public static void Logger(Fragment c, int idText) {
         Toast.makeText(c.getContext(), c.getContext().getString(idText), Toast.LENGTH_LONG).show();
         Log.i(c.getClass().getSimpleName(), c.getString(idText));
+    }
+
+    public static void Logger(Fragment c, Exception e) {
+        Toast.makeText(c.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        Log.i(c.getClass().getSimpleName(), e.getLocalizedMessage());
+        e.printStackTrace();
     }
 
     public static void navigateFragment(FragmentManager fragmentManager, Class fragmentClass) {
@@ -93,6 +108,14 @@ public abstract class Tools {
         }
     }
 
+    public static boolean isNull(Object object) {
+        return object == null || object.toString().trim().equals("");
+    }
+
+    public static boolean isNotNull(Object obj) {
+        return !isNull(obj);
+    }
+
     public static boolean isNull(TextView view) {
         return view == null || view.getText() == null || view.getText().toString().equals("");
     }
@@ -100,4 +123,33 @@ public abstract class Tools {
     public static boolean isNotNull(TextView view) {
         return !isNull(view);
     }
+
+
+    public static void createSpinner(Activity a, View view, int idSpinner, List<KeyValuePair> values) {
+        Spinner spinner = view.findViewById(idSpinner);
+        spinner.setAdapter(new SpinnerAdapter(a, R.layout.custom_spinner, values)); //if you r using fragment
+    }
+
+    public static List<KeyValuePair> objToKeyValuePair(List<?> listEntities, String propertyKey, String propertyValue) throws NoSuchFieldException, IllegalAccessException {
+        List<KeyValuePair> retorno = new ArrayList<>();
+        Object key = null;
+        Object val = null;
+        if (isNotNull(listEntities)) {
+            for (Object entity : listEntities) {
+                if (isNotNull(propertyKey)) {
+                    Field fkey = entity.getClass().getDeclaredField(propertyKey);
+                    fkey.setAccessible(true);
+                    key = fkey.get(entity);
+                }
+                if (isNotNull(propertyKey)) {
+                    Field fVal = entity.getClass().getDeclaredField(propertyValue);
+                    fVal.setAccessible(true);
+                    val = fVal.get(entity);
+                }
+                retorno.add(new KeyValuePair(key, val.toString()));
+            }
+        }
+        return retorno;
+    }
+
 }

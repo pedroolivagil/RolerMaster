@@ -4,17 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.olivadevelop.rolermaster.MainActivity;
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.persistence.Entity;
-import com.olivadevelop.rolermaster.persistence.TestEntity;
+import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
+import com.olivadevelop.rolermaster.persistence.controllers.TestController;
+import com.olivadevelop.rolermaster.persistence.entities.TestEntity;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
+import com.olivadevelop.rolermaster.tools.KeyValuePair;
+import com.olivadevelop.rolermaster.tools.Tools;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,14 +24,11 @@ public class UserSignUpFragment extends CustomFragment {
 
     private OnFragmentInteractionListener mListener;
     private View view;
-    private List<Entity> values;
+
+    private TestController testController;
 
     public UserSignUpFragment() {
-        values = new ArrayList<Entity>();
-        values.add(new TestEntity("prueba 1"));
-        values.add(new TestEntity("prueba 2"));
-        values.add(new TestEntity("prueba 3"));
-        values.add(new TestEntity("prueba 4"));
+        testController = Controllers.getInstance().getTestController();
     }
 
     @Override
@@ -43,7 +42,16 @@ public class UserSignUpFragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        createSpinner(this.getActivity(), view, R.id.signup_user_country, values);
+        MainActivity.getFab().hide();
+        List<KeyValuePair> values = null;
+        try {
+            values = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
+        } catch (NoSuchFieldException e) {
+            Tools.Logger(this, e);
+        } catch (IllegalAccessException e) {
+            Tools.Logger(this, e);
+        }
+        Tools.createSpinner(this.getActivity(), view, R.id.signup_user_country, values);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,4 +94,5 @@ public class UserSignUpFragment extends CustomFragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
