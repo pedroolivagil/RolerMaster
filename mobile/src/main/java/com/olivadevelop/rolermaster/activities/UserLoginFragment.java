@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import com.olivadevelop.rolermaster.MainActivity;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
+import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 public class UserLoginFragment extends CustomFragment {
@@ -25,6 +25,7 @@ public class UserLoginFragment extends CustomFragment {
     private EditText loginUser;
     private EditText loginPass;
     private TextView recoveryPass;
+    private View view;
 
     public UserLoginFragment() {
         // Required empty public constructor
@@ -41,7 +42,9 @@ public class UserLoginFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_login, container, false);
+        view = inflater.inflate(R.layout.fragment_user_login, container, false);
+        setTitle(R.string.login_title);
+        return view;
     }
 
     @Override
@@ -83,7 +86,7 @@ public class UserLoginFragment extends CustomFragment {
     @Override
     public void onClick(View v) {
         if (v == MainActivity.getFab()) {
-            Tools.navigateFragment(fragmentManager, UserSignUpFragment.class);
+            Navigation.getInstance().navigate(UserSignUpFragment.class);
         } else if (v == btnLogin) {
             if (validateUserLogin()) {
                 Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
@@ -113,6 +116,7 @@ public class UserLoginFragment extends CustomFragment {
     private void setFabIconFunction() {
         MainActivity.getFab().setImageResource(R.drawable.account_plus_white);
         MainActivity.getFab().setOnClickListener(this);
+        MainActivity.getFab().show();
     }
 
     private boolean validateUserLogin() {

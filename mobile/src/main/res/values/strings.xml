@@ -35,6 +35,18 @@
     <string name="login_user_login">TRADUCIR</string>
     <string name="login_user_fail_login">TRADUCIR</string>
 
+    <string name="signup_user_title">TRADUCIR</string>
+    <string name="signup_user_username">TRADUCIR</string>
+    <string name="signup_user_usermail">TRADUCIR</string>
+    <string name="signup_user_userpass">TRADUCIR</string>
+    <string name="signup_user_name">TRADUCIR</string>
+    <string name="signup_user_lastname">TRADUCIR</string>
+    <string name="signup_user_country">TRADUCIR</string>
+    <string name="signup_user_phone">TRADUCIR</string>
+    <string name="signup_user_birthdate">TRADUCIR</string>
+    <string name="signup_user_gender">TRADUCIR</string>
+    <string name="signup_user_signup">TRADUCIR</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -21,6 +21,7 @@
     <string name="nav_dialog_exit_2_title">Hasta la próxima!</string>
     <string name="nav_dialog_exit_2_message">Vuelve pronto!</string>
 
+    <string name="login_title">Identifícate</string>
     <string name="login_user_title">Inicia sesión</string>
     <string name="login_user_username">Usuario o email</string>
     <string name="login_user_password">Contraseña</string>
@@ -28,6 +29,7 @@
     <string name="login_user_fail_login">Ambos campos son obligatorios</string>
     <string name="login_user_login">Entrar</string>
 
+    <string name="signup_title">Nuevo usuario</string>
     <string name="signup_user_title">Regístrate</string>
     <string name="signup_user_username">Usuario</string>
     <string name="signup_user_usermail">Email</string>

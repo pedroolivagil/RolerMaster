@@ -15,8 +15,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.olivadevelop.rolermaster.activities.BlankFragment;
 import com.olivadevelop.rolermaster.activities.UserLoginFragment;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
+import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 
@@ -35,16 +37,16 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Inicilizamos la publicidad (moverlo al splashScreen
+        // Inicilizamos la publicidad (moverlo al splashScreen)
         AdsAdMob.getInstance().initialize(this);
         SessionManager.getInstance().setLogged(false);
-
+        Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
         // Inicializamos el menú lateral izquierdo
         navMenuLeft();
         // Inicializamos el boón flotante
         floatingActionButton();
-
         setBasicUserData();
+        Navigation.getInstance().navigate(BlankFragment.class);
     }
 
     @Override
@@ -52,7 +54,12 @@ public class MainActivity extends AppCompatActivity
         if (getDrawer().isDrawerOpen(GravityCompat.START)) {
             getDrawer().closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Tools.Logger(this, "Paginas: " + Navigation.getInstance().getFragments().size());
+            if (Navigation.getInstance().hasPages()) {
+                Navigation.getInstance().back();
+            } else {
+                navBtnExit();
+            }
         }
     }
 
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
         } else if (id == R.id.nav_logout) {
         } else if (id == R.id.nav_login) {
-            Tools.navigateFragment(getSupportFragmentManager(), UserLoginFragment.class);
+            Navigation.getInstance().navigate(UserLoginFragment.class);
         } else if (id == R.id.nav_exit) {
             navBtnExit();
         }
@@ -100,7 +107,7 @@ public class MainActivity extends AppCompatActivity
 
     public DrawerLayout getDrawer() {
         if (drawer == null) {
-            drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer = findViewById(R.id.drawer_layout);
         }
         return drawer;
     }
@@ -110,7 +117,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void floatingActionButton() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +128,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void navMenuLeft() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -129,7 +136,7 @@ public class MainActivity extends AppCompatActivity
         getDrawer().addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         if (SessionManager.getInstance().isLogged()) {
             navigationView.inflateHeaderView(R.layout.nav_header_main_login);
