@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.olivadevelop.rolermaster.MainActivity;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.controllers.TestController;
@@ -18,13 +17,11 @@ import com.olivadevelop.rolermaster.tools.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import java.util.List;
-
+import java.util.function.ToLongBiFunction;
 
 public class UserSignUpFragment extends CustomFragment {
 
     private OnFragmentInteractionListener mListener;
-    private View view;
-
     private TestController testController;
 
     public UserSignUpFragment() {
@@ -43,23 +40,24 @@ public class UserSignUpFragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MainActivity.getFab().hide();
         List<KeyValuePair> values = null;
+        List<KeyValuePair> values2 = null;
         try {
             values = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
+            values2 = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
         } catch (NoSuchFieldException e) {
             Tools.Logger(this, e);
         } catch (IllegalAccessException e) {
             Tools.Logger(this, e);
         }
+        // Rellenamos el spinner de los países
         Tools.createSpinner(this.getActivity(), view, R.id.signup_user_country, values);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        // Rellenamos el spinner de los géneros
+        Tools.createSpinner(this.getActivity(), view, R.id.signup_user_gender, values2);
+        // rellenamos los spinners de la fecha de nacimiento
+        Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth1, Tools.getDays(), 70);
+        Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth2, Tools.getMonths(this.getContext()), 155);
+        Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth3, Tools.getYears(), 85);
     }
 
     @Override
@@ -96,4 +94,9 @@ public class UserSignUpFragment extends CustomFragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    protected void setFabIconFunction() {
+        super.setFabIconFunction();
+        Tools.getFab().hide();
+    }
 }

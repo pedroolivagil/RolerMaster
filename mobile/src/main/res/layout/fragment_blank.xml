@@ -1,15 +1,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/Activity"
     tools:context="com.olivadevelop.rolermaster.activities.BlankFragment">
 
-
-    <ImageView
-        android:id="@+id/imageView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="30dp"
-        android:alpha=".2"
-        android:src="@drawable/account" />
+        android:layout_height="450dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:alpha=".1"
+            android:contentDescription="@string/index_title"
+            android:src="@drawable/dados" />
+    </RelativeLayout>
 </FrameLayout>

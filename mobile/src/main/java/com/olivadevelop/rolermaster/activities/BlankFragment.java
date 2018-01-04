@@ -3,22 +3,14 @@ package com.olivadevelop.rolermaster.activities;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
+import com.olivadevelop.rolermaster.tools.Tools;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BlankFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BlankFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BlankFragment extends CustomFragment {
 
     private OnFragmentInteractionListener mListener;
@@ -36,7 +28,9 @@ public class BlankFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        view = inflater.inflate(R.layout.fragment_blank, container, false);
+        setTitle(R.string.index_title);
+        return view;
     }
 
     @Override
@@ -66,5 +60,13 @@ public class BlankFragment extends CustomFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    protected void setFabIconFunction() {
+        super.setFabIconFunction();
+        Tools.getFab().setImageResource(R.drawable.book_plus);
+        Tools.getFab().setOnClickListener(this);
+        Tools.getFab().show();
     }
 }

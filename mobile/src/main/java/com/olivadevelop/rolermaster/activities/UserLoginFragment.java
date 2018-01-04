@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.olivadevelop.rolermaster.MainActivity;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
 import com.olivadevelop.rolermaster.tools.Navigation;
@@ -25,17 +24,9 @@ public class UserLoginFragment extends CustomFragment {
     private EditText loginUser;
     private EditText loginPass;
     private TextView recoveryPass;
-    private View view;
 
     public UserLoginFragment() {
         // Required empty public constructor
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setFabIconFunction();
     }
 
     @Override
@@ -62,13 +53,6 @@ public class UserLoginFragment extends CustomFragment {
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -85,7 +69,7 @@ public class UserLoginFragment extends CustomFragment {
 
     @Override
     public void onClick(View v) {
-        if (v == MainActivity.getFab()) {
+        if (v == Tools.getFab()) {
             Navigation.getInstance().navigate(UserSignUpFragment.class);
         } else if (v == btnLogin) {
             if (validateUserLogin()) {
@@ -113,10 +97,12 @@ public class UserLoginFragment extends CustomFragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void setFabIconFunction() {
-        MainActivity.getFab().setImageResource(R.drawable.account_plus_white);
-        MainActivity.getFab().setOnClickListener(this);
-        MainActivity.getFab().show();
+    @Override
+    protected void setFabIconFunction() {
+        super.setFabIconFunction();
+        Tools.getFab().setImageResource(R.drawable.account_plus_white);
+        Tools.getFab().setOnClickListener(this);
+        Tools.getFab().show();
     }
 
     private boolean validateUserLogin() {

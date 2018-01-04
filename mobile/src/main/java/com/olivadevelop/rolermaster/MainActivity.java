@@ -9,10 +9,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.activities.BlankFragment;
@@ -24,17 +26,21 @@ import com.olivadevelop.rolermaster.tools.Tools;
 
 import java.util.concurrent.Callable;
 
+import static com.olivadevelop.rolermaster.tools.Tools.Logger;
 import static com.olivadevelop.rolermaster.tools.Tools.TIME_TO_EXIT;
+import static com.olivadevelop.rolermaster.tools.Tools.getFab;
+import static com.olivadevelop.rolermaster.tools.Tools.getMainScrollView;
+import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
+import static com.olivadevelop.rolermaster.tools.Tools.isNull;
+import static com.olivadevelop.rolermaster.tools.Tools.newBooleanDialog;
+import static com.olivadevelop.rolermaster.tools.Tools.newInfoDialog;
+import static com.olivadevelop.rolermaster.tools.Tools.setFab;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static FloatingActionButton fab;
     private DrawerLayout drawer;
+    private Toolbar toolbar;
     private NavigationView navigationView;
-
-    public static FloatingActionButton getFab() {
-        return fab;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +50,13 @@ public class MainActivity extends AppCompatActivity
         AdsAdMob.getInstance().initialize(this);
         SessionManager.getInstance().setLogged(false);
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
+
         // Inicializamos el menú lateral izquierdo
-        navMenuLeft();
+        setToolbar();
+        setNavigationDrawer();
         // Inicializamos el boón flotante
-        floatingActionButton();
+        setMainScrollView();
+        setFloatingActionButton();
         setBasicUserData();
         Navigation.getInstance().navigate(BlankFragment.class);
     }
@@ -57,8 +66,7 @@ public class MainActivity extends AppCompatActivity
         if (getDrawer().isDrawerOpen(GravityCompat.START)) {
             getDrawer().closeDrawer(GravityCompat.START);
         } else {
-            Tools.Logger(this, "Paginas: " + Navigation.getInstance().getFragments().size());
-            if (Navigation.getInstance().hasPages()) {
+            if (Navigation.getInstance().hasPages() && !Navigation.getInstance().isFirstPage()) {
                 Navigation.getInstance().back();
             } else {
                 navBtnExit();
@@ -108,6 +116,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
     public DrawerLayout getDrawer() {
         if (drawer == null) {
             drawer = findViewById(R.id.drawer_layout);
@@ -115,9 +127,28 @@ public class MainActivity extends AppCompatActivity
         return drawer;
     }
 
-    private void floatingActionButton() {
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    private int getActionBarHeight() {
+        int actionBarHeight = 0;
+        if (isNotNull(getSupportActionBar())) {
+            actionBarHeight = getSupportActionBar().getHeight();
+            if (isNull(actionBarHeight) || actionBarHeight == 0) {
+                TypedValue tv = new TypedValue();
+                if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+                    actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+                }
+            }
+        }
+        return actionBarHeight;
+    }
+
+    private void setMainScrollView() {
+        Tools.setMainScrollView((ScrollView) findViewById(R.id.mainScrollView));
+        getMainScrollView().setPadding(0, getActionBarHeight(), 0, 0);
+    }
+
+    private void setFloatingActionButton() {
+        setFab((FloatingActionButton) findViewById(R.id.fab));
+        getFab().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -126,12 +157,14 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void navMenuLeft() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    public void setToolbar() {
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
+    private void setNavigationDrawer() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, getDrawer(), toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, getDrawer(), getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         getDrawer().addDrawerListener(toggle);
         toggle.syncState();
 
@@ -162,7 +195,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void navBtnExit() {
-        Tools.newBooleanDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_exit_message, new Callable<Void>() {
+        newBooleanDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_exit_message, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
                 exitStep1();
@@ -172,7 +205,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void exitStep1() {
-        Tools.newInfoDialog(this, R.string.nav_dialog_exit_2_title, R.string.nav_dialog_exit_2_message, new Callable<Void>() {
+        newInfoDialog(this, R.string.nav_dialog_exit_2_title, R.string.nav_dialog_exit_2_message, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
                 exitStep2();
@@ -203,7 +236,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void exitStep2() {
-        Tools.Logger(this, ".exitStep2 --> Saliendo.... (MOCK)");
+        Logger(this, ".exitStep2 --> Saliendo.... (MOCK)");
         AdsAdMob.getInstance().printIntersicial();
     }
 }

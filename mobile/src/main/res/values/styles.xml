@@ -17,11 +17,32 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Activity" parent="AlertDialog.AppCompat.Light">
+    <style name="Activity" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@color/whiteGray</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="FragmentTitle" parent="ThemeOverlay.AppCompat.Light">
+    <style name="TextSizeSimple" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Separator" parent="Activity">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="LineSeparator" parent="TextSizeSimple">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/clearGray</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <style name="FragmentTitle" parent="TextSizeSimple">
         <item name="android:textSize">@dimen/fragment_title_text</item>
         <item name="android:layout_marginBottom">@dimen/fragment_title_margin_btm</item>
         <item name="android:layout_marginTop">@dimen/fragment_title_margin_top</item>
@@ -33,16 +54,7 @@
         <item name="android:shadowRadius">10</item>
     </style>
 
-    <style name="LineSeparator" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/clearGray</item>
-        <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
-        <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
-        <item name="android:layout_marginBottom">20dp</item>
-    </style>
-
-    <style name="EditText" parent="AlertDialog.AppCompat.Light">
+    <style name="EditText" parent="TextSizeSimple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/border</item>
@@ -54,7 +66,7 @@
         <item name="android:textColor">@color/darkGray</item>
     </style>
 
-    <style name="Button" parent="AlertDialog.AppCompat.Light">
+    <style name="Button" parent="TextSizeSimple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/button</item>
@@ -66,7 +78,7 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
-    <style name="ButtonLink" parent="AlertDialog.AppCompat.Light">
+    <style name="ButtonLink" parent="TextSizeSimple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:background">@color/whiteGray</item>
@@ -77,7 +89,7 @@
         <item name="android:gravity">center_vertical|right</item>
     </style>
 
-    <style name="Spinner" parent="AlertDialog.AppCompat.Light">
+    <style name="Spinner" parent="TextSizeSimple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/border</item>
@@ -87,7 +99,7 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
-    <style name="SpinnerInternal" parent="AlertDialog.AppCompat.Light">
+    <style name="SpinnerInternal" parent="TextSizeSimple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/white</item>
@@ -97,4 +109,24 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
+    <style name="SpinnerLabel" parent="TextSizeSimple">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginRight">23dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
+    <style name="SpinnerCompac" parent="Spinner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="SpinnerInternalCompact" parent="SpinnerInternal">
+        <item name="android:layout_width">match_parent</item>
+    </style>
 </resources>

@@ -4,12 +4,15 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.activities.BlankFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 03/01/2018.
+ * RolerMaster
  */
 
 public class Navigation {
@@ -47,6 +50,10 @@ public class Navigation {
                 fragments.remove(position);
                 position--;
             }
+            if (position < 0) {
+                position = 0;
+                fragments.add(BlankFragment.class);
+            }
             Class fragmentClass = fragments.get(position);
             CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
@@ -59,7 +66,8 @@ public class Navigation {
         return !fragments.isEmpty();
     }
 
-    public List<Class> getFragments() {
-        return fragments;
+    public boolean isFirstPage() {
+        return fragments.size() == 1;
     }
+
 }

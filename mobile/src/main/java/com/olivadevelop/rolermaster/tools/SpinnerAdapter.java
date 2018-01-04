@@ -18,14 +18,16 @@ import java.util.List;
 
 public class SpinnerAdapter extends ArrayAdapter<KeyValuePair> {
 
+    private int spinerIdLayout;
     private Activity activity;
     private List<KeyValuePair> objects;
 
 
-    public SpinnerAdapter(Activity activity, @LayoutRes int textViewResourceId, List<KeyValuePair> objects) {
-        super(activity, textViewResourceId, objects);
+    public SpinnerAdapter(Activity activity, @LayoutRes int spinerIdLayout, List<KeyValuePair> objects) {
+        super(activity, spinerIdLayout, objects);
         this.objects = objects;
         this.activity = activity;
+        this.spinerIdLayout = spinerIdLayout;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class SpinnerAdapter extends ArrayAdapter<KeyValuePair> {
 
     private View getCustomView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();//for fragment
-        View row = inflater.inflate(R.layout.custom_spinner, parent, false);
+        View row = inflater.inflate(spinerIdLayout, parent, false);
 
         KeyValuePair map = objects.get(position);
         if (Tools.isNotNull(map.getKey())) {
