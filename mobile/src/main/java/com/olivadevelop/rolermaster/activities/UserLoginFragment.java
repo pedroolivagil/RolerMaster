@@ -31,13 +31,6 @@ public class UserLoginFragment extends CustomFragment {
         // Required empty public constructor
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setFabIconFunction();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,13 +52,6 @@ public class UserLoginFragment extends CustomFragment {
         }
         if (btnLogin != null) {
             btnLogin.setOnClickListener(this);
-        }
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -113,7 +99,9 @@ public class UserLoginFragment extends CustomFragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void setFabIconFunction() {
+    @Override
+    protected void setFabIconFunction() {
+        super.setFabIconFunction();
         MainActivity.getFab().setImageResource(R.drawable.account_plus_white);
         MainActivity.getFab().setOnClickListener(this);
         MainActivity.getFab().show();

@@ -43,7 +43,6 @@ public class UserSignUpFragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MainActivity.getFab().hide();
         List<KeyValuePair> values = null;
         try {
             values = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
@@ -53,13 +52,6 @@ public class UserSignUpFragment extends CustomFragment {
             Tools.Logger(this, e);
         }
         Tools.createSpinner(this.getActivity(), view, R.id.signup_user_country, values);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -96,4 +88,9 @@ public class UserSignUpFragment extends CustomFragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    protected void setFabIconFunction() {
+        super.setFabIconFunction();
+        MainActivity.getFab().hide();
+    }
 }

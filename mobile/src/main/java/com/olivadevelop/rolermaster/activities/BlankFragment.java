@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.olivadevelop.rolermaster.MainActivity;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
 
@@ -66,5 +67,13 @@ public class BlankFragment extends CustomFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    protected void setFabIconFunction() {
+        super.setFabIconFunction();
+        MainActivity.getFab().setImageResource(R.drawable.book_plus);
+        MainActivity.getFab().setOnClickListener(this);
+        MainActivity.getFab().show();
     }
 }

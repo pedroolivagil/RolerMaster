@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity
         if (getDrawer().isDrawerOpen(GravityCompat.START)) {
             getDrawer().closeDrawer(GravityCompat.START);
         } else {
-            Tools.Logger(this, "Paginas: " + Navigation.getInstance().getFragments().size());
-            if (Navigation.getInstance().hasPages()) {
+            if (Navigation.getInstance().hasPages() && !Navigation.getInstance().isFirstPage()) {
                 Navigation.getInstance().back();
             } else {
                 navBtnExit();
