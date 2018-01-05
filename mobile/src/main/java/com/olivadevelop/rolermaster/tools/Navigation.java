@@ -42,10 +42,6 @@ public class Navigation {
         try {
             if (lastNotMatch(fragmentClass)) {
                 CustomFragment fragment = customTransaction(fragmentClass, true);
-                if (navHomeFirst && fragment.getClass().equals(BlankFragment.class)) {
-                    fragment.setIgnoreEffects(false);
-                    navHomeFirst = false;
-                }
                 KeyValuePairClass navFrag = new KeyValuePairClass(fragmentClass, fragment.isIgnoreNavigation());
                 if (!fragment.isIgnoreNavigation()) {
                     currentNavigationFragment = navFrag;
@@ -119,13 +115,15 @@ public class Navigation {
     private CustomFragment customTransaction(Class fragmentClass, boolean leftToRight) throws IllegalAccessException, InstantiationException {
         CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (!fragment.isIgnoreEffects()) {
+        if (!fragment.isIgnoreEffects() || (!navHomeFirst && fragment.getClass().equals(BlankFragment.class))) {
             if (leftToRight) {
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
             } else {
                 transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
             }
             transaction.addToBackStack(fragment.getTag());
+        } else {
+            navHomeFirst = false;
         }
         transaction.replace(R.id.content_layout, fragment);
         transaction.commit();
