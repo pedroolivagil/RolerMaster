@@ -3,16 +3,22 @@ package com.olivadevelop.rolermaster.activities;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
+import com.olivadevelop.rolermaster.tools.Navigation;
+import com.olivadevelop.rolermaster.tools.NavigationFragment;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 public class UserForgotPassStep1Fragment extends CustomFragment {
 
     private OnFragmentInteractionListener mListener;
+    private Button btnRecovery;
 
     public UserForgotPassStep1Fragment() {
         // Required empty public constructor
@@ -28,7 +34,18 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_forgot_pass_step1, container, false);
+        view = inflater.inflate(R.layout.fragment_user_forgot_pass_step1, container, false);
+        setTitle(R.string.forgot_pass_title);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery2);
+        if (btnRecovery != null) {
+            btnRecovery.setOnClickListener(this);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -65,5 +82,23 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onClick(View v) {
+        /*if (v == Tools.getFab()) {
+            Navigation.getInstance().navigate(UserLoginFragment.class);
+        } else */
+        if (v == btnRecovery) {
+            if (validateCode()) {
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP2_FRAGMENT);
+            } else {
+                Tools.Logger(this, R.string.login_user_fail_login);
+            }
+        }
+    }
+
+    private boolean validateCode() {
+        return true;
     }
 }

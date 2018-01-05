@@ -4,10 +4,41 @@
     android:layout_height="match_parent"
     tools:context="com.olivadevelop.rolermaster.activities.UserForgotPassStep2Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/FragmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_pass_user_title" />
+
+        <LinearLayout style="@style/LineSeparator" />
+
+        <TextView
+            android:id="@+id/instructions2_forgot_pass"
+            style="@style/TextView"
+            android:layout_marginBottom="@dimen/fragment_title_margin_lft_rgt"
+            android:text="@string/forgot_pass_instructions2" />
+
+        <EditText
+            android:id="@+id/forgot_pass_code_hint2"
+            style="@style/EditText"
+            android:hint="@string/forgot_pass_pass1_hint2" />
+
+        <EditText
+            android:id="@+id/forgot_pass_code_hint3"
+            style="@style/EditText"
+            android:hint="@string/forgot_pass_pass2_hint2" />
+
+        <Button
+            android:id="@+id/btnRecovery3"
+            style="@style/Button"
+            android:text="@string/forgot_pass_btn" />
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -1,14 +1,17 @@
 package com.olivadevelop.rolermaster.tools;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.activities.BlankFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -38,6 +41,20 @@ public class Navigation {
         this.fragmentManager = fragmentManager;
     }
 
+    public void navigate(Context c, Class activity) {
+        navigate(c, activity, null);
+    }
+
+    public void navigate(Context c, Class activity, HashMap<String, Object> params) {
+        Intent intent = new Intent(c, activity);
+        if (Tools.isNotNull(params)) {
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                intent.putExtra(param.getKey(), String.valueOf(param.getValue()));
+            }
+        }
+        c.startActivity(intent);
+    }
+
     public void navigate(Class fragmentClass) {
         try {
             if (lastNotMatch(fragmentClass)) {
@@ -58,7 +75,7 @@ public class Navigation {
         try {
             if (!hasPages()) {
                 // si no tiene páginas, creamos la de inicio
-                fragments.add(new KeyValuePairClass(BlankFragment.class, true));
+                fragments.add(new KeyValuePairClass(NavigationFragment.BLANK_FRAGMENT, true));
             } else {
                 // si tiene páginas, comprobamos que la última es navegable. Si no lo es la removemosy ejecutamos de nuevo la funcion hasta que haya una navegable.
                 int lastPosition = fragments.size() - 1;
@@ -72,6 +89,7 @@ public class Navigation {
                     if (navIgnored) {
                         // si se han ignorado fragments, bastará con navegar hasta el último fragment no ignorado
                         /*fragments.remove(lastPosition);*/
+                        fragment = removeLastDuplicated(fragment);
                         navIgnored = false;
                         backNavigate(fragment);
                     } else if (fragment.equals(currentNavigationFragment)) {
@@ -87,6 +105,16 @@ public class Navigation {
         } catch (Exception e) {
             Log.e("Navigate -> Error: ", e.getMessage());
         }
+    }
+
+    private KeyValuePairClass removeLastDuplicated(KeyValuePairClass fragment) {
+        int position = fragments.size() - 1;
+        if (position >= 1) {
+            if (fragments.get(position).equals(fragment) && fragment.equals(currentNavigationFragment)) {
+                fragments.remove(position);
+            }
+        }
+        return fragment;
     }
 
     private void backNavigate(KeyValuePairClass fragment) throws InstantiationException, IllegalAccessException {
@@ -115,7 +143,7 @@ public class Navigation {
     private CustomFragment customTransaction(Class fragmentClass, boolean leftToRight) throws IllegalAccessException, InstantiationException {
         CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (!fragment.isIgnoreEffects() || (!navHomeFirst && fragment.getClass().equals(BlankFragment.class))) {
+        if (!fragment.isIgnoreEffects() || (!navHomeFirst && fragment.getClass().equals(NavigationFragment.BLANK_FRAGMENT))) {
             if (leftToRight) {
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
             } else {
@@ -129,5 +157,4 @@ public class Navigation {
         transaction.commit();
         return fragment;
     }
-
 }

@@ -54,6 +54,14 @@
         <item name="android:shadowRadius">10</item>
     </style>
 
+    <style name="TextView" parent="TextSizeSimple">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
     <style name="EditText" parent="TextSizeSimple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -128,5 +136,17 @@
 
     <style name="SpinnerInternalCompact" parent="SpinnerInternal">
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
     </style>
 </resources>

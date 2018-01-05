@@ -10,7 +10,9 @@ import android.view.View;
 import com.olivadevelop.rolermaster.MainActivity;
 
 /**
+ * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 01/01/2018.
+ * RolerMaster
  */
 
 public class CustomFragment extends Fragment implements View.OnClickListener {

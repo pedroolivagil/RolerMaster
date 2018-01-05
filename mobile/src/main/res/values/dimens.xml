@@ -10,4 +10,5 @@
     <dimen name="fragment_title_margin_top">20dp</dimen>
     <dimen name="fragment_title_margin_btm">5dp</dimen>
     <dimen name="fragment_title_margin_lft_rgt">15dp</dimen>
+    <dimen name="splash_logo_margin_lft_rgt">30dp</dimen>
 </resources>

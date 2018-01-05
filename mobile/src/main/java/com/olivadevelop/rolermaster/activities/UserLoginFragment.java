@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
 import com.olivadevelop.rolermaster.tools.Navigation;
+import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 public class UserLoginFragment extends CustomFragment {
@@ -70,7 +71,7 @@ public class UserLoginFragment extends CustomFragment {
     @Override
     public void onClick(View v) {
         if (v == Tools.getFab()) {
-            Navigation.getInstance().navigate(UserSignUpFragment.class);
+            Navigation.getInstance().navigate(NavigationFragment.USER_SIGN_UP_FRAGMENT);
         } else if (v == btnLogin) {
             if (validateUserLogin()) {
                 Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
@@ -78,7 +79,7 @@ public class UserLoginFragment extends CustomFragment {
                 Tools.Logger(this, R.string.login_user_fail_login);
             }
         } else if (v == recoveryPass) {
-            Navigation.getInstance().navigate(UserForgotPassFragment.class);
+            Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_FRAGMENT);
         }
     }
 

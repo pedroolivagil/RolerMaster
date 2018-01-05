@@ -21,6 +21,7 @@ import com.olivadevelop.rolermaster.activities.BlankFragment;
 import com.olivadevelop.rolermaster.activities.UserLoginFragment;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
+import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         setMainScrollView();
         setFloatingActionButton();
         setBasicUserData();
-        Navigation.getInstance().navigate(BlankFragment.class);
+        Navigation.getInstance().navigate(NavigationFragment.BLANK_FRAGMENT);
     }
 
     @Override
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
         } else if (id == R.id.nav_logout) {
         } else if (id == R.id.nav_login) {
-            Navigation.getInstance().navigate(UserLoginFragment.class);
+            Navigation.getInstance().navigate(NavigationFragment.USER_LOGIN_FRAGMENT);
         } else if (id == R.id.nav_exit) {
             navBtnExit();
         }

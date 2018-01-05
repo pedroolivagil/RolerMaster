@@ -60,7 +60,14 @@
     </string-array>
 
     <string name="forgot_pass_title">Recuperar contraseña</string>
+    <string name="forgot_pass_title_step1">Paso 1</string>
+    <string name="forgot_pass_title_step2">Paso 2</string>
     <string name="forgot_pass_user_title">Recuperar la cuenta</string>
     <string name="forgot_pass_btn">Recuperar</string>
+    <string name="forgot_pass_instructions">Verifica tu correo y pega el código en la siguiente casilla, luego porcederás al cambio de contraseña.</string>
+    <string name="forgot_pass_code_hint">Inserta el código aquí</string>
+    <string name="forgot_pass_instructions2">Introduce tu nueva contraseña.</string>
+    <string name="forgot_pass_pass1_hint2">Tu nueva contraseña</string>
+    <string name="forgot_pass_pass2_hint2">Repite la contraseña</string>
 
 </resources>

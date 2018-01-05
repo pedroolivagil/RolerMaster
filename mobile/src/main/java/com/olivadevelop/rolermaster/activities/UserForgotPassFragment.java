@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
 import com.olivadevelop.rolermaster.tools.Navigation;
+import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 public class UserForgotPassFragment extends CustomFragment {
@@ -40,7 +41,10 @@ public class UserForgotPassFragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery);
+        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery1);
+        if (btnRecovery != null) {
+            btnRecovery.setOnClickListener(this);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -79,14 +83,14 @@ public class UserForgotPassFragment extends CustomFragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
     @Override
     public void onClick(View v) {
         /*if (v == Tools.getFab()) {
             Navigation.getInstance().navigate(UserLoginFragment.class);
-        } else */if (v == btnRecovery) {
+        } else */
+        if (v == btnRecovery) {
             if (validateEmail()) {
-                Tools.Logger(this, "User: " + btnRecovery.getText());
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT);
             } else {
                 Tools.Logger(this, R.string.login_user_fail_login);
             }
