@@ -3,22 +3,18 @@ package com.olivadevelop.rolermaster.activities;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
-import com.olivadevelop.rolermaster.tools.Tools;
 
-public class BlankFragment extends CustomFragment {
-
+public class UserForgotPassStep2Fragment extends CustomFragment {
     private OnFragmentInteractionListener mListener;
 
-    public BlankFragment() {
+    public UserForgotPassStep2Fragment() {
         // Required empty public constructor
-        setIgnoreEffects(true);
     }
 
     @Override
@@ -30,14 +26,14 @@ public class BlankFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_blank, container, false);
-        setTitle(R.string.index_title);
-        return view;
+        return inflater.inflate(R.layout.fragment_user_forgot_pass_step2, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
@@ -67,13 +63,5 @@ public class BlankFragment extends CustomFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    @Override
-    protected void setFabIconFunction() {
-        super.setFabIconFunction();
-        Tools.getFab().setImageResource(R.drawable.book_plus);
-        Tools.getFab().setOnClickListener(this);
-        Tools.getFab().show();
     }
 }

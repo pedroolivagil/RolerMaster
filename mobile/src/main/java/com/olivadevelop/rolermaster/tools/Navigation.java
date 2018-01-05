@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.tools;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.olivadevelop.rolermaster.R;
@@ -18,8 +19,11 @@ import java.util.List;
 public class Navigation {
     private static final Navigation ourInstance = new Navigation();
 
+    private boolean navHomeFirst;
+    private boolean navIgnored;
     private FragmentManager fragmentManager;
-    private List<Class> fragments;
+    private KeyValuePairClass currentNavigationFragment;
+    private List<KeyValuePairClass> fragments;
 
     public static Navigation getInstance() {
         return ourInstance;
@@ -27,6 +31,7 @@ public class Navigation {
 
     private Navigation() {
         fragments = new ArrayList<>();
+        navHomeFirst = true;
     }
 
     public void setFragmentManager(FragmentManager fragmentManager) {
@@ -35,31 +40,64 @@ public class Navigation {
 
     public void navigate(Class fragmentClass) {
         try {
-            CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
-            fragments.add(fragmentClass);
+            if (lastNotMatch(fragmentClass)) {
+                CustomFragment fragment = customTransaction(fragmentClass, true);
+                if (navHomeFirst && fragment.getClass().equals(BlankFragment.class)) {
+                    fragment.setIgnoreEffects(false);
+                    navHomeFirst = false;
+                }
+                KeyValuePairClass navFrag = new KeyValuePairClass(fragmentClass, fragment.isIgnoreNavigation());
+                if (!fragment.isIgnoreNavigation()) {
+                    currentNavigationFragment = navFrag;
+                }
+                fragments.add(navFrag);
+            }
+            Log.i("Navigate -> ", "Success");
         } catch (Exception e) {
-            Log.e("Error Navigate -> ", e.getMessage());
+            Log.i("Navigate -> Error: ", e.getMessage());
         }
     }
 
     public void back() {
         try {
-            int position = fragments.size() - 1;
-            if (hasPages()) {
-                fragments.remove(position);
-                position--;
+            if (!hasPages()) {
+                // si no tiene páginas, creamos la de inicio
+                fragments.add(new KeyValuePairClass(BlankFragment.class, true));
+            } else {
+                // si tiene páginas, comprobamos que la última es navegable. Si no lo es la removemosy ejecutamos de nuevo la funcion hasta que haya una navegable.
+                int lastPosition = fragments.size() - 1;
+                KeyValuePairClass fragment = fragments.get(lastPosition);
+                if (fragment.isInclude()) {
+                    // Si el fragment es de los que no se incluyen, lo borramos y ejecutamos el método de nuevo
+                    fragments.remove(lastPosition);
+                    navIgnored = true;
+                    back();
+                } else {
+                    if (navIgnored) {
+                        // si se han ignorado fragments, bastará con navegar hasta el último fragment no ignorado
+                        /*fragments.remove(lastPosition);*/
+                        navIgnored = false;
+                        backNavigate(fragment);
+                    } else if (fragment.equals(currentNavigationFragment)) {
+                        // en caso de que no se hayan ignorado fragments, si el último fragment es igual al actual, lo borramos
+                        fragments.remove(lastPosition);
+                        back();
+                    } else {
+                        // Después de que se haya actualizado el arbol de fragments, navegamos.
+                        backNavigate(fragment);
+                    }
+                }
             }
-            if (position < 0) {
-                position = 0;
-                fragments.add(BlankFragment.class);
-            }
-            Class fragmentClass = fragments.get(position);
-            CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
         } catch (Exception e) {
-            Log.e("Error Navigate -> ", e.getMessage());
+            Log.e("Navigate -> Error: ", e.getMessage());
         }
+    }
+
+    private void backNavigate(KeyValuePairClass fragment) throws InstantiationException, IllegalAccessException {
+        Class fragmentClass = fragment.getKey();
+        customTransaction(fragmentClass, false);
+        currentNavigationFragment = fragment;
+        Log.i("Navigate -> ", "Success");
     }
 
     public boolean hasPages() {
@@ -68,6 +106,30 @@ public class Navigation {
 
     public boolean isFirstPage() {
         return fragments.size() == 1;
+    }
+
+    private boolean lastNotMatch(Class fragmentClass) {
+        boolean retorno = true;
+        if (!fragments.isEmpty() && fragments.get(fragments.size() - 1).getKey().equals(fragmentClass)) {
+            retorno = false;
+        }
+        return retorno;
+    }
+
+    private CustomFragment customTransaction(Class fragmentClass, boolean leftToRight) throws IllegalAccessException, InstantiationException {
+        CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (!fragment.isIgnoreEffects()) {
+            if (leftToRight) {
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+            } else {
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+            transaction.addToBackStack(fragment.getTag());
+        }
+        transaction.replace(R.id.content_layout, fragment);
+        transaction.commit();
+        return fragment;
     }
 
 }

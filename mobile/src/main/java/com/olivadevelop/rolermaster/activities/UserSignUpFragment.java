@@ -17,7 +17,6 @@ import com.olivadevelop.rolermaster.tools.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import java.util.List;
-import java.util.function.ToLongBiFunction;
 
 public class UserSignUpFragment extends CustomFragment {
 
@@ -42,9 +41,11 @@ public class UserSignUpFragment extends CustomFragment {
         super.onActivityCreated(savedInstanceState);
         List<KeyValuePair> values = null;
         List<KeyValuePair> values2 = null;
+        List<KeyValuePair> values3 = null;
         try {
             values = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
             values2 = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
+            values3 = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
         } catch (NoSuchFieldException e) {
             Tools.Logger(this, e);
         } catch (IllegalAccessException e) {
@@ -54,6 +55,8 @@ public class UserSignUpFragment extends CustomFragment {
         Tools.createSpinner(this.getActivity(), view, R.id.signup_user_country, values);
         // Rellenamos el spinner de los géneros
         Tools.createSpinner(this.getActivity(), view, R.id.signup_user_gender, values2);
+        // Rellenamos el spinner del tipo de usuario
+        Tools.createSpinner(this.getActivity(), view, R.id.signup_user_typeuser, values3);
         // rellenamos los spinners de la fecha de nacimiento
         Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth1, Tools.getDays(), 70);
         Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth2, Tools.getMonths(this.getContext()), 155);

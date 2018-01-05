@@ -3,6 +3,8 @@ package com.olivadevelop.rolermaster.tools;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
 
 import com.olivadevelop.rolermaster.MainActivity;
@@ -15,6 +17,9 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
 
     protected View view;
 
+    private boolean ignoreNavigation;
+    private boolean ignoreEffects;
+
     @Override
     public void onClick(View v) {
 
@@ -24,6 +29,8 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFabIconFunction();
+        setIgnoreNavigation(false);
+        setIgnoreEffects(false);
     }
 
     public void setTitle(@StringRes int strTitle) {
@@ -33,7 +40,21 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
 
 
     protected void setFabIconFunction() {
-
     }
 
+    public boolean isIgnoreNavigation() {
+        return ignoreNavigation;
+    }
+
+    public void setIgnoreNavigation(boolean ignoreNavigation) {
+        this.ignoreNavigation = ignoreNavigation;
+    }
+
+    public boolean isIgnoreEffects() {
+        return ignoreEffects;
+    }
+
+    public void setIgnoreEffects(boolean ignoreEffects) {
+        this.ignoreEffects = ignoreEffects;
+    }
 }

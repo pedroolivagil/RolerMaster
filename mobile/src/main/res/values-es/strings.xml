@@ -59,4 +59,8 @@
         <item>Diciembre</item>
     </string-array>
 
+    <string name="forgot_pass_title">Recuperar contraseña</string>
+    <string name="forgot_pass_user_title">Recuperar la cuenta</string>
+    <string name="forgot_pass_btn">Recuperar</string>
+
 </resources>
