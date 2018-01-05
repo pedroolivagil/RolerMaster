@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.tools;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.olivadevelop.rolermaster.R;
@@ -35,8 +36,7 @@ public class Navigation {
 
     public void navigate(Class fragmentClass) {
         try {
-            CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
+            customTransaction(fragmentClass, true);
             fragments.add(fragmentClass);
         } catch (Exception e) {
             Log.e("Error Navigate -> ", e.getMessage());
@@ -55,8 +55,7 @@ public class Navigation {
                 fragments.add(BlankFragment.class);
             }
             Class fragmentClass = fragments.get(position);
-            CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
+            customTransaction(fragmentClass, false);
         } catch (Exception e) {
             Log.e("Error Navigate -> ", e.getMessage());
         }
@@ -68,6 +67,18 @@ public class Navigation {
 
     public boolean isFirstPage() {
         return fragments.size() == 1;
+    }
+
+    private void customTransaction(Class fragmentClass, boolean leftToRight) throws IllegalAccessException, InstantiationException {
+        CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (leftToRight) {
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+        } else {
+            transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+        }
+        transaction.replace(R.id.content_layout, fragment);
+        transaction.commit();
     }
 
 }

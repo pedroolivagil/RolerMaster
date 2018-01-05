@@ -52,6 +52,9 @@
             android:hint="@string/signup_user_phone"
             android:inputType="phone" />
 
+        <Spinner
+            android:id="@+id/signup_user_typeuser"
+            style="@style/Spinner" />
 
         <LinearLayout
             android:id="@+id/signup_spinners_birth"

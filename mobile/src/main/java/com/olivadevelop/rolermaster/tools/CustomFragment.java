@@ -3,6 +3,8 @@ package com.olivadevelop.rolermaster.tools;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
 
 import com.olivadevelop.rolermaster.MainActivity;
@@ -24,6 +26,8 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFabIconFunction();
+        setEnterTransition(new Slide(Gravity.RIGHT));
+        setExitTransition(new Slide(Gravity.LEFT));
     }
 
     public void setTitle(@StringRes int strTitle) {
@@ -33,7 +37,6 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
 
 
     protected void setFabIconFunction() {
-
     }
 
 }

@@ -8,48 +8,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.CustomFragment;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-public class UserLoginFragment extends CustomFragment {
-
+public class UserForgotPassFragment extends CustomFragment {
     private OnFragmentInteractionListener mListener;
+    private Button btnRecovery;
 
-    private Button btnLogin;
-    private EditText loginUser;
-    private EditText loginPass;
-    private TextView recoveryPass;
-
-    public UserLoginFragment() {
+    public UserForgotPassFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_user_login, container, false);
-        setTitle(R.string.login_title);
+        view = inflater.inflate(R.layout.fragment_forgot_pass, container, false);
+        setTitle(R.string.forgot_pass_title);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnLogin = (Button) getActivity().findViewById(R.id.btnLogin);
-        loginUser = (EditText) getActivity().findViewById(R.id.login_user);
-        loginPass = (EditText) getActivity().findViewById(R.id.login_pass);
-        recoveryPass = (TextView) getActivity().findViewById(R.id.recoveryPass);
-        if (recoveryPass != null) {
-            recoveryPass.setOnClickListener(this);
-        }
-        if (btnLogin != null) {
-            btnLogin.setOnClickListener(this);
+        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -67,21 +63,6 @@ public class UserLoginFragment extends CustomFragment {
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == Tools.getFab()) {
-            Navigation.getInstance().navigate(UserSignUpFragment.class);
-        } else if (v == btnLogin) {
-            if (validateUserLogin()) {
-                Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
-            } else {
-                Tools.Logger(this, R.string.login_user_fail_login);
-            }
-        } else if (v == recoveryPass) {
-            Navigation.getInstance().navigate(UserForgotPassFragment.class);
-        }
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -97,19 +78,29 @@ public class UserLoginFragment extends CustomFragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
+    @Override
+    public void onClick(View v) {
+        if (v == Tools.getFab()) {
+            Navigation.getInstance().navigate(UserLoginFragment.class);
+        } else if (v == btnRecovery) {
+            if (validateEmail()) {
+                Tools.Logger(this, "User: " + btnRecovery.getText());
+            } else {
+                Tools.Logger(this, R.string.login_user_fail_login);
+            }
+        }
+    }
+
+    private boolean validateEmail() {
+        return true;
+    }
+
     @Override
     protected void setFabIconFunction() {
         super.setFabIconFunction();
-        Tools.getFab().setImageResource(R.drawable.account_plus_white);
+        Tools.getFab().setImageResource(R.drawable.account_key_white);
         Tools.getFab().setOnClickListener(this);
         Tools.getFab().show();
-    }
-
-    private boolean validateUserLogin() {
-        boolean retorno = false;
-        if (Tools.isNotNull(loginUser) && Tools.isNotNull(loginPass)) {
-            retorno = true;
-        }
-        return retorno;
     }
 }
