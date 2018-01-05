@@ -1,5 +1,8 @@
 package com.olivadevelop.rolermaster.tools;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -8,7 +11,9 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.activities.BlankFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -36,6 +41,20 @@ public class Navigation {
 
     public void setFragmentManager(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
+    }
+
+    public void navigate(Context c, Class activity) {
+        navigate(c, activity, null);
+    }
+
+    public void navigate(Context c, Class activity, HashMap<String, Object> params) {
+        Intent intent = new Intent(c, activity);
+        if (Tools.isNotNull(params)) {
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                intent.putExtra(param.getKey(), String.valueOf(param.getValue()));
+            }
+        }
+        c.startActivity(intent);
     }
 
     public void navigate(Class fragmentClass) {

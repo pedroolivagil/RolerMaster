@@ -40,6 +40,7 @@ public abstract class Tools {
 
     public static final int EDAD_MINIMA_COMPRENSION = 8;
     public static final int YEAR_MIN = 1900;
+    public static int TIME_SPLASH = 2000; // Miliseconds
     public static int TIME_TO_EXIT = 2000; // Miliseconds
     private static FloatingActionButton fab;
     private static ScrollView mainScrollView;
