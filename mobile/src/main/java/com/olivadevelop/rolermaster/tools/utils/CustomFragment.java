@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools;
+package com.olivadevelop.rolermaster.tools.utils;
 
 import android.os.Bundle;
 import android.support.annotation.StringRes;

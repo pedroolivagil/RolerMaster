@@ -7,10 +7,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
+import com.olivadevelop.rolermaster.tools.utils.CustomList;
+import com.olivadevelop.rolermaster.tools.utils.KeyValuePairClass;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,14 +27,14 @@ public class Navigation {
     private boolean navIgnored;
     private FragmentManager fragmentManager;
     private KeyValuePairClass currentNavigationFragment;
-    private List<KeyValuePairClass> fragments;
+    private CustomList<KeyValuePairClass> fragments;
 
     public static Navigation getInstance() {
         return ourInstance;
     }
 
     private Navigation() {
-        fragments = new ArrayList<>();
+        fragments = new CustomList<>();
         navHomeFirst = true;
     }
 
@@ -78,9 +79,9 @@ public class Navigation {
                 fragments.add(new KeyValuePairClass(NavigationFragment.BLANK_FRAGMENT, true));
             } else {
                 // si tiene páginas, comprobamos que la última es navegable. Si no lo es la removemosy ejecutamos de nuevo la funcion hasta que haya una navegable.
-                int lastPosition = fragments.size() - 1;
-                KeyValuePairClass fragment = fragments.get(lastPosition);
-                if (fragment.isInclude()) {
+                int lastPosition = fragments.lastPosition();
+                KeyValuePairClass fragment = fragments.last();
+                if (fragment.isIncluded()) {
                     // Si el fragment es de los que no se incluyen, lo borramos y ejecutamos el método de nuevo
                     fragments.remove(lastPosition);
                     navIgnored = true;
@@ -89,7 +90,6 @@ public class Navigation {
                     if (navIgnored) {
                         // si se han ignorado fragments, bastará con navegar hasta el último fragment no ignorado
                         /*fragments.remove(lastPosition);*/
-                        fragment = removeLastDuplicated(fragment);
                         navIgnored = false;
                         backNavigate(fragment);
                     } else if (fragment.equals(currentNavigationFragment)) {
@@ -108,11 +108,11 @@ public class Navigation {
     }
 
     private KeyValuePairClass removeLastDuplicated(KeyValuePairClass fragment) {
-        int position = fragments.size() - 1;
-        if (position >= 1) {
-            if (fragments.get(position).equals(fragment) && fragment.equals(currentNavigationFragment)) {
-                fragments.remove(position);
-            }
+        int position = fragments.lastPosition();
+        if (position >= 0 && fragment.equals(currentNavigationFragment)) {
+            // en caso de que no se hayan ignorado fragments, si el último fragment es igual al actual, lo borramos
+            fragments.remove(position);
+            fragment = fragments.last();
         }
         return fragment;
     }
@@ -134,7 +134,7 @@ public class Navigation {
 
     private boolean lastNotMatch(Class fragmentClass) {
         boolean retorno = true;
-        if (!fragments.isEmpty() && fragments.get(fragments.size() - 1).getKey().equals(fragmentClass)) {
+        if (!fragments.isEmpty() && fragments.last().getKey().equals(fragmentClass)) {
             retorno = false;
         }
         return retorno;

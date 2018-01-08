@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
+import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.tools.utils.SpinnerAdapter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

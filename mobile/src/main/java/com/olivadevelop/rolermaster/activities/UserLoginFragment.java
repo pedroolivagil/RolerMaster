@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.tools.CustomFragment;
+import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -76,7 +76,7 @@ public class UserLoginFragment extends CustomFragment {
             if (validateUserLogin()) {
                 Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
             } else {
-                Tools.Logger(this, R.string.login_user_fail_login);
+                Tools.LoggerSnack(v, this, R.string.login_user_fail_login);
             }
         } else if (v == recoveryPass) {
             Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_FRAGMENT);

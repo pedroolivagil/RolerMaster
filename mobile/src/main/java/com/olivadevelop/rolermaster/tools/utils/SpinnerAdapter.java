@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools;
+package com.olivadevelop.rolermaster.tools.utils;
 
 import android.app.Activity;
 import android.support.annotation.LayoutRes;
@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import java.util.List;
 

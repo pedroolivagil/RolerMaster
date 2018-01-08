@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools;
+package com.olivadevelop.rolermaster.tools.utils;
 
 /**
  * Copyright OlivaDevelop 2014-2018
