@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.activities;
+package com.olivadevelop.rolermaster;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,9 +10,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.olivadevelop.rolermaster.MainActivity;
-import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
+import com.olivadevelop.rolermaster.tools.NavigationFragment;
+import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import static com.olivadevelop.rolermaster.tools.Tools.TIME_SPLASH;
@@ -96,6 +97,9 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
+        // Inicilizamos la publicidad
+        AdsAdMob.getInstance().initialize(this);
+
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
 
@@ -123,7 +127,7 @@ public class SplashActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Navigation.getInstance().navigate(c, MainActivity.class);
+                            Navigation.getInstance().navigate(c, NavigationFragment.MAIN_ACTIVITY);
                         }
                     });
                 }

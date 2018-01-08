@@ -1,12 +1,13 @@
 package com.olivadevelop.rolermaster.tools;
 
-import com.olivadevelop.rolermaster.activities.BlankFragment;
-import com.olivadevelop.rolermaster.activities.UserForgotPassFragment;
-import com.olivadevelop.rolermaster.activities.UserForgotPassStep1Fragment;
-import com.olivadevelop.rolermaster.activities.UserForgotPassStep2Fragment;
-import com.olivadevelop.rolermaster.activities.UserForgotPassStep3Fragment;
-import com.olivadevelop.rolermaster.activities.UserLoginFragment;
-import com.olivadevelop.rolermaster.activities.UserSignUpFragment;
+import com.olivadevelop.rolermaster.activities.HomeActivity;
+import com.olivadevelop.rolermaster.activities.fragments.BlankFragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassFragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassStep1Fragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassStep2Fragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassStep3Fragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserLoginFragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserSignUpFragment;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -15,6 +16,10 @@ import com.olivadevelop.rolermaster.activities.UserSignUpFragment;
  */
 public abstract class NavigationFragment {
 
+    // Activities
+    public static final Class MAIN_ACTIVITY = HomeActivity.class;
+
+    // Fragments
     public static final Class BLANK_FRAGMENT = BlankFragment.class;
     public static final Class USER_LOGIN_FRAGMENT = UserLoginFragment.class;
     public static final Class USER_SIGN_UP_FRAGMENT = UserSignUpFragment.class;

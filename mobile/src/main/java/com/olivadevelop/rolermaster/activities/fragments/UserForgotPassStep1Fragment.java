@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.activities;
+package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,18 +7,22 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
+import com.olivadevelop.rolermaster.tools.Navigation;
+import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-public class BlankFragment extends CustomFragment {
+public class UserForgotPassStep1Fragment extends CustomFragment {
 
     private OnFragmentInteractionListener mListener;
+    private Button btnRecovery;
 
-    public BlankFragment() {
+    public UserForgotPassStep1Fragment() {
         // Required empty public constructor
-        setIgnoreEffects(true);
+        setIgnoreNavigation(true);
     }
 
     @Override
@@ -30,14 +34,25 @@ public class BlankFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_blank, container, false);
-        setTitle(R.string.index_title);
+        view = inflater.inflate(R.layout.fragment_user_forgot_pass_step1, container, false);
+        setTitle(R.string.forgot_pass_title);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery2);
+        if (btnRecovery != null) {
+            btnRecovery.setOnClickListener(this);
+        }
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
@@ -70,10 +85,17 @@ public class BlankFragment extends CustomFragment {
     }
 
     @Override
-    protected void setFabIconFunction() {
-        super.setFabIconFunction();
-        Tools.getFab().setImageResource(R.drawable.book_plus);
-        Tools.getFab().setOnClickListener(this);
-        Tools.getFab().show();
+    public void onClick(View v) {
+        if (v == btnRecovery) {
+            if (validateCode()) {
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP2_FRAGMENT);
+            } else {
+                Tools.LoggerSnack(v,this, R.string.forgot_pass_code_invalid);
+            }
+        }
+    }
+
+    private boolean validateCode() {
+        return true;
     }
 }

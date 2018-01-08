@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.activities;
+package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,15 +11,15 @@ import android.widget.Button;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
-import com.olivadevelop.rolermaster.tools.Navigation;
-import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-public class UserForgotPassStep2Fragment extends CustomFragment {
+
+public class UserForgotPassStep3Fragment extends CustomFragment {
+
     private OnFragmentInteractionListener mListener;
     private Button btnRecovery;
 
-    public UserForgotPassStep2Fragment() {
+    public UserForgotPassStep3Fragment() {
         // Required empty public constructor
         setIgnoreNavigation(true);
     }
@@ -33,14 +33,14 @@ public class UserForgotPassStep2Fragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_user_forgot_pass_step2, container, false);
+        view = inflater.inflate(R.layout.fragment_user_forgot_pass_step3, container, false);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery3);
+        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery4);
         if (btnRecovery != null) {
             btnRecovery.setOnClickListener(this);
         }
@@ -84,20 +84,8 @@ public class UserForgotPassStep2Fragment extends CustomFragment {
 
     @Override
     public void onClick(View v) {
-        /*if (v == Tools.getFab()) {
-            Navigation.getInstance().navigate(UserLoginFragment.class);
-        } else */
         if (v == btnRecovery) {
-            String msj = validatePasswords();
-            if (Tools.isNull(msj)) {
-                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP3_FRAGMENT);
-            } else {
-                Tools.LoggerSnack(v,this, msj);
-            }
+            Tools.LoggerSnack(v, this, "Login");
         }
-    }
-
-    private String validatePasswords() {
-        return null;
     }
 }

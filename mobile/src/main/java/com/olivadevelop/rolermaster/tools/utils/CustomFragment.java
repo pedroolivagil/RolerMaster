@@ -3,11 +3,9 @@ package com.olivadevelop.rolermaster.tools.utils;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
-import android.transition.Slide;
-import android.view.Gravity;
 import android.view.View;
 
-import com.olivadevelop.rolermaster.MainActivity;
+import com.olivadevelop.rolermaster.activities.HomeActivity;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -36,7 +34,7 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setTitle(@StringRes int strTitle) {
-        MainActivity a = (MainActivity) getActivity();
+        HomeActivity a = (HomeActivity) getActivity();
         a.getSupportActionBar().setTitle(strTitle);
     }
 

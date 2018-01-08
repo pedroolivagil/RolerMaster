@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.activities;
+package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,12 +15,11 @@ import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-public class UserForgotPassStep1Fragment extends CustomFragment {
-
+public class UserForgotPassFragment extends CustomFragment {
     private OnFragmentInteractionListener mListener;
     private Button btnRecovery;
 
-    public UserForgotPassStep1Fragment() {
+    public UserForgotPassFragment() {
         // Required empty public constructor
         setIgnoreNavigation(true);
     }
@@ -34,7 +33,7 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_user_forgot_pass_step1, container, false);
+        view = inflater.inflate(R.layout.fragment_user_forgot_pass, container, false);
         setTitle(R.string.forgot_pass_title);
         return view;
     }
@@ -42,7 +41,7 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery2);
+        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery1);
         if (btnRecovery != null) {
             btnRecovery.setOnClickListener(this);
         }
@@ -86,16 +85,28 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
 
     @Override
     public void onClick(View v) {
+        /*if (v == Tools.getFab()) {
+            Navigation.getInstance().navigate(UserLoginFragment.class);
+        } else */
         if (v == btnRecovery) {
-            if (validateCode()) {
-                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP2_FRAGMENT);
+            if (validateEmail()) {
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT);
             } else {
-                Tools.LoggerSnack(v,this, R.string.forgot_pass_code_invalid);
+                Tools.LoggerSnack(v,this, R.string.forgot_pass_email_invalid);
             }
         }
     }
 
-    private boolean validateCode() {
+    private boolean validateEmail() {
         return true;
+    }
+
+    @Override
+    protected void setFabIconFunction() {
+        /*super.setFabIconFunction();
+        Tools.getFab().setImageResource(R.drawable.account_key_white);
+        Tools.getFab().setOnClickListener(this);
+        Tools.getFab().show();*/
+        Tools.getFab().hide();
     }
 }

@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.activities;
+package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,11 +15,11 @@ import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-public class UserForgotPassFragment extends CustomFragment {
+public class UserForgotPassStep2Fragment extends CustomFragment {
     private OnFragmentInteractionListener mListener;
     private Button btnRecovery;
 
-    public UserForgotPassFragment() {
+    public UserForgotPassStep2Fragment() {
         // Required empty public constructor
         setIgnoreNavigation(true);
     }
@@ -33,15 +33,14 @@ public class UserForgotPassFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_user_forgot_pass, container, false);
-        setTitle(R.string.forgot_pass_title);
+        view = inflater.inflate(R.layout.fragment_user_forgot_pass_step2, container, false);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery1);
+        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery3);
         if (btnRecovery != null) {
             btnRecovery.setOnClickListener(this);
         }
@@ -89,24 +88,16 @@ public class UserForgotPassFragment extends CustomFragment {
             Navigation.getInstance().navigate(UserLoginFragment.class);
         } else */
         if (v == btnRecovery) {
-            if (validateEmail()) {
-                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT);
+            String msj = validatePasswords();
+            if (Tools.isNull(msj)) {
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP3_FRAGMENT);
             } else {
-                Tools.LoggerSnack(v,this, R.string.forgot_pass_email_invalid);
+                Tools.LoggerSnack(v,this, msj);
             }
         }
     }
 
-    private boolean validateEmail() {
-        return true;
-    }
-
-    @Override
-    protected void setFabIconFunction() {
-        /*super.setFabIconFunction();
-        Tools.getFab().setImageResource(R.drawable.account_key_white);
-        Tools.getFab().setOnClickListener(this);
-        Tools.getFab().show();*/
-        Tools.getFab().hide();
+    private String validatePasswords() {
+        return null;
     }
 }

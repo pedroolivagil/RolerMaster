@@ -85,6 +85,7 @@ public class Navigation {
                     // Si el fragment es de los que no se incluyen, lo borramos y ejecutamos el método de nuevo
                     fragments.remove(lastPosition);
                     navIgnored = true;
+                    removeLastDuplicated(fragment);
                     back();
                 } else {
                     if (navIgnored) {

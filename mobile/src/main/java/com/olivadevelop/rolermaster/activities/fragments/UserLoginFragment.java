@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.activities;
+package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.content.Context;
 import android.net.Uri;

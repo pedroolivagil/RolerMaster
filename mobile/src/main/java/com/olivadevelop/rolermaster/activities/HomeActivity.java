@@ -1,5 +1,6 @@
-package com.olivadevelop.rolermaster;
+package com.olivadevelop.rolermaster.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +19,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.olivadevelop.rolermaster.activities.BlankFragment;
-import com.olivadevelop.rolermaster.activities.UserLoginFragment;
+import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
@@ -37,7 +38,7 @@ import static com.olivadevelop.rolermaster.tools.Tools.newBooleanDialog;
 import static com.olivadevelop.rolermaster.tools.Tools.newInfoDialog;
 import static com.olivadevelop.rolermaster.tools.Tools.setFab;
 
-public class MainActivity extends AppCompatActivity
+public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -47,11 +48,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Inicilizamos la publicidad (moverlo al splashScreen)
-        AdsAdMob.getInstance().initialize(this);
+        // Inicializamos variables
         SessionManager.getInstance().setLogged(false);
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
-
         // Inicializamos el menú lateral izquierdo
         setToolbar();
         setNavigationDrawer();

@@ -13,22 +13,21 @@ import static com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR;
 
 
 /**
- * Created by OlivaDevelop on 20/03/2015.
+ * Copyright OlivaDevelop 2014-2018
+ * Created by Oliva on 20/03/2015.
  */
 public class AdsAdMob {
 
-    private static AdsAdMob instance;
+    private static final AdsAdMob instance = new AdsAdMob();
+
     private Context context;
     private InterstitialAd interstitial;
 
     public static AdsAdMob getInstance() {
-        if (instance == null) {
-            instance = new AdsAdMob();
-        }
         return instance;
     }
 
-    private AdsAdMob(){
+    private AdsAdMob() {
 
     }
 
