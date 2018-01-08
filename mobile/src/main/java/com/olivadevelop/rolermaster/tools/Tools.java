@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.tools;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,14 +8,13 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -116,20 +114,30 @@ public abstract class Tools {
         e.printStackTrace();
     }
 
-    public static void Logger(Fragment c, String text) {
+    public static void Logger(CustomFragment c, String text) {
         Toast.makeText(c.getContext(), text, Toast.LENGTH_LONG).show();
         Log.i(c.getClass().getSimpleName(), text);
     }
 
-    public static void Logger(Fragment c, @StringRes int idText) {
+    public static void Logger(CustomFragment c, @StringRes int idText) {
         Toast.makeText(c.getContext(), c.getContext().getString(idText), Toast.LENGTH_LONG).show();
         Log.i(c.getClass().getSimpleName(), c.getString(idText));
     }
 
-    public static void Logger(Fragment c, Exception e) {
+    public static void Logger(CustomFragment c, Exception e) {
         Toast.makeText(c.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         Log.i(c.getClass().getSimpleName(), e.getLocalizedMessage());
         e.printStackTrace();
+    }
+
+    public static void LoggerSnack(View view, CustomFragment c, @StringRes int idText) {
+        LoggerSnack(view, c, c.getString(idText));
+    }
+
+    public static void LoggerSnack(View view, CustomFragment c, String text) {
+        Snackbar.make(view, text, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        Log.i(c.getClass().getSimpleName(), text);
     }
 
     public static boolean isNull(Object object) {

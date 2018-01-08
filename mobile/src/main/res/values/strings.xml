@@ -68,14 +68,17 @@
     </string-array>
 
     <string name="forgot_pass_title">TRADUCIR</string>
-
     <string name="forgot_pass_user_title">TRADUCIR</string>
     <string name="forgot_pass_btn">TRADUCIR</string>
     <string name="forgot_pass_instructions">TRADUCIR</string>
     <string name="forgot_pass_code_hint">TRADUCIR</string>
-
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="forgot_pass_title_step1">TRADUCIR</string>
+    <string name="forgot_pass_title_step2">TRADUCIR</string>
+    <string name="forgot_pass_instructions2">TRADUCIR</string>
+    <string name="forgot_pass_pass1_hint2">TRADUCIR</string>
+    <string name="forgot_pass_pass2_hint2">TRADUCIR</string>
+    <string name="forgot_pass_last_step">TRADUCIR</string>
+    <string name="forgot_pass_code_invalid">TRADUCIR</string>
+    <string name="forgot_pass_email_invalid">TRADUCIR</string>
 
 </resources>

@@ -69,5 +69,8 @@
     <string name="forgot_pass_instructions2">Introduce tu nueva contraseña.</string>
     <string name="forgot_pass_pass1_hint2">Tu nueva contraseña</string>
     <string name="forgot_pass_pass2_hint2">Repite la contraseña</string>
+    <string name="forgot_pass_last_step">Tu contraseña ha sido cambiada. Pulsa el siguiente botón para iniciar sesión.</string>
+    <string name="forgot_pass_email_invalid">El email no es válido</string>
+    <string name="forgot_pass_code_invalid">El código no es válido</string>
 
 </resources>

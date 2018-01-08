@@ -92,7 +92,7 @@ public class UserForgotPassFragment extends CustomFragment {
             if (validateEmail()) {
                 Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT);
             } else {
-                Tools.Logger(this, R.string.login_user_fail_login);
+                Tools.LoggerSnack(v,this, R.string.forgot_pass_email_invalid);
             }
         }
     }

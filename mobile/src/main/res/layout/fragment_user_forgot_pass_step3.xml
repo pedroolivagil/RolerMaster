@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.olivadevelop.rolermaster.activities.UserForgotPassStep3Fragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/FragmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_pass_user_title" />
+
+        <LinearLayout style="@style/LineSeparator" />
+
+        <TextView
+            style="@style/TextView"
+            android:layout_marginBottom="@dimen/fragment_title_margin_lft_rgt"
+            android:text="@string/forgot_pass_last_step" />
+
+        <Button
+            android:id="@+id/btnRecovery4"
+            style="@style/Button"
+            android:text="@string/login_user_login" />
+
+    </LinearLayout>
+
+</FrameLayout>
