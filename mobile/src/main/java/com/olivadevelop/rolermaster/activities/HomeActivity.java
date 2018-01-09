@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -147,12 +148,12 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setFloatingActionButton() {
+        final Activity a = this;
         setFab((FloatingActionButton) findViewById(R.id.fab));
         getFab().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Tools.LoggerSnack(view, a, "Replace text");
             }
         });
     }

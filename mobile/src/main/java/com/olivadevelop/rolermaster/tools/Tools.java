@@ -4,6 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
@@ -133,6 +138,17 @@ public abstract class Tools {
         e.printStackTrace();
     }
 
+    public static void LoggerSnack(View view, Activity c, @StringRes int idText) {
+        LoggerSnack(view, c, c.getString(idText));
+    }
+
+    public static void LoggerSnack(View view, Activity c, String text) {
+        Snackbar.make(view, text, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        Log.i(c.getClass().getSimpleName(), text);
+    }
+
+
     public static void LoggerSnack(View view, CustomFragment c, @StringRes int idText) {
         LoggerSnack(view, c, c.getString(idText));
     }
@@ -176,6 +192,16 @@ public abstract class Tools {
         }
     }
 
+    /**
+     * Convierte una lista de ? a una lista de KeyValuePair
+     *
+     * @param listEntities  Lista de objetos
+     * @param propertyKey   propiedad del objeto que es clave
+     * @param propertyValue propiedad del objeto que es el valor
+     * @return
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     public static List<KeyValuePair> objToKeyValuePair(List<?> listEntities, String propertyKey, String propertyValue) throws NoSuchFieldException, IllegalAccessException {
         List<KeyValuePair> retorno = new ArrayList<>();
         Object key = null;
@@ -271,6 +297,11 @@ public abstract class Tools {
         return retorno.toString();
     }
 
+    /**
+     * Devuelve una lista de días con la clase KeyValuePair
+     *
+     * @return List
+     */
     public static List<KeyValuePair> getDays() {
         List<KeyValuePair> retorno = new ArrayList<>();
         for (int day = 1; day < 32; day++) {
@@ -279,6 +310,11 @@ public abstract class Tools {
         return retorno;
     }
 
+    /**
+     * Devuelve una lista de meses con la clase KeyValuePair
+     *
+     * @return List
+     */
     public static List<KeyValuePair> getMonths(Context c) {
         List<KeyValuePair> retorno = new ArrayList<>();
         String[] months = c.getResources().getStringArray(R.array.list_months);
@@ -288,6 +324,11 @@ public abstract class Tools {
         return retorno;
     }
 
+    /**
+     * Devuelve una lista de años con la clase KeyValuePair
+     *
+     * @return List
+     */
     public static List<KeyValuePair> getYears() {
         List<KeyValuePair> retorno = new ArrayList<>();
         int diff = Calendar.getInstance().get(Calendar.YEAR) - EDAD_MINIMA_COMPRENSION;
@@ -295,5 +336,44 @@ public abstract class Tools {
             retorno.add(new KeyValuePair(year, String.valueOf(year)));
         }
         return retorno;
+    }
+
+    /**
+     * Redimensiona una imagen (drawable) y devuelve un objeto drawable
+     *
+     * @param ctx   Contexto
+     * @param resId ID del drawable a redimensionar
+     * @param w     Ancho deseado
+     * @param h     Alto deseado
+     * @return Drawable
+     */
+    public static Drawable resizeImage(Context ctx, int resId, int w, int h) {
+
+        // cargamos la imagen de origen
+        Bitmap BitmapOrg = BitmapFactory.decodeResource(ctx.getResources(),
+                resId);
+
+        int width = BitmapOrg.getWidth();
+        int height = BitmapOrg.getHeight();
+
+        // calculamos el escalado de la imagen destino
+        float scaleWidth = ((float) w) / width;
+        float scaleHeight = ((float) h) / height;
+
+        // para poder manipular la imagen
+        // debemos crear una matriz
+
+        Matrix matrix = new Matrix();
+        // resize the Bitmap
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // volvemos a crear la imagen con los nuevos valores
+        Bitmap resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0,
+                width, height, matrix, true);
+
+        // si queremos poder mostrar nuestra imagen tenemos que crear un
+        // objeto drawable y así asignarlo a un botón, imageview...
+        return new BitmapDrawable(resizedBitmap);
+
     }
 }

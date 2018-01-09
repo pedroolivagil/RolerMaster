@@ -3,17 +3,12 @@
     style="@style/Activity"
     tools:context="com.olivadevelop.rolermaster.activities.fragments.BlankFragment">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="1                                                       "
-            android:contentDescription="@string/index_title"
-            android:src="@drawable/fondo1" />
-    </LinearLayout>
+        android:layout_height="300dp"
+        android:alpha=".3"
+        android:contentDescription="@string/index_title"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fondo" />
 </FrameLayout>
