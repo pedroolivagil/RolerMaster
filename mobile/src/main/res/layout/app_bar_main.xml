@@ -26,15 +26,14 @@
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id" />
 
-    <include
-        android:id="@+id/content_layout"
-        layout="@layout/content_main" />
-
     <ScrollView
         android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/content_layout"
+            layout="@layout/content_main" />
 
     </ScrollView>
 
