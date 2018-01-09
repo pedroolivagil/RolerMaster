@@ -17,8 +17,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -143,8 +145,7 @@ public abstract class Tools {
     }
 
     public static void LoggerSnack(View view, Activity c, String text) {
-        Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        customSnackBar(view, text);
         Log.i(c.getClass().getSimpleName(), text);
     }
 
@@ -154,8 +155,7 @@ public abstract class Tools {
     }
 
     public static void LoggerSnack(View view, CustomFragment c, String text) {
-        Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        customSnackBar(view, text);
         Log.i(c.getClass().getSimpleName(), text);
     }
 
@@ -184,6 +184,32 @@ public abstract class Tools {
         createSpinnerBase(a, view, idSpinner, R.layout.compact_spinner, values, customWidth);
     }
 
+    /**
+     * Personalizamos el snackbar
+     *
+     * @param v    vista padre dónde se mostrará el snackbar
+     * @param text texto que mostrará el snackbar
+     */
+    private static void customSnackBar(View v, String text) {
+        Snackbar snackBar = Snackbar.make(v, text, Snackbar.LENGTH_LONG);
+        View view = snackBar.getView();
+        android.support.design.widget.CoordinatorLayout.LayoutParams params = (android.support.design.widget.CoordinatorLayout.LayoutParams) view.getLayoutParams();
+        params.gravity = Gravity.BOTTOM;
+        view.setLayoutParams(params);
+        view.setBackgroundResource(R.color.colorPrimary);
+        snackBar.show();
+    }
+
+    /**
+     * Rellena los spinners que se le pasan por parámetro
+     *
+     * @param a               Activity
+     * @param view            vista dónde se obtiene el spinner
+     * @param idSpinner       id del spinner
+     * @param idLayoutSpinner la capa que se usará para renderizar el spinner
+     * @param values          la lista de valores KeyValuePair
+     * @param customWidth     el ancho que ocupará en la vista, en DP
+     */
     private static void createSpinnerBase(Activity a, View view, @IdRes int idSpinner, @LayoutRes int idLayoutSpinner, List<KeyValuePair> values, int customWidth) {
         Spinner spinner = view.findViewById(idSpinner);
         spinner.setAdapter(new SpinnerAdapter(a, idLayoutSpinner, values)); //if you r using fragment
