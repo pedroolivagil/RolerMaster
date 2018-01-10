@@ -46,7 +46,7 @@ public class UserLoginFragment extends CustomFragment {
         if (Tools.isNotNull(recoveryPass)) {
             recoveryPass.setOnClickListener(this);
         }
-        if (Tools.isNotNull(loginUser)&&Tools.isNotNull(_args)) {
+        if (Tools.isNotNull(loginUser) && Tools.isNotNull(_args)) {
             loginUser.setText(_args.getString(BundleLabels.FORGOT_PASS_EMAIL));
         }
         if (Tools.isNotNull(btnLogin)) {

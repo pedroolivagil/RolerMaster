@@ -62,7 +62,6 @@ public class UserForgotPassStep3Fragment extends CustomFragment {
             Bundle args = new Bundle();
             args.putString(BundleLabels.FORGOT_PASS_EMAIL, subtitle);
             Navigation.getInstance().navigate(NavigationFragment.USER_LOGIN_FRAGMENT, args);
-            Tools.LoggerSnack(v, this, "Login");
         }
     }
 }
