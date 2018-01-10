@@ -1,15 +1,17 @@
-package com.olivadevelop.rolermaster;
+package com.olivadevelop.rolermaster.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
@@ -17,6 +19,7 @@ import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import static com.olivadevelop.rolermaster.tools.Tools.TIME_SPLASH;
+import static com.olivadevelop.rolermaster.tools.Tools.setFab;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
