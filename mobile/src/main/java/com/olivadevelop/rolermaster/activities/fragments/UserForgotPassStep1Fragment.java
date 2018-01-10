@@ -11,6 +11,7 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 
 public class UserForgotPassStep1Fragment extends CustomFragment {
@@ -32,14 +33,18 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_forgot_pass_step1, container, false);
-        setTitle(R.string.forgot_pass_title);
+        String subtitle = "";
+        if (Tools.isNotNull(_args)) {
+            subtitle = _args.getString(BundleLabels.FORGOT_PASS_EMAIL);
+        }
+        setTitle(getString(R.string.forgot_pass_title), getString(R.string.forgot_pass_title_step2), subtitle);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery2);
+        btnRecovery = findViewById(R.id.btnRecovery2);
         if (btnRecovery != null) {
             btnRecovery.setOnClickListener(this);
         }
@@ -49,7 +54,13 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
     public void onClick(View v) {
         if (v == btnRecovery) {
             if (validateCode()) {
-                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP2_FRAGMENT);
+                String subtitle = "";
+                if (Tools.isNotNull(_args)) {
+                    subtitle = _args.getString(BundleLabels.FORGOT_PASS_EMAIL);
+                }
+                Bundle args = new Bundle();
+                args.putString(BundleLabels.FORGOT_PASS_EMAIL, subtitle);
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP2_FRAGMENT, args);
             } else {
                 Tools.LoggerSnack(v, this, R.string.forgot_pass_code_invalid);
             }

@@ -62,7 +62,8 @@
     <string name="forgot_pass_title">Recuperar contraseña</string>
     <string name="forgot_pass_title_step1">Paso 1</string>
     <string name="forgot_pass_title_step2">Paso 2</string>
-    <string name="forgot_pass_title_step3">Paso 2</string>
+    <string name="forgot_pass_title_step3">Paso 3</string>
+    <string name="forgot_pass_title_step4">Paso 4</string>
     <string name="forgot_pass_user_title">Recuperar la cuenta</string>
     <string name="forgot_pass_btn">Recuperar</string>
     <string name="forgot_pass_instructions">Verifica tu correo y pega el código en la siguiente casilla, luego porcederás al cambio de contraseña.</string>

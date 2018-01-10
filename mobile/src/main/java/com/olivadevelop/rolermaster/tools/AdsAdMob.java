@@ -1,7 +1,6 @@
 package com.olivadevelop.rolermaster.tools;
 
 import android.content.Context;
-import android.provider.Settings;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -23,12 +22,12 @@ public class AdsAdMob {
     private Context context;
     private InterstitialAd interstitial;
 
-    public static AdsAdMob getInstance() {
-        return instance;
-    }
-
     private AdsAdMob() {
 
+    }
+
+    public static AdsAdMob getInstance() {
+        return instance;
     }
 
     public void initialize(Context c) {

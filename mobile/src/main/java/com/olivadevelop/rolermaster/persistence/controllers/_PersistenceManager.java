@@ -14,14 +14,14 @@ public class _PersistenceManager<T> implements _PersistenceMethods<T> {
 
     private static _PersistenceManager instance = new _PersistenceManager();
 
+    private _PersistenceManager() {
+    }
+
     public static _PersistenceManager getInstance() {
         if (Tools.isNull(instance)) {
             instance = new _PersistenceManager();
         }
         return instance;
-    }
-
-    private _PersistenceManager() {
     }
 
     @Override

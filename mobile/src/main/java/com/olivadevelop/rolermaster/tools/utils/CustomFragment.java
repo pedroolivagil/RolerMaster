@@ -8,7 +8,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.activities.HomeActivity;
 
 import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
@@ -32,17 +31,11 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     protected OnFragmentInteractionListener mListener;
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
     protected View view;
     private HomeActivity a;
-
     private boolean ignoreNavigation;
     private boolean ignoreEffects;
+    protected Bundle _args;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +44,7 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
         setFabIconFunction();
         setIgnoreNavigation(false);
         setIgnoreEffects(false);
+        _args = getArguments();
     }
 
     @Override
@@ -79,11 +73,15 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public void setTitle(@StringRes int... titles) {
+    public void setTitle(@StringRes int title) {
+        setTitle(getString(title));
+    }
+
+    public void setTitle(String... titles) {
         if (isNotNull(titles) && titles.length > 0 && isNotNull(a.getSupportActionBar())) {
             StringBuilder retorno = new StringBuilder();
             for (int x = 1; x < titles.length; x++) {
-                retorno.append(a.getString(titles[x]));
+                retorno.append(titles[x]);
                 if ((titles.length - 1) > x) {
                     retorno.append(" - ");
                 }
@@ -93,7 +91,7 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    protected <T extends View> T findViewById(@IdRes int id){
+    protected <T extends View> T findViewById(@IdRes int id) {
         return getActivity().findViewById(id);
     }
 
@@ -114,5 +112,10 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
 
     public void setIgnoreEffects(boolean ignoreEffects) {
         this.ignoreEffects = ignoreEffects;
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }

@@ -9,11 +9,11 @@ public class SessionManager {
 
     private boolean logged;
 
-    public static SessionManager getInstance() {
-        return ourInstance;
+    private SessionManager() {
     }
 
-    private SessionManager() {
+    public static SessionManager getInstance() {
+        return ourInstance;
     }
 
     public boolean isLogged() {

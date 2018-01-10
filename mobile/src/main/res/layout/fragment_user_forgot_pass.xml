@@ -19,7 +19,9 @@
         <EditText
             android:id="@+id/forgot_pass_mail"
             style="@style/EditText"
-            android:hint="@string/signup_user_usermail" />
+            android:hint="@string/signup_user_usermail"
+            android:inputType="textEmailAddress"
+            android:lines="1" />
 
         <Button
             android:id="@+id/btnRecovery1"

@@ -13,6 +13,7 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 
 public class UserLoginFragment extends CustomFragment {
@@ -42,10 +43,13 @@ public class UserLoginFragment extends CustomFragment {
         loginUser = (EditText) getActivity().findViewById(R.id.login_user);
         loginPass = (EditText) getActivity().findViewById(R.id.login_pass);
         recoveryPass = (TextView) getActivity().findViewById(R.id.recoveryPass);
-        if (recoveryPass != null) {
+        if (Tools.isNotNull(recoveryPass)) {
             recoveryPass.setOnClickListener(this);
         }
-        if (btnLogin != null) {
+        if (Tools.isNotNull(loginUser)&&Tools.isNotNull(_args)) {
+            loginUser.setText(_args.getString(BundleLabels.FORGOT_PASS_EMAIL));
+        }
+        if (Tools.isNotNull(btnLogin)) {
             btnLogin.setOnClickListener(this);
         }
     }

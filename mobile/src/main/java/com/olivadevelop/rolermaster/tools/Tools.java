@@ -15,8 +15,10 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +33,6 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.utils.SpinnerAdapter;
-
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -182,14 +182,14 @@ public abstract class Tools {
     }
 
     public static boolean isEmailValid(EditText email) {
-        return isEmailValid(email.getText().toString().trim());
+        return isNotNull(email) && isEmailValid(email.getText().toString().trim());
     }
 
     public static boolean isEmailValid(String... emails) {
-        boolean retorno = true;
+        boolean retorno = false;
         for (String email : emails) {
-            if (!EmailValidator.getInstance().isValid(email)) {
-                retorno = false;
+            if (!TextUtils.isEmpty(email.trim()) && Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
+                retorno = true;
                 break;
             }
         }

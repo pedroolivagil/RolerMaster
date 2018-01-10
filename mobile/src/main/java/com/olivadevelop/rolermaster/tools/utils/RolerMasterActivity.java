@@ -10,8 +10,7 @@ import android.view.MenuItem;
  * Created by Oliva on 10/01/2018.
  */
 
-public class RolerMasterActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class RolerMasterActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;

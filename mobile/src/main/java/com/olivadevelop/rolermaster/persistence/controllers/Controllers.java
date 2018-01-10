@@ -7,15 +7,14 @@ package com.olivadevelop.rolermaster.persistence.controllers;
 
 public class Controllers {
     private static final Controllers ourInstance = new Controllers();
-
-    public static Controllers getInstance() {
-        return ourInstance;
-    }
-
     private TestController testController;
 
     private Controllers() {
         testController = new TestController();
+    }
+
+    public static Controllers getInstance() {
+        return ourInstance;
     }
 
     public TestController getTestController() {

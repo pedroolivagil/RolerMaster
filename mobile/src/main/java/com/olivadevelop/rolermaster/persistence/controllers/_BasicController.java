@@ -14,16 +14,15 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
 
     private _PersistenceManager manager = _PersistenceManager.getInstance();
 
+    protected _BasicController() {
+    }
+
     public _PersistenceManager pm() {
         if (Tools.isNull(manager)) {
             manager = _PersistenceManager.getInstance();
         }
         return manager;
     }
-
-    protected _BasicController() {
-    }
-
 
     @Override
     public T find(Integer idEntity) {

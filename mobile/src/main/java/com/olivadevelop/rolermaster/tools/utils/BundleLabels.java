@@ -6,5 +6,5 @@ package com.olivadevelop.rolermaster.tools.utils;
  */
 
 public abstract class BundleLabels {
-    public static final String EMAIL = "email";
+    public static final String FORGOT_PASS_EMAIL = "email";
 }

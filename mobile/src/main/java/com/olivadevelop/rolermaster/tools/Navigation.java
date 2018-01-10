@@ -31,13 +31,13 @@ public class Navigation {
     private CustomList<KeyValuePairClass> fragments;
     private Bundle lastArgs;
 
-    public static Navigation getInstance() {
-        return ourInstance;
-    }
-
     private Navigation() {
         fragments = new CustomList<>();
         navHomeFirst = true;
+    }
+
+    public static Navigation getInstance() {
+        return ourInstance;
     }
 
     public void setFragmentManager(FragmentManager fragmentManager) {

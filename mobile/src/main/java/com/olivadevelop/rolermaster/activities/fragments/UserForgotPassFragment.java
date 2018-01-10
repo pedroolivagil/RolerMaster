@@ -11,11 +11,12 @@ import android.widget.EditText;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 
-import static com.olivadevelop.rolermaster.tools.Tools.*;
+import static com.olivadevelop.rolermaster.tools.Tools.LoggerSnack;
+import static com.olivadevelop.rolermaster.tools.Tools.getFab;
+import static com.olivadevelop.rolermaster.tools.Tools.isEmailValid;
 
 public class UserForgotPassFragment extends CustomFragment {
     private Button btnRecovery;
@@ -36,15 +37,15 @@ public class UserForgotPassFragment extends CustomFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_forgot_pass, container, false);
-        setTitle(R.string.forgot_pass_title, R.string.forgot_pass_title_step1);
-        etEmail = findViewById(R.id.forgot_pass_mail);
+        setTitle(getString(R.string.forgot_pass_title), getString(R.string.forgot_pass_title_step1));
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery1);
+        btnRecovery = findViewById(R.id.btnRecovery1);
+        etEmail = findViewById(R.id.forgot_pass_mail);
         if (btnRecovery != null) {
             btnRecovery.setOnClickListener(this);
         }
@@ -52,14 +53,11 @@ public class UserForgotPassFragment extends CustomFragment {
 
     @Override
     public void onClick(View v) {
-        /*if (v == Tools.getFab()) {
-            Navigation.getInstance().navigate(UserLoginFragment.class);
-        } else */
         if (v == btnRecovery) {
             if (validateEmail()) {
                 Bundle args = new Bundle();
-                args.putString(BundleLabels.EMAIL, etEmail.getText().toString());
-                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT);
+                args.putString(BundleLabels.FORGOT_PASS_EMAIL, etEmail.getText().toString());
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT, args);
             } else {
                 LoggerSnack(v, this, R.string.forgot_pass_email_invalid);
             }
@@ -68,7 +66,7 @@ public class UserForgotPassFragment extends CustomFragment {
 
     private boolean validateEmail() {
         boolean retorno = false;
-        if (isNotNull(etEmail) && isEmailValid(etEmail)) {
+        if (isEmailValid(etEmail)) {
             retorno = true;
         }
         return retorno;

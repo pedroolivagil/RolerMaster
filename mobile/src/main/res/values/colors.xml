@@ -11,8 +11,7 @@
     <color name="bgSplash">#c1d7d9</color>
     <color name="colorPrimaryDark">#003742</color>
     <color name="colorPrimary">#08606a</color>
-    <!--<color name="colorAccent">#82b0b3</color>-->
-    <color name="colorAccent">#ffa69d</color>
+    <color name="colorAccent">#82408c</color>
     <color name="white">#FFFFFF</color>
     <color name="whiteGray">#FEFEFE</color>
     <color name="clearGray">#DDD</color>
@@ -20,6 +19,5 @@
     <color name="gray">#777</color>
     <color name="darkGray">#555</color>
     <color name="black">#000</color>
-
     <color name="black_overlay">#66000000</color>
 </resources>

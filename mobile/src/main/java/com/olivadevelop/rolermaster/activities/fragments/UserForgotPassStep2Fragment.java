@@ -11,6 +11,7 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 
 public class UserForgotPassStep2Fragment extends CustomFragment {
@@ -31,6 +32,11 @@ public class UserForgotPassStep2Fragment extends CustomFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_forgot_pass_step2, container, false);
+        String subtitle = "";
+        if (Tools.isNotNull(_args)) {
+            subtitle = _args.getString(BundleLabels.FORGOT_PASS_EMAIL);
+        }
+        setTitle(getString(R.string.forgot_pass_title), getString(R.string.forgot_pass_title_step3), subtitle);
         return view;
     }
 
@@ -51,7 +57,13 @@ public class UserForgotPassStep2Fragment extends CustomFragment {
         if (v == btnRecovery) {
             String msj = validatePasswords();
             if (Tools.isNull(msj)) {
-                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP3_FRAGMENT);
+                String subtitle = "";
+                if (Tools.isNotNull(_args)) {
+                    subtitle = _args.getString(BundleLabels.FORGOT_PASS_EMAIL);
+                }
+                Bundle args = new Bundle();
+                args.putString(BundleLabels.FORGOT_PASS_EMAIL, subtitle);
+                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP3_FRAGMENT, args);
             } else {
                 Tools.LoggerSnack(v, this, msj);
             }
