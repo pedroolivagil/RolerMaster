@@ -1,23 +1,25 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
+import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
+
+import static com.olivadevelop.rolermaster.tools.Tools.*;
 
 public class UserForgotPassFragment extends CustomFragment {
-    private OnFragmentInteractionListener mListener;
     private Button btnRecovery;
+    private EditText etEmail;
 
     public UserForgotPassFragment() {
         // Required empty public constructor
@@ -34,7 +36,8 @@ public class UserForgotPassFragment extends CustomFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_forgot_pass, container, false);
-        setTitle(R.string.forgot_pass_title);
+        setTitle(R.string.forgot_pass_title, R.string.forgot_pass_title_step1);
+        etEmail = findViewById(R.id.forgot_pass_mail);
         return view;
     }
 
@@ -47,42 +50,6 @@ public class UserForgotPassFragment extends CustomFragment {
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
     @Override
     public void onClick(View v) {
         /*if (v == Tools.getFab()) {
@@ -90,23 +57,25 @@ public class UserForgotPassFragment extends CustomFragment {
         } else */
         if (v == btnRecovery) {
             if (validateEmail()) {
+                Bundle args = new Bundle();
+                args.putString(BundleLabels.EMAIL, etEmail.getText().toString());
                 Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT);
             } else {
-                Tools.LoggerSnack(v,this, R.string.forgot_pass_email_invalid);
+                LoggerSnack(v, this, R.string.forgot_pass_email_invalid);
             }
         }
     }
 
     private boolean validateEmail() {
-        return true;
+        boolean retorno = false;
+        if (isNotNull(etEmail) && isEmailValid(etEmail)) {
+            retorno = true;
+        }
+        return retorno;
     }
 
     @Override
     protected void setFabIconFunction() {
-        /*super.setFabIconFunction();
-        Tools.getFab().setImageResource(R.drawable.account_key_white);
-        Tools.getFab().setOnClickListener(this);
-        Tools.getFab().show();*/
-        Tools.getFab().hide();
+        getFab().hide();
     }
 }

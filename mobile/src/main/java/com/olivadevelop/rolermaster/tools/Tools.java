@@ -20,7 +20,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -31,6 +31,8 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.utils.SpinnerAdapter;
+
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -175,6 +177,24 @@ public abstract class Tools {
         return !isNull(view);
     }
 
+    public static boolean isNotNull(EditText view) {
+        return !isNull(view) && isNotNull(view.getText()) && isNotNull(view.getText().toString().trim());
+    }
+
+    public static boolean isEmailValid(EditText email) {
+        return isEmailValid(email.getText().toString().trim());
+    }
+
+    public static boolean isEmailValid(String... emails) {
+        boolean retorno = true;
+        for (String email : emails) {
+            if (!EmailValidator.getInstance().isValid(email)) {
+                retorno = false;
+                break;
+            }
+        }
+        return retorno;
+    }
 
     public static void createSpinner(Activity a, View view, @IdRes int idSpinner, List<KeyValuePair> values) {
         createSpinnerBase(a, view, idSpinner, R.layout.custom_spinner, values, 0);

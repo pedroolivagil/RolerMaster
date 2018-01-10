@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,12 +22,12 @@ import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
 import java.util.concurrent.Callable;
 
 import static com.olivadevelop.rolermaster.tools.Tools.Logger;
 import static com.olivadevelop.rolermaster.tools.Tools.TIME_TO_EXIT;
-import static com.olivadevelop.rolermaster.tools.Tools.getFab;
 import static com.olivadevelop.rolermaster.tools.Tools.getMainScrollView;
 import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
 import static com.olivadevelop.rolermaster.tools.Tools.isNull;
@@ -36,8 +35,7 @@ import static com.olivadevelop.rolermaster.tools.Tools.newBooleanDialog;
 import static com.olivadevelop.rolermaster.tools.Tools.newInfoDialog;
 import static com.olivadevelop.rolermaster.tools.Tools.setFab;
 
-public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends RolerMasterActivity {
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -46,9 +44,6 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setFab((FloatingActionButton) findViewById(R.id.fab));
-        setFloatingActionButton();
-
         // Inicializamos variables
         SessionManager.getInstance().setLogged(false);
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
@@ -97,7 +92,6 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -148,14 +142,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setFloatingActionButton() {
-        final Activity a = this;
-        getFab().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Tools.LoggerSnack(view, a, "Replace text");
-                Tools.Logger(a, "click");
-            }
-        });
+        setFab((FloatingActionButton) findViewById(R.id.fab));
     }
 
     public void setToolbar() {
