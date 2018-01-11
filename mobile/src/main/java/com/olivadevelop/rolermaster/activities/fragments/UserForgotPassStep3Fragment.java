@@ -11,7 +11,7 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
+import com.olivadevelop.rolermaster.tools.utils.EnumBundle;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 
 
@@ -37,7 +37,7 @@ public class UserForgotPassStep3Fragment extends CustomFragment {
 
         String subtitle = "";
         if (Tools.isNotNull(_args)) {
-            subtitle = _args.getString(BundleLabels.FORGOT_PASS_EMAIL);
+            subtitle = _args.getString(EnumBundle.FORGOT_PASS_EMAIL);
         }
         setTitle(getString(R.string.forgot_pass_title), getString(R.string.forgot_pass_title_step4), subtitle);
         return view;
@@ -46,7 +46,7 @@ public class UserForgotPassStep3Fragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnRecovery = (Button) getActivity().findViewById(R.id.btnRecovery4);
+        btnRecovery = findViewById(R.id.btnRecovery4);
         if (btnRecovery != null) {
             btnRecovery.setOnClickListener(this);
         }
@@ -57,10 +57,10 @@ public class UserForgotPassStep3Fragment extends CustomFragment {
         if (v == btnRecovery) {
             String subtitle = "";
             if (Tools.isNotNull(_args)) {
-                subtitle = _args.getString(BundleLabels.FORGOT_PASS_EMAIL);
+                subtitle = _args.getString(EnumBundle.FORGOT_PASS_EMAIL);
             }
             Bundle args = new Bundle();
-            args.putString(BundleLabels.FORGOT_PASS_EMAIL, subtitle);
+            args.putString(EnumBundle.FORGOT_PASS_EMAIL, subtitle);
             Navigation.getInstance().navigate(NavigationFragment.USER_LOGIN_FRAGMENT, args);
         }
     }

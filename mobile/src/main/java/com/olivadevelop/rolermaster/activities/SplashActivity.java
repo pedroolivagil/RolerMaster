@@ -16,6 +16,7 @@ import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
 import static com.olivadevelop.rolermaster.tools.Tools.TIME_SPLASH;
@@ -101,6 +102,7 @@ public class SplashActivity extends RolerMasterActivity {
 
         // Inicilizamos la publicidad
         AdsAdMob.getInstance().initialize(this);
+        Preferences.getInstance().init(this);
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);

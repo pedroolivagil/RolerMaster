@@ -5,6 +5,7 @@ package com.olivadevelop.rolermaster.tools.utils;
  * Created by Oliva on 10/01/2018.
  */
 
-public abstract class BundleLabels {
+public abstract class EnumBundle {
     public static final String FORGOT_PASS_EMAIL = "email";
+    public static final String LOGIN_EMAIL = "loginEmail";
 }

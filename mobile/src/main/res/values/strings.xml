@@ -36,6 +36,7 @@
     <string name="login_user_recovery_pass">TRADUCIR</string>
     <string name="login_user_login">TRADUCIR</string>
     <string name="login_user_fail_login">TRADUCIR</string>
+    <string name="login_user_fail_login_bad_user_pass">TRADUCIR</string>
 
     <string name="signup_title">TRADUCIR</string>
     <string name="signup_user_title">TRADUCIR</string>

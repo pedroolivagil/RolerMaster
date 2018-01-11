@@ -11,7 +11,8 @@ import android.widget.EditText;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
-import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
+import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.EnumBundle;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 
 import static com.olivadevelop.rolermaster.tools.Tools.LoggerSnack;
@@ -46,7 +47,10 @@ public class UserForgotPassFragment extends CustomFragment {
         super.onActivityCreated(savedInstanceState);
         btnRecovery = findViewById(R.id.btnRecovery1);
         etEmail = findViewById(R.id.forgot_pass_mail);
-        if (btnRecovery != null) {
+        if (Tools.isNotNull(_args) && Tools.isNotNull(etEmail)) {
+            etEmail.setText(_args.getString(EnumBundle.FORGOT_PASS_EMAIL));
+        }
+        if (Tools.isNotNull(btnRecovery)) {
             btnRecovery.setOnClickListener(this);
         }
     }
@@ -56,7 +60,7 @@ public class UserForgotPassFragment extends CustomFragment {
         if (v == btnRecovery) {
             if (validateEmail()) {
                 Bundle args = new Bundle();
-                args.putString(BundleLabels.FORGOT_PASS_EMAIL, etEmail.getText().toString());
+                args.putString(EnumBundle.FORGOT_PASS_EMAIL, etEmail.getText().toString());
                 Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT, args);
             } else {
                 LoggerSnack(v, this, R.string.forgot_pass_email_invalid);
