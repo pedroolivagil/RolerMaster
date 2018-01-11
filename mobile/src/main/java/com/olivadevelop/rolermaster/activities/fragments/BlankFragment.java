@@ -5,15 +5,20 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
+import com.olivadevelop.rolermaster.tools.utils.EnumBundle;
+import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 public class BlankFragment extends CustomFragment {
 
+    private TextView blankUsername;
+
     public BlankFragment() {
-        // Required empty public constructor
+        super();
         setIgnoreEffects(true);
     }
 
@@ -34,6 +39,10 @@ public class BlankFragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        blankUsername = findViewById(R.id.blank_username);
+        blankUsername.setText(
+                Preferences.getPrefs().getString(EnumBundle.LOGIN_EMAIL, getString(R.string.blank_guest))
+        );
     }
 
     @Override

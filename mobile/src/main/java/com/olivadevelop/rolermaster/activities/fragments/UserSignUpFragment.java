@@ -21,6 +21,7 @@ public class UserSignUpFragment extends CustomFragment {
     private TestController testController;
 
     public UserSignUpFragment() {
+        super();
         testController = Controllers.getInstance().getTestController();
     }
 

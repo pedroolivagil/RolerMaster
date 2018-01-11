@@ -36,6 +36,7 @@
     <string name="login_user_recovery_pass">TRADUCIR</string>
     <string name="login_user_login">TRADUCIR</string>
     <string name="login_user_fail_login">TRADUCIR</string>
+    <string name="login_user_fail_login_bad_user_pass">TRADUCIR</string>
 
     <string name="signup_title">TRADUCIR</string>
     <string name="signup_user_title">TRADUCIR</string>
@@ -82,5 +83,8 @@
     <string name="forgot_pass_last_step">TRADUCIR</string>
     <string name="forgot_pass_code_invalid">TRADUCIR</string>
     <string name="forgot_pass_email_invalid">TRADUCIR</string>
+
+    <string name="blank_welcome">TRADUCIR</string>
+    <string name="blank_guest">TRADUCIR</string>
 
 </resources>

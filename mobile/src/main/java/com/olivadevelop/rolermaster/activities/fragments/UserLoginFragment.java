@@ -10,11 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.BundleLabels;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
+import com.olivadevelop.rolermaster.tools.utils.EnumBundle;
+import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 public class UserLoginFragment extends CustomFragment {
 
@@ -24,7 +26,7 @@ public class UserLoginFragment extends CustomFragment {
     private TextView recoveryPass;
 
     public UserLoginFragment() {
-        // Required empty public constructor
+        super();
     }
 
     @Override
@@ -39,15 +41,12 @@ public class UserLoginFragment extends CustomFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnLogin = (Button) getActivity().findViewById(R.id.btnLogin);
-        loginUser = (EditText) getActivity().findViewById(R.id.login_user);
-        loginPass = (EditText) getActivity().findViewById(R.id.login_pass);
-        recoveryPass = (TextView) getActivity().findViewById(R.id.recoveryPass);
+        btnLogin = findViewById(R.id.btnLogin);
+        loginUser = findViewById(R.id.login_user);
+        loginPass = findViewById(R.id.login_pass);
+        recoveryPass = findViewById(R.id.recoveryPass);
         if (Tools.isNotNull(recoveryPass)) {
             recoveryPass.setOnClickListener(this);
-        }
-        if (Tools.isNotNull(loginUser) && Tools.isNotNull(_args)) {
-            loginUser.setText(_args.getString(BundleLabels.FORGOT_PASS_EMAIL));
         }
         if (Tools.isNotNull(btnLogin)) {
             btnLogin.setOnClickListener(this);
@@ -60,7 +59,12 @@ public class UserLoginFragment extends CustomFragment {
             Navigation.getInstance().navigate(NavigationFragment.USER_SIGN_UP_FRAGMENT);
         } else if (v == btnLogin) {
             if (validateUserLogin()) {
-                Tools.Logger(this, "User: " + loginUser.getText() + "; Pass: " + loginPass.getText());
+                if (Controllers.getInstance().getTestController().testLogin(loginUser.getText().toString(), loginPass.getText().toString())) {
+                    Preferences.getInstance().editor().putString(EnumBundle.LOGIN_EMAIL, loginUser.getText().toString()).apply();
+                    Tools.LoggerSnack(v, this, "OK!");
+                } else {
+                    Tools.LoggerSnack(v, this, R.string.login_user_fail_login_bad_user_pass);
+                }
             } else {
                 Tools.LoggerSnack(v, this, R.string.login_user_fail_login);
             }

@@ -32,10 +32,14 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
      */
     protected OnFragmentInteractionListener mListener;
     protected View view;
+    protected Bundle _args;
     private HomeActivity a;
     private boolean ignoreNavigation;
     private boolean ignoreEffects;
-    protected Bundle _args;
+
+    public CustomFragment() {
+        setRetainInstance(true);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

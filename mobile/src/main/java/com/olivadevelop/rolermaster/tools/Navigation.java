@@ -78,6 +78,10 @@ public class Navigation {
         }
     }
 
+    public void navigate() {
+        navigate(fragments.last().getClass());
+    }
+
     public void back() {
         back(lastArgs);
     }

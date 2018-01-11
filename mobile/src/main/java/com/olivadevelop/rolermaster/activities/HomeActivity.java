@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.activities;
 
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -39,10 +38,13 @@ public class HomeActivity extends RolerMasterActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+    public HomeActivity() {
+        layout = R.layout.activity_main;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void initialize() {
+        super.initialize();
         // Inicializamos variables
         SessionManager.getInstance().setLogged(false);
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());

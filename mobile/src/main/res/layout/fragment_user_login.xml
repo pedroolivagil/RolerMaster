@@ -19,12 +19,14 @@
         <EditText
             android:id="@+id/login_user"
             style="@style/EditText"
-            android:hint="@string/login_user_username" />
+            android:hint="@string/login_user_username"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/login_pass"
             style="@style/EditText"
-            android:hint="@string/login_user_password" />
+            android:hint="@string/login_user_password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnLogin"

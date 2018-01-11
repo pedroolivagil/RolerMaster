@@ -27,6 +27,7 @@
     <string name="login_user_password">Contraseña</string>
     <string name="login_user_recovery_pass">¿Has olvidado la contraseña?</string>
     <string name="login_user_fail_login">Ambos campos son obligatorios</string>
+    <string name="login_user_fail_login_bad_user_pass">Usuario o contraseña incorrecto</string>
     <string name="login_user_login">Entrar</string>
 
     <string name="signup_title">Nuevo usuario</string>
@@ -74,5 +75,8 @@
     <string name="forgot_pass_last_step">Tu contraseña ha sido cambiada. Pulsa el siguiente botón para iniciar sesión.</string>
     <string name="forgot_pass_email_invalid">El email no es válido</string>
     <string name="forgot_pass_code_invalid">El código no es válido</string>
+
+    <string name="blank_welcome">Bienvenido</string>
+    <string name="blank_guest">Invitado</string>
 
 </resources>
