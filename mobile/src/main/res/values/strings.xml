@@ -86,5 +86,9 @@
 
     <string name="blank_welcome">TRADUCIR</string>
     <string name="blank_guest">TRADUCIR</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

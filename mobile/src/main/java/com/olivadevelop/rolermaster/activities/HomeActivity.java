@@ -102,6 +102,7 @@ public class HomeActivity extends RolerMasterActivity {
         } else if (id == R.id.nav_games) {
         } else if (id == R.id.nav_trash) {
         } else if (id == R.id.nav_manage) {
+            Navigation.getInstance().navigate(this, NavigationFragment.SETTINGS_ACTIVITY);
         } else if (id == R.id.nav_logout) {
         } else if (id == R.id.nav_login) {
             Navigation.getInstance().navigate(NavigationFragment.USER_LOGIN_FRAGMENT);

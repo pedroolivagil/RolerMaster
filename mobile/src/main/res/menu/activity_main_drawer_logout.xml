@@ -9,6 +9,10 @@
             android:icon="@drawable/account_key"
             android:title="@string/nav_login" />
         <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/wrench"
+            android:title="@string/nav_tools" />
+        <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/power"
             android:title="@string/nav_exit" />
