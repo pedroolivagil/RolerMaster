@@ -1,11 +1,5 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.controllers.TestController;
@@ -22,21 +16,19 @@ public class UserSignUpFragment extends CustomFragment {
 
     public UserSignUpFragment() {
         super();
+        idView = R.layout.fragment_user_sign_up;
         testController = Controllers.getInstance().getTestController();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_user_sign_up, container, false);
+    protected void actionsOnCreateView() {
+        super.actionsOnCreateView();
         setTitle(R.string.signup_title);
-        return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void actionsOnActivityCreated() {
+        super.actionsOnActivityCreated();
         List<KeyValuePair> values = null;
         List<KeyValuePair> values2 = null;
         List<KeyValuePair> values3 = null;
@@ -59,11 +51,6 @@ public class UserSignUpFragment extends CustomFragment {
         Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth1, Tools.getDays(), 70);
         Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth2, Tools.getMonths(this.getContext()), 155);
         Tools.createSpinnerCompact(this.getActivity(), view.findViewById(R.id.signup_spinners_birth), R.id.signup_user_birth3, Tools.getYears(), 85);
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override

@@ -1,10 +1,6 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
@@ -23,22 +19,14 @@ public class BlankFragment extends CustomFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void actionsOnCreateView() {
+        super.actionsOnCreateView();
+        setTitle(getString(R.string.app_name), getString(R.string.nav_home));
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_blank, container, false);
-        setTitle(R.string.index_title);
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void actionsOnActivityCreated() {
+        super.actionsOnActivityCreated();
         blankUsername = findViewById(R.id.blank_username);
         blankUsername.setText(
                 Preferences.getPrefs().getString(EnumBundle.LOGIN_EMAIL, getString(R.string.blank_guest))
@@ -53,9 +41,8 @@ public class BlankFragment extends CustomFragment {
     }
 
     @Override
-    public void onClick(View v) {
-        if (v == Tools.getFab()) {
-            Tools.LoggerSnack(v, this, "Replace text");
-        }
+    protected void actionsFab(View v) {
+        super.actionsFab(v);
+        Tools.LoggerSnack(v, this, "Replace text");
     }
 }

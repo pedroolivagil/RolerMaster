@@ -1,10 +1,6 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,20 +23,18 @@ public class UserLoginFragment extends CustomFragment {
 
     public UserLoginFragment() {
         super();
+        idView = R.layout.fragment_user_login;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_user_login, container, false);
+    protected void actionsOnCreateView() {
+        super.actionsOnCreateView();
         setTitle(R.string.login_title);
-        return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void actionsOnActivityCreated() {
+        super.actionsOnActivityCreated();
         btnLogin = findViewById(R.id.btnLogin);
         loginUser = findViewById(R.id.login_user);
         loginPass = findViewById(R.id.login_pass);
@@ -54,10 +48,15 @@ public class UserLoginFragment extends CustomFragment {
     }
 
     @Override
-    public void onClick(View v) {
-        if (v == Tools.getFab()) {
-            Navigation.getInstance().navigate(NavigationFragment.USER_SIGN_UP_FRAGMENT);
-        } else if (v == btnLogin) {
+    protected void actionsFab(View v) {
+        super.actionsFab(v);
+        Navigation.getInstance().navigate(NavigationFragment.USER_SIGN_UP_FRAGMENT);
+    }
+
+    @Override
+    protected void actionsOnClick(View v) {
+        super.actionsOnClick(v);
+        if (v == btnLogin) {
             if (validateUserLogin()) {
                 if (Controllers.getInstance().getTestController().testLogin(loginUser.getText().toString(), loginPass.getText().toString())) {
                     Preferences.getInstance().editor().putString(EnumBundle.LOGIN_EMAIL, loginUser.getText().toString()).apply();

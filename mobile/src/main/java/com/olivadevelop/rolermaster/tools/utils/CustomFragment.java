@@ -4,11 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.activities.HomeActivity;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
 
@@ -20,16 +26,8 @@ import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
 
 public class CustomFragment extends Fragment implements View.OnClickListener {
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @LayoutRes
+    protected int idView;
     protected OnFragmentInteractionListener mListener;
     protected View view;
     protected Bundle _args;
@@ -39,6 +37,7 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
 
     public CustomFragment() {
         setRetainInstance(true);
+        idView = R.layout.fragment_blank;
     }
 
     @Override
@@ -49,6 +48,21 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
         setIgnoreNavigation(false);
         setIgnoreEffects(false);
         _args = getArguments();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(idView, container, false);
+        actionsOnCreateView();
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        actionsOnActivityCreated();
     }
 
     @Override
@@ -70,10 +84,35 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+        actionsOnButtonPressed(uri);
     }
 
     @Override
     public void onClick(View v) {
+        if (v == Tools.getFab()) {
+            actionsFab(v);
+        } else {
+            actionsOnClick(v);
+        }
+    }
+
+    protected void actionsOnClick(View v) {
+
+    }
+
+    protected void actionsOnCreateView() {
+
+    }
+
+    protected void actionsOnActivityCreated() {
+
+    }
+
+    protected void actionsFab(View v) {
+
+    }
+
+    protected void actionsOnButtonPressed(Uri uri) {
 
     }
 

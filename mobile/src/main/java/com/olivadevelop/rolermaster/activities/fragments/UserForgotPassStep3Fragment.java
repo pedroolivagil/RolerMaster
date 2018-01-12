@@ -1,10 +1,7 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.olivadevelop.rolermaster.R;
@@ -21,31 +18,23 @@ public class UserForgotPassStep3Fragment extends CustomFragment {
 
     public UserForgotPassStep3Fragment() {
         super();
+        idView = R.layout.fragment_user_forgot_pass_step3;
         setIgnoreNavigation(true);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_user_forgot_pass_step3, container, false);
-
+    protected void actionsOnCreateView() {
+        super.actionsOnCreateView();
         String subtitle = "";
         if (Tools.isNotNull(_args)) {
             subtitle = _args.getString(EnumBundle.FORGOT_PASS_EMAIL);
         }
         setTitle(getString(R.string.forgot_pass_title), getString(R.string.forgot_pass_title_step4), subtitle);
-        return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void actionsOnActivityCreated() {
+        super.actionsOnActivityCreated();
         btnRecovery = findViewById(R.id.btnRecovery4);
         if (btnRecovery != null) {
             btnRecovery.setOnClickListener(this);
@@ -53,7 +42,8 @@ public class UserForgotPassStep3Fragment extends CustomFragment {
     }
 
     @Override
-    public void onClick(View v) {
+    protected void actionsOnClick(View v) {
+        super.actionsOnClick(v);
         if (v == btnRecovery) {
             String subtitle = "";
             if (Tools.isNotNull(_args)) {
