@@ -80,4 +80,6 @@
     <string name="blank_welcome">Bienvenido</string>
     <string name="blank_guest">Invitado</string>
 
+    <string name="settings_title_user">Cuenta de RolerMaster</string>
+
 </resources>

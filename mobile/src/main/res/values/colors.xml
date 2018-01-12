@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="transparent">#00000000</color>
-    <!--<color name="colorPrimaryDark">#00695C</color>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorAccent">#4DB6AC</color>-->
-    <!--<color name="bgSplash">#f7d0ae</color>
-    <color name="colorPrimaryDark">#d75f14</color>
-    <color name="colorPrimary">#e07c3a</color>
-    <color name="colorAccent">#f3a561</color>-->
     <color name="bgSplash">#c1d7d9</color>
     <color name="colorPrimaryDark">#003742</color>
     <color name="colorPrimary">#08606a</color>
