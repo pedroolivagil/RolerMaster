@@ -14,13 +14,12 @@
 
         <LinearLayout style="@style/LineSeparator" />
 
-        <LinearLayout
+        <boolean_settings_layout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
 
-        </LinearLayout>
+        </boolean_settings_layout>
 
     </LinearLayout>
 </FrameLayout>
