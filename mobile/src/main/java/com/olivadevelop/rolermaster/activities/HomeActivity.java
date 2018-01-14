@@ -59,6 +59,18 @@ public class HomeActivity extends RolerMasterActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        Navigation.getInstance().navigate();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Navigation.getInstance().navigate();
+    }
+
+    @Override
     public void onBackPressed() {
         if (getDrawer().isDrawerOpen(GravityCompat.START)) {
             getDrawer().closeDrawer(GravityCompat.START);

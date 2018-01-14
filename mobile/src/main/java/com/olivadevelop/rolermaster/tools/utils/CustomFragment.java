@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.activities.HomeActivity;
@@ -24,7 +25,7 @@ import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
  * RolerMaster
  */
 
-public class CustomFragment extends Fragment implements View.OnClickListener {
+public class CustomFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     @LayoutRes
     protected int idView;
@@ -94,6 +95,15 @@ public class CustomFragment extends Fragment implements View.OnClickListener {
         } else {
             actionsOnClick(v);
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        actionsOnCheckedChanged(compoundButton, b);
+    }
+
+    protected void actionsOnCheckedChanged(CompoundButton compoundButton, boolean b) {
+
     }
 
     protected void actionsOnClick(View v) {

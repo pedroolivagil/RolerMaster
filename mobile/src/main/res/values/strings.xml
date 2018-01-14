@@ -10,6 +10,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="white_space" translatable="true" formatted="false"> </string>
 
     <!-- Menú lateral -->
     <string name="nav_games">TRADUCIR</string>
@@ -20,6 +21,7 @@
     <string name="nav_exit">TRADUCIR</string>
     <string name="nav_login">TRADUCIR</string>
     <string name="nav_logout">TRADUCIR</string>
+    <string name="nav_home">TRADUCIR</string>
 
     <string name="nav_dialog_exit_title">TRADUCIR</string>
     <string name="nav_dialog_exit_message">TRADUCIR</string>
@@ -87,9 +89,7 @@
     <string name="blank_welcome">TRADUCIR</string>
     <string name="blank_guest">TRADUCIR</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="nav_home">TRADUCIR</string>
+
     <string name="settings_title_user">TRADUCIR</string>
 
 </resources>

@@ -79,7 +79,7 @@ public class Navigation {
     }
 
     public void navigate() {
-        navigate(fragments.last().getClass());
+        navigate(fragments.last().getClass(), lastArgs);
     }
 
     public void back() {

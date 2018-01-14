@@ -42,6 +42,12 @@
         <item name="android:layout_marginBottom">20dp</item>
     </style>
 
+    <style name="LineSeparatorWithoutMargin" parent="LineSeparator">
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
     <style name="FragmentTitle" parent="TextSizeSimple">
         <item name="android:textSize">@dimen/fragment_title_text</item>
         <item name="android:layout_marginBottom">@dimen/fragment_title_margin_btm</item>

@@ -1,25 +1,52 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Activity"
+    android:layout_height="wrap_content"
     tools:context="com.olivadevelop.rolermaster.activities.fragments.UserLoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             style="@style/PreferenceCategory"
+            android:layout_marginBottom="@dimen/settings_category_margin_btm"
             android:text="@string/settings_title_user" />
 
-        <LinearLayout style="@style/LineSeparator" />
-
-        <boolean_settings_layout
+        <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
+            android:id="@+id/optionTest"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:subtitleBooleanSettings="Subtítulo genérico para el test"
+            app:titleBooleanSettings="Título de prueba para el test" />
+
+        <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
+            android:id="@+id/optionTest2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleBooleanSettings="Subtítulo2 genérico para el test2"
+            app:titleBooleanSettings="Título2 de prueba para el test2" />
+
+        <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
+            android:id="@+id/optionTest3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleBooleanSettings="Subtítulo2 genérico para el test2"
+            app:titleBooleanSettings="Título2 de prueba para el test2" />
 
 
-        </boolean_settings_layout>
+        <TextView
+            style="@style/PreferenceCategory"
+            android:layout_marginBottom="@dimen/settings_category_margin_btm"
+            android:text="@string/settings_title_user" />
+
+        <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleBooleanSettings="Subtítulo2 genérico para el test2"
+            app:titleBooleanSettings="Título2 de prueba para el test2" />
 
     </LinearLayout>
 </FrameLayout>
