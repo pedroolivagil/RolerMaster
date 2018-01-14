@@ -16,37 +16,71 @@
             android:text="@string/settings_title_user" />
 
         <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
-            android:id="@+id/optionTest"
+            android:id="@+id/optionNotificationAutologin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:subtitleBooleanSettings="Subtítulo genérico para el test"
-            app:titleBooleanSettings="Título de prueba para el test" />
+            app:subtitleBooleanSettings="@string/settings_notification_autologin"
+            app:titleBooleanSettings="@string/settings_notification_title_autologin" />
 
         <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
-            android:id="@+id/optionTest2"
+            android:id="@+id/optionNotificationMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:subtitleBooleanSettings="Subtítulo2 genérico para el test2"
-            app:titleBooleanSettings="Título2 de prueba para el test2" />
+            app:subtitleBooleanSettings="@string/settings_notification_mail"
+            app:titleBooleanSettings="@string/settings_notification_title_mail" />
 
         <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
-            android:id="@+id/optionTest3"
+            android:id="@+id/optionNotificationCalendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:subtitleBooleanSettings="Subtítulo2 genérico para el test2"
-            app:titleBooleanSettings="Título2 de prueba para el test2" />
+            app:subtitleBooleanSettings="@string/settings_notification_calendar"
+            app:titleBooleanSettings="@string/settings_notification_title_calendar" />
 
+        <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
+            android:id="@+id/optionNotificationSwatch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleBooleanSettings="@string/settings_notification_swatch"
+            app:titleBooleanSettings="@string/settings_notification_title_swatch" />
 
+        <!-- Donar y quitar ads -->
         <TextView
             style="@style/PreferenceCategory"
             android:layout_marginBottom="@dimen/settings_category_margin_btm"
-            android:text="@string/settings_title_user" />
+            android:text="@string/settings_title_app" />
 
-        <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
+        <com.olivadevelop.rolermaster.tools.layouts.ItemSettingsView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:subtitleBooleanSettings="Subtítulo2 genérico para el test2"
-            app:titleBooleanSettings="Título2 de prueba para el test2" />
+            app:subtitleItemSettings="@string/settings_donate_app"
+            app:titleItemSettings="@string/settings_title_donate_app" />
 
+        <com.olivadevelop.rolermaster.tools.layouts.ItemSettingsView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleItemSettings="@string/settings_ads_app"
+            app:titleItemSettings="@string/settings_title_ads_app" />
+
+        <!-- Acerca de nosotros -->
+        <TextView
+            style="@style/PreferenceCategory"
+            android:layout_marginBottom="@dimen/settings_category_margin_btm"
+            android:text="@string/settings_title_about_developer" />
+
+        <TextView
+            style="@style/PreferenceOption"
+            android:layout_marginBottom="@dimen/settings_category_margin_btm"
+            android:text="@string/settings_about_developer" />
+
+        <!-- Versión -->
+        <TextView
+            style="@style/PreferenceCategory"
+            android:layout_marginBottom="@dimen/settings_category_margin_btm"
+            android:text="@string/settings_title_version" />
+
+        <TextView
+            android:id="@+id/tvVersion"
+            style="@style/PreferenceOption"
+            android:layout_marginBottom="@dimen/settings_category_margin_btm" />
     </LinearLayout>
 </FrameLayout>

@@ -13,6 +13,13 @@
     <declare-styleable name="BooleanSettingsView">
         <attr name="titleBooleanSettings" format="reference|string" />
         <attr name="subtitleBooleanSettings" format="reference|string" />
+        <attr name="disableSwitchBooleanSettings" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ItemSettingsView">
+        <attr name="titleItemSettings" format="reference|string" />
+        <attr name="subtitleItemSettings" format="reference|string" />
+        <attr name="disableItemSettings" format="boolean" />
     </declare-styleable>
 
 </resources>

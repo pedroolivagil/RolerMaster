@@ -161,6 +161,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textAllCaps">true</item>
+        <!--<item name="android:textAllCaps">true</item>-->
+    </style>
+
+    <style name="PreferenceOption" parent="TextSizeSimple">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
     </style>
 </resources>

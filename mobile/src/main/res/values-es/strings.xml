@@ -81,5 +81,22 @@
     <string name="blank_guest">Invitado</string>
 
     <string name="settings_title_user">Cuenta de RolerMaster</string>
+    <string name="settings_title_about_developer">Acerca de OlivaDevelop</string>
+    <string name="settings_about_developer">Especializado en el desarrollo de aplicaciones y juegos, intentando ofrecer la máxima sadisfacción para todos los usuarios del mundo</string>
+    <string name="settings_title_version">Versión</string>
+    <string name="settings_title_app">RolerMaster y OlivaDevelop</string>
+    <string name="settings_title_donate_app">Donar</string>
+    <string name="settings_donate_app">Aportar una pequeña donación para manrtener el servicio activo</string>
+    <string name="settings_title_ads_app">Quitar publicidad</string>
+    <string name="settings_ads_app">Quitar publicidad de toda la aplicación</string>
+    <string name="settings_notification_title_mail">Notificaciones por email</string>
+    <string name="settings_notification_title_calendar">Notificaciones de agenda</string>
+    <string name="settings_notification_title_swatch">Notificaciones en el reloj</string>
+    <string name="settings_notification_title_autologin">Autologin</string>
+    <string name="settings_notification_swatch">Muestra alertas de cambios en las partidas vinculadas</string>
+    <string name="settings_notification_calendar">Activa la opción para crear alertas de agenda</string>
+    <string name="settings_notification_mail">Activa la opción para enviar por correo las actualizaciones de las partidas</string>
+    <string name="settings_notification_autologin">Inicio de sesión automáticamente</string>
+    <string name="settings_changed_success">Se ha actualizado la configuración</string>
 
 </resources>

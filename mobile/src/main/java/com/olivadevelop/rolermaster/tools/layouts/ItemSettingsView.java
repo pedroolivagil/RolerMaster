@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
@@ -15,24 +14,23 @@ import com.olivadevelop.rolermaster.tools.Tools;
 /**
  * TODO: document your custom view class.
  */
-public class BooleanSettingsView extends LinearLayout implements View.OnClickListener {
+public class ItemSettingsView extends LinearLayout implements View.OnClickListener {
 
     private TextView tvTitle;
     private TextView tvSubtitle;
-    private Switch swValue;
     private boolean active;
 
-    public BooleanSettingsView(Context context) {
+    public ItemSettingsView(Context context) {
         super(context);
         init(context, null, 0);
     }
 
-    public BooleanSettingsView(Context context, AttributeSet attrs) {
+    public ItemSettingsView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public BooleanSettingsView(Context context, AttributeSet attrs, int defStyle) {
+    public ItemSettingsView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, defStyle);
     }
@@ -40,24 +38,23 @@ public class BooleanSettingsView extends LinearLayout implements View.OnClickLis
     private void init(Context context, AttributeSet attrs, int defStyle) {
 
         final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.BooleanSettingsView, defStyle, 0);
+                attrs, R.styleable.ItemSettingsView, defStyle, 0);
 
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.boolean_option_settings_layout, this, true);
+        inflater.inflate(R.layout.item_option_settings_layout, this, true);
 
-        tvTitle = findViewById(R.id.boolean_opt_settings_title);
-        tvSubtitle = findViewById(R.id.boolean_opt_settings_subtitle);
-        swValue = findViewById(R.id.boolean_opt_settings_value);
+        tvTitle = findViewById(R.id.item_opt_settings_title);
+        tvSubtitle = findViewById(R.id.item_opt_settings_subtitle);
 
         if (Tools.isNotNull(tvTitle)) {
-            tvTitle.setText(a.getString(R.styleable.BooleanSettingsView_titleBooleanSettings));
+            tvTitle.setText(a.getString(R.styleable.ItemSettingsView_titleItemSettings));
             tvTitle.setOnClickListener(this);
         }
         if (Tools.isNotNull(tvSubtitle)) {
-            tvSubtitle.setText(a.getString(R.styleable.BooleanSettingsView_subtitleBooleanSettings));
+            tvSubtitle.setText(a.getString(R.styleable.ItemSettingsView_subtitleItemSettings));
             tvSubtitle.setOnClickListener(this);
         }
-        active = !a.getBoolean(R.styleable.BooleanSettingsView_disableSwitchBooleanSettings, false);
+        active = !a.getBoolean(R.styleable.ItemSettingsView_disableItemSettings, false);
         a.recycle();
         setEnable();
     }
@@ -78,14 +75,6 @@ public class BooleanSettingsView extends LinearLayout implements View.OnClickLis
         this.tvSubtitle = tvSubtitle;
     }
 
-    public Switch getSwValue() {
-        return swValue;
-    }
-
-    public void setSwValue(Switch swValue) {
-        this.swValue = swValue;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -96,15 +85,11 @@ public class BooleanSettingsView extends LinearLayout implements View.OnClickLis
 
     public void setEnable() {
         if (active) {
-            swValue.setClickable(true);
-            swValue.setEnabled(true);
             tvSubtitle.setTextColor(getResources().getColor(R.color.darkGray));
             tvTitle.setTextColor(getResources().getColor(R.color.darkGray));
             tvTitle.setOnClickListener(this);
             tvSubtitle.setOnClickListener(this);
         } else {
-            swValue.setClickable(false);
-            swValue.setEnabled(false);
             tvTitle.setTextColor(getResources().getColor(R.color.clearGray));
             tvSubtitle.setTextColor(getResources().getColor(R.color.clearGray));
             tvTitle.setOnClickListener(null);
@@ -115,15 +100,11 @@ public class BooleanSettingsView extends LinearLayout implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view == tvSubtitle || view == tvTitle) {
-            toogle();
+            actionsItem();
         }
     }
 
-    private void toogle() {
-        if (swValue.isChecked()) {
-            swValue.setChecked(false);
-        } else {
-            swValue.setChecked(true);
-        }
+    public void actionsItem() {
+
     }
 }

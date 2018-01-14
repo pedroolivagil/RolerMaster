@@ -3,6 +3,8 @@ package com.olivadevelop.rolermaster.tools;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -421,5 +423,16 @@ public abstract class Tools {
         // objeto drawable y así asignarlo a un botón, imageview...
         return new BitmapDrawable(resizedBitmap);
 
+    }
+
+    public static String versionName(Context c) {
+        String version = "0.0.1";
+        try {
+            PackageInfo pInfo = c.getPackageManager().getPackageInfo(c.getPackageName(), 0);
+            version = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return version;
     }
 }

@@ -10,7 +10,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="white_space" translatable="true" formatted="false"> </string>
+    <string name="white_space" formatted="false" translatable="true"> </string>
 
     <!-- Menú lateral -->
     <string name="nav_games">TRADUCIR</string>
@@ -89,7 +89,15 @@
     <string name="blank_welcome">TRADUCIR</string>
     <string name="blank_guest">TRADUCIR</string>
 
-
     <string name="settings_title_user">TRADUCIR</string>
+    <string name="settings_title_about_developer">TRADUCIR</string>
+    <string name="settings_about_developer">TRADUCIR</string>
+    <string name="settings_title_version">TRADUCIR</string>
+    <string name="settings_title_app">TRADUCIR</string>
+    <string name="settings_title_donate_app">TRADUCIR</string>
+    <string name="settings_donate_app">TRADUCIR</string>
+    <string name="settings_title_ads_app">TRADUCIR</string>
+    <string name="settings_ads_app">TRADUCIR</string>
+    <string name="settings_changed_success">TRADUCIR</string>
 
 </resources>
