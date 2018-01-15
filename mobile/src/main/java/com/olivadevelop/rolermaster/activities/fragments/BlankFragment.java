@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
@@ -27,9 +28,13 @@ public class BlankFragment extends CustomFragment {
     protected void actionsOnActivityCreated() {
         super.actionsOnActivityCreated();
         blankUsername = findViewById(R.id.blank_username);
-        blankUsername.setText(
-                Preferences.getPrefs().getString(Preferences.EnumBundle.SESSION_USERNAME, getString(R.string.blank_guest))
-        );
+        if (SessionManager.getInstance().isLogged()) {
+            blankUsername.setText(
+                    Preferences.getPrefs().getString(Preferences.EnumBundle.SESSION_USERNAME, getString(R.string.blank_guest))
+            );
+        } else {
+            blankUsername.setText(getString(R.string.blank_guest));
+        }
     }
 
     @Override

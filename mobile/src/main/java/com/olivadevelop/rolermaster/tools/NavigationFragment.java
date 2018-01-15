@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.tools;
 
 import com.olivadevelop.rolermaster.activities.HomeActivity;
+import com.olivadevelop.rolermaster.activities.SplashActivity;
 import com.olivadevelop.rolermaster.activities.fragments.BlankFragment;
 import com.olivadevelop.rolermaster.activities.fragments.SettingsFragment;
 import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassFragment;
@@ -19,6 +20,7 @@ public abstract class NavigationFragment {
 
     // Activities
     public static final Class HOME_ACTIVITY = HomeActivity.class;
+    public static final Class SPLASH_ACTIVITY = SplashActivity.class;
 
     // Fragments
     public static final Class BLANK_FRAGMENT = BlankFragment.class;

@@ -187,10 +187,10 @@ public class HomeActivity extends RolerMasterActivity {
             TextView navUserMail = headerLayout.findViewById(R.id.nav_user_email);
 
             User user = Controllers.getInstance().getUserController().find(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0));
-            if (Tools.isNotNull(user) && Tools.isNotNull(navUserName)) {
+            if (Tools.isNotNull(user)) {
                 navUserName.setText(Tools.capitalize(user.getUsername()));
             }
-            if (Tools.isNotNull(user) && Tools.isNotNull(navUserMail)) {
+            if (Tools.isNotNull(user)) {
                 navUserMail.setText(user.getEmail());
             }
         }
@@ -202,7 +202,7 @@ public class HomeActivity extends RolerMasterActivity {
             @Override
             public Void call() throws Exception {
                 SessionManager.getInstance().logout();
-                Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, c, 0, null);
+                Navigation.getInstance().navigateActivityThread(NavigationFragment.SPLASH_ACTIVITY, c, 0, null);
                 return null;
             }
         });
