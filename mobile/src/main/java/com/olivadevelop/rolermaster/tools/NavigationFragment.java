@@ -20,7 +20,6 @@ public abstract class NavigationFragment {
 
     // Activities
     public static final Class HOME_ACTIVITY = HomeActivity.class;
-    public static final Class SPLASH_ACTIVITY = SplashActivity.class;
 
     // Fragments
     public static final Class BLANK_FRAGMENT = BlankFragment.class;

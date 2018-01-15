@@ -202,7 +202,7 @@ public class HomeActivity extends RolerMasterActivity {
             @Override
             public Void call() throws Exception {
                 SessionManager.getInstance().logout();
-                Navigation.getInstance().navigateActivityThread(NavigationFragment.SPLASH_ACTIVITY, c, 0, null);
+                Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, c, 0, null);
                 return null;
             }
         });
