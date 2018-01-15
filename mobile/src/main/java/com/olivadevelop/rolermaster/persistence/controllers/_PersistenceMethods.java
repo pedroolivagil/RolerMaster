@@ -17,6 +17,8 @@ public interface _PersistenceMethods<T> {
 
     List<T> findAllByIds(List<Integer> idsEntity);
 
+    T findOneByEntity(Entity entity);
+
     List<T> findByEntity(Entity entity);
 
     boolean persist(Entity entity);

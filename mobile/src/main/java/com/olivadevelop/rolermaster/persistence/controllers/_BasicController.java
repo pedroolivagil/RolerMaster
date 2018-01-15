@@ -40,6 +40,11 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     }
 
     @Override
+    public T findOneByEntity(Entity entity) {
+        return null;
+    }
+
+    @Override
     public List<T> findByEntity(Entity entity) {
         return null;
     }
