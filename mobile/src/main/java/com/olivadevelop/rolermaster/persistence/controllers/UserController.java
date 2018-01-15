@@ -10,22 +10,24 @@ import com.olivadevelop.rolermaster.persistence.entities.User;
  */
 public class UserController extends _BasicController<User> {
 
+    private User testUser;
+
+    public UserController() {
+        this.testUser = new User();
+        this.testUser.setIdUser(1);
+        this.testUser.setUsername("testuser");
+        this.testUser.setEmail("qqweert@kjdf.fer");
+        this.testUser.setPassword("1234");
+    }
+
     @Override
     public User find(Integer idEntity) {
-        User user = new User();
-        user.setUsername("Test User");
-        user.setEmail("qqweert@kjdf.fer");
-        user.setPassword("1234");
-        return user;
+        return this.testUser;
     }
 
     @Override
     public User findOneByEntity(Entity entity) {
-        User user = new User();
-        user.setUsername("Test User");
-        user.setEmail("qqweert@kjdf.fer");
-        user.setPassword("1234");
-        return user;
+        return this.testUser;
     }
 
     public User find(String usernamEmail) {

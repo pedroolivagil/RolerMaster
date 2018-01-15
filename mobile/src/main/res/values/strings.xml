@@ -24,7 +24,8 @@
     <string name="nav_home">TRADUCIR</string>
 
     <string name="nav_dialog_exit_title">TRADUCIR</string>
-    <string name="nav_dialog_exit_message">TRADUCIR</string>
+    <string name="nav_dialog_sure_message">TRADUCIR</string>
+    <string name="nav_dialog_logout_title">TRADUCIR</string>
 
     <string name="true_dialog" translatable="false">@android:string/ok</string>
     <string name="false_dialog" translatable="false">@android:string/cancel</string>
@@ -99,5 +100,7 @@
     <string name="settings_title_ads_app">TRADUCIR</string>
     <string name="settings_ads_app">TRADUCIR</string>
     <string name="settings_changed_success">TRADUCIR</string>
+    <string name="option_not_available">TRADUCIR</string>
+    <string name="login_user_logging">TRADUCIR</string>
 
 </resources>

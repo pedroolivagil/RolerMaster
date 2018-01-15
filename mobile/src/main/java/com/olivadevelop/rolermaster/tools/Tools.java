@@ -24,6 +24,8 @@ import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -56,6 +58,7 @@ public abstract class Tools {
     public static int TIME_TO_EXIT = 2000; // Miliseconds
     private static FloatingActionButton fab;
     private static ScrollView mainScrollView;
+    private static LinearLayout modalView;
 
     public static FloatingActionButton getFab() {
         return fab;
@@ -71,6 +74,49 @@ public abstract class Tools {
 
     public static void setMainScrollView(ScrollView mainScrollView) {
         Tools.mainScrollView = mainScrollView;
+    }
+
+    public static LinearLayout getModalView() {
+        return modalView;
+    }
+
+    public static void setModalView(LinearLayout modalView) {
+        Tools.modalView = modalView;
+    }
+
+    public static void showModal(Activity a) {
+        showModal(a, false);
+    }
+
+    public static void showModal(Activity a, boolean hideFab) {
+        modalView.setVisibility(View.VISIBLE);
+        modalView.bringToFront();
+        if (hideFab) {
+            getFab().hide();
+        }
+        disableView(a);
+    }
+
+    public static void hideModal(Activity a) {
+        hideModal(a, false);
+    }
+
+    public static void hideModal(Activity a, boolean showFab) {
+        modalView.setVisibility(View.GONE);
+        if (showFab) {
+            getFab().show();
+        }
+        enableView(a);
+    }
+
+    public static void disableView(Activity a) {
+        a.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public static void enableView(Activity a) {
+        a.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        a.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public static void newBooleanDialog(Context c, @StringRes int idTitle, @StringRes int idMessage, final Callable<Void> funcPos) {
@@ -161,6 +207,14 @@ public abstract class Tools {
     public static void LoggerSnack(View view, CustomFragment c, String text) {
         customSnackBar(view, text);
         Log.i(c.getClass().getSimpleName(), text);
+    }
+
+    public static void LoggerSnackNotAvailable(View view, Activity c) {
+        LoggerSnack(view, c, c.getString(R.string.option_not_available));
+    }
+
+    public static void LoggerSnackNotAvailable(View view, CustomFragment c) {
+        LoggerSnack(view, c, c.getString(R.string.option_not_available));
     }
 
     public static boolean isNull(Object object) {
@@ -434,5 +488,27 @@ public abstract class Tools {
             e.printStackTrace();
         }
         return version;
+    }
+
+    public static void hideVirtualKeyboard(Activity c) {
+        View view = c.getCurrentFocus();
+        if (isNotNull(view)) {
+            view.clearFocus();
+            InputMethodManager imm = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (isNotNull(imm)) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+    }
+
+    public static String capitalize(CharSequence sequence) {
+        StringBuilder retorno = new StringBuilder();
+        if (isNotNull(sequence)) {
+            retorno.append(sequence.charAt(0));
+            if (sequence.length() > 1) {
+                retorno.append(sequence.subSequence(1, sequence.length()));
+            }
+        }
+        return retorno.toString();
     }
 }

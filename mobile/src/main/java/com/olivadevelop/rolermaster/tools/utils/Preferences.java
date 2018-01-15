@@ -43,4 +43,19 @@ public class Preferences {
     public void apply() {
         editor().apply();
     }
+
+
+    public abstract static class EnumBundle {
+        public static final String FORGOT_PASS_EMAIL = "email";
+        public static final String LOGIN_EMAIL = "loginEmail"; //borrar
+
+        public static final String PREFS_AUTOLOGIN = "autologin";
+        public static final String PREFS_NOTIF_EMAIL = "notifEmail";
+        public static final String PREFS_NOTIF_CALENDAR = "notifCalendar";
+        public static final String PREFS_NOTIF_SWATCH = "notifSwatch";
+
+        public static final String SESSION_ID_USER = "sessionIdUser";
+        public static final String SESSION_USERNAME = "sessionUserName";
+        public static final String SESSION_USERPASS = "sessionUserPass";
+    }
 }

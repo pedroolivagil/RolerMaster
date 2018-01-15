@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.CustomList;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePairClass;
+import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +62,28 @@ public class Navigation {
 
     public void navigate(Class fragmentClass) {
         navigate(fragmentClass, null);
+    }
+
+    public void navigateActivityThread(final Class fragmentClass, final Context c, int time, final ProgressBar progressBar) {
+        RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
+            @Override
+            public void run() {
+                super.run();
+                Navigation.getInstance().navigate(c, fragmentClass);
+            }
+        };
+        RolerMasterThread.getInstance().newThread(c, time, action, progressBar);
+    }
+
+    public void navigateFragmentThread(final Class fragmentClass, Context c, int time, final ProgressBar progressBar) {
+        RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
+            @Override
+            public void run() {
+                super.run();
+                Navigation.getInstance().navigate(fragmentClass);
+            }
+        };
+        RolerMasterThread.getInstance().newThread(c, time, action, progressBar);
     }
 
     public void navigate(Class fragmentClass, Bundle args) {

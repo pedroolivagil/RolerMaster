@@ -15,7 +15,7 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
-import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
@@ -114,28 +114,9 @@ public class SplashActivity extends RolerMasterActivity {
         progressBar.setMax(TIME_SPLASH);
         progressBar.setProgress(0);
         final Context c = this;
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    int waited = 0;
-                    while (waited < TIME_SPLASH) {
-                        sleep(100);
-                        progressBar.incrementProgressBy(100);
-                        waited += 100;
-                    }
-                } catch (InterruptedException e) {
-                    Tools.Logger(c, e);
-                } finally {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Navigation.getInstance().navigate(c, NavigationFragment.MAIN_ACTIVITY);
-                        }
-                    });
-                }
-            }
-        }.start();
+
+        SessionManager.getInstance().autologin();
+        Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, c, TIME_SPLASH, progressBar);
     }
 
     @Override

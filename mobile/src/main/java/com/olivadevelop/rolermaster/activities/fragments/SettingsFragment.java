@@ -2,14 +2,16 @@ package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView;
+import com.olivadevelop.rolermaster.tools.layouts.ItemSettingsView;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
-import com.olivadevelop.rolermaster.tools.utils.EnumBundle;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 public class SettingsFragment extends CustomFragment {
@@ -20,6 +22,8 @@ public class SettingsFragment extends CustomFragment {
     private BooleanSettingsView optionNotificationAutologin;
 
     private boolean firstLoad;
+    private ItemSettingsView optionDonate;
+    private ItemSettingsView optionBuyLicenceApp;
 
     public SettingsFragment() {
         idView = R.layout.fragment_settings;
@@ -38,10 +42,10 @@ public class SettingsFragment extends CustomFragment {
         TextView tvVersion = findViewById(R.id.tvVersion);
         tvVersion.setText(Tools.versionName(this.getContext()));
 
-        boolean autologin = Preferences.getPrefs().getBoolean(EnumBundle.PREFS_AUTOLOGIN, false);
-        boolean notifMail = Preferences.getPrefs().getBoolean(EnumBundle.PREFS_NOTIF_EMAIL, false);
-        boolean notifCalendar = Preferences.getPrefs().getBoolean(EnumBundle.PREFS_NOTIF_CALENDAR, false);
-        boolean notifSwatch = Preferences.getPrefs().getBoolean(EnumBundle.PREFS_NOTIF_SWATCH, false);
+        boolean autologin = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_AUTOLOGIN, false);
+        boolean notifMail = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_NOTIF_EMAIL, false);
+        boolean notifCalendar = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_NOTIF_CALENDAR, false);
+        boolean notifSwatch = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_NOTIF_SWATCH, false);
         firstLoad = true;
 
         optionNotificationAutologin = findViewById(R.id.optionNotificationAutologin);
@@ -60,7 +64,31 @@ public class SettingsFragment extends CustomFragment {
         optionNotificationSwatch.getSwValue().setOnCheckedChangeListener(this);
         optionNotificationSwatch.getSwValue().setChecked(notifSwatch);
 
+        optionDonate = findViewById(R.id.optionDonate);
+        optionDonate.setOnClickListener(this);
+        optionBuyLicenceApp = findViewById(R.id.optionBuyLicenceApp);
+        optionBuyLicenceApp.setOnClickListener(this);
+
         firstLoad = false;
+
+        if (!SessionManager.getInstance().isLogged()) {
+            optionNotificationAutologin.setActive(false);
+            optionNotificationMail.setActive(false);
+            optionNotificationCalendar.setActive(false);
+            optionNotificationSwatch.setActive(false);
+            optionDonate.setActive(false);
+            optionBuyLicenceApp.setActive(false);
+        }
+    }
+
+    @Override
+    protected void actionsOnClick(View v) {
+        super.actionsOnClick(v);
+        if (v == optionDonate) {
+            Tools.LoggerSnackNotAvailable(view, this);
+        } else if (v == optionBuyLicenceApp) {
+            Tools.LoggerSnackNotAvailable(view, this);
+        }
     }
 
     @Override
@@ -68,13 +96,13 @@ public class SettingsFragment extends CustomFragment {
         super.actionsOnCheckedChanged(compoundButton, b);
         if (!firstLoad) {
             if (optionNotificationAutologin.getSwValue() == compoundButton) {
-                Preferences.getInstance().editor().putBoolean(EnumBundle.PREFS_AUTOLOGIN, b).apply();
-            }else if (optionNotificationMail.getSwValue() == compoundButton) {
-                Preferences.getInstance().editor().putBoolean(EnumBundle.PREFS_NOTIF_EMAIL, b).apply();
+                Preferences.getInstance().editor().putBoolean(Preferences.EnumBundle.PREFS_AUTOLOGIN, b).apply();
+            } else if (optionNotificationMail.getSwValue() == compoundButton) {
+                Preferences.getInstance().editor().putBoolean(Preferences.EnumBundle.PREFS_NOTIF_EMAIL, b).apply();
             } else if (optionNotificationCalendar.getSwValue() == compoundButton) {
-                Preferences.getInstance().editor().putBoolean(EnumBundle.PREFS_NOTIF_CALENDAR, b).apply();
+                Preferences.getInstance().editor().putBoolean(Preferences.EnumBundle.PREFS_NOTIF_CALENDAR, b).apply();
             } else if (optionNotificationSwatch.getSwValue() == compoundButton) {
-                Preferences.getInstance().editor().putBoolean(EnumBundle.PREFS_NOTIF_SWATCH, b).apply();
+                Preferences.getInstance().editor().putBoolean(Preferences.EnumBundle.PREFS_NOTIF_SWATCH, b).apply();
             }
             Tools.LoggerSnack(view, this, R.string.settings_changed_success);
         }

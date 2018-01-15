@@ -57,6 +57,7 @@ public class CustomFragment extends Fragment implements View.OnClickListener, Co
         // Inflate the layout for this fragment
         view = inflater.inflate(idView, container, false);
         actionsOnCreateView();
+        Tools.hideVirtualKeyboard(this.getActivity());
         return view;
     }
 

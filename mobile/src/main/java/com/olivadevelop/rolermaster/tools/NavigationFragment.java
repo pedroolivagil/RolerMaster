@@ -18,7 +18,7 @@ import com.olivadevelop.rolermaster.activities.fragments.UserSignUpFragment;
 public abstract class NavigationFragment {
 
     // Activities
-    public static final Class MAIN_ACTIVITY = HomeActivity.class;
+    public static final Class HOME_ACTIVITY = HomeActivity.class;
 
     // Fragments
     public static final Class BLANK_FRAGMENT = BlankFragment.class;

@@ -6,13 +6,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
+import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
-import com.olivadevelop.rolermaster.tools.utils.EnumBundle;
-import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 public class UserLoginFragment extends CustomFragment {
 
@@ -45,6 +43,10 @@ public class UserLoginFragment extends CustomFragment {
         if (Tools.isNotNull(btnLogin)) {
             btnLogin.setOnClickListener(this);
         }
+
+        /*para el test*/
+        loginUser.setText("testuser");
+        loginPass.setText("1234");
     }
 
     @Override
@@ -57,14 +59,18 @@ public class UserLoginFragment extends CustomFragment {
     protected void actionsOnClick(View v) {
         super.actionsOnClick(v);
         if (v == btnLogin) {
+            Tools.showModal(this.getActivity(), true);
+            Tools.hideVirtualKeyboard(this.getActivity());
+            Tools.LoggerSnack(v, this, R.string.login_user_logging);
             if (validateUserLogin()) {
-                if (Controllers.getInstance().getTestController().testLogin(loginUser.getText().toString(), loginPass.getText().toString())) {
-                    Preferences.getInstance().editor().putString(EnumBundle.LOGIN_EMAIL, loginUser.getText().toString()).apply();
-                    Tools.LoggerSnack(v, this, "OK!");
+                if (SessionManager.getInstance().login(loginUser.getText().toString().trim(), loginPass.getText().toString().trim())) {
+                    Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, this.getContext(), 3000, null);
                 } else {
+                    Tools.hideModal(this.getActivity(), true);
                     Tools.LoggerSnack(v, this, R.string.login_user_fail_login_bad_user_pass);
                 }
             } else {
+                Tools.hideModal(this.getActivity(), true);
                 Tools.LoggerSnack(v, this, R.string.login_user_fail_login);
             }
         } else if (v == recoveryPass) {

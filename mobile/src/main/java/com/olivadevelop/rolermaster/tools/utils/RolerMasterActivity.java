@@ -52,4 +52,8 @@ public class RolerMasterActivity extends AppCompatActivity implements Navigation
     protected void initialize() {
         setContentView(layout);
     }
+
+    public final void update(){
+        initialize();
+    }
 }

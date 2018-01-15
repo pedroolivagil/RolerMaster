@@ -11,7 +11,17 @@ public class Controllers {
     private UserController userController;
 
     private Controllers() {
+        init();
+    }
+
+    public void init(){
         testController = new TestController();
+        userController = new UserController();
+    }
+
+    public void clear(){
+        testController = null;
+        userController = null;
     }
 
     public static Controllers getInstance() {

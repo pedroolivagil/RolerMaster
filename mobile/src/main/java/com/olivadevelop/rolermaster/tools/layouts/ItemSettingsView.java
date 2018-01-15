@@ -81,6 +81,7 @@ public class ItemSettingsView extends LinearLayout implements View.OnClickListen
 
     public void setActive(boolean active) {
         this.active = active;
+        setEnable();
     }
 
     public void setEnable() {

@@ -38,7 +38,6 @@ public class BooleanSettingsView extends LinearLayout implements View.OnClickLis
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
-
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.BooleanSettingsView, defStyle, 0);
 
@@ -92,6 +91,7 @@ public class BooleanSettingsView extends LinearLayout implements View.OnClickLis
 
     public void setActive(boolean active) {
         this.active = active;
+        setEnable();
     }
 
     public void setEnable() {

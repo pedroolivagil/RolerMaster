@@ -9,7 +9,7 @@ import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
-import com.olivadevelop.rolermaster.tools.utils.EnumBundle;
+import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 public class UserForgotPassStep1Fragment extends CustomFragment {
 
@@ -26,7 +26,7 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
         super.actionsOnCreateView();
         String subtitle = "";
         if (Tools.isNotNull(_args)) {
-            subtitle = _args.getString(EnumBundle.FORGOT_PASS_EMAIL);
+            subtitle = _args.getString(Preferences.EnumBundle.FORGOT_PASS_EMAIL);
         }
         setTitle(getString(R.string.forgot_pass_title), getString(R.string.forgot_pass_title_step2), subtitle);
     }
@@ -47,10 +47,10 @@ public class UserForgotPassStep1Fragment extends CustomFragment {
             if (validateCode()) {
                 String subtitle = "";
                 if (Tools.isNotNull(_args)) {
-                    subtitle = _args.getString(EnumBundle.FORGOT_PASS_EMAIL);
+                    subtitle = _args.getString(Preferences.EnumBundle.FORGOT_PASS_EMAIL);
                 }
                 Bundle args = new Bundle();
-                args.putString(EnumBundle.FORGOT_PASS_EMAIL, subtitle);
+                args.putString(Preferences.EnumBundle.FORGOT_PASS_EMAIL, subtitle);
                 Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP2_FRAGMENT, args);
             } else {
                 Tools.LoggerSnack(v, this, R.string.forgot_pass_code_invalid);

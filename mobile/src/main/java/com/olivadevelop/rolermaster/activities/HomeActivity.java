@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.activities;
 
+import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,27 +12,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
+import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
 import java.util.concurrent.Callable;
 
 import static com.olivadevelop.rolermaster.tools.Tools.Logger;
 import static com.olivadevelop.rolermaster.tools.Tools.TIME_TO_EXIT;
-import static com.olivadevelop.rolermaster.tools.Tools.getMainScrollView;
 import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
 import static com.olivadevelop.rolermaster.tools.Tools.isNull;
 import static com.olivadevelop.rolermaster.tools.Tools.newBooleanDialog;
 import static com.olivadevelop.rolermaster.tools.Tools.newInfoDialog;
-import static com.olivadevelop.rolermaster.tools.Tools.setFab;
 
 public class HomeActivity extends RolerMasterActivity {
     private DrawerLayout drawer;
@@ -46,28 +49,16 @@ public class HomeActivity extends RolerMasterActivity {
     protected void initialize() {
         super.initialize();
         // Inicializamos variables
-        SessionManager.getInstance().setLogged(false);
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
         // Inicializamos el menú lateral izquierdo
         setToolbar();
         setNavigationDrawer();
         // Inicializamos el boón flotante
         setMainScrollView();
+        setModalView();
         setFloatingActionButton();
         setBasicUserData();
         Navigation.getInstance().navigate(NavigationFragment.BLANK_FRAGMENT);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Navigation.getInstance().navigate();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Navigation.getInstance().navigate();
     }
 
     @Override
@@ -116,6 +107,7 @@ public class HomeActivity extends RolerMasterActivity {
         } else if (id == R.id.nav_manage) {
             Navigation.getInstance().navigate(NavigationFragment.SETTINGS_FRAGMENT);
         } else if (id == R.id.nav_logout) {
+            navBtnLogout();
         } else if (id == R.id.nav_login) {
             Navigation.getInstance().navigate(NavigationFragment.USER_LOGIN_FRAGMENT);
         } else if (id == R.id.nav_exit) {
@@ -150,13 +142,18 @@ public class HomeActivity extends RolerMasterActivity {
         return actionBarHeight;
     }
 
+    private void setModalView() {
+        Tools.setModalView((LinearLayout) findViewById(R.id.modalView));
+        Tools.getModalView().setPadding(0, getActionBarHeight(), 0, 0);
+    }
+
     private void setMainScrollView() {
         Tools.setMainScrollView((ScrollView) findViewById(R.id.mainScrollView));
-        getMainScrollView().setPadding(0, getActionBarHeight(), 0, 0);
+        Tools.getMainScrollView().setPadding(0, getActionBarHeight(), 0, 0);
     }
 
     private void setFloatingActionButton() {
-        setFab((FloatingActionButton) findViewById(R.id.fab));
+        Tools.setFab((FloatingActionButton) findViewById(R.id.fab));
     }
 
     public void setToolbar() {
@@ -175,29 +172,44 @@ public class HomeActivity extends RolerMasterActivity {
         if (SessionManager.getInstance().isLogged()) {
             navigationView.inflateHeaderView(R.layout.nav_header_main_login);
             navigationView.inflateMenu(R.menu.activity_main_drawer_login);
+            setBasicUserData();
         } else {
             navigationView.inflateHeaderView(R.layout.nav_header_main_logout);
             navigationView.inflateMenu(R.menu.activity_main_drawer_logout);
         }
-        /*AdsAdMob.getInstance().printBanner((AdView) findViewById(R.id.navAdView));*/
     }
 
     private void setBasicUserData() {
         if (SessionManager.getInstance().isLogged() && navigationView != null) {
-            /*View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main_login);*/
             View headerLayout = navigationView.getHeaderView(0);
-            ImageView navHeaderImg = (ImageView) headerLayout.findViewById(R.id.nav_header_image);
-            TextView navUserName = (TextView) headerLayout.findViewById(R.id.nav_user_name);
-            TextView navUserMail = (TextView) headerLayout.findViewById(R.id.nav_user_email);
+            ImageView navHeaderImg = headerLayout.findViewById(R.id.nav_header_image);
+            TextView navUserName = headerLayout.findViewById(R.id.nav_user_name);
+            TextView navUserMail = headerLayout.findViewById(R.id.nav_user_email);
 
-            // Añadimos datos falsos para el test
-            navUserName.setText("Test Name User");
-            navUserMail.setText("usermail@test.com");
+            User user = Controllers.getInstance().getUserController().find(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0));
+            if (Tools.isNotNull(user) && Tools.isNotNull(navUserName)) {
+                navUserName.setText(Tools.capitalize(user.getUsername()));
+            }
+            if (Tools.isNotNull(user) && Tools.isNotNull(navUserMail)) {
+                navUserMail.setText(user.getEmail());
+            }
         }
     }
 
+    private void navBtnLogout() {
+        final Context c = this;
+        newBooleanDialog(this, R.string.nav_dialog_logout_title, R.string.nav_dialog_sure_message, new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                SessionManager.getInstance().logout();
+                Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, c, 0, null);
+                return null;
+            }
+        });
+    }
+
     private void navBtnExit() {
-        newBooleanDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_exit_message, new Callable<Void>() {
+        newBooleanDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_sure_message, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
                 exitStep1();
