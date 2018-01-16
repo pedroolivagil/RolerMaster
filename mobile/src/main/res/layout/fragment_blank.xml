@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Activity"
     tools:context="com.olivadevelop.rolermaster.activities.fragments.BlankFragment">
@@ -43,6 +42,7 @@
             android:textSize="18sp" />
 
         <LinearLayout
+            android:id="@+id/mainCardGame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/blank_username"
@@ -51,28 +51,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/blankLastTitle"
                 style="@style/TextSizeSimple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/blank_last_project" />
+                android:text="@string/blank_last_project"
+                android:visibility="gone" />
 
             <TextView
+                android:id="@+id/blankLastDate"
                 style="@style/TextSizeSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
-                android:text="23/01/2018"
-                android:textColor="@color/colorAccent" />
-
-            <com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:descriptionGameCardView="@string/lorem_large"
-                app:idGameCardView="1"
-                app:imageGameCardView="https://cdn1.iconfinder.com/data/icons/google_jfk_icons_by_carlosjj/256/chrome.png"
-                app:titleGameCardView="@string/lorem_small" />
+                android:textColor="@color/colorAccent"
+                android:visibility="gone" />
 
         </LinearLayout>
 

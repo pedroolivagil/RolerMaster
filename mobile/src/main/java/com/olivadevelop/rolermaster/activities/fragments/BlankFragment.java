@@ -1,19 +1,21 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
-import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 public class BlankFragment extends CustomFragment {
 
     private TextView blankUsername;
+    private LinearLayout mainCardGame;
 
     public BlankFragment() {
         super();
@@ -30,10 +32,28 @@ public class BlankFragment extends CustomFragment {
     protected void actionsOnActivityCreated() {
         super.actionsOnActivityCreated();
         blankUsername = findViewById(R.id.blank_username);
+        mainCardGame = findViewById(R.id.mainCardGame);
         if (SessionManager.getInstance().isLogged()) {
             blankUsername.setText(
                     Preferences.getPrefs().getString(Preferences.EnumBundle.SESSION_USERNAME, getString(R.string.blank_guest))
             );
+
+            TextView blankLastTitle = findViewById(R.id.blankLastTitle);
+            TextView blankLastDate = findViewById(R.id.blankLastDate);
+            // TODO: MOCK, deberemos recuperar la última partida modificada ACTIVA del usuario. si devuelve algún resultado, creamos una RolerCardView y la mostramos
+            RolerMasterCardView rolerMasterCardView = new RolerMasterCardView(this.getContext());
+            rolerMasterCardView.setActive(true);
+            rolerMasterCardView.setTitle_card_view(getString(R.string.lorem_small));
+            rolerMasterCardView.setDescript_card_view(getString(R.string.lorem_large));
+            rolerMasterCardView.setId_card_view(1);
+            rolerMasterCardView.setImage_card_view("https://cdn1.iconfinder.com/data/icons/google_jfk_icons_by_carlosjj/256/chrome.png");
+
+            if (rolerMasterCardView.isActive()) {
+                blankLastTitle.setVisibility(View.VISIBLE);
+                blankLastDate.setVisibility(View.VISIBLE);
+                blankLastDate.setText(Tools.getCurrentDate());
+                mainCardGame.addView(rolerMasterCardView);
+            }
         } else {
             blankUsername.setText(getString(R.string.blank_guest));
         }
