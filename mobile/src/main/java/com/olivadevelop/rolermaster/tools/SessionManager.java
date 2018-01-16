@@ -1,5 +1,7 @@
 package com.olivadevelop.rolermaster.tools;
 
+import android.util.Log;
+
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
@@ -47,11 +49,8 @@ public class SessionManager {
 
     public void logout() {
         setLogged(false);
-        Preferences.getInstance().editor().remove(Preferences.EnumBundle.SESSION_ID_USER);
-        Preferences.getInstance().editor().remove(Preferences.EnumBundle.SESSION_USERNAME);
-        Preferences.getInstance().editor().remove(Preferences.EnumBundle.SESSION_USERPASS);
-        Preferences.getInstance().editor().remove(Preferences.EnumBundle.PREFS_AUTOLOGIN);
-        Preferences.getInstance().editor().apply();
+        Preferences.getInstance().clear();
+        Preferences.getInstance().apply();
     }
 
     public void autologin() {

@@ -1,6 +1,6 @@
 package com.olivadevelop.rolermaster.activities;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -68,7 +68,7 @@ public class HomeActivity extends RolerMasterActivity {
             if (Navigation.getInstance().hasPages() && !Navigation.getInstance().isFirstPage()) {
                 Navigation.getInstance().back();
             } else {
-                navBtnExit();
+                getDrawer().openDrawer(GravityCompat.START);
             }
         }
     }
@@ -207,14 +207,15 @@ public class HomeActivity extends RolerMasterActivity {
     }
 
     private void navBtnLogout() {
-        final Context c = this;
+        final Activity a = this;
         newBooleanDialog(this, R.string.nav_dialog_logout_title, R.string.nav_dialog_sure_message, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
+                Tools.showModal(a, true);
                 SessionManager.getInstance().logout();
-                /*Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, c, 0, null);*/
-                Navigation.getInstance().navigate();
                 setNavigationDrawer();
+                Navigation.getInstance().navigate(Navigation.Page.USER_LOGIN_FRAGMENT);
+                Tools.hideModal(a, true);
                 return null;
             }
         });

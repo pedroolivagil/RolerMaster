@@ -13,7 +13,11 @@ public class Preferences {
     private static final Preferences ourInstance = new Preferences();
     private SharedPreferences prefs;
 
+    /**
+     * Sincronizar las preferencias con la base de datos.
+     */
     private Preferences() {
+
     }
 
     public static Preferences getInstance() {
@@ -32,16 +36,20 @@ public class Preferences {
         return prefs.edit();
     }
 
-    public SharedPreferences.Editor remove(String key) {
-        return editor().remove(key);
+    public void remove(String key) {
+        editor().remove(key).commit();
     }
 
-    public SharedPreferences.Editor clear() {
-        return editor().clear();
+    public boolean clear() {
+        return editor().clear().commit();
     }
 
     public void apply() {
         editor().apply();
+    }
+
+    public boolean commit() {
+        return editor().commit();
     }
 
 
