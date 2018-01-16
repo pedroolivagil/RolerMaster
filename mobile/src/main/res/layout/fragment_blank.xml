@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="104dp"
+            android:layout_marginTop="80dp"
             android:gravity="center_horizontal"
             android:paddingLeft="@dimen/fragment_title_margin_lft_rgt"
             android:paddingRight="@dimen/fragment_title_margin_lft_rgt"
