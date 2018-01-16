@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Común -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
+    <string name="option_not_available">La opción seleccionada no está disponible.</string>
+    <string name="action_settings">Settings</string> <!-- Pendiente de borrar -->
 
     <!-- Menú lateral -->
     <string name="nav_games">Partidas</string>
@@ -16,13 +17,20 @@
     <string name="nav_logout">Cerrar sesión</string>
     <string name="nav_home">Inicio</string>
 
-    <string name="nav_dialog_exit_title">¿Ya nos abandonas… T_T?</string>
+    <!-- Texto dialogs  -->
+    <string name="nav_dialog_exit_title">Saliendo…</string>
     <string name="nav_dialog_sure_message">¿Estas seguro?</string>
     <string name="nav_dialog_logout_title">Cerrando sesión…</string>
-
     <string name="nav_dialog_exit_2_title">Hasta la próxima!</string>
     <string name="nav_dialog_exit_2_message">Vuelve pronto!</string>
 
+    <!-- Pantalla de inicio -->
+    <string name="blank_subtitle">Inicio</string>
+    <string name="blank_welcome">Bienvenido,</string>
+    <string name="blank_guest">Invitado</string>
+    <string name="blank_last_project">Última partida modificada</string>
+
+    <!-- Pantalla de login -->
     <string name="login_title">Identifícate</string>
     <string name="login_user_title">Inicia sesión</string>
     <string name="login_user_username">Usuario o email</string>
@@ -31,7 +39,9 @@
     <string name="login_user_fail_login">Ambos campos son obligatorios</string>
     <string name="login_user_fail_login_bad_user_pass">Usuario o contraseña incorrecto</string>
     <string name="login_user_login">Entrar</string>
+    <string name="login_user_logging">Iniciando sesión…</string>
 
+    <!-- Pantalla de registro -->
     <string name="signup_title">Nuevo usuario</string>
     <string name="signup_user_title">Regístrate</string>
     <string name="signup_user_username">Usuario</string>
@@ -44,9 +54,6 @@
     <string name="signup_user_birthdate">Fecha nacimiento</string>
     <string name="signup_user_gender">Género</string>
     <string name="signup_user_signup">Crear cuenta</string>
-
-    <string name="index_title">Inicio</string>
-
     <string-array name="list_months">
         <item>Enero</item>
         <item>Febrero</item>
@@ -62,6 +69,7 @@
         <item>Diciembre</item>
     </string-array>
 
+    <!-- Pantalla de recuperar pass -->
     <string name="forgot_pass_title">Recuperar contraseña</string>
     <string name="forgot_pass_title_step1">Paso 1</string>
     <string name="forgot_pass_title_step2">Paso 2</string>
@@ -78,14 +86,12 @@
     <string name="forgot_pass_email_invalid">El email no es válido</string>
     <string name="forgot_pass_code_invalid">El código no es válido</string>
 
-    <string name="blank_welcome">Bienvenido</string>
-    <string name="blank_guest">Invitado</string>
-
+    <!-- Pantalla de settings -->
     <string name="settings_title_user">Cuenta de RolerMaster</string>
     <string name="settings_title_about_developer">Acerca de OlivaDevelop</string>
     <string name="settings_about_developer">Especializado en el desarrollo de aplicaciones y juegos, intentando ofrecer la máxima sadisfacción para todos los usuarios del mundo</string>
     <string name="settings_title_version">Versión</string>
-    <string name="settings_title_app">RolerMaster y OlivaDevelop</string>
+    <string name="settings_title_app">Seguridad, RolerMaster y OlivaDevelop</string>
     <string name="settings_title_donate_app">Donar</string>
     <string name="settings_donate_app">Aportar una pequeña donación para manrtener el servicio activo</string>
     <string name="settings_title_ads_app">Quitar publicidad</string>
@@ -99,8 +105,9 @@
     <string name="settings_notification_mail">Activa la opción para enviar por correo las actualizaciones de las partidas</string>
     <string name="settings_notification_autologin">Inicio de sesión automáticamente</string>
     <string name="settings_changed_success">Se ha actualizado la configuración</string>
+    <string name="settings_permisions_app">Consulta los permisos asignados a RolerMaster</string>
+    <string name="settings_title_permisions_app">Permisos</string>
 
-    <string name="option_not_available">La opción seleccionada no está disponible.</string>
-    <string name="login_user_logging">Iniciando sesión…</string>
+    <!-- Pantalla de  -->
 
 </resources>

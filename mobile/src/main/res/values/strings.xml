@@ -54,7 +54,7 @@
     <string name="signup_user_gender">TRADUCIR</string>
     <string name="signup_user_signup">TRADUCIR</string>
 
-    <string name="index_title">TRADUCIR</string>
+    <string name="blank_subtitle">TRADUCIR</string>
 
     <string-array name="list_months">
         <item>TRADUCIR</item>
@@ -100,11 +100,16 @@
     <string name="settings_title_ads_app">TRADUCIR</string>
     <string name="settings_ads_app">TRADUCIR</string>
     <string name="settings_changed_success">TRADUCIR</string>
+    <string name="settings_permisions_app">TRADUCIR</string>
+    <string name="settings_title_permisions_app">TRADUCIR</string>
     <string name="option_not_available">TRADUCIR</string>
     <string name="login_user_logging">TRADUCIR</string>
 
     <string name="title_activity_logout">LogoutActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="lorem_large">In hac habitasse platea dictumst. Integer vestibulum diam et lacus hendrerit accumsan. Pellentesque efficitur leo et ligula commodo sollicitudin. In lectus augue, posuere posuere mi in, sollicitudin porttitor diam. Ut posuere sollicitudin viverra. Nunc vel maximus tellus. Vestibulum quam nibh, mattis in pulvinar at, hendrerit sed tortor. Nulla quis accumsan libero. Maecenas cursus, ante nec dictum euismod, risus justo egestas purus, nec hendrerit odio nibh vel dolor. Phasellus aliquet erat non magna aliquam, ut condimentum leo hendrerit. Sed dictum posuere vehicula. In id justo a ante commodo tincidunt at quis massa. Curabitur rhoncus, sem sed pharetra finibus, odio tortor pulvinar massa, eleifend tempus ligula metus at augue. Mauris iaculis quis risus ac pharetra. Aliquam auctor purus sit amet ligula tristique dictum.</string>
+    <string name="lorem_small">Morbi sed accumsan lacus, ac molestie nibh.</string>
+    <string name="blank_last_project">TRADUCIR</string>
 
 </resources>

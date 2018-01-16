@@ -22,4 +22,11 @@
         <attr name="disableItemSettings" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="RolerMasterCardView">
+        <attr name="titleGameCardView" format="string" />
+        <attr name="descriptionGameCardView" format="string" />
+        <attr name="imageGameCardView" format="reference" />
+        <attr name="idGameCardView" format="integer" />
+    </declare-styleable>
+
 </resources>

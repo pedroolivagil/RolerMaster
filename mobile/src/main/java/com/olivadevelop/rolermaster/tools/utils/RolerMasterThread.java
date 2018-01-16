@@ -15,11 +15,11 @@ import static com.google.android.gms.internal.zzahn.runOnUiThread;
 public class RolerMasterThread {
     private static final RolerMasterThread ourInstance = new RolerMasterThread();
 
-    public static RolerMasterThread getInstance() {
-        return ourInstance;
+    private RolerMasterThread() {
     }
 
-    private RolerMasterThread() {
+    public static RolerMasterThread getInstance() {
+        return ourInstance;
     }
 
     /**

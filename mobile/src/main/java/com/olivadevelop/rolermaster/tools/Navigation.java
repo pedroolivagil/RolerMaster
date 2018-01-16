@@ -34,32 +34,13 @@ import java.util.Map;
 
 public class Navigation {
 
-    public abstract static class Page {
-
-        // Activities
-        public static final Class HOME_ACTIVITY = HomeActivity.class;
-
-        // Fragments
-        public static final Class BLANK_FRAGMENT = BlankFragment.class;
-        public static final Class SETTINGS_FRAGMENT = SettingsFragment.class;
-        public static final Class USER_LOGIN_FRAGMENT = UserLoginFragment.class;
-        public static final Class USER_SIGN_UP_FRAGMENT = UserSignUpFragment.class;
-        public static final Class USER_FORGOT_PASS_FRAGMENT = UserForgotPassFragment.class;
-        public static final Class USER_FORGOT_PASS_STEP1_FRAGMENT = UserForgotPassStep1Fragment.class;
-        public static final Class USER_FORGOT_PASS_STEP2_FRAGMENT = UserForgotPassStep2Fragment.class;
-        public static final Class USER_FORGOT_PASS_STEP3_FRAGMENT = UserForgotPassStep3Fragment.class;
-        /*public static final Class _FRAGMENT = .class;*/
-    }
-
     private static final Navigation ourInstance = new Navigation();
-
     private boolean navHomeFirst;
     private boolean navIgnored;
     private FragmentManager fragmentManager;
     private KeyValuePairClass currentNavigationFragment;
     private CustomList<KeyValuePairClass> fragments;
     private Bundle lastArgs;
-
     private Navigation() {
         fragments = new CustomList<>();
         navHomeFirst = true;
@@ -224,5 +205,22 @@ public class Navigation {
         transaction.replace(R.id.content_layout, fragment);
         transaction.commit();
         return fragment;
+    }
+
+    public abstract static class Page {
+
+        // Activities
+        public static final Class HOME_ACTIVITY = HomeActivity.class;
+
+        // Fragments
+        public static final Class BLANK_FRAGMENT = BlankFragment.class;
+        public static final Class SETTINGS_FRAGMENT = SettingsFragment.class;
+        public static final Class USER_LOGIN_FRAGMENT = UserLoginFragment.class;
+        public static final Class USER_SIGN_UP_FRAGMENT = UserSignUpFragment.class;
+        public static final Class USER_FORGOT_PASS_FRAGMENT = UserForgotPassFragment.class;
+        public static final Class USER_FORGOT_PASS_STEP1_FRAGMENT = UserForgotPassStep1Fragment.class;
+        public static final Class USER_FORGOT_PASS_STEP2_FRAGMENT = UserForgotPassStep2Fragment.class;
+        public static final Class USER_FORGOT_PASS_STEP3_FRAGMENT = UserForgotPassStep3Fragment.class;
+        /*public static final Class _FRAGMENT = .class;*/
     }
 }

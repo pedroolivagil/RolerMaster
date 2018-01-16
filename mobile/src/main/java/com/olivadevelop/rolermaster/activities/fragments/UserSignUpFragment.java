@@ -16,6 +16,7 @@ public class UserSignUpFragment extends CustomFragment {
 
     public UserSignUpFragment() {
         super();
+        setIgnoreNavigation(true);
         idView = R.layout.fragment_user_sign_up;
         testController = Controllers.getInstance().getTestController();
     }

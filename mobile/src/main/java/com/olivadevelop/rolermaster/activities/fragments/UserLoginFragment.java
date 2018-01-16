@@ -20,6 +20,7 @@ public class UserLoginFragment extends CustomFragment {
 
     public UserLoginFragment() {
         super();
+        setIgnoreNavigation(true);
         idView = R.layout.fragment_user_login;
     }
 

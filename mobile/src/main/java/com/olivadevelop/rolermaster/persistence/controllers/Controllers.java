@@ -14,18 +14,18 @@ public class Controllers {
         init();
     }
 
-    public void init(){
+    public static Controllers getInstance() {
+        return ourInstance;
+    }
+
+    public void init() {
         testController = new TestController();
         userController = new UserController();
     }
 
-    public void clear(){
+    public void clear() {
         testController = null;
         userController = null;
-    }
-
-    public static Controllers getInstance() {
-        return ourInstance;
     }
 
     public TestController getTestController() {

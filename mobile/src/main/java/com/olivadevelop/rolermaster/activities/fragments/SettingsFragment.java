@@ -1,6 +1,9 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -16,14 +19,14 @@ import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 public class SettingsFragment extends CustomFragment {
 
+    private boolean firstLoad;
     private BooleanSettingsView optionNotificationMail;
     private BooleanSettingsView optionNotificationCalendar;
     private BooleanSettingsView optionNotificationSwatch;
     private BooleanSettingsView optionNotificationAutologin;
-
-    private boolean firstLoad;
     private ItemSettingsView optionDonate;
     private ItemSettingsView optionBuyLicenceApp;
+    private ItemSettingsView optionPermisions;
 
     public SettingsFragment() {
         idView = R.layout.fragment_settings;
@@ -64,8 +67,12 @@ public class SettingsFragment extends CustomFragment {
         optionNotificationSwatch.getSwValue().setOnCheckedChangeListener(this);
         optionNotificationSwatch.getSwValue().setChecked(notifSwatch);
 
+        optionPermisions = findViewById(R.id.optionPermisions);
+        optionPermisions.setOnClickListener(this);
+
         optionDonate = findViewById(R.id.optionDonate);
         optionDonate.setOnClickListener(this);
+
         optionBuyLicenceApp = findViewById(R.id.optionBuyLicenceApp);
         optionBuyLicenceApp.setOnClickListener(this);
 
@@ -84,11 +91,24 @@ public class SettingsFragment extends CustomFragment {
     @Override
     protected void actionsOnClick(View v) {
         super.actionsOnClick(v);
-        if (v == optionDonate) {
+        if (v == optionDonate && optionDonate.isActive()) {
             Tools.LoggerSnackNotAvailable(view, this);
-        } else if (v == optionBuyLicenceApp) {
+        } else if (v == optionBuyLicenceApp && optionBuyLicenceApp.isActive()) {
             Tools.LoggerSnackNotAvailable(view, this);
+        } else if (v == optionPermisions && optionPermisions.isActive() && getActivity() != null) {
+            Tools.showModal(getActivity());
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Tools.hideModal(getActivity());
     }
 
     @Override

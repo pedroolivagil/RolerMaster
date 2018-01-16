@@ -50,6 +50,13 @@
             android:text="@string/settings_title_app" />
 
         <com.olivadevelop.rolermaster.tools.layouts.ItemSettingsView
+            android:id="@+id/optionPermisions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleItemSettings="@string/settings_permisions_app"
+            app:titleItemSettings="@string/settings_title_permisions_app" />
+
+        <com.olivadevelop.rolermaster.tools.layouts.ItemSettingsView
             android:id="@+id/optionDonate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

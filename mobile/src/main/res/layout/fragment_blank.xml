@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Activity"
     tools:context="com.olivadevelop.rolermaster.activities.fragments.BlankFragment">
@@ -12,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:alpha=".5"
-            android:contentDescription="@string/index_title"
+            android:contentDescription="@string/blank_subtitle"
             android:scaleType="centerCrop"
             android:src="@drawable/fondo" />
 
@@ -40,6 +41,40 @@
             android:paddingLeft="@dimen/fragment_title_margin_lft_rgt"
             android:paddingRight="@dimen/fragment_title_margin_lft_rgt"
             android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/blank_username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextSizeSimple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/blank_last_project" />
+
+            <TextView
+                style="@style/TextSizeSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="23/01/2018"
+                android:textColor="@color/colorAccent" />
+
+            <com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:descriptionGameCardView="@string/lorem_large"
+                app:idGameCardView="1"
+                app:imageGameCardView="@drawable/image_area_alpha"
+                app:titleGameCardView="@string/lorem_small" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 </FrameLayout>

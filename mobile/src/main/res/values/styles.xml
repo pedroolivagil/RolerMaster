@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -18,6 +17,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Activity" parent="ThemeOverlay.AppCompat.Light">
+        <!--<item name="android:background">@color/whiteGray</item>-->
         <item name="android:background">@color/whiteGray</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -25,6 +25,10 @@
 
     <style name="TextSizeSimple" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextSizeSmall" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textSize">10sp</item>
     </style>
 
     <style name="Separator" parent="Activity">
@@ -161,7 +165,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <!--<item name="android:textAllCaps">true</item>-->
     </style>
 
     <style name="PreferenceOption" parent="TextSizeSimple">
@@ -169,5 +172,23 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
         <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
+    </style>
+
+    <style name="ProjectCardView" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="android:layout_marginRight">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="cardElevation">@dimen/cardview_elevation</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="contentPadding">@dimen/fragment_title_margin_lft_rgt</item>
+        <item name="contentPaddingBottom">10dp</item>
+    </style>
+
+    <style name="ProjectCardViewImage" parent="AppTheme">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
     </style>
 </resources>

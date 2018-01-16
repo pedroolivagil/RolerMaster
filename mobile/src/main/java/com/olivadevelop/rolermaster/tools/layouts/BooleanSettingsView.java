@@ -42,7 +42,7 @@ public class BooleanSettingsView extends LinearLayout implements View.OnClickLis
                 attrs, R.styleable.BooleanSettingsView, defStyle, 0);
 
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.boolean_option_settings_layout, this, true);
+        inflater.inflate(R.layout.view_boolean_option_settings, this, true);
 
         tvTitle = findViewById(R.id.boolean_opt_settings_title);
         tvSubtitle = findViewById(R.id.boolean_opt_settings_subtitle);

@@ -1,9 +1,11 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
@@ -39,7 +41,11 @@ public class BlankFragment extends CustomFragment {
 
     @Override
     protected void setFabIconFunction() {
-        Tools.getFab().setImageResource(R.drawable.book_plus);
+        if (SessionManager.getInstance().isLogged()) {
+            Tools.getFab().setImageResource(R.drawable.book_plus);
+        } else {
+            Tools.getFab().setImageResource(R.drawable.account_key_white);
+        }
         Tools.getFab().setOnClickListener(this);
         Tools.getFab().show();
     }
@@ -47,6 +53,10 @@ public class BlankFragment extends CustomFragment {
     @Override
     protected void actionsFab(View v) {
         super.actionsFab(v);
-        Tools.LoggerSnack(v, this, "Replace text");
+        if (SessionManager.getInstance().isLogged()) {
+            Tools.LoggerSnack(v, this, "Replace with an action");
+        } else {
+            Navigation.getInstance().navigate(Navigation.Page.USER_LOGIN_FRAGMENT);
+        }
     }
 }

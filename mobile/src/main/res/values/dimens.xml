@@ -20,4 +20,8 @@
     <dimen name="settings_category_margin_btm">10sp</dimen>
     <dimen name="settings_option_title">20sp</dimen>
     <dimen name="settings_option_subtitle">14sp</dimen>
+
+    <dimen name="cardview_elevation">2dp</dimen>
+    <dimen name="cardview_shadow_text">15dp</dimen>
+    <dimen name="snackbar_icon_padding">10dp</dimen>
 </resources>

@@ -3,6 +3,7 @@ package com.olivadevelop.rolermaster.tools;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -11,6 +12,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Environment;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
@@ -33,15 +37,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.common.AccountPicker;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.utils.SpinnerAdapter;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 /**
@@ -52,9 +62,20 @@ import java.util.concurrent.Callable;
 
 public abstract class Tools {
 
+    public static final int REQUEST_CODE = 1;
+    public static final int INFO_CODE = 1;
+    public static final int WARN_CODE = 2;
+    public static final int ERRO_CODE = 3;
+    public static final String SERVER = "10.0.2.2";
+    public static final String HOSTNAME = "http://" + SERVER + "/myprojectsorg";
+    //public static final String HOSTNAME = "http://192.168.1.43/myprojectsorg";
+    public static final String CLIENT_DIR = "clients";
+    public static final String IMAGE_DIR = "img";
+    public static final String EXTERNAL_DIR = Environment.getExternalStorageDirectory() + "/MyProjectPictures/";
     public static final int EDAD_MINIMA_COMPRENSION = 8;
     public static final int YEAR_MIN = 1900;
-    public static int TIME_SPLASH = 2000; // Miliseconds
+    private static final String CRYPT_KEY = "rolermasterolivadevelop";
+    public static int TIME_SPLASH = 1000; // Miliseconds
     public static int TIME_TO_EXIT = 2000; // Miliseconds
     private static FloatingActionButton fab;
     private static ScrollView mainScrollView;
@@ -217,6 +238,10 @@ public abstract class Tools {
         LoggerSnack(view, c, c.getString(R.string.option_not_available));
     }
 
+    public static void LoggerSnack(View v, CustomFragment c, String text, int icon) {
+        customSnackBar(v, text, c.getActivity(), icon);
+    }
+
     public static boolean isNull(Object object) {
         return object == null || object.toString().trim().equals("");
     }
@@ -267,12 +292,21 @@ public abstract class Tools {
      * @param text texto que mostrará el snackbar
      */
     private static void customSnackBar(View v, String text) {
+        customSnackBar(v, text, null, null);
+    }
+
+    private static void customSnackBar(View v, String text, Activity a, @IdRes Integer icon) {
         Snackbar snackBar = Snackbar.make(v, text, Snackbar.LENGTH_LONG);
         View view = snackBar.getView();
         android.support.design.widget.CoordinatorLayout.LayoutParams params = (android.support.design.widget.CoordinatorLayout.LayoutParams) view.getLayoutParams();
         params.gravity = Gravity.BOTTOM;
         view.setLayoutParams(params);
         view.setBackgroundResource(R.color.colorPrimary);
+        if (isNotNull(icon)) {
+            TextView textView = view.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setCompoundDrawablesWithIntrinsicBounds(icon.intValue(), 0, 0, 0);
+            textView.setCompoundDrawablePadding(a.getResources().getDimensionPixelOffset(R.dimen.snackbar_icon_padding));
+        }
         snackBar.show();
     }
 
@@ -510,5 +544,63 @@ public abstract class Tools {
             }
         }
         return retorno.toString();
+    }
+
+    public static void getDeviceEmails(Activity a) {
+        Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{
+                GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE
+        }, true, null, null, null, null);
+        a.startActivityForResult(googlePicker, REQUEST_CODE);
+    }
+
+    private static boolean isNetworkActive(Context c) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo actNetInfo = null;
+        if (connectivityManager != null) {
+            actNetInfo = connectivityManager.getActiveNetworkInfo();
+        }
+        return (actNetInfo != null && actNetInfo.isConnected());
+    }
+
+    public static Boolean isNetworkAvailable(Context c) {
+        if (isNetworkActive(c)) {
+            try {
+                Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 " + SERVER);
+                int val = p.waitFor();
+                return (val == 0);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+            // Now we need to zero pad it if you actually want the full 32 chars.
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String encrypt(String str) {
+        String pass = CRYPT_KEY + "" + str;
+        return getMD5(pass);
+    }
+
+    public static String generateID() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    public static String generateID(int length) {
+        return generateID().substring(0, length);
     }
 }
