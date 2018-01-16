@@ -103,4 +103,8 @@
     <string name="option_not_available">TRADUCIR</string>
     <string name="login_user_logging">TRADUCIR</string>
 
+    <string name="title_activity_logout">LogoutActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
  * Created by Oliva on 10/01/2018.
  */
 
+@SuppressLint("Registered")
 public class RolerMasterActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @LayoutRes
@@ -53,7 +55,7 @@ public class RolerMasterActivity extends AppCompatActivity implements Navigation
         setContentView(layout);
     }
 
-    public final void update(){
+    public final void update() {
         initialize();
     }
 }

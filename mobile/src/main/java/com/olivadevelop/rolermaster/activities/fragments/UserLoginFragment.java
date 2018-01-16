@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
-import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
@@ -52,7 +51,7 @@ public class UserLoginFragment extends CustomFragment {
     @Override
     protected void actionsFab(View v) {
         super.actionsFab(v);
-        Navigation.getInstance().navigate(NavigationFragment.USER_SIGN_UP_FRAGMENT);
+        Navigation.getInstance().navigate(Navigation.Page.USER_SIGN_UP_FRAGMENT);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class UserLoginFragment extends CustomFragment {
             Tools.LoggerSnack(v, this, R.string.login_user_logging);
             if (validateUserLogin()) {
                 if (SessionManager.getInstance().login(loginUser.getText().toString().trim(), loginPass.getText().toString().trim())) {
-                    Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, this.getContext(), 3000, null);
+                    Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, this.getContext(), 3000, null);
                 } else {
                     Tools.hideModal(this.getActivity(), true);
                     Tools.LoggerSnack(v, this, R.string.login_user_fail_login_bad_user_pass);
@@ -74,7 +73,7 @@ public class UserLoginFragment extends CustomFragment {
                 Tools.LoggerSnack(v, this, R.string.login_user_fail_login);
             }
         } else if (v == recoveryPass) {
-            Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_FRAGMENT);
+            Navigation.getInstance().navigate(Navigation.Page.USER_FORGOT_PASS_FRAGMENT);
         }
     }
 

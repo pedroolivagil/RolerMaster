@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
-import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
@@ -116,7 +115,7 @@ public class SplashActivity extends RolerMasterActivity {
         final Context c = this;
 
         SessionManager.getInstance().autologin();
-        Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, c, TIME_SPLASH, progressBar);
+        Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, c, TIME_SPLASH, progressBar);
     }
 
     @Override
@@ -150,8 +149,4 @@ public class SplashActivity extends RolerMasterActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
-    }
 }

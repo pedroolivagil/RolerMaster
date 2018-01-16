@@ -9,6 +9,15 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.activities.HomeActivity;
+import com.olivadevelop.rolermaster.activities.fragments.BlankFragment;
+import com.olivadevelop.rolermaster.activities.fragments.SettingsFragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassFragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassStep1Fragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassStep2Fragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserForgotPassStep3Fragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserLoginFragment;
+import com.olivadevelop.rolermaster.activities.fragments.UserSignUpFragment;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.CustomList;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePairClass;
@@ -24,6 +33,24 @@ import java.util.Map;
  */
 
 public class Navigation {
+
+    public abstract static class Page {
+
+        // Activities
+        public static final Class HOME_ACTIVITY = HomeActivity.class;
+
+        // Fragments
+        public static final Class BLANK_FRAGMENT = BlankFragment.class;
+        public static final Class SETTINGS_FRAGMENT = SettingsFragment.class;
+        public static final Class USER_LOGIN_FRAGMENT = UserLoginFragment.class;
+        public static final Class USER_SIGN_UP_FRAGMENT = UserSignUpFragment.class;
+        public static final Class USER_FORGOT_PASS_FRAGMENT = UserForgotPassFragment.class;
+        public static final Class USER_FORGOT_PASS_STEP1_FRAGMENT = UserForgotPassStep1Fragment.class;
+        public static final Class USER_FORGOT_PASS_STEP2_FRAGMENT = UserForgotPassStep2Fragment.class;
+        public static final Class USER_FORGOT_PASS_STEP3_FRAGMENT = UserForgotPassStep3Fragment.class;
+        /*public static final Class _FRAGMENT = .class;*/
+    }
+
     private static final Navigation ourInstance = new Navigation();
 
     private boolean navHomeFirst;
@@ -114,7 +141,7 @@ public class Navigation {
         try {
             if (!hasPages()) {
                 // si no tiene páginas, creamos la de inicio
-                fragments.add(new KeyValuePairClass(NavigationFragment.BLANK_FRAGMENT, true));
+                fragments.add(new KeyValuePairClass(Page.BLANK_FRAGMENT, true));
             } else {
                 // si tiene páginas, comprobamos que la última es navegable. Si no lo es la removemosy ejecutamos de nuevo la funcion hasta que haya una navegable.
                 int lastPosition = fragments.lastPosition();
@@ -184,7 +211,7 @@ public class Navigation {
         CustomFragment fragment = (CustomFragment) fragmentClass.newInstance();
         fragment.setArguments(args);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (!fragment.isIgnoreEffects() || (!navHomeFirst && fragment.getClass().equals(NavigationFragment.BLANK_FRAGMENT))) {
+        if (!fragment.isIgnoreEffects() || (!navHomeFirst && fragment.getClass().equals(Page.BLANK_FRAGMENT))) {
             if (leftToRight) {
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
             } else {

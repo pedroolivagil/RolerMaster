@@ -7,7 +7,6 @@ import android.widget.EditText;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
-import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
@@ -52,7 +51,7 @@ public class UserForgotPassFragment extends CustomFragment {
             if (validateEmail()) {
                 Bundle args = new Bundle();
                 args.putString(Preferences.EnumBundle.FORGOT_PASS_EMAIL, etEmail.getText().toString());
-                Navigation.getInstance().navigate(NavigationFragment.USER_FORGOT_PASS_STEP1_FRAGMENT, args);
+                Navigation.getInstance().navigate(Navigation.Page.USER_FORGOT_PASS_STEP1_FRAGMENT, args);
             } else {
                 LoggerSnack(v, this, R.string.forgot_pass_email_invalid);
             }

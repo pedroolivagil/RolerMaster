@@ -21,7 +21,6 @@ import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
-import com.olivadevelop.rolermaster.tools.NavigationFragment;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
@@ -58,7 +57,7 @@ public class HomeActivity extends RolerMasterActivity {
         setModalView();
         setFloatingActionButton();
         setBasicUserData();
-        Navigation.getInstance().navigate(NavigationFragment.BLANK_FRAGMENT);
+        Navigation.getInstance().navigate(Navigation.Page.BLANK_FRAGMENT);
     }
 
     @Override
@@ -105,11 +104,11 @@ public class HomeActivity extends RolerMasterActivity {
         } else if (id == R.id.nav_games) {
         } else if (id == R.id.nav_trash) {
         } else if (id == R.id.nav_manage) {
-            Navigation.getInstance().navigate(NavigationFragment.SETTINGS_FRAGMENT);
+            Navigation.getInstance().navigate(Navigation.Page.SETTINGS_FRAGMENT);
         } else if (id == R.id.nav_logout) {
             navBtnLogout();
         } else if (id == R.id.nav_login) {
-            Navigation.getInstance().navigate(NavigationFragment.USER_LOGIN_FRAGMENT);
+            Navigation.getInstance().navigate(Navigation.Page.USER_LOGIN_FRAGMENT);
         } else if (id == R.id.nav_exit) {
             navBtnExit();
         }
@@ -166,9 +165,9 @@ public class HomeActivity extends RolerMasterActivity {
                 this, getDrawer(), getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         getDrawer().addDrawerListener(toggle);
         toggle.syncState();
-
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        cleanNavigationDrawer();
         if (SessionManager.getInstance().isLogged()) {
             navigationView.inflateHeaderView(R.layout.nav_header_main_login);
             navigationView.inflateMenu(R.menu.activity_main_drawer_login);
@@ -176,6 +175,17 @@ public class HomeActivity extends RolerMasterActivity {
         } else {
             navigationView.inflateHeaderView(R.layout.nav_header_main_logout);
             navigationView.inflateMenu(R.menu.activity_main_drawer_logout);
+        }
+    }
+
+    private void cleanNavigationDrawer() {
+        View headerView = navigationView.getHeaderView(0);
+        Menu menu = navigationView.getMenu();
+        if (Tools.isNotNull(headerView)) {
+            navigationView.removeHeaderView(headerView);
+        }
+        if (Tools.isNotNull(menu)) {
+            menu.clear();
         }
     }
 
@@ -202,7 +212,9 @@ public class HomeActivity extends RolerMasterActivity {
             @Override
             public Void call() throws Exception {
                 SessionManager.getInstance().logout();
-                Navigation.getInstance().navigateActivityThread(NavigationFragment.HOME_ACTIVITY, c, 0, null);
+                /*Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, c, 0, null);*/
+                Navigation.getInstance().navigate();
+                setNavigationDrawer();
                 return null;
             }
         });
