@@ -25,8 +25,9 @@
     <declare-styleable name="RolerMasterCardView">
         <attr name="titleGameCardView" format="string" />
         <attr name="descriptionGameCardView" format="string" />
-        <attr name="imageGameCardView" format="reference" />
+        <attr name="imageGameCardView" format="string" />
         <attr name="idGameCardView" format="integer" />
+        <attr name="disableCardView" format="boolean" />
     </declare-styleable>
 
 </resources>

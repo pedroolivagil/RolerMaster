@@ -71,7 +71,7 @@
                 android:layout_height="match_parent"
                 app:descriptionGameCardView="@string/lorem_large"
                 app:idGameCardView="1"
-                app:imageGameCardView="@drawable/image_area_alpha"
+                app:imageGameCardView="https://cdn1.iconfinder.com/data/icons/google_jfk_icons_by_carlosjj/256/chrome.png"
                 app:titleGameCardView="@string/lorem_small" />
 
         </LinearLayout>

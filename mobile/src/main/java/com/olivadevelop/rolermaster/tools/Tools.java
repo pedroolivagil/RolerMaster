@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.tools;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,9 +49,12 @@ import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
@@ -580,12 +584,12 @@ public abstract class Tools {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());
             BigInteger number = new BigInteger(1, messageDigest);
-            String hashtext = number.toString(16);
+            StringBuilder hashtext = new StringBuilder(number.toString(16));
             // Now we need to zero pad it if you actually want the full 32 chars.
             while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
+                hashtext.insert(0, "0");
             }
-            return hashtext;
+            return hashtext.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -602,5 +606,17 @@ public abstract class Tools {
 
     public static String generateID(int length) {
         return generateID().substring(0, length);
+    }
+
+
+    public static String getCurrentDate() {
+        return formatDate(new Date());
+    }
+
+    public static String formatDate(Date date) {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getDefault());
+        return sdf.format(date);
     }
 }

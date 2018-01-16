@@ -2,29 +2,24 @@ package com.olivadevelop.rolermaster.tools.layouts;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.ImagePicasso;
 
 /**
  * TODO: document your custom view class.
  */
 public class RolerMasterCardView extends LinearLayout {
-/*
-    private TextView tvTitle;
-    private TextView tvSubtitle;
-    private boolean active;*/
+    /*
+        private TextView tvTitle;
+        private TextView tvSubtitle;
+        private boolean active;*/
     private TextView id_card_view;
     private TextView title_card_view;
     private TextView descript_card_view;
@@ -54,34 +49,26 @@ public class RolerMasterCardView extends LinearLayout {
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_roler_master_card, this, true);
 
-       /* tvTitle = findViewById(R.id.item_opt_settings_title);
-        tvSubtitle = findViewById(R.id.item_opt_settings_subtitle);
+        id_card_view = findViewById(R.id.id_card_view);
+        title_card_view = findViewById(R.id.title_card_view);
+        descript_card_view = findViewById(R.id.descript_card_view);
+        image_card_view = findViewById(R.id.image_card_view);
 
-        if (Tools.isNotNull(tvTitle)) {
-            tvTitle.setText(a.getString(R.styleable.ItemSettingsView_titleItemSettings));
+        if (Tools.isNotNull(id_card_view)) {
+            id_card_view.setText(a.getString(R.styleable.RolerMasterCardView_idGameCardView));
         }
-        if (Tools.isNotNull(tvSubtitle)) {
-            tvSubtitle.setText(a.getString(R.styleable.ItemSettingsView_subtitleItemSettings));
+        if (Tools.isNotNull(title_card_view)) {
+            title_card_view.setText(a.getString(R.styleable.RolerMasterCardView_titleGameCardView));
         }
-        active = !a.getBoolean(R.styleable.ItemSettingsView_disableItemSettings, false);*/
+        if (Tools.isNotNull(descript_card_view)) {
+            descript_card_view.setText(a.getString(R.styleable.RolerMasterCardView_descriptionGameCardView));
+        }
+        if (Tools.isNotNull(image_card_view)) {
+            ImagePicasso.load(context, a.getString(R.styleable.RolerMasterCardView_imageGameCardView), image_card_view);
+        }
+        active = !a.getBoolean(R.styleable.RolerMasterCardView_disableCardView, false);
         a.recycle();
         setEnable();
-    }
-
-   /* public TextView getTvTitle() {
-        return tvTitle;
-    }
-
-    public void setTvTitle(TextView tvTitle) {
-        this.tvTitle = tvTitle;
-    }
-
-    public TextView getTvSubtitle() {
-        return tvSubtitle;
-    }
-
-    public void setTvSubtitle(TextView tvSubtitle) {
-        this.tvSubtitle = tvSubtitle;
     }
 
     public boolean isActive() {
@@ -91,7 +78,7 @@ public class RolerMasterCardView extends LinearLayout {
     public void setActive(boolean active) {
         this.active = active;
         setEnable();
-    }*/
+    }
 
     public void setEnable() {
        /* if (active) {
