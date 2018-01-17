@@ -72,8 +72,6 @@ public class BlankFragment extends CustomFragment {
                     Log.e("Test ActionAlert", "clicked");
                 }
             };
-            /*Alert.getInstance().errorDialog(this.getActivity(), "Texto de prueba para el mensaje", action);*/
-            Alert.getInstance().infoDialog(this.getActivity(), "Texto de prueba para el mensaje", action);
         }
     }
 

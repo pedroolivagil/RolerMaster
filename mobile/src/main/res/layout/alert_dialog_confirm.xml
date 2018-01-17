@@ -8,13 +8,13 @@
 
     <TextView
         android:id="@+id/alert_dialog_title"
+        style="@style/TextSizeSimple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
-        android:paddingLeft="@dimen/alert_dialog_title_padding"
-        android:paddingRight="@dimen/alert_dialog_title_padding"
+        android:paddingEnd="@dimen/alert_dialog_title_padding"
+        android:paddingStart="@dimen/alert_dialog_title_padding"
         android:paddingTop="@dimen/alert_dialog_title_padding"
-        android:textColor="#FFF"
         android:textSize="@dimen/alert_dialog_title_size" />
 
     <TextView
@@ -24,14 +24,24 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/alert_dialog_padding" />
 
-    <Space
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="wrap_content"
+        android:gravity="end">
 
-    <Button
-        android:id="@+id/alert_dialog_action_ok"
-        style="@style/ButtonWithoutBackground"
-        android:layout_gravity="end"
-        android:text="@string/true_dialog" />
+        <Button
+            android:id="@+id/alert_dialog_action_cancel"
+            style="@style/ButtonWithoutBackground"
+            android:layout_gravity="end"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:text="@string/false_dialog" />
+
+        <Button
+            android:id="@+id/alert_dialog_action_ok"
+            style="@style/ButtonWithoutBackground"
+            android:layout_gravity="end"
+            android:text="@string/true_dialog" />
+    </LinearLayout>
 
 </LinearLayout>

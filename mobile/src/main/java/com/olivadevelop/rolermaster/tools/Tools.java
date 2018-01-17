@@ -3,7 +3,6 @@ package com.olivadevelop.rolermaster.tools;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -21,7 +20,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -56,7 +54,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -69,7 +66,6 @@ public abstract class Tools {
     private static final String CRYPT_KEY = "rolermasterolivadevelop";
     private static FloatingActionButton fab;
     private static ScrollView mainScrollView;
-    private static LinearLayout modalView;
 
     public static final boolean EXPORT_PDF_FULL = true;
     public static final boolean EXPORT_PDF_PARTIAL = false;
@@ -87,6 +83,19 @@ public abstract class Tools {
     public static final String IMAGE_DIR = "img";
     public static final String EXTERNAL_DIR = Environment.getExternalStorageDirectory() + "/MyProjectPictures/";
 
+    public enum Error {
+        ERROR_404(404), ERROR_500(500), ERROR_300(300), ERROR_400(400);
+        private int val;
+
+        Error(int val) {
+            this.val = val;
+        }
+
+        public int getVal() {
+            return val;
+        }
+    }
+
     public static FloatingActionButton getFab() {
         return fab;
     }
@@ -103,39 +112,6 @@ public abstract class Tools {
         Tools.mainScrollView = mainScrollView;
     }
 
-    public static LinearLayout getModalView() {
-        return modalView;
-    }
-
-    public static void setModalView(LinearLayout modalView) {
-        Tools.modalView = modalView;
-    }
-
-    public static void showModal(Activity a) {
-        showModal(a, false);
-    }
-
-    public static void showModal(Activity a, boolean hideFab) {
-        modalView.setVisibility(View.VISIBLE);
-        modalView.bringToFront();
-        if (hideFab) {
-            getFab().hide();
-        }
-        disableView(a);
-    }
-
-    public static void hideModal(Activity a) {
-        hideModal(a, false);
-    }
-
-    public static void hideModal(Activity a, boolean showFab) {
-        modalView.setVisibility(View.GONE);
-        if (showFab) {
-            getFab().show();
-        }
-        enableView(a);
-    }
-
     public static void disableView(Activity a) {
         a.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -144,45 +120,6 @@ public abstract class Tools {
     public static void enableView(Activity a) {
         a.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         a.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    public static void newBooleanDialog(Context c, @StringRes int idTitle, @StringRes int idMessage, final Callable<Void> funcPos) {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(c);
-        alert.setTitle(c.getString(idTitle));
-        alert.setMessage(c.getString(idMessage));
-        alert.setCancelable(false);
-        alert.setPositiveButton(c.getString(R.string.true_dialog), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                try {
-                    funcPos.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        alert.setNegativeButton(c.getString(R.string.false_dialog), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-        alert.show();
-    }
-
-    public static void newInfoDialog(Context c, @StringRes int idTitle, @StringRes int idMessage, final Callable<Void> funcPos) {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(c);
-        alert.setTitle(c.getString(idTitle));
-        alert.setMessage(c.getString(idMessage));
-        alert.setCancelable(false);
-        alert.setPositiveButton(c.getString(R.string.true_dialog), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                try {
-                    funcPos.call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        alert.show();
     }
 
     public static void Logger(Context c, String text) {

@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.activities;
 
-import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,17 +22,13 @@ import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
-import java.util.concurrent.Callable;
-
 import static com.olivadevelop.rolermaster.tools.Tools.Logger;
-import static com.olivadevelop.rolermaster.tools.Tools.TIME_TO_EXIT;
 import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
 import static com.olivadevelop.rolermaster.tools.Tools.isNull;
-import static com.olivadevelop.rolermaster.tools.Tools.newBooleanDialog;
-import static com.olivadevelop.rolermaster.tools.Tools.newInfoDialog;
 
 public class HomeActivity extends RolerMasterActivity {
     private DrawerLayout drawer;
@@ -49,12 +44,12 @@ public class HomeActivity extends RolerMasterActivity {
         super.initialize();
         // Inicializamos variables
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
+        Alert.getInstance().setLoadingDialog(this);
         // Inicializamos el menú lateral izquierdo
         setToolbar();
         setNavigationDrawer();
         // Inicializamos el boón flotante
         setMainScrollView();
-        setModalView();
         setFloatingActionButton();
         setBasicUserData();
         Navigation.getInstance().navigate(Navigation.Page.BLANK_FRAGMENT);
@@ -141,11 +136,6 @@ public class HomeActivity extends RolerMasterActivity {
         return actionBarHeight;
     }
 
-    private void setModalView() {
-        Tools.setModalView((LinearLayout) findViewById(R.id.modalView));
-        Tools.getModalView().setPadding(0, getActionBarHeight(), 0, 0);
-    }
-
     private void setMainScrollView() {
         Tools.setMainScrollView((ScrollView) findViewById(R.id.mainScrollView));
         Tools.getMainScrollView().setPadding(0, getActionBarHeight(), 0, 0);
@@ -207,62 +197,31 @@ public class HomeActivity extends RolerMasterActivity {
     }
 
     private void navBtnLogout() {
-        final Activity a = this;
-        newBooleanDialog(this, R.string.nav_dialog_logout_title, R.string.nav_dialog_sure_message, new Callable<Void>() {
+        Alert.ActionAlert action = new Alert.ActionAlert() {
             @Override
-            public Void call() throws Exception {
-                Tools.showModal(a, true);
+            public void run() {
+                Alert.getInstance().showLoadingDialog();
                 SessionManager.getInstance().logout();
                 setNavigationDrawer();
                 Navigation.getInstance().navigate(Navigation.Page.USER_LOGIN_FRAGMENT);
-                Tools.hideModal(a, true);
-                return null;
+                Alert.getInstance().hideLoadingDialog();
             }
-        });
+        };
+        Alert.getInstance().confirmDialog(this, R.string.nav_dialog_logout_title, R.string.nav_dialog_sure_message, action);
     }
 
     private void navBtnExit() {
-        newBooleanDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_sure_message, new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                exitStep1();
-                return null;
-            }
-        });
-    }
-
-    private void exitStep1() {
-        newInfoDialog(this, R.string.nav_dialog_exit_2_title, R.string.nav_dialog_exit_2_message, new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                exitStep2();
-                return null;
-            }
-        });
-        new Thread() {
+        Alert.ActionAlert action = new Alert.ActionAlert() {
             @Override
             public void run() {
-                try {
-                    int waited = 0;
-                    while (waited < TIME_TO_EXIT) {
-                        sleep(100);
-                        waited += 100;
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            exitStep2();
-                        }
-                    });
-                }
+                exit();
             }
-        }.start();
+        };
+        Alert.getInstance().confirmDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_sure_message, action);
     }
 
-    private void exitStep2() {
+
+    private void exit() {
         Logger(this, ".exitStep2 --> Saliendo.... (MOCK)");
         AdsAdMob.getInstance().printIntersicial();
     }

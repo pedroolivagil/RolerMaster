@@ -14,6 +14,7 @@ import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView;
 import com.olivadevelop.rolermaster.tools.layouts.ItemSettingsView;
+import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
@@ -105,7 +106,7 @@ public class SettingsFragment extends CustomFragment {
         } else if (v == optionBuyLicenceApp && optionBuyLicenceApp.isActive()) {
             Tools.LoggerSnackNotAvailable(view, this);
         } else if (v == optionPermisions && optionPermisions.isActive() && getActivity() != null) {
-            Tools.showModal(getActivity());
+            Alert.getInstance().showLoadingDialog();
             Intent intent = new Intent();
             intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
@@ -117,7 +118,7 @@ public class SettingsFragment extends CustomFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Tools.hideModal(getActivity());
+        Alert.getInstance().hideLoadingDialog();
     }
 
     @Override

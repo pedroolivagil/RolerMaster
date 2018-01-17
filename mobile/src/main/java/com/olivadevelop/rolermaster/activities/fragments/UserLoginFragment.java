@@ -9,6 +9,7 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 
 public class UserLoginFragment extends CustomFragment {
@@ -59,18 +60,18 @@ public class UserLoginFragment extends CustomFragment {
     protected void actionsOnClick(View v) {
         super.actionsOnClick(v);
         if (v == btnLogin) {
-            Tools.showModal(this.getActivity(), true);
+            Alert.getInstance().showLoadingDialog();
             Tools.hideVirtualKeyboard(this.getActivity());
             Tools.LoggerSnack(v, this, R.string.login_user_logging);
             if (validateUserLogin()) {
                 if (SessionManager.getInstance().login(loginUser.getText().toString().trim(), loginPass.getText().toString().trim())) {
                     Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, this.getContext(), 3000, null);
                 } else {
-                    Tools.hideModal(this.getActivity(), true);
+                    Alert.getInstance().hideLoadingDialog();
                     Tools.LoggerSnack(v, this, R.string.login_user_fail_login_bad_user_pass);
                 }
             } else {
-                Tools.hideModal(this.getActivity(), true);
+                Alert.getInstance().hideLoadingDialog();
                 Tools.LoggerSnack(v, this, R.string.login_user_fail_login);
             }
         } else if (v == recoveryPass) {
