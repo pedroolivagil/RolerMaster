@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.persistence.controllers;
+package com.olivadevelop.rolermaster.persistence.managers;
 
 import com.olivadevelop.rolermaster.persistence.entities.Entity;
 
