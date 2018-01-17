@@ -61,6 +61,7 @@ public class Preferences {
         public static final String PREFS_NOTIF_EMAIL = "notifEmail";
         public static final String PREFS_NOTIF_CALENDAR = "notifCalendar";
         public static final String PREFS_NOTIF_SWATCH = "notifSwatch";
+        public static final String PREFS_EXPORT_PDF = "exportPdf";
 
         public static final String SESSION_ID_USER = "sessionIdUser";
         public static final String SESSION_USERNAME = "sessionUserName";

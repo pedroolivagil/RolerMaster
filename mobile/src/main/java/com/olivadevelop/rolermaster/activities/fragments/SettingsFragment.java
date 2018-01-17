@@ -21,6 +21,7 @@ public class SettingsFragment extends CustomFragment {
 
     private boolean firstLoad;
     private BooleanSettingsView optionNotificationMail;
+    private BooleanSettingsView optionExportPdf;
     private BooleanSettingsView optionNotificationCalendar;
     private BooleanSettingsView optionNotificationSwatch;
     private BooleanSettingsView optionNotificationAutologin;
@@ -46,6 +47,7 @@ public class SettingsFragment extends CustomFragment {
         tvVersion.setText(Tools.versionName(this.getContext()));
 
         boolean autologin = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_AUTOLOGIN, false);
+        boolean exportPdf = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_EXPORT_PDF, Tools.EXPORT_PDF_PARTIAL);
         boolean notifMail = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_NOTIF_EMAIL, false);
         boolean notifCalendar = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_NOTIF_CALENDAR, false);
         boolean notifSwatch = Preferences.getPrefs().getBoolean(Preferences.EnumBundle.PREFS_NOTIF_SWATCH, false);
@@ -54,6 +56,12 @@ public class SettingsFragment extends CustomFragment {
         optionNotificationAutologin = findViewById(R.id.optionNotificationAutologin);
         optionNotificationAutologin.getSwValue().setOnCheckedChangeListener(this);
         optionNotificationAutologin.getSwValue().setChecked(autologin);
+
+        optionExportPdf = findViewById(R.id.optionExportPdf);
+        optionExportPdf.getSwValue().setOnCheckedChangeListener(this);
+        optionExportPdf.getSwValue().setChecked(exportPdf);
+        String text = (exportPdf == Tools.EXPORT_PDF_FULL) ? getString(R.string.settings_export_pdf_true) : getString(R.string.settings_export_pdf_false);
+        optionExportPdf.getTvSubtitle().setText(text);
 
         optionNotificationMail = findViewById(R.id.optionNotificationMail);
         optionNotificationMail.getSwValue().setOnCheckedChangeListener(this);
@@ -80,6 +88,7 @@ public class SettingsFragment extends CustomFragment {
 
         if (!SessionManager.getInstance().isLogged()) {
             optionNotificationAutologin.setActive(false);
+            optionExportPdf.setActive(false);
             optionNotificationMail.setActive(false);
             optionNotificationCalendar.setActive(false);
             optionNotificationSwatch.setActive(false);
@@ -123,6 +132,10 @@ public class SettingsFragment extends CustomFragment {
                 Preferences.getInstance().editor().putBoolean(Preferences.EnumBundle.PREFS_NOTIF_CALENDAR, b).apply();
             } else if (optionNotificationSwatch.getSwValue() == compoundButton) {
                 Preferences.getInstance().editor().putBoolean(Preferences.EnumBundle.PREFS_NOTIF_SWATCH, b).apply();
+            } else if (optionExportPdf.getSwValue() == compoundButton) {
+                Preferences.getInstance().editor().putBoolean(Preferences.EnumBundle.PREFS_EXPORT_PDF, b).apply();
+                String text = (b == Tools.EXPORT_PDF_FULL) ? getString(R.string.settings_export_pdf_true) : getString(R.string.settings_export_pdf_false);
+                optionExportPdf.getTvSubtitle().setText(text);
             }
             Tools.LoggerSnack(view, this, R.string.settings_changed_success);
         }

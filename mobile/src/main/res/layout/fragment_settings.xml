@@ -23,6 +23,13 @@
             app:titleBooleanSettings="@string/settings_notification_title_autologin" />
 
         <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
+            android:id="@+id/optionExportPdf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleBooleanSettings="@string/settings_export_pdf_false"
+            app:titleBooleanSettings="@string/settings_title_export_pdf" />
+
+        <com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView
             android:id="@+id/optionNotificationMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
