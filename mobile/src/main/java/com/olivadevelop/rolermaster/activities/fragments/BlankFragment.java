@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,7 +9,6 @@ import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
@@ -65,13 +63,6 @@ public class BlankFragment extends CustomFragment {
     protected void actionsOnClick(View v) {
         super.actionsOnClick(v);
         if (v == rolerMasterCardView) {
-            Alert.ActionAlert action = new Alert.ActionAlert() {
-                @Override
-                public void run() {
-                    super.run();
-                    Log.e("Test ActionAlert", "clicked");
-                }
-            };
         }
     }
 
