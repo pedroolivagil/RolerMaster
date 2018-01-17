@@ -241,6 +241,7 @@ public abstract class Tools {
     private static void customSnackBar(View v, String text, Activity a, @IdRes Integer icon) {
         Snackbar snackBar = Snackbar.make(v, text, Snackbar.LENGTH_LONG);
         View view = snackBar.getView();
+        view.bringToFront();
         android.support.design.widget.CoordinatorLayout.LayoutParams params = (android.support.design.widget.CoordinatorLayout.LayoutParams) view.getLayoutParams();
         params.gravity = Gravity.BOTTOM;
         view.setLayoutParams(params);
