@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -147,8 +148,8 @@ public class Alert {
         this.loadingDialog = loadingDialog(a);
     }
 
-    public static class ActionAlert {
-
+    public static class ActionAlert implements ActionRolerMaster {
+        @Override
         public void run() {
 
         }

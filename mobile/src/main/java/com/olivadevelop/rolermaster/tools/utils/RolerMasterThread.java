@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ProgressBar;
 
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
 
 import static com.google.android.gms.internal.zzahn.runOnUiThread;
 
@@ -68,7 +69,8 @@ public class RolerMasterThread {
         }.start();
     }
 
-    public static class ActionThread {
+    public static class ActionThread implements ActionRolerMaster {
+        @Override
         public void run() {
 
         }
