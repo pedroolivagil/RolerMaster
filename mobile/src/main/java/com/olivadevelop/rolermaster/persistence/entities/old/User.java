@@ -1,7 +1,5 @@
 package com.olivadevelop.rolermaster.persistence.entities.old;
 
-import org.bson.conversions.Bson;
-
 import java.util.Date;
 
 /**
@@ -102,10 +100,5 @@ public class User implements Entity {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    @Override
-    public Bson toBson() {
-        return null;
     }
 }
