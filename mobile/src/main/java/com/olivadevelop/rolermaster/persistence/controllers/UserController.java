@@ -1,7 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.Entity;
-import com.olivadevelop.rolermaster.persistence.entities.User;
+import com.olivadevelop.rolermaster.persistence.entities.old.Entity;
+import com.olivadevelop.rolermaster.persistence.entities.old.User;
 
 /**
  * Copyright OlivaDevelop 2014-2018

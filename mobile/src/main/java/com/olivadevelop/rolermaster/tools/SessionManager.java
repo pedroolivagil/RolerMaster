@@ -1,7 +1,7 @@
 package com.olivadevelop.rolermaster.tools;
 
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
-import com.olivadevelop.rolermaster.persistence.entities.User;
+import com.olivadevelop.rolermaster.persistence.entities.old.User;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 /**

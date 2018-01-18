@@ -1,6 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.TestEntity;
+import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
 
 import java.util.ArrayList;
 import java.util.List;

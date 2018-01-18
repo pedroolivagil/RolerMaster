@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.persistence.managers;
+package com.olivadevelop.rolermaster.persistence.managers.old;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -17,23 +17,28 @@ import org.bson.conversions.Bson;
  */
 
 public final class DatabaseMongoDB {
-    private static String DB_HOST = "192.168.1.34";
-    private static String DB_USER = "admin";
-    private static String DB_PASSWORD = "oreo_20081991_Aa";
-    private static String DB_DB = "olivadeveloprolermaster";
-    private static String DB_PORT = "27018";
+    /*private static String DB_HOST = "192.168.1.34";*/
+    /*private static String DB_PORT = "27018";*/
+    /*private static String DB_USER = "admin";*/
+    /*private static String DB_PASSWORD = "oreo_20081991_Aa";*/
+    /*private static String DB_DB = "olivadeveloprolermaster";*/
 
-    public static final String URI_MONGO =
+    private static String DB_HOST = "ds261527.mlab.com";
+    private static String DB_PORT = "61527";
+    private static String DB_USER = "OlivaDevelop";
+    private static String DB_PASSWORD = "20081991_Aa";
+    private static String DB_DB = "rolermaster";
+
+    private static final String URI_MONGO =
             "mongodb://" + DB_USER + ":" + DB_PASSWORD + "@" + DB_HOST + ":" + DB_PORT + "/" + DB_DB;
-    private MongoClient mongoClient;
     private MongoDatabase db;
-    private String collectionName;
+    private Class collection;
 
     private static DatabaseMongoDB instance = new DatabaseMongoDB();
 
     private DatabaseMongoDB() {
         MongoClientURI uri = new MongoClientURI(URI_MONGO);
-        mongoClient = new MongoClient(uri);
+        MongoClient mongoClient = new MongoClient(uri);
         db = mongoClient.getDatabase(uri.getDatabase());
     }
 
@@ -41,12 +46,14 @@ public final class DatabaseMongoDB {
         return instance;
     }
 
-    public String getCollectionName() {
-        return collectionName;
-    }
-
-    public void setCollectionName(String collectionName) {
-        this.collectionName = collectionName;
+    /**
+     * En Cada Controller se establecerá el nombre de la colección a la que irá asociada
+     *
+     * @param collection Nombre de la colección
+     */
+    public DatabaseMongoDB setCollectionName(Class collection) {
+        this.collection = collection;
+        return getInstance();
     }
 
     public void createCollection(String collectionName) {
@@ -61,36 +68,40 @@ public final class DatabaseMongoDB {
         db.getCollection(oldName).renameCollection(new MongoNamespace(newName));
     }
 
+    public MongoCollection getCurrentCollection() {
+        return db.getCollection(collection.getSimpleName(), collection);
+    }
+
     /* Methods for menage database */
     public long count() {
-        MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+        MongoCollection collection = getCurrentCollection();
         return collection.count();
     }
 
     public long count(Bson query) {
-        MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+        MongoCollection collection = getCurrentCollection();
         return collection.count(query);
     }
 
-    public MongoCursor<org.bson.Document> findAll() {
-        MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+    public MongoCursor findAll() {
+        MongoCollection collection = getCurrentCollection();
         return collection.find().iterator();
     }
 
-    public MongoCursor<org.bson.Document> findAllByKey(Bson query) {
-        MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+    public MongoCursor findAllByKey(Bson query) {
+        MongoCollection collection = getCurrentCollection();
         return collection.find(query).iterator();
     }
 
     public Object findOneByKey(Bson query) {
-        MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+        MongoCollection collection = getCurrentCollection();
         return collection.find(query);
     }
 
     public boolean persist(Object entity) {
         boolean retorno = false;
         try {
-            MongoCollection collection = db.getCollection(collectionName);
+            MongoCollection collection = getCurrentCollection();
             collection.insertOne(entity);
             retorno = true;
         } catch (Exception e) {
@@ -102,7 +113,7 @@ public final class DatabaseMongoDB {
     public boolean merge(Bson filter, Bson update) {
         boolean retorno = false;
         try {
-            MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+            MongoCollection collection = getCurrentCollection();
             collection.updateOne(filter, update);
             retorno = true;
         } catch (Exception e) {
@@ -114,7 +125,7 @@ public final class DatabaseMongoDB {
     public boolean remove(Bson query) {
         boolean retorno = false;
         try {
-            MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+            MongoCollection collection = getCurrentCollection();
             collection.deleteOne(query);
             retorno = true;
         } catch (Exception e) {

@@ -1,4 +1,6 @@
-package com.olivadevelop.rolermaster.persistence.entities;
+package com.olivadevelop.rolermaster.persistence.entities.old;
+
+import org.bson.conversions.Bson;
 
 import java.util.Date;
 
@@ -7,7 +9,7 @@ import java.util.Date;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
-public class User extends Entity {
+public class User implements Entity {
     private Integer idUser;
     private String username;
     private String password;
@@ -100,5 +102,10 @@ public class User extends Entity {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public Bson toBson() {
+        return null;
     }
 }

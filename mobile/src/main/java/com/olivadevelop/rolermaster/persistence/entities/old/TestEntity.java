@@ -1,10 +1,12 @@
-package com.olivadevelop.rolermaster.persistence.entities;
+package com.olivadevelop.rolermaster.persistence.entities.old;
+
+import org.bson.conversions.Bson;
 
 /**
  * Created by Oliva on 02/01/2018.
  */
 
-public class TestEntity extends Entity {
+public class TestEntity implements Entity {
 
     public static final String FIELD_KEY = "key";
     public static final String FIELD_TEXTO = "texto";
@@ -31,5 +33,10 @@ public class TestEntity extends Entity {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    @Override
+    public Bson toBson() {
+        return null;
     }
 }

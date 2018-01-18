@@ -1,8 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.Entity;
-import com.olivadevelop.rolermaster.persistence.managers._PersistenceManager;
-import com.olivadevelop.rolermaster.persistence.managers._PersistenceMethods;
+import com.olivadevelop.rolermaster.persistence.entities.old.Entity;
+import com.olivadevelop.rolermaster.persistence.managers.old._PersistenceManager;
+import com.olivadevelop.rolermaster.persistence.managers.old._PersistenceMethods;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import java.util.List;

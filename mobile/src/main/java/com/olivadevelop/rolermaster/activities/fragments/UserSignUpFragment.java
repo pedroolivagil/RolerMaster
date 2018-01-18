@@ -3,7 +3,7 @@ package com.olivadevelop.rolermaster.activities.fragments;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.controllers.TestController;
-import com.olivadevelop.rolermaster.persistence.entities.TestEntity;
+import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
