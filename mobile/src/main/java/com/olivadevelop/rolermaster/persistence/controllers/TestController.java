@@ -1,9 +1,16 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
 import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
+import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.Alert;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Clase creada para simular la conexión a la base de datos. En cuanto se implemente la conexión a la bbdd, las clases Test serán borradas
@@ -13,25 +20,62 @@ import java.util.List;
 
 public class TestController extends _BasicController<TestEntity> {
 
-    @Override
-    public List<TestEntity> findAll() {
-        List<TestEntity> values = new ArrayList<TestEntity>();
-        values.add(new TestEntity(1, "prueba 1"));
-        values.add(new TestEntity(2, "prueba 2"));
-        values.add(new TestEntity(3, "prueba 3"));
-        values.add(new TestEntity(4, "prueba 4"));
-        return values;
+    public TestController() {
+        super(TestEntity.class);
     }
 
-    /**
-     * comprueba que el usuario y su password son correctos en bbdd
-     *
-     * @param usermail nombre de usuario o correo
-     * @param pass     contraseña
-     * @return boolean
-     */
-    public boolean testLogin(String usermail, String pass) {
-        boolean retorno = true;
+    @Override
+    protected List<TestEntity> parseJsonToListEntity(JSONObject json, Class<TestEntity> entity) throws JSONException {
+        List<TestEntity> retorno = new ArrayList<>();
+        if (Tools.isNotNull(json)) {
+            JSONArray array = json.getJSONArray(entity.getSimpleName());
+            if (Tools.isNotNull(array)) {
+                for (int x = 0; x < array.length(); x++) {
+
+                }
+            }
+        }
+        return retorno;
+    }
+
+    @Override
+    protected TestEntity parseJsonToEntity(JSONObject json, Class<TestEntity> entity) throws JSONException {
+        /*TestEntity retorno = null;
+        if (Tools.isNotNull(json)) {
+            JSONArray array = json.getJSONArray(entity.getSimpleName());
+            if (Tools.isNotNull(array)) {
+                retorno = new TestEntity(array.getJSONObject(0));
+            }
+        }
+        return retorno;*/
+        return super.parseJsonToEntity(json, entity);
+    }
+
+    public TestEntity testParse(JSONObject json, Class<TestEntity> entity) throws JSONException {
+        return parseJsonToEntity(json, entity);
+    }
+
+    @Override
+    public TestEntity find(Integer idEntity) {
+        TestEntity retorno = null;
+        try {
+            retorno = super.find(idEntity);
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);
+        }
+        return retorno;
+    }
+
+    @Override
+    public List<TestEntity> findAll() {
+        List<TestEntity> retorno = null;
+        try {
+            retorno = super.findAll();
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);
+        }
         return retorno;
     }
 }

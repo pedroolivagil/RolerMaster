@@ -1,9 +1,12 @@
-package com.olivadevelop.rolermaster.persistence.managers.old;
+package com.olivadevelop.rolermaster.persistence.managers;
 
 import android.os.AsyncTask;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,19 +22,20 @@ import okhttp3.ResponseBody;
  * Created by Oliva on 18/01/2018.
  */
 
-public class _RestService extends AsyncTask<RequestBody, Void, String> {
+// TODO: en caso de no llegar a extender nunca la clase, cambiar a final y eliminar los métodos action* de preExec y postExec
+public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
 
     private String url;
 
-    public _RestService(String url) {
-        this.url = url;
+    public _RestService(String relativeUrl) {
+        this.url = relativeUrl;
     }
 
     @Override
-    protected String doInBackground(RequestBody... formbody) {
-        String resStr = null; // resultado de la petició, contiene la información
+    protected JSONObject doInBackground(RequestBody... formbody) {
+        JSONObject retorno = null; // resultado de la petició, contiene la información
         try {
-            URL url = new URL(this.url);
+            URL url = new URL(Tools.SERVICE_URL + this.url);
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(url)
@@ -40,34 +44,26 @@ public class _RestService extends AsyncTask<RequestBody, Void, String> {
             Response response = client.newCall(request).execute();
             ResponseBody body = response.body();
             if (Tools.isNotNull(body)) {
-                resStr = body.string();
+                retorno = new JSONObject(body.string());
             }
             response.close();
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_404, "", null);
         }
-        return resStr;
+        return retorno;
     }
 
     @Override
-    protected void onPostExecute(String t) {
+    protected void onPostExecute(JSONObject t) {
         super.onPostExecute(t);
         Alert.getInstance().hideLoadingDialog();
-        actionsPostExecute(t);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         Alert.getInstance().showLoadingDialog();
-        actionsPreExecute();
-    }
-
-    protected void actionsPostExecute(String t) {
-
-    }
-
-    protected void actionsPreExecute() {
-
     }
 }

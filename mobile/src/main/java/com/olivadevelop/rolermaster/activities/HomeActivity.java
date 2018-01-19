@@ -43,7 +43,8 @@ public class HomeActivity extends RolerMasterActivity {
         super.initialize();
         // Inicializamos variables
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
-        Alert.getInstance().setLoadingDialog(this);
+        Alert.getInstance().setActivity(this);
+        Alert.getInstance().setLoadingDialog();
         // Inicializamos el menú lateral izquierdo
         setToolbar();
         setNavigationDrawer();
@@ -206,7 +207,7 @@ public class HomeActivity extends RolerMasterActivity {
                 Alert.getInstance().hideLoadingDialog();
             }
         };
-        Alert.getInstance().confirmDialog(this, R.string.nav_dialog_logout_title, R.string.nav_dialog_sure_message, action);
+        Alert.getInstance().confirmDialog(R.string.nav_dialog_logout_title, R.string.nav_dialog_sure_message, action);
     }
 
     private void navBtnExit() {
@@ -216,7 +217,7 @@ public class HomeActivity extends RolerMasterActivity {
                 exit();
             }
         };
-        Alert.getInstance().confirmDialog(this, R.string.nav_dialog_exit_title, R.string.nav_dialog_sure_message, action);
+        Alert.getInstance().confirmDialog(R.string.nav_dialog_exit_title, R.string.nav_dialog_sure_message, action);
     }
 
 

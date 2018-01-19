@@ -13,6 +13,7 @@ public class UserController extends _BasicController<User> {
     private User testUser;
 
     public UserController() {
+        super(User.class);
         this.testUser = new User();
         this.testUser.setIdUser(1);
         this.testUser.setUsername("testuser");

@@ -1,11 +1,20 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
 import com.olivadevelop.rolermaster.persistence.entities.old.Entity;
-import com.olivadevelop.rolermaster.persistence.managers.old._PersistenceManager;
-import com.olivadevelop.rolermaster.persistence.managers.old._PersistenceMethods;
+import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.Preferences;
+import com.olivadevelop.rolermaster.tools.utils.intefraces._PersistenceMethods;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import okhttp3.FormBody;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -14,26 +23,39 @@ import java.util.List;
 
 public class _BasicController<T> implements _PersistenceMethods<T> {
 
-    private _PersistenceManager manager = _PersistenceManager.getInstance();
+    private static final String FIND_ALL = "0";
+    private static final String FIND_ONE = "1";
 
-    protected _BasicController() {
-    }
+    protected _RestService service;
+    protected Class<T> entity;
 
-    public _PersistenceManager pm() {
-        if (Tools.isNull(manager)) {
-            manager = _PersistenceManager.getInstance();
-        }
-        return manager;
-    }
-
-    @Override
-    public T find(Integer idEntity) {
-        return null;
+    protected _BasicController(Class<T> entity) {
+        this.entity = entity;
     }
 
     @Override
-    public List<T> findAll() {
-        return null;
+    public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
+        service = new _RestService("find_entity.php");
+        service.execute(new FormBody.Builder()
+                .add("typeQuery", FIND_ONE)
+                .add("entity", entity.getSimpleName())
+                .add("userId", String.valueOf(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0)))
+                .add("idEntity", String.valueOf(idEntity))
+                .build()
+        );
+        return parseJsonToEntity(service.get(), entity);
+    }
+
+    @Override
+    public List<T> findAll() throws ExecutionException, InterruptedException, JSONException {
+        service = new _RestService("php/find_entity.php");
+        service.execute(new FormBody.Builder()
+                .add("typeQuery", FIND_ALL)
+                .add("entity", entity.getSimpleName())
+                .add("userId", String.valueOf(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0)))
+                .build()
+        );
+        return parseJsonToListEntity(service.get(), entity);
     }
 
     @Override
@@ -64,5 +86,41 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     @Override
     public boolean remove(Entity entity) {
         return false;
+    }
+
+
+    /**
+     * Transforma el resultado JSON a la entidad correspondiente.
+     *
+     * @param json   result from service
+     * @param entity entity class to parse it
+     * @return entity object
+     */
+    protected T parseJsonToEntity(JSONObject json, Class<T> entity) throws JSONException {
+        /*return null;*/
+        T retorno = null;
+        if (Tools.isNotNull(json)) {
+            JSONArray array = json.getJSONArray(entity.getSimpleName());
+            if (Tools.isNotNull(array)) {
+                try {
+                    retorno = (T) Class.forName(entity.getSimpleName()).getConstructor(JSONObject.class).newInstance(array.getJSONObject(0));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return retorno;
+    }
+
+    protected List<T> parseJsonToListEntity(JSONObject json, Class<T> entity) throws JSONException {
+        return null;
     }
 }

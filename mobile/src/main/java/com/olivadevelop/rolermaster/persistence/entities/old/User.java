@@ -1,5 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.entities.old;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -100,5 +103,10 @@ public class User implements Entity {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public void fillEntity(JSONObject json) throws JSONException {
+
     }
 }

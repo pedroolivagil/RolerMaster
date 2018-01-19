@@ -27,13 +27,18 @@ public class Alert {
     }
 
     private AlertDialog loadingDialog;
+    private Activity activity;
 
     private Alert() {
     }
 
-    private AlertDialog errorInfo(Activity a, String title, String text, int color, final ActionAlert actionAlert) {
-        final View view = a.getLayoutInflater().inflate(R.layout.alert_dialog_error, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(a);
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    private AlertDialog errorInfo(String title, String text, int color, final ActionAlert actionAlert) {
+        final View view = this.activity.getLayoutInflater().inflate(R.layout.alert_dialog_error, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
         builder.setView(view);
 
         final AlertDialog alertDialog = builder.create();
@@ -59,9 +64,9 @@ public class Alert {
         return alertDialog;
     }
 
-    private AlertDialog confirm(Activity a, String title, String text, final ActionAlert actionAlert) {
-        final View view = a.getLayoutInflater().inflate(R.layout.alert_dialog_confirm, null);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(a);
+    private AlertDialog confirm(String title, String text, final ActionAlert actionAlert) {
+        final View view = this.activity.getLayoutInflater().inflate(R.layout.alert_dialog_confirm, null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
         builder.setView(view);
 
         final AlertDialog alertDialog = builder.create();
@@ -96,35 +101,35 @@ public class Alert {
         return alertDialog;
     }
 
-    public void infoDialog(Activity a, String text, ActionAlert actionAlert) {
-        errorInfo(a, a.getString(R.string.alert_dialog_title_info), text, a.getResources().getColor(R.color.alertDialogInfo), actionAlert).show();
+    public void infoDialog(String text, ActionAlert actionAlert) {
+        errorInfo(this.activity.getString(R.string.alert_dialog_title_info), text, this.activity.getResources().getColor(R.color.alertDialogInfo), actionAlert).show();
     }
 
-    public void errorDialog(Activity a, Tools.Error error, String text, ActionAlert actionAlert) {
+    public void errorDialog(String text, ActionAlert actionAlert) {
+        errorInfo(this.activity.getString(R.string.alert_dialog_title_error), text, this.activity.getResources().getColor(R.color.alertDialogError), actionAlert).show();
+    }
+
+    public void errorDialog(Tools.Error error, String text, ActionAlert actionAlert) {
         StringBuilder title = new StringBuilder();
-        title.append(a.getString(R.string.alert_dialog_title_error));
+        title.append(this.activity.getString(R.string.alert_dialog_title_error));
         title.append(" ");
         title.append(error.getVal());
-        errorInfo(a, title.toString(), text, a.getResources().getColor(R.color.alertDialogError), actionAlert).show();
+        errorInfo(title.toString(), text, this.activity.getResources().getColor(R.color.alertDialogError), actionAlert).show();
     }
 
-    public void errorDialog(Activity a, String text, ActionAlert actionAlert) {
-        errorInfo(a, a.getString(R.string.alert_dialog_title_error), text, a.getResources().getColor(R.color.alertDialogError), actionAlert).show();
+    public void confirmDialog(@StringRes int title, @StringRes int text, ActionAlert trueActionAlert) {
+        confirmDialog(this.activity.getString(title), this.activity.getString(text), trueActionAlert);
     }
 
-    public void confirmDialog(Activity a, @StringRes int title, @StringRes int text, ActionAlert trueActionAlert) {
-        confirmDialog(a, a.getString(title), a.getString(text), trueActionAlert);
-    }
-
-    public void confirmDialog(Activity a, String title, String text, ActionAlert trueActionAlert) {
-        confirm(a, title, text, trueActionAlert).show();
+    public void confirmDialog(String title, String text, ActionAlert trueActionAlert) {
+        confirm(title, text, trueActionAlert).show();
     }
 
     private AlertDialog loadingDialog(Activity a) {
-        final View view = a.getLayoutInflater().inflate(R.layout.alert_dialog_loader, null);
+        final View view = this.activity.getLayoutInflater().inflate(R.layout.alert_dialog_loader, null);
         ProgressBar barInverted = view.findViewById(R.id.alert_dialog_progressbar_invert);
         barInverted.setRotation(180);
-        AlertDialog.Builder builder = new AlertDialog.Builder(a);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
         builder.setView(view);
         builder.setCancelable(false);
         return builder.create();
@@ -144,8 +149,8 @@ public class Alert {
         loadingDialog.dismiss();
     }
 
-    public void setLoadingDialog(Activity a) {
-        this.loadingDialog = loadingDialog(a);
+    public void setLoadingDialog() {
+        this.loadingDialog = loadingDialog(this.activity);
     }
 
     public static class ActionAlert implements ActionRolerMaster {

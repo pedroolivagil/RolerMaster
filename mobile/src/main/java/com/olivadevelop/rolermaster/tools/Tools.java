@@ -14,7 +14,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Environment;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
@@ -77,11 +76,15 @@ public abstract class Tools {
     public static final int YEAR_MIN = 1900;
     public static final int TIME_SPLASH = 1000; // Miliseconds
     public static final int TIME_TO_EXIT = 2000; // Miliseconds
-    public static final String SERVER = "10.0.2.2";
-    public static final String HOSTNAME = "http://" + SERVER + "/myprojectsorg";
+
+    public static final String SERVER = "localhost";
+    public static final String HOSTNAME = "http://" + SERVER + "/rolermaster/";
+    public static final String SERVICE_URL = HOSTNAME + "www/php/service/";
+
+    // Android app dirs structure
     public static final String CLIENT_DIR = "clients";
     public static final String IMAGE_DIR = "img";
-    public static final String EXTERNAL_DIR = Environment.getExternalStorageDirectory() + "/MyProjectPictures/";
+    /*public static final String EXTERNAL_DIR = Environment.getExternalStorageDirectory() + "/RolerMasterPictures/";*/
 
     public enum Error {
         ERROR_404(404), ERROR_500(500), ERROR_300(300), ERROR_400(400);
@@ -186,7 +189,7 @@ public abstract class Tools {
     }
 
     public static boolean isNull(Object object) {
-        return object == null || object.toString().trim().equals("");
+        return object == null || (object instanceof String && object.toString().trim().equals(""));
     }
 
     public static boolean isNotNull(Object obj) {
