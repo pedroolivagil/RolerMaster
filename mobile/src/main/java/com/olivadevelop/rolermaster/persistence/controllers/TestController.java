@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
 import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
+import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 
@@ -56,10 +57,20 @@ public class TestController extends _BasicController<TestEntity> {
     }
 
     @Override
-    public TestEntity find(Integer idEntity) {
+    public TestEntity find(Integer idEntity, final _RestService.ActionService<TestEntity> actionService) {
         TestEntity retorno = null;
         try {
-            retorno = super.find(idEntity);
+            retorno = super.find(idEntity, new _RestService.ActionService<TestEntity>() {
+                @Override
+                public void run(JSONObject json) {
+                    try {
+                        TestEntity obj = parseJsonToEntity(json, TestEntity.class);
+                        actionService.run(obj);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);

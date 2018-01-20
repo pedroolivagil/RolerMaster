@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class TestEntity extends BasicEntity {
 
     public static final String FIELD_KEY = "key";
-    public static final String FIELD_TEXTO = "texto";
+    public static final String FIELD_TEXTO = "text";
 
     private Integer key;
     private String texto;

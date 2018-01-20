@@ -5,6 +5,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
+import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
+import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -30,7 +33,7 @@ public class BlankFragment extends CustomFragment {
     @Override
     protected void actionsOnActivityCreated() {
         super.actionsOnActivityCreated();
-        TextView blankUsername = findViewById(R.id.blank_username);
+        final TextView blankUsername = findViewById(R.id.blank_username);
         LinearLayout mainCardGame = findViewById(R.id.mainCardGame);
         if (SessionManager.getInstance().isLogged()) {
             blankUsername.setText(
@@ -57,6 +60,14 @@ public class BlankFragment extends CustomFragment {
         } else {
             blankUsername.setText(getString(R.string.blank_guest));
         }
+        Controllers.getInstance().getTestController().find(1, new _RestService.ActionService<TestEntity>() {
+            @Override
+            public void run(TestEntity entity) {
+                if (Tools.isNotNull(blankUsername) && Tools.isNotNull(entity)) {
+                    blankUsername.setText(entity.getTexto());
+                }
+            }
+        });
     }
 
     @Override

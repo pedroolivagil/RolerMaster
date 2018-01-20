@@ -56,7 +56,9 @@ public class Alert {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        actionAlert.run();
+                        if (Tools.isNotNull(actionAlert)) {
+                            actionAlert.run();
+                        }
                         alertDialog.dismiss();
                     }
                 }

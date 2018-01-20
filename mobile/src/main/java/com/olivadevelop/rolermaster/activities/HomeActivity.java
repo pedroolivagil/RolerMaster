@@ -25,6 +25,10 @@ import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
+import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
+
 import static com.olivadevelop.rolermaster.tools.Tools.Logger;
 import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;
 import static com.olivadevelop.rolermaster.tools.Tools.isNull;
@@ -186,7 +190,16 @@ public class HomeActivity extends RolerMasterActivity {
             TextView navUserName = headerLayout.findViewById(R.id.nav_user_name);
             TextView navUserMail = headerLayout.findViewById(R.id.nav_user_email);
 
-            User user = Controllers.getInstance().getUserController().find(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0));
+            User user = null;
+            try {
+                user = Controllers.getInstance().getUserController().find(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0),null);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (Tools.isNotNull(user)) {
                 navUserName.setText(Tools.capitalize(user.getUsername()));
             }

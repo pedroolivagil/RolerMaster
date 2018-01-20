@@ -2,6 +2,11 @@ package com.olivadevelop.rolermaster.persistence.controllers;
 
 import com.olivadevelop.rolermaster.persistence.entities.old.Entity;
 import com.olivadevelop.rolermaster.persistence.entities.old.User;
+import com.olivadevelop.rolermaster.persistence.managers._RestService;
+
+import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -22,7 +27,7 @@ public class UserController extends _BasicController<User> {
     }
 
     @Override
-    public User find(Integer idEntity) {
+    public User find(Integer idEntity, _RestService.ActionService<User> actionService) throws ExecutionException, InterruptedException, JSONException {
         return this.testUser;
     }
 

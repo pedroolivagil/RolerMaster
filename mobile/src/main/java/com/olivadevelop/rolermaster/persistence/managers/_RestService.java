@@ -25,10 +25,16 @@ import okhttp3.ResponseBody;
 // TODO: en caso de no llegar a extender nunca la clase, cambiar a final y eliminar los métodos action* de preExec y postExec
 public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
 
+    private ActionService actionService;
     private String url;
 
     public _RestService(String relativeUrl) {
         this.url = relativeUrl;
+    }
+
+    public _RestService(String relativeUrl, ActionService action) {
+        this.url = relativeUrl;
+        this.actionService = action;
     }
 
     @Override
@@ -56,14 +62,27 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
     }
 
     @Override
-    protected void onPostExecute(JSONObject t) {
-        super.onPostExecute(t);
+    protected void onPostExecute(JSONObject json) {
+        super.onPostExecute(json);
         Alert.getInstance().hideLoadingDialog();
+        if (Tools.isNotNull(json) && Tools.isNotNull(actionService)) {
+            actionService.run(json);
+        }
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         Alert.getInstance().showLoadingDialog();
+    }
+
+    public static class ActionService<T> {
+        public void run(T entity) {
+
+        }
+
+        public void run(JSONObject json) {
+
+        }
     }
 }
