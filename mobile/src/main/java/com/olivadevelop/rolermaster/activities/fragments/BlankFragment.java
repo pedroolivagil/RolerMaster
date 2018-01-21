@@ -60,6 +60,7 @@ public class BlankFragment extends CustomFragment {
         } else {
             blankUsername.setText(getString(R.string.blank_guest));
         }
+
         Controllers.getInstance().getTestController().find(1, new _RestService.ActionService<TestEntity>() {
             @Override
             public void run(TestEntity entity) {
