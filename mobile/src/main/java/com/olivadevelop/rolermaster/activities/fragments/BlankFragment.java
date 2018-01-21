@@ -12,6 +12,7 @@ import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
+import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
@@ -33,7 +34,7 @@ public class BlankFragment extends CustomFragment {
     @Override
     protected void actionsOnActivityCreated() {
         super.actionsOnActivityCreated();
-        final TextView blankUsername = findViewById(R.id.blank_username);
+        TextView blankUsername = findViewById(R.id.blank_username);
         LinearLayout mainCardGame = findViewById(R.id.mainCardGame);
         if (SessionManager.getInstance().isLogged()) {
             blankUsername.setText(
@@ -60,15 +61,6 @@ public class BlankFragment extends CustomFragment {
         } else {
             blankUsername.setText(getString(R.string.blank_guest));
         }
-
-        Controllers.getInstance().getTestController().find(1, new _RestService.ActionService<TestEntity>() {
-            @Override
-            public void run(TestEntity entity) {
-                if (Tools.isNotNull(blankUsername) && Tools.isNotNull(entity)) {
-                    blankUsername.setText(entity.getTexto());
-                }
-            }
-        });
     }
 
     @Override
@@ -94,6 +86,15 @@ public class BlankFragment extends CustomFragment {
         super.actionsFab(v);
         if (SessionManager.getInstance().isLogged()) {
             Tools.LoggerSnack(v, this, "Replace with an action");
+            final TextView blankUsername = findViewById(R.id.blank_username);
+            Controllers.getInstance().getTestController().find(1, new _RestService.ActionService<TestEntity>() {
+                @Override
+                public void run(TestEntity entity) {
+                    if (Tools.isNotNull(blankUsername) && Tools.isNotNull(entity)) {
+                        blankUsername.setText(entity.getTexto());
+                    }
+                }
+            });
         } else {
             Navigation.getInstance().navigate(Navigation.Page.USER_LOGIN_FRAGMENT);
         }

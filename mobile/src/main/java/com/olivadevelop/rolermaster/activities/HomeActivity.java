@@ -24,6 +24,7 @@ import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
+import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
 
 import org.json.JSONException;
 
@@ -49,6 +50,7 @@ public class HomeActivity extends RolerMasterActivity {
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
         Alert.getInstance().setActivity(this);
         Alert.getInstance().setLoadingDialog();
+        RolerMasterThread.getInstance().setContext(this);
         // Inicializamos el menú lateral izquierdo
         setToolbar();
         setNavigationDrawer();
@@ -192,7 +194,7 @@ public class HomeActivity extends RolerMasterActivity {
 
             User user = null;
             try {
-                user = Controllers.getInstance().getUserController().find(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0),null);
+                user = Controllers.getInstance().getUserController().find(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0), null);
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

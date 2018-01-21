@@ -80,10 +80,10 @@ public class Navigation {
                 Navigation.getInstance().navigate(c, fragmentClass);
             }
         };
-        RolerMasterThread.getInstance().newThread(c, time, action, progressBar);
+        RolerMasterThread.getInstance().newThread(time, action, progressBar);
     }
 
-    public void navigateFragmentThread(final Class fragmentClass, Context c, int time, final ProgressBar progressBar) {
+    public void navigateFragmentThread(final Class fragmentClass,int time, final ProgressBar progressBar) {
         RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
             @Override
             public void run() {
@@ -91,7 +91,7 @@ public class Navigation {
                 Navigation.getInstance().navigate(fragmentClass);
             }
         };
-        RolerMasterThread.getInstance().newThread(c, time, action, progressBar);
+        RolerMasterThread.getInstance().newThread(time, action, progressBar);
     }
 
     public void navigate(Class fragmentClass, Bundle args) {

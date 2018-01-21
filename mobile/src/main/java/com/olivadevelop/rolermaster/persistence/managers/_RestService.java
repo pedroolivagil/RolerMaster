@@ -4,11 +4,13 @@ import android.os.AsyncTask;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
+import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import okhttp3.OkHttpClient;
@@ -53,6 +55,13 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
                 retorno = new JSONObject(body.string());
             }
             response.close();
+        } catch (SocketTimeoutException e) {
+            RolerMasterThread.getInstance().newThread(0, new RolerMasterThread.ActionThread() {
+                @Override
+                public void run() {
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);
+                }
+            });
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -64,7 +73,12 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject json) {
         super.onPostExecute(json);
-        Alert.getInstance().hideLoadingDialog();
+        RolerMasterThread.getInstance().newThread(0, new RolerMasterThread.ActionThread() {
+            @Override
+            public void run() {
+                Alert.getInstance().hideLoadingDialog();
+            }
+        });
         if (Tools.isNotNull(json) && Tools.isNotNull(actionService)) {
             actionService.run(json);
         }
@@ -73,7 +87,12 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Alert.getInstance().showLoadingDialog();
+        RolerMasterThread.getInstance().newThread(1, new RolerMasterThread.ActionThread() {
+            @Override
+            public void run() {
+                Alert.getInstance().showLoadingDialog();
+            }
+        });
     }
 
     public static class ActionService<T> {

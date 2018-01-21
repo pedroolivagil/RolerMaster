@@ -15,8 +15,13 @@ import static com.google.android.gms.internal.zzahn.runOnUiThread;
 
 public class RolerMasterThread {
     private static final RolerMasterThread ourInstance = new RolerMasterThread();
+    private Context context;
 
     private RolerMasterThread() {
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public static RolerMasterThread getInstance() {
@@ -26,23 +31,21 @@ public class RolerMasterThread {
     /**
      * Llama a @newThread pero sin progressbar
      *
-     * @param c      contexto de la aplicación
      * @param time   tiempo máximo del hilo
      * @param action acción que va a realizar al concluir
      */
-    public void newThread(Context c, int time, ActionThread action) {
-        newThread(c, time, action, null);
+    public void newThread(int time, ActionThread action) {
+        newThread(time, action, null);
     }
 
     /**
      * Crea un hilo secundario para demorar una acción. Se admite un progresbar
      *
-     * @param c           contexto de la aplicacion
      * @param time        tiempo de demora máximo
      * @param action      la acción que va a realizar el hilo al concluir el tiempo
      * @param progressBar la barra de progreso que irá incrementando
      */
-    public void newThread(final Context c, final int time, final ActionThread action, final ProgressBar progressBar) {
+    public void newThread(final int time, final ActionThread action, final ProgressBar progressBar) {
         new Thread() {
             @Override
             public void run() {
@@ -56,7 +59,7 @@ public class RolerMasterThread {
                         waited += 100;
                     }
                 } catch (InterruptedException e) {
-                    Tools.Logger(c, e);
+                    Tools.Logger(context, e);
                 } finally {
                     runOnUiThread(new Runnable() {
                         @Override

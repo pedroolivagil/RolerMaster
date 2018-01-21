@@ -1,7 +1,7 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -127,8 +127,8 @@ public class Alert {
         confirm(title, text, trueActionAlert).show();
     }
 
-    private AlertDialog loadingDialog(Activity a) {
-        final View view = this.activity.getLayoutInflater().inflate(R.layout.alert_dialog_loader, null);
+    private AlertDialog loadingDialog() {
+        @SuppressLint("InflateParams") View view = this.activity.getLayoutInflater().inflate(R.layout.alert_dialog_loader, null);
         ProgressBar barInverted = view.findViewById(R.id.alert_dialog_progressbar_invert);
         barInverted.setRotation(180);
         AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
@@ -138,11 +138,11 @@ public class Alert {
     }
 
     public void showLoadingDialog() {
-        Context c = loadingDialog.getContext();
+        setLoadingDialog();
         loadingDialog.show();
         Window window = loadingDialog.getWindow();
         if (window != null) {
-            window.setLayout((int) Tools.convertDpToPixel(c, 100), (int) Tools.convertDpToPixel(c, 100));
+            window.setLayout((int) Tools.convertDpToPixel(activity, 100), (int) Tools.convertDpToPixel(activity, 100));
             window.setBackgroundDrawable(null);
         }
     }
@@ -152,7 +152,7 @@ public class Alert {
     }
 
     public void setLoadingDialog() {
-        this.loadingDialog = loadingDialog(this.activity);
+        this.loadingDialog = loadingDialog();
     }
 
     public static class ActionAlert implements ActionRolerMaster {
