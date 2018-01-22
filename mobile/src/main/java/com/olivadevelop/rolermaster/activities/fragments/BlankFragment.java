@@ -94,7 +94,7 @@ public class BlankFragment extends CustomFragment {
                         public void run(TestEntity entity) {
                             super.run(entity);
                             if (Tools.isNotNull(blankUsername) && Tools.isNotNull(entity)) {
-                                blankUsername.setText(entity.getTexto());
+                                blankUsername.setText(entity.getText());
                             }
                         }
                     });
@@ -110,7 +110,7 @@ public class BlankFragment extends CustomFragment {
                             if (Tools.isNotNull(blankUsername) && Tools.isNotNull(entities)) {
                                 StringBuilder textos = new StringBuilder();
                                 for (TestEntity entity : entities) {
-                                    textos.append(entity.getTexto());
+                                    textos.append(entity.getText());
                                 }
                                 blankUsername.setText(textos.toString());
                             }

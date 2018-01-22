@@ -17,7 +17,7 @@ public class TestEntity extends BasicEntity {
     public static final String FIELD_TEXTO = "text";
 
     private Integer key;
-    private String texto;
+    private String text;
 
     public TestEntity() {
     }
@@ -28,7 +28,7 @@ public class TestEntity extends BasicEntity {
 
     public TestEntity(Integer key, String texto) {
         this.key = key;
-        this.texto = texto;
+        this.text = texto;
     }
 
     public Integer getKey() {
@@ -39,19 +39,19 @@ public class TestEntity extends BasicEntity {
         this.key = key;
     }
 
-    public String getTexto() {
-        return texto;
+    public String getText() {
+        return text;
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
     public void fillEntity(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
             this.setKey(json.getInt(FIELD_KEY));
-            this.setTexto(json.getString(FIELD_TEXTO));
+            this.setText(json.getString(FIELD_TEXTO));
         }
     }
 }
