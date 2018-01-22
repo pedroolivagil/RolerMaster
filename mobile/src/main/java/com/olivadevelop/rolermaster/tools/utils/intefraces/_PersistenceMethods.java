@@ -17,7 +17,7 @@ public interface _PersistenceMethods<T> {
 
     T find(Integer idEntity, _RestService.ActionService<T> actionService) throws ExecutionException, InterruptedException, JSONException;
 
-    List<T> findAll() throws ExecutionException, InterruptedException, JSONException;
+    List<T> findAll(_RestService.ActionService<T> actionService) throws ExecutionException, InterruptedException, JSONException;
 
     List<T> findAllByIds(List<Integer> idsEntity) throws ExecutionException, InterruptedException;
 

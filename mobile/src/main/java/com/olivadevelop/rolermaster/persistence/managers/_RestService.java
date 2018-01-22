@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.managers;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -60,13 +62,28 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
             RolerMasterThread.getInstance().newThread(0, new RolerMasterThread.ActionThread() {
                 @Override
                 public void run() {
+                    Alert.getInstance().hideLoadingDialog();
                     Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);
                 }
             });
         } catch (IOException | JSONException e) {
-            Alert.getInstance().errorDialog(Tools.Error.ERROR_404, "", null);
+            e.printStackTrace();
+            Alert.getInstance().getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Alert.getInstance().hideLoadingDialog();
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "", null);
+                }
+            });
         } catch (Exception e) {
-            Alert.getInstance().errorDialog(Tools.Error.ERROR_404, "", null);
+            e.printStackTrace();
+            Alert.getInstance().getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Alert.getInstance().hideLoadingDialog();
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "", null);
+                }
+            });
         }
         return retorno;
     }
@@ -81,6 +98,12 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
 
     public static class ActionService<T> implements ActionRolerMaster {
         public void run(T entity) {
+            if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && Alert.getInstance().getLoadingDialog().isShowing()) {
+                Alert.getInstance().hideLoadingDialog();
+            }
+        }
+
+        public void run(List<T> entities) {
             if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && Alert.getInstance().getLoadingDialog().isShowing()) {
                 Alert.getInstance().hideLoadingDialog();
             }

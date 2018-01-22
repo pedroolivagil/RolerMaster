@@ -34,9 +34,9 @@ public class UserSignUpFragment extends CustomFragment {
         List<KeyValuePair> values2 = null;
         List<KeyValuePair> values3 = null;
         try {
-            values = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
-            values2 = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
-            values3 = Tools.objToKeyValuePair(testController.findAll(), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
+            values = Tools.objToKeyValuePair(testController.findAll(null), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
+            values2 = Tools.objToKeyValuePair(testController.findAll(null), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
+            values3 = Tools.objToKeyValuePair(testController.findAll(null), TestEntity.FIELD_KEY, TestEntity.FIELD_TEXTO);
         } catch (NoSuchFieldException e) {
             Tools.Logger(this, e);
         } catch (IllegalAccessException e) {
