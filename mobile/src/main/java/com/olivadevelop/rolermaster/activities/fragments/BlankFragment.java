@@ -16,8 +16,6 @@ import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
 
-import java.util.List;
-
 public class BlankFragment extends CustomFragment {
 
     private RolerMasterCardView rolerMasterCardView;
@@ -88,10 +86,10 @@ public class BlankFragment extends CustomFragment {
         super.actionsFab(v);
         if (SessionManager.getInstance().isLogged()) {
             final TextView blankUsername = findViewById(R.id.blank_username);
-            /*RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
+            RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
                 @Override
                 public void run() {
-                    Controllers.getInstance().getTestController().find(1, new _RestService.ActionService<TestEntity>() {
+                    Controllers.getInstance().getTestController().read(1, new _RestService.ActionService<TestEntity>() {
                         @Override
                         public void run(TestEntity entity) {
                             super.run(entity);
@@ -101,11 +99,11 @@ public class BlankFragment extends CustomFragment {
                         }
                     });
                 }
-            });*/
-            RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
+            });
+            /*RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
                 @Override
                 public void run() {
-                    Controllers.getInstance().getTestController().findAll(new _RestService.ActionService<TestEntity>() {
+                    Controllers.getInstance().getTestController().readAll(new _RestService.ActionService<TestEntity>() {
                         @Override
                         public void run(List<TestEntity> entities) {
                             super.run(entities);
@@ -119,7 +117,7 @@ public class BlankFragment extends CustomFragment {
                         }
                     });
                 }
-            });
+            });*/
         } else {
             Navigation.getInstance().navigate(Navigation.Page.USER_LOGIN_FRAGMENT);
         }

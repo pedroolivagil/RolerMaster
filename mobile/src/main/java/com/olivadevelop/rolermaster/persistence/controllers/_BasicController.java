@@ -34,9 +34,8 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
         this.entity = entity;
     }
 
-    @Override
-    public T find(Integer idEntity, _RestService.ActionService<T> actionService) throws ExecutionException, InterruptedException, JSONException {
-        service = new _RestService("find_entity.php", actionService);
+    public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
+        service = new _RestService("find_entity.php");
         service.execute(new FormBody.Builder()
                 .add("typeQuery", FIND_ONE)
                 .add("entity", entity.getSimpleName())
@@ -48,8 +47,8 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     }
 
     @Override
-    public List<T> findAll(_RestService.ActionService<T> actionService) throws ExecutionException, InterruptedException, JSONException {
-        service = new _RestService("find_entity.php", actionService);
+    public List<T> findAll() throws ExecutionException, InterruptedException, JSONException {
+        service = new _RestService("find_entity.php");
         service.execute(new FormBody.Builder()
                 .add("typeQuery", FIND_ALL)
                 .add("entity", entity.getSimpleName())

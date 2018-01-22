@@ -1,7 +1,6 @@
 package com.olivadevelop.rolermaster.tools.utils.intefraces;
 
 import com.olivadevelop.rolermaster.persistence.entities.old.Entity;
-import com.olivadevelop.rolermaster.persistence.managers._RestService;
 
 import org.json.JSONException;
 
@@ -15,9 +14,9 @@ import java.util.concurrent.ExecutionException;
 
 public interface _PersistenceMethods<T> {
 
-    T find(Integer idEntity, _RestService.ActionService<T> actionService) throws ExecutionException, InterruptedException, JSONException;
+    T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException;
 
-    List<T> findAll(_RestService.ActionService<T> actionService) throws ExecutionException, InterruptedException, JSONException;
+    List<T> findAll() throws ExecutionException, InterruptedException, JSONException;
 
     List<T> findAllByIds(List<Integer> idsEntity) throws ExecutionException, InterruptedException;
 

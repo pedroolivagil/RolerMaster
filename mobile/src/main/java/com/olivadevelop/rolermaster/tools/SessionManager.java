@@ -33,7 +33,7 @@ public class SessionManager {
     public boolean login(String usermail, String pass) {
         boolean retorno = false;
         if (Tools.isNotNull(usermail) && Tools.isNotNull(pass)) {
-            User user = Controllers.getInstance().getUserController().find(usermail);
+            User user = Controllers.getInstance().getUserController().read(usermail, null);
             if (user != null && user.getPassword().equals(pass)) {
                 Preferences.getInstance().editor().putInt(Preferences.EnumBundle.SESSION_ID_USER, user.getIdUser()).apply();
                 Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERPASS, user.getPassword()).apply();

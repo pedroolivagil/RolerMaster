@@ -1,7 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.managers;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
@@ -63,7 +62,7 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
                 @Override
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
-                    Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "TimeOutException", null);
                 }
             });
         } catch (IOException | JSONException e) {
@@ -72,7 +71,7 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
                 @Override
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
-                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "", null);
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "ServiceException", null);
                 }
             });
         } catch (Exception e) {
@@ -81,7 +80,7 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
                 @Override
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
-                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "", null);
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "GenericException", null);
                 }
             });
         }
@@ -91,9 +90,9 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject json) {
         super.onPostExecute(json);
-        if (Tools.isNotNull(json) && Tools.isNotNull(actionService)) {
+       /* if (Tools.isNotNull(json) && Tools.isNotNull(actionService)) {
             actionService.run(json);
-        }
+        }*/
     }
 
     public static class ActionService<T> implements ActionRolerMaster {
