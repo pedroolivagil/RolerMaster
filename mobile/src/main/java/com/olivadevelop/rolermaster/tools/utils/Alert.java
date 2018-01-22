@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
@@ -34,6 +33,10 @@ public class Alert {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public Activity getActivity() {
+        return activity;
     }
 
     private AlertDialog errorInfo(String title, String text, int color, final ActionAlert actionAlert) {
@@ -128,7 +131,7 @@ public class Alert {
     }
 
     private AlertDialog loadingDialog() {
-        @SuppressLint("InflateParams") View view = this.activity.getLayoutInflater().inflate(R.layout.alert_dialog_loader, null);
+        View view = this.activity.getLayoutInflater().inflate(R.layout.alert_dialog_loader, null);
         ProgressBar barInverted = view.findViewById(R.id.alert_dialog_progressbar_invert);
         barInverted.setRotation(180);
         AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
@@ -138,7 +141,9 @@ public class Alert {
     }
 
     public void showLoadingDialog() {
-        setLoadingDialog();
+        if (Tools.isNull(loadingDialog)) {
+            setLoadingDialog();
+        }
         loadingDialog.show();
         Window window = loadingDialog.getWindow();
         if (window != null) {
@@ -153,6 +158,10 @@ public class Alert {
 
     public void setLoadingDialog() {
         this.loadingDialog = loadingDialog();
+    }
+
+    public AlertDialog getLoadingDialog() {
+        return loadingDialog;
     }
 
     public static class ActionAlert implements ActionRolerMaster {

@@ -52,10 +52,6 @@ public class TestController extends _BasicController<TestEntity> {
         return super.parseJsonToEntity(json, entity);
     }
 
-    public TestEntity testParse(JSONObject json, Class<TestEntity> entity) throws JSONException {
-        return parseJsonToEntity(json, entity);
-    }
-
     @Override
     public TestEntity find(Integer idEntity, final _RestService.ActionService<TestEntity> actionService) {
         TestEntity retorno = null;
@@ -72,7 +68,6 @@ public class TestController extends _BasicController<TestEntity> {
                 }
             });
         } catch (InterruptedException | ExecutionException | JSONException e) {
-            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);
         }
         return retorno;

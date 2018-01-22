@@ -12,9 +12,9 @@ import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
+import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
 
 public class BlankFragment extends CustomFragment {
 
@@ -85,14 +85,19 @@ public class BlankFragment extends CustomFragment {
     protected void actionsFab(View v) {
         super.actionsFab(v);
         if (SessionManager.getInstance().isLogged()) {
-            Tools.LoggerSnack(v, this, "Replace with an action");
             final TextView blankUsername = findViewById(R.id.blank_username);
-            Controllers.getInstance().getTestController().find(1, new _RestService.ActionService<TestEntity>() {
+            RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
                 @Override
-                public void run(TestEntity entity) {
-                    if (Tools.isNotNull(blankUsername) && Tools.isNotNull(entity)) {
-                        blankUsername.setText(entity.getTexto());
-                    }
+                public void run() {
+                    Controllers.getInstance().getTestController().find(1, new _RestService.ActionService<TestEntity>() {
+                        @Override
+                        public void run(TestEntity entity) {
+                            super.run(entity);
+                            if (Tools.isNotNull(blankUsername) && Tools.isNotNull(entity)) {
+                                blankUsername.setText(entity.getTexto());
+                            }
+                        }
+                    });
                 }
             });
         } else {

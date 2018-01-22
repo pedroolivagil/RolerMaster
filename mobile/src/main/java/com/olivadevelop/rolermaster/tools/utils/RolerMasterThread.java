@@ -31,6 +31,15 @@ public class RolerMasterThread {
     /**
      * Llama a @newThread pero sin progressbar
      *
+     * @param action acción que va a realizar al concluir
+     */
+    public void newThread(ActionThread action) {
+        newThread(500, action, null);
+    }
+
+    /**
+     * Llama a @newThread pero sin progressbar
+     *
      * @param time   tiempo máximo del hilo
      * @param action acción que va a realizar al concluir
      */
@@ -50,23 +59,35 @@ public class RolerMasterThread {
             @Override
             public void run() {
                 try {
-                    int waited = 0;
-                    while (waited < time) {
-                        sleep(100);
-                        if (progressBar != null) {
-                            progressBar.incrementProgressBy(100);
+                    if (Tools.isNotNull(action)) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                action.preRun();
+                            }
+                        });
+                    }
+                    if (time > 0) {
+                        int waited = 0;
+                        while (waited < time) {
+                            sleep(100);
+                            if (progressBar != null) {
+                                progressBar.incrementProgressBy(100);
+                            }
+                            waited += 100;
                         }
-                        waited += 100;
                     }
                 } catch (InterruptedException e) {
                     Tools.Logger(context, e);
                 } finally {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            action.run();
-                        }
-                    });
+                    if (Tools.isNotNull(action)) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                action.run();
+                            }
+                        });
+                    }
                 }
             }
         }.start();
@@ -75,7 +96,12 @@ public class RolerMasterThread {
     public static class ActionThread implements ActionRolerMaster {
         @Override
         public void run() {
+        }
 
+        public void preRun() {
+            if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && !Alert.getInstance().getLoadingDialog().isShowing()) {
+                Alert.getInstance().showLoadingDialog();
+            }
         }
     }
 }
