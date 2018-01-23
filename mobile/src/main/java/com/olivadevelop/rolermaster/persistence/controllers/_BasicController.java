@@ -150,10 +150,6 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
         return retorno;
     }
 
-    public _RestService getService() {
-        return service;
-    }
-
     public Class<T> getEntity() {
         return entity;
     }
