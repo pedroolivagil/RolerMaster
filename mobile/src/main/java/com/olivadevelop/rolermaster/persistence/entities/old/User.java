@@ -1,5 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.entities.old;
 
+import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,7 +19,7 @@ public class User implements Entity {
     private String password;
     private String email;
     private String name;
-    private String lasname;
+    private String lastname;
     private String phone;
     private Country country;
     private Date birthdate;
@@ -65,12 +68,12 @@ public class User implements Entity {
         this.name = name;
     }
 
-    public String getLasname() {
-        return lasname;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLasname(String lasname) {
-        this.lasname = lasname;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getPhone() {
@@ -107,6 +110,19 @@ public class User implements Entity {
 
     @Override
     public void fillEntity(JSONObject json) throws JSONException {
-
+        if (Tools.isNotNull(json)) {
+            this.idUser = json.getInt("idUser");
+            this.username = json.getString("username");
+            this.password = json.getString("password");
+            this.email = json.getString("email");
+            this.name = json.getString("name");
+            this.lastname = json.getString("lastname");
+            this.phone = json.getString("phone");
+            this.country = new Country();
+            this.country.fillEntity(json.getJSONObject("country"));
+            this.birthdate = Tools.getDateFromString(json.getLong("birthdate"));
+            this.gender = new Gender();
+            this.gender.fillEntity(json.getJSONObject("gender"));
+        }
     }
 }

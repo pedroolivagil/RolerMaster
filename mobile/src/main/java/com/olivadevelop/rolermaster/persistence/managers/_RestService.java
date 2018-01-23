@@ -54,7 +54,8 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
             Response response = client.newCall(request).execute();
             ResponseBody body = response.body();
             if (Tools.isNotNull(body)) {
-                retorno = new JSONObject(body.string());
+                String result = body.string();
+                retorno = new JSONObject(result);
             }
             response.close();
         } catch (SocketTimeoutException e) {

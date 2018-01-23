@@ -558,8 +558,12 @@ public abstract class Tools {
 
     public static String formatDate(Date date) {
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         sdf.setTimeZone(TimeZone.getDefault());
         return sdf.format(date);
+    }
+
+    public static Date getDateFromString(long time) {
+        return new Date(time);
     }
 }

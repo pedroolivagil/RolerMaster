@@ -4,6 +4,7 @@ import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
 import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
+import com.olivadevelop.rolermaster.tools.utils.intefraces.ControllerMethods;
 
 import org.json.JSONException;
 

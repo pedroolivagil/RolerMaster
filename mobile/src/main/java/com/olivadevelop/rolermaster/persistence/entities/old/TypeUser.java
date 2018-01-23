@@ -1,5 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities.old;
 
+import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

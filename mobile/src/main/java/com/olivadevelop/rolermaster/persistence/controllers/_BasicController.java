@@ -1,9 +1,10 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.old.Entity;
 import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.Preferences;
+import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.tools.utils.QueryBuilder;
+import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
 import com.olivadevelop.rolermaster.tools.utils.intefraces._PersistenceMethods;
 
 import org.json.JSONArray;
@@ -21,41 +22,52 @@ import okhttp3.FormBody;
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 03/01/2018.
  */
-
+/*values.add(new KeyValuePair("userId", String.valueOf(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0))));*/
 public class _BasicController<T> implements _PersistenceMethods<T> {
 
-    private static final String FIND_ALL = "0";
-    private static final String FIND_ONE = "1";
+    private _RestService service;
+    private Class<T> entity;
+    private QueryBuilder<T> queryBuilder;
 
-    protected _RestService service;
-    protected Class<T> entity;
-
-    protected _BasicController(Class<T> entity) {
+    _BasicController(Class<T> entity) {
         this.entity = entity;
+        this.queryBuilder = new QueryBuilder<>(entity);
     }
 
     public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
+        List<KeyValuePair> values = new ArrayList<>();
+        values.add(new KeyValuePair("idEntity", String.valueOf(idEntity)));
+
         service = new _RestService("find_entity.php");
-        service.execute(new FormBody.Builder()
-                .add("typeQuery", FIND_ONE)
-                .add("entity", entity.getSimpleName())
-                .add("userId", String.valueOf(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0)))
-                .add("idEntity", String.valueOf(idEntity))
-                .build()
-        );
+        service.execute(getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
         return parseJsonToEntity(service.get(), entity);
     }
 
     @Override
+    public T find(FormBody query) throws ExecutionException, InterruptedException, JSONException {
+        T retorno = null;
+        if (Tools.isNotNull(query)) {
+            service = new _RestService("find_entity.php");
+            service.execute(query);
+            retorno = parseJsonToEntity(service.get(), entity);
+        }
+        return retorno;
+    }
+
+    @Override
     public List<T> findAll() throws ExecutionException, InterruptedException, JSONException {
-        service = new _RestService("find_entity.php");
-        service.execute(new FormBody.Builder()
-                .add("typeQuery", FIND_ALL)
-                .add("entity", entity.getSimpleName())
-                .add("userId", String.valueOf(Preferences.getPrefs().getInt(Preferences.EnumBundle.SESSION_ID_USER, 0)))
-                .build()
-        );
-        return parseJsonToListEntity(service.get(), entity);
+        return findAll(getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ALL, null));
+    }
+
+    @Override
+    public List<T> findAll(FormBody query) throws ExecutionException, InterruptedException, JSONException {
+        List<T> retorno = null;
+        if (Tools.isNotNull(query)) {
+            service = new _RestService("find_entity.php");
+            service.execute(query);
+            retorno = parseJsonToListEntity(service.get(), entity);
+        }
+        return retorno;
     }
 
     @Override
@@ -136,5 +148,17 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
             }
         }
         return retorno;
+    }
+
+    public _RestService getService() {
+        return service;
+    }
+
+    public Class<T> getEntity() {
+        return entity;
+    }
+
+    public QueryBuilder<T> getQueryBuilder() {
+        return queryBuilder;
     }
 }
