@@ -55,12 +55,15 @@ public class QueryBuilder<T> {
         try {
             if (Tools.isNotNull(entity)) {
                 Field field = entity.getDeclaredField(fieldName);
-                String fn = field.getAnnotation(Persistence.class).columnName();
-                if (Tools.isNotNull(fn)) {
-                    retorno = fn;
-                } else {
-                    if (Tools.isNotNull(field.getName())) {
-                        retorno = field.getName();
+                Persistence persistence = field.getAnnotation(Persistence.class);
+                if (Tools.isNotNull(persistence)) {
+                    String fn = persistence.columnName();
+                    if (Tools.isNotNull(fn)) {
+                        retorno = fn;
+                    } else {
+                        if (Tools.isNotNull(field.getName())) {
+                            retorno = field.getName();
+                        }
                     }
                 }
             }

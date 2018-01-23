@@ -28,6 +28,10 @@ public class User implements Entity {
     public User() {
     }
 
+    public User(JSONObject json) throws JSONException {
+        fillEntity(json);
+    }
+
     public Integer getIdUser() {
         return idUser;
     }
@@ -118,11 +122,9 @@ public class User implements Entity {
             this.name = json.getString("name");
             this.lastname = json.getString("lastname");
             this.phone = json.getString("phone");
-            this.country = new Country();
-            this.country.fillEntity(json.getJSONObject("country"));
+            this.country = new Country(json.getJSONObject("country"));
             this.birthdate = Tools.getDateFromString(json.getLong("birthdate"));
-            this.gender = new Gender();
-            this.gender.fillEntity(json.getJSONObject("gender"));
+            this.gender = new Gender(json.getJSONObject("gender"));
         }
     }
 }

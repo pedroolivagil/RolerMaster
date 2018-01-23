@@ -41,7 +41,9 @@ public class UserController extends _BasicController<User> implements Controller
             values.add(new KeyValuePair("email", usermail));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
-            actionService.run(retorno);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
         } catch (InterruptedException | ExecutionException | JSONException e) {
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User not found", null);
         }

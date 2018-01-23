@@ -2,6 +2,7 @@ package com.olivadevelop.rolermaster.persistence.entities.old;
 
 import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -10,6 +11,15 @@ import org.json.JSONObject;
  * RolerMaster
  */
 public class Gender implements Entity {
+
+
+    public Gender() {
+    }
+
+    public Gender(JSONObject json) throws JSONException {
+        fillEntity(json);
+    }
+
     @Override
     public void fillEntity(JSONObject json) {
 
