@@ -563,7 +563,7 @@ public abstract class Tools {
         return sdf.format(date);
     }
 
-    public static Date getDateFromString(String stringTime) {
+    public static Date getDateFromStringLong(String stringTime) {
         Date retorno = null;
         if (Tools.isNotNull(stringTime)) {
             try {
