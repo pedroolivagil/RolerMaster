@@ -136,7 +136,7 @@ public class User extends BasicEntity {
             this.lastname = json.getString("lastname");
             this.phone = json.getString("phone");
             this.country = new Country(json.getJSONObject("country"));
-            this.birthdate = Tools.getDateFromString(json.getLong("birthdate"));
+            this.birthdate = Tools.getDateFromString(json.getString("birthdate"));
             this.gender = new Gender(json.getJSONObject("gender"));
         }
     }

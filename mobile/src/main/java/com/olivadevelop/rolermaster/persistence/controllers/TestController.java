@@ -45,7 +45,9 @@ public class TestController extends _BasicController<TestEntity> implements Cont
         List<TestEntity> retorno = null;
         try {
             retorno = super.findAll();
-            actionService.run(retorno);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
         } catch (InterruptedException | ExecutionException | JSONException e) {
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "", null);
         }
