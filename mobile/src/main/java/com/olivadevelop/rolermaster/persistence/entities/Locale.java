@@ -2,6 +2,7 @@ package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.utils.intefraces.Persistence;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +14,13 @@ import org.json.JSONObject;
  */
 public class Locale extends BasicEntity {
 
+    private Integer idLocale;
+
+    @Persistence(columnName = "codeISO")
+    private String codeIso;
+
+    private GenericTrans translation;
+
     public Locale() {
     }
 
@@ -20,9 +28,36 @@ public class Locale extends BasicEntity {
         super(json);
     }
 
+    public Integer getIdLocale() {
+        return idLocale;
+    }
+
+    public void setIdLocale(Integer idLocale) {
+        this.idLocale = idLocale;
+    }
+
+    public String getCodeIso() {
+        return codeIso;
+    }
+
+    public void setCodeIso(String codeIso) {
+        this.codeIso = codeIso;
+    }
+
+    public GenericTrans getTranslation() {
+        return translation;
+    }
+
+    public void setTranslation(GenericTrans translation) {
+        this.translation = translation;
+    }
+
     @Override
-    public void fillEntity(JSONObject json) {
+    public void fillEntity(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
+            this.idLocale = json.getInt("idLocale");
+            this.codeIso = json.getString("codeISO");
+            this.translation = new GenericTrans(json.getJSONObject("translation"));
         }
     }
 }

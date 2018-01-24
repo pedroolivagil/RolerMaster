@@ -28,6 +28,22 @@ public class GenericTrans extends BasicEntity {
         this.text = text;
     }
 
+    public Integer getIdLocale() {
+        return idLocale;
+    }
+
+    public void setIdLocale(Integer idLocale) {
+        this.idLocale = idLocale;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public void fillEntity(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
