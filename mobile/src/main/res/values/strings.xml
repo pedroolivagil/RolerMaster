@@ -110,17 +110,19 @@
     <string name="settings_notification_title_mail">TRADUCIR</string>
     <string name="settings_notification_title_calendar">TRADUCIR</string>
     <string name="settings_notification_title_swatch">TRADUCIR</string>
-    <string name="settings_notification_title_autologin">TRADUCIR</string>
+    <string name="settings_title_autologin">TRADUCIR</string>
     <string name="settings_notification_swatch">TRADUCIR</string>
     <string name="settings_notification_calendar">TRADUCIR</string>
     <string name="settings_notification_mail">TRADUCIR</string>
-    <string name="settings_notification_autologin">TRADUCIR</string>
+    <string name="settings_autologin">TRADUCIR</string>
     <string name="settings_changed_success">TRADUCIR</string>
     <string name="settings_permisions_app">TRADUCIR</string>
     <string name="settings_title_permisions_app">TRADUCIR</string>
     <string name="settings_title_export_pdf">TRADUCIR</string>
     <string name="settings_export_pdf_false">TRADUCIR</string>
     <string name="settings_export_pdf_true">TRADUCIR</string>
+    <string name="settings_notification_app">TRADUCIR</string>
+    <string name="settings_notification_title_app">TRADUCIR</string>
 
     <!-- View AlertDialog  -->
     <string name="alert_dialog_title_info">TRADUCIR</string>

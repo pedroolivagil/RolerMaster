@@ -1,5 +1,7 @@
-package com.olivadevelop.rolermaster.persistence.entities.old;
+package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.old.Country;
+import com.olivadevelop.rolermaster.persistence.entities.old.Gender;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
 

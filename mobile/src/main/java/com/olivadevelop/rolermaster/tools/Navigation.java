@@ -41,6 +41,7 @@ public class Navigation {
     private KeyValuePairClass currentNavigationFragment;
     private CustomList<KeyValuePairClass> fragments;
     private Bundle lastArgs;
+
     private Navigation() {
         fragments = new CustomList<>();
         navHomeFirst = true;
@@ -73,17 +74,27 @@ public class Navigation {
     }
 
     public void navigateActivityThread(final Class fragmentClass, final Context c, int time, final ProgressBar progressBar) {
-        RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
+        navigateActivityThread(fragmentClass, c, time, progressBar, false);
+    }
+
+    public void navigateActivityThread(final Class fragmentClass, final Context c, final int time, final ProgressBar progressBar, final boolean loadingAlert) {
+        final RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
             @Override
             public void run() {
-                super.run();
                 Navigation.getInstance().navigate(c, fragmentClass);
+            }
+
+            @Override
+            public void preRun() {
+                if (loadingAlert) {
+                    super.preRun();
+                }
             }
         };
         RolerMasterThread.getInstance().newThread(time, action, progressBar);
     }
 
-    public void navigateFragmentThread(final Class fragmentClass,int time, final ProgressBar progressBar) {
+    public void navigateFragmentThread(final Class fragmentClass, int time, final ProgressBar progressBar) {
         RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
             @Override
             public void run() {

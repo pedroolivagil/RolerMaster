@@ -97,9 +97,6 @@ public class SplashActivity extends RolerMasterActivity {
     @Override
     protected void initialize() {
         super.initialize();
-        // Inicilizamos la publicidad
-        AdsAdMob.getInstance().initialize(this);
-        Preferences.getInstance().init(this);
 
         mContentView = findViewById(R.id.fullscreen_content);
 

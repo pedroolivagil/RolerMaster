@@ -17,6 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.olivadevelop.rolermaster.tools.AdsAdMob;
+import com.olivadevelop.rolermaster.tools.Navigation;
+
 /**
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 10/01/2018.
@@ -73,6 +76,12 @@ public class RolerMasterActivity extends AppCompatActivity implements Navigation
                 requestPermisions();
             }
         }, 1500);
+        Alert.getInstance().setActivity(this);
+        Alert.getInstance().setLoadingDialog();
+        Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
+        RolerMasterThread.getInstance().setContext(this);
+        AdsAdMob.getInstance().initialize(this);
+        Preferences.getInstance().init(this);
     }
 
     protected void requestPermisions() {

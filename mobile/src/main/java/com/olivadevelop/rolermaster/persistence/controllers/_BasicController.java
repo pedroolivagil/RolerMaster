@@ -108,7 +108,7 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
      * @param entity entity class to parse it
      * @return entity object
      */
-    protected T parseJsonToEntity(JSONObject json, Class<T> entity) throws JSONException {
+    private T parseJsonToEntity(JSONObject json, Class<T> entity) throws JSONException {
         T retorno = null;
         if (Tools.isNotNull(json)) {
             JSONArray array = json.getJSONArray(entity.getSimpleName());
@@ -117,7 +117,7 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
         return retorno;
     }
 
-    protected List<T> parseJsonToListEntity(JSONObject json, Class<T> entity) throws JSONException {
+    private List<T> parseJsonToListEntity(JSONObject json, Class<T> entity) throws JSONException {
         List<T> retorno = new ArrayList<>();
         if (Tools.isNotNull(json)) {
             JSONArray array = json.getJSONArray(entity.getSimpleName());
@@ -150,11 +150,11 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
         return retorno;
     }
 
-    public Class<T> getEntity() {
+    Class<T> getEntity() {
         return entity;
     }
 
-    public QueryBuilder<T> getQueryBuilder() {
+    QueryBuilder<T> getQueryBuilder() {
         return queryBuilder;
     }
 }

@@ -1,6 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.old.User;
+import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;

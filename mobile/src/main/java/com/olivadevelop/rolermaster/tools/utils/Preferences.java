@@ -28,7 +28,7 @@ public class Preferences {
         return getInstance().prefs;
     }
 
-    public void init(RolerMasterActivity activity) {
+    void init(RolerMasterActivity activity) {
         prefs = activity.getSharedPreferences(USER_PREFERENCES, Context.MODE_PRIVATE);
     }
 
@@ -61,6 +61,7 @@ public class Preferences {
         public static final String PREFS_NOTIF_EMAIL = "notifEmail";
         public static final String PREFS_NOTIF_CALENDAR = "notifCalendar";
         public static final String PREFS_NOTIF_SWATCH = "notifSwatch";
+        public static final String PREFS_NOTIF_ROLERMASTER = "notifApp";
         public static final String PREFS_EXPORT_PDF = "exportPdf";
 
         public static final String SESSION_ID_USER = "sessionIdUser";
