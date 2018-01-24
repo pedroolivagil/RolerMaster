@@ -2,6 +2,7 @@ package com.olivadevelop.rolermaster.persistence.entities.old;
 
 
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +24,7 @@ public class TestEntity extends BasicEntity {
     }
 
     public TestEntity(JSONObject json) throws JSONException {
-        fillEntity(json);
+        super(json);
     }
 
     public TestEntity(Integer key, String texto) {

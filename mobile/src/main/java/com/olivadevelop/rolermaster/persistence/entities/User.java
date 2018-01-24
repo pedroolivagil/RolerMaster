@@ -1,9 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.old.Country;
-import com.olivadevelop.rolermaster.persistence.entities.old.Gender;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
+import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +13,7 @@ import java.util.Date;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
-public class User implements Entity {
+public class User extends BasicEntity {
     private Integer idUser;
     private String username;
     private String password;
@@ -31,7 +29,20 @@ public class User implements Entity {
     }
 
     public User(JSONObject json) throws JSONException {
-        fillEntity(json);
+        super(json);
+    }
+
+    public User(Integer idUser, String username, String password, String email, String name, String lastname, String phone, Country country, Date birthdate, Gender gender) {
+        this.idUser = idUser;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.country = country;
+        this.birthdate = birthdate;
+        this.gender = gender;
     }
 
     public Integer getIdUser() {

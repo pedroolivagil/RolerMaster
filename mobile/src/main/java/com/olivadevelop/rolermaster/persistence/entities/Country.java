@@ -1,6 +1,7 @@
-package com.olivadevelop.rolermaster.persistence.entities.old;
+package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
+import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,18 +11,19 @@ import org.json.JSONObject;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
-public class Country implements Entity {
+public class Country extends BasicEntity {
 
     public Country() {
     }
 
 
     public Country(JSONObject json) throws JSONException {
-        fillEntity(json);
+        super(json);
     }
 
     @Override
     public void fillEntity(JSONObject json) {
-
+        if (Tools.isNotNull(json)) {
+        }
     }
 }

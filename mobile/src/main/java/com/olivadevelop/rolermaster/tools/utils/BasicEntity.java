@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.persistence.entities.old;
+package com.olivadevelop.rolermaster.tools.utils;
 
 import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
 
@@ -16,5 +16,6 @@ public abstract class BasicEntity implements Entity {
     }
 
     public BasicEntity(JSONObject json) throws JSONException {
+        fillEntity(json);
     }
 }
