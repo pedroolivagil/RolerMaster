@@ -96,6 +96,17 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
         }*/
     }
 
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread(){
+            @Override
+            public void run() {
+
+            }
+        });
+    }
+
     public static class ActionService<T> implements ActionRolerMaster {
         public void run(T entity) {
             if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && Alert.getInstance().getLoadingDialog().isShowing()) {

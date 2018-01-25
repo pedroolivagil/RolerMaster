@@ -2,7 +2,6 @@ package com.olivadevelop.rolermaster.tools;
 
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.User;
-import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 
 /**
@@ -31,33 +30,21 @@ public class SessionManager {
         this.logged = logged;
     }
 
-    public boolean login(String usermail, final String pass) {
-        boolean retorno = false;
+    public boolean login(final String usermail, final String pass) {
         if (Tools.isNotNull(usermail) && Tools.isNotNull(pass)) {
-            User user = Controllers.getInstance().getUserController().read(usermail, new _RestService.ActionService<User>() {
-                @Override
-                public void run(User entity) {
-                    super.run(entity);
-                    if (Tools.isNotNull(entity) && entity.getPassword().equals(pass)) {
-                        Preferences.getInstance().editor().putInt(Preferences.EnumBundle.SESSION_ID_USER, entity.getIdUser()).apply();
-                        Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERPASS, entity.getPassword()).apply();
-                        Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERNAME, entity.getName()).apply();
-                        setLogged(true);
-                    }
-                }
-            });
-            if (Tools.isNotNull(user)) {
-                retorno = true;
-            }
-           /* if (user != null && user.getPassword().equals(pass)) {
+            User user = Controllers.getInstance().getUserController().read(usermail, null);
+            if (Tools.isNotNull(user) && user.getPassword().equals(pass)) {
+                StringBuilder name = new StringBuilder();
+                name.append(user.getName());
+                name.append(" ");
+                name.append(user.getLastname());
                 Preferences.getInstance().editor().putInt(Preferences.EnumBundle.SESSION_ID_USER, user.getIdUser()).apply();
                 Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERPASS, user.getPassword()).apply();
-                Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERNAME, user.getName()).apply();
+                Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERNAME, name.toString()).apply();
                 setLogged(true);
-                retorno = true;
-            }*/
+            }
         }
-        return retorno;
+        return isLogged();
     }
 
     public void logout() {

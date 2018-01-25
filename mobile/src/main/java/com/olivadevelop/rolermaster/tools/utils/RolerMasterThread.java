@@ -85,6 +85,7 @@ public class RolerMasterThread {
                             @Override
                             public void run() {
                                 action.run();
+                                action.postRun();
                             }
                         });
                     }
@@ -101,6 +102,12 @@ public class RolerMasterThread {
         public void preRun() {
             if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && !Alert.getInstance().getLoadingDialog().isShowing()) {
                 Alert.getInstance().showLoadingDialog();
+            }
+        }
+
+        public void postRun() {
+            if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && Alert.getInstance().getLoadingDialog().isShowing()) {
+                Alert.getInstance().hideLoadingDialog();
             }
         }
     }
