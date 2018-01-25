@@ -12,7 +12,6 @@ import org.json.JSONObject;
  */
 public class Gender extends BasicEntity {
 
-
     private Integer idGender;
     private String code;
     private GenericTrans translation;

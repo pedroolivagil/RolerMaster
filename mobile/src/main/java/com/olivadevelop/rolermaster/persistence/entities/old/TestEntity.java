@@ -1,7 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities.old;
 
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -49,10 +48,8 @@ public class TestEntity extends BasicEntity {
     }
 
     @Override
-    public void construct(JSONObject json) throws JSONException {
-        if (Tools.isNotNull(json)) {
-            this.setKey(json.getInt(FIELD_KEY));
-            this.setText(json.getString(FIELD_TEXTO));
-        }
+    public void onConstruct(JSONObject json) throws JSONException {
+        this.setKey(json.getInt(FIELD_KEY));
+        this.setText(json.getString(FIELD_TEXTO));
     }
 }

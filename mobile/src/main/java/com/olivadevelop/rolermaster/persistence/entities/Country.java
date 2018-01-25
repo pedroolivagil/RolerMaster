@@ -14,7 +14,7 @@ public class Country extends BasicEntity {
 
     private Integer idCountry;
     private String code;
-    private GenericTrans tranlation;
+    private GenericTrans translation;
     private Locale locale;
 
     public Country() {
@@ -41,12 +41,12 @@ public class Country extends BasicEntity {
         this.code = code;
     }
 
-    public GenericTrans getTranlation() {
-        return tranlation;
+    public GenericTrans getTranslation() {
+        return translation;
     }
 
-    public void setTranlation(GenericTrans tranlation) {
-        this.tranlation = tranlation;
+    public void setTranslation(GenericTrans translation) {
+        this.translation = translation;
     }
 
     public Locale getLocale() {
@@ -61,7 +61,7 @@ public class Country extends BasicEntity {
     public void onConstruct(JSONObject json) throws JSONException {
         this.idCountry = json.getInt("idCountry");
         this.code = json.getString("code");
-        this.tranlation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
+        this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
         this.locale = new Locale(json.getJSONObject("locale"));
     }
 }
