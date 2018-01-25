@@ -1,11 +1,13 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
+import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
 import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Navigation;
@@ -15,6 +17,10 @@ import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
+
+import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
 
 public class BlankFragment extends CustomFragment {
 
@@ -57,6 +63,13 @@ public class BlankFragment extends CustomFragment {
                 blankLastDate.setVisibility(View.VISIBLE);
                 blankLastDate.setText(Tools.getCurrentDate());
                 mainCardGame.addView(rolerMasterCardView);
+            }
+
+            try {
+                User user = Controllers.getInstance().getUserController().find(1);
+                Log.e("USER", user.toString());
+            } catch (ExecutionException | InterruptedException | JSONException e) {
+                e.printStackTrace();
             }
         } else {
             blankUsername.setText(getString(R.string.blank_guest));

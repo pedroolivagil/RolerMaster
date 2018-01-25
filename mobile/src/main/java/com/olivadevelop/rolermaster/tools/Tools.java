@@ -7,11 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.IdRes;
@@ -84,6 +79,7 @@ public abstract class Tools {
     // Android app dirs structure
     public static final String CLIENT_DIR = "clients";
     public static final String IMAGE_DIR = "img";
+
     /*public static final String EXTERNAL_DIR = Environment.getExternalStorageDirectory() + "/RolerMasterPictures/";*/
 
     public enum Error {
@@ -419,45 +415,6 @@ public abstract class Tools {
             retorno.add(new KeyValuePair(year, String.valueOf(year)));
         }
         return retorno;
-    }
-
-    /**
-     * Redimensiona una imagen (drawable) y devuelve un objeto drawable
-     *
-     * @param ctx   Contexto
-     * @param resId ID del drawable a redimensionar
-     * @param w     Ancho deseado
-     * @param h     Alto deseado
-     * @return Drawable
-     */
-    public static Drawable resizeImage(Context ctx, int resId, int w, int h) {
-
-        // cargamos la imagen de origen
-        Bitmap BitmapOrg = BitmapFactory.decodeResource(ctx.getResources(),
-                resId);
-
-        int width = BitmapOrg.getWidth();
-        int height = BitmapOrg.getHeight();
-
-        // calculamos el escalado de la imagen destino
-        float scaleWidth = ((float) w) / width;
-        float scaleHeight = ((float) h) / height;
-
-        // para poder manipular la imagen
-        // debemos crear una matriz
-
-        Matrix matrix = new Matrix();
-        // resize the Bitmap
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // volvemos a crear la imagen con los nuevos valores
-        Bitmap resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0,
-                width, height, matrix, true);
-
-        // si queremos poder mostrar nuestra imagen tenemos que crear un
-        // objeto drawable y así asignarlo a un botón, imageview...
-        return new BitmapDrawable(resizedBitmap);
-
     }
 
     public static String versionName(Context c) {

@@ -1,9 +1,7 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.Persistence;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -30,9 +28,11 @@ public class QueryBuilder<T> {
     }
 
     private Class<T> entity;
+    private ConverterJSONArrayToList<T> converter;
 
     public QueryBuilder(Class<T> entity) {
         this.entity = entity;
+        this.converter = new ConverterJSONArrayToList<>(entity);
     }
 
     private static final String TYPE_QUERY = "typeQuery";
@@ -44,31 +44,9 @@ public class QueryBuilder<T> {
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
         if (Tools.isNotNull(values)) {
             for (KeyValuePair obj : values) {
-                query.add(getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabel());
+                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabel());
             }
         }
         return query.build();
-    }
-
-    private String getPersistenceFieldName(String fieldName) {
-        String retorno = fieldName;
-        try {
-            if (Tools.isNotNull(entity)) {
-                Field field = entity.getDeclaredField(fieldName);
-                Persistence persistence = field.getAnnotation(Persistence.class);
-                if (Tools.isNotNull(persistence)) {
-                    String fn = persistence.columnName();
-                    if (Tools.isNotNull(fn)) {
-                        retorno = fn;
-                    } else {
-                        if (Tools.isNotNull(field.getName())) {
-                            retorno = field.getName();
-                        }
-                    }
-                }
-            }
-        } catch (NoSuchFieldException e) {
-        }
-        return retorno;
     }
 }
