@@ -55,7 +55,6 @@ public class Preferences {
 
     public abstract static class EnumBundle {
         public static final String FORGOT_PASS_EMAIL = "email";
-        public static final String LOGIN_EMAIL = "loginEmail"; //borrar
 
         public static final String PREFS_AUTOLOGIN = "autologin";
         public static final String PREFS_NOTIF_EMAIL = "notifEmail";
