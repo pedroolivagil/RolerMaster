@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 import com.olivadevelop.rolermaster.tools.utils.intefraces.Persistence;
 
@@ -51,11 +50,9 @@ public class Locale extends BasicEntity {
     }
 
     @Override
-    public void construct(JSONObject json) throws JSONException {
-        if (Tools.isNotNull(json)) {
-            this.idLocale = json.getInt("idLocale");
-            this.codeIso = json.getString("codeISO");
-            this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
-        }
+    public void onConstruct(JSONObject json) throws JSONException {
+        this.idLocale = json.getInt("idLocale");
+        this.codeIso = json.getString("codeISO");
+        this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
     }
 }

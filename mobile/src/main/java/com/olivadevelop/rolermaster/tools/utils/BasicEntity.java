@@ -31,6 +31,13 @@ public abstract class BasicEntity implements Entity {
     }
 
     @Override
+    public void construct(JSONObject json) throws JSONException {
+        if (Tools.isNotNull(json)) {
+            onConstruct(json);
+        }
+    }
+
+    @Override
     public String toString() {
         StringBuilder retorno = new StringBuilder();
         try {

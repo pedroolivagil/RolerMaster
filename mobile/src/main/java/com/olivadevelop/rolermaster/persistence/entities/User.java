@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class User extends BasicEntity {
     private boolean master;
-    private List<Integer> rolers;
     private Integer idUser;
     private String username;
     private String password;
@@ -30,6 +29,7 @@ public class User extends BasicEntity {
     private Date birthdate;
     private Gender gender;
     private Country country;
+    private List<Integer> rolers;
 
     public User() {
         super();
@@ -119,22 +119,36 @@ public class User extends BasicEntity {
         this.gender = gender;
     }
 
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
+    }
+
+    public List<Integer> getRolers() {
+        return rolers;
+    }
+
+    public void setRolers(List<Integer> rolers) {
+        this.rolers = rolers;
+    }
+
     @Override
-    public void construct(JSONObject json) throws JSONException {
-        if (Tools.isNotNull(json)) {
-            this.idUser = json.getInt("idUser");
-            this.username = json.getString("username");
-            this.password = json.getString("password");
-            this.email = json.getString("email");
-            this.name = json.getString("name");
-            this.lastName = json.getString("lastname");
-            this.phone = json.getString("phone");
-            this.country = new Country(json.getJSONObject("country"));
-            this.birthdate = Tools.getDateFromStringLong(json.getString("birthdate"));
-            this.gender = new Gender(json.getJSONObject("gender"));
-            this.master = json.getBoolean("master");
-            ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
-            this.rolers = converter.convert(json.getJSONArray("rolers"));
-        }
+    public void onConstruct(JSONObject json) throws JSONException {
+        this.idUser = json.getInt("idUser");
+        this.username = json.getString("username");
+        this.password = json.getString("password");
+        this.email = json.getString("email");
+        this.name = json.getString("name");
+        this.lastName = json.getString("lastname");
+        this.phone = json.getString("phone");
+        this.country = new Country(json.getJSONObject("country"));
+        this.birthdate = Tools.getDateFromStringLong(json.getString("birthdate"));
+        this.gender = new Gender(json.getJSONObject("gender"));
+        this.master = json.getBoolean("master");
+        ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
+        this.rolers = converter.convert(json.getJSONArray("rolers"));
     }
 }

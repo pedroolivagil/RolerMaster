@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -59,12 +58,10 @@ public class Country extends BasicEntity {
     }
 
     @Override
-    public void construct(JSONObject json) throws JSONException {
-        if (Tools.isNotNull(json)) {
-            this.idCountry = json.getInt("idCountry");
-            this.code = json.getString("code");
-            this.tranlation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
-            this.locale = new Locale(json.getJSONObject("locale"));
-        }
+    public void onConstruct(JSONObject json) throws JSONException {
+        this.idCountry = json.getInt("idCountry");
+        this.code = json.getString("code");
+        this.tranlation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
+        this.locale = new Locale(json.getJSONObject("locale"));
     }
 }

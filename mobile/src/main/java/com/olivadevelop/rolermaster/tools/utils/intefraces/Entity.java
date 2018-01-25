@@ -14,4 +14,6 @@ public interface Entity extends Serializable {
 
     void construct(JSONObject json) throws JSONException;
 
+    void onConstruct(JSONObject json) throws JSONException;
+
 }

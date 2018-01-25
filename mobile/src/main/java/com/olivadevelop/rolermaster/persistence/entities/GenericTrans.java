@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -45,10 +44,8 @@ public class GenericTrans extends BasicEntity {
     }
 
     @Override
-    public void construct(JSONObject json) throws JSONException {
-        if (Tools.isNotNull(json)) {
-            this.idLocale = json.getInt("idLocale");
-            this.text = json.getString("text");
-        }
+    public void onConstruct(JSONObject json) throws JSONException {
+        this.idLocale = json.getInt("idLocale");
+        this.text = json.getString("text");
     }
 }

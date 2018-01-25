@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -50,11 +49,9 @@ public class Gender extends BasicEntity {
     }
 
     @Override
-    public void construct(JSONObject json) throws JSONException {
-        if (Tools.isNotNull(json)) {
-            this.idGender = json.getInt("idGender");
-            this.code = json.getString("code");
-            this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
-        }
+    public void onConstruct(JSONObject json) throws JSONException {
+        this.idGender = json.getInt("idGender");
+        this.code = json.getString("code");
+        this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
     }
 }
