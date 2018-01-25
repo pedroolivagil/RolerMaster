@@ -1,8 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
-import com.olivadevelop.rolermaster.tools.utils.ConverterJSONArrayToList;
 import com.olivadevelop.rolermaster.tools.utils.intefraces.Persistence;
 
 import org.json.JSONException;
@@ -135,5 +133,4 @@ public class User extends BasicEntity {
     public void setRolers(List<Integer> rolers) {
         this.rolers = rolers;
     }
-
 }
