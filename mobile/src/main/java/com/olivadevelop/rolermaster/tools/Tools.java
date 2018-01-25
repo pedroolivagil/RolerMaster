@@ -334,18 +334,17 @@ public abstract class Tools {
     /**
      * POG - Crea una cadena a partir de un número rellenandolo con un caracter al principio
      *
-     * @param number     Número que rellenar
+     * @param obj        Número, string,... que rellenar
      * @param beforeChar Carácter que se insertará
      * @param maxLength  Máximo de largo que tendrá para insertar el beforeChar
      * @return String
      */
-    public static String fillStringByBeforeChar(Object number, String beforeChar,
-                                                Integer maxLength) {
-        if (number == null) {
+    public static String fillStringByBeforeChar(Object obj, String beforeChar, Integer maxLength) {
+        if (obj == null) {
             return "";
         }
         StringBuilder retorno = new StringBuilder();
-        retorno.append(number);
+        retorno.append(obj);
         if (retorno.length() < Math.abs(maxLength)) {
             do {
                 retorno.insert(0, beforeChar);
@@ -513,9 +512,17 @@ public abstract class Tools {
         return formatDate(new Date());
     }
 
+    public static String getCurrentDate(String pattern) {
+        return formatDate(new Date(), pattern);
+    }
+
     public static String formatDate(Date date) {
+        return formatDate(date, "dd-MM-yyyy");
+    }
+
+    public static String formatDate(Date date, String pattern) {
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         sdf.setTimeZone(TimeZone.getDefault());
         return sdf.format(date);
     }

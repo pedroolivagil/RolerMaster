@@ -10,8 +10,11 @@ import java.lang.annotation.Target;
  * Created by Oliva on 23/01/2018.
  */
 
-@Target(value = {ElementType.FIELD})
+@Target(value = {ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Persistence {
+
     String columnName() default "";
+
+    String collectionName() default "";
 }

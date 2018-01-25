@@ -4,10 +4,12 @@ import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
 import com.olivadevelop.rolermaster.tools.utils.intefraces.Persistence;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -27,13 +29,67 @@ public abstract class BasicEntity implements Entity {
     }
 
     public BasicEntity(JSONObject json) throws JSONException {
-        construct(json);
+        toEntity(json);
     }
 
     @Override
-    public void construct(JSONObject json) throws JSONException {
+    public String generateCode() {
+        return null;
+    }
+
+    @Override
+    public void toEntity(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
-            onConstruct(json);
+           /* onConstruct(json);*/
+            try {
+                Field[] fields = getClass().getDeclaredFields();
+                if (Tools.isNotNull(fields) && fields.length > 0) {
+                    int count = 0;
+                    for (Field field : fields) {
+                        field.setAccessible(true);
+                        String fName = field.getName();
+                        if (!CHANGE_FIELD.equals(fName) && !SERIAL_VERSION_UID.equals(fName)) {
+                            Persistence persistence = field.getAnnotation(Persistence.class);
+                            if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
+                                fName = persistence.columnName();
+                            }
+                            Object value = json.get(fName);
+
+                            if (value instanceof Boolean
+                                    || value instanceof Integer
+                                    || value instanceof Long
+                                    || value instanceof Float
+                                    || value instanceof Double
+                                    || value instanceof String) {
+                                field.set(this, value);
+                            } else if (value instanceof JSONArray) {
+                                ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
+                                field.set(this, converter.convert((JSONArray) value));
+                            } else if (value instanceof JSONObject) {
+                                Class entity = MapEntities.findByString(fName);
+                                if (Tools.isNotNull(entity)) {
+                                    Object newEntity = entity.getConstructor(JSONObject.class).newInstance(value);
+                                    if (Tools.isNotNull(newEntity)) {
+                                        field.set(this, newEntity);
+                                    }
+                                }
+                            } else {
+                                // valores null
+                            }
+                        }
+                        field.setAccessible(false);
+                        count++;
+                    }
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -43,8 +99,13 @@ public abstract class BasicEntity implements Entity {
         try {
             Field[] fields = getClass().getDeclaredFields();
             if (Tools.isNotNull(fields) && fields.length > 0) {
+                Persistence persistenceClass = getClass().getAnnotation(Persistence.class);
+                String className = getClass().getSimpleName();
+                if (Tools.isNotNull(persistenceClass) && Tools.isNotNull(persistenceClass.collectionName())) {
+                    className = persistenceClass.collectionName();
+                }
                 retorno.append("{");
-                retorno.append(QUOTES).append(getClass().getSimpleName()).append(QUOTES).append(":{");
+                retorno.append(QUOTES).append(className).append(QUOTES).append(":{");
                 int count = 0;
                 for (Field field : fields) {
                     field.setAccessible(true);
@@ -53,9 +114,9 @@ public abstract class BasicEntity implements Entity {
                         count++;
                         continue;
                     }
-                    Persistence persistence = field.getAnnotation(Persistence.class);
-                    if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
-                        fName = persistence.columnName();
+                    Persistence persistenceField = field.getAnnotation(Persistence.class);
+                    if (Tools.isNotNull(persistenceField) && Tools.isNotNull(persistenceField.columnName())) {
+                        fName = persistenceField.columnName();
                     }
                     retorno.append(QUOTES).append(fName).append(QUOTES).append(":");
 

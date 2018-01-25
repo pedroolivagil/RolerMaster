@@ -73,6 +73,10 @@ public class Navigation {
         navigate(fragmentClass, null);
     }
 
+    public void navigateActivityThread(final Class fragmentClass, final Context c, final ProgressBar progressBar) {
+        navigateActivityThread(fragmentClass, c, 500, progressBar, false);
+    }
+
     public void navigateActivityThread(final Class fragmentClass, final Context c, int time, final ProgressBar progressBar) {
         navigateActivityThread(fragmentClass, c, time, progressBar, false);
     }

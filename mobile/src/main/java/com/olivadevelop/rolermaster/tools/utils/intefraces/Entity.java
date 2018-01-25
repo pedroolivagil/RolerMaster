@@ -12,8 +12,8 @@ import java.io.Serializable;
 
 public interface Entity extends Serializable {
 
-    void construct(JSONObject json) throws JSONException;
+    void toEntity(JSONObject json) throws JSONException;
 
-    void onConstruct(JSONObject json) throws JSONException;
+    String generateCode();
 
 }

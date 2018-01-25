@@ -33,7 +33,7 @@ public class SessionManager {
     public boolean login(final String usermail, final String pass) {
         if (Tools.isNotNull(usermail) && Tools.isNotNull(pass)) {
             User user = Controllers.getInstance().getUserController().read(usermail, null);
-            if (Tools.isNotNull(user) && user.getPassword().equals(pass)) {
+            if (Tools.isNotNull(user) && Tools.isNotNull(user.getPassword()) && user.getPassword().equals(pass)) {
                 StringBuilder name = new StringBuilder();
                 name.append(user.getName());
                 name.append(" ");

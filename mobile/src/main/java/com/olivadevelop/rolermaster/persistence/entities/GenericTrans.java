@@ -42,10 +42,4 @@ public class GenericTrans extends BasicEntity {
     public void setText(String text) {
         this.text = text;
     }
-
-    @Override
-    public void onConstruct(JSONObject json) throws JSONException {
-        this.idLocale = json.getInt("idLocale");
-        this.text = json.getString("text");
-    }
 }

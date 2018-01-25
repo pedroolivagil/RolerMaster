@@ -56,12 +56,4 @@ public class Country extends BasicEntity {
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
-
-    @Override
-    public void onConstruct(JSONObject json) throws JSONException {
-        this.idCountry = json.getInt("idCountry");
-        this.code = json.getString("code");
-        this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
-        this.locale = new Locale(json.getJSONObject("locale"));
-    }
 }

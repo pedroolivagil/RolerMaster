@@ -63,7 +63,7 @@ public class UserLoginFragment extends CustomFragment {
             Tools.LoggerSnack(v, this, R.string.login_user_logging);
             if (validateUserLogin()) {
                 if (SessionManager.getInstance().login(loginUser.getText().toString().trim(), loginPass.getText().toString().trim())) {
-                    Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, this.getContext(), 3000, null);
+                    Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, this.getContext(),null);
                 } else {
                     Tools.LoggerSnack(v, this, R.string.login_user_fail_login_bad_user_pass);
                 }

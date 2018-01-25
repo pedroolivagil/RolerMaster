@@ -16,6 +16,7 @@ import java.util.List;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "user")
 public class User extends BasicEntity {
     private boolean master;
     private Integer idUser;
@@ -135,20 +136,4 @@ public class User extends BasicEntity {
         this.rolers = rolers;
     }
 
-    @Override
-    public void onConstruct(JSONObject json) throws JSONException {
-        this.idUser = json.getInt("idUser");
-        this.username = json.getString("username");
-        this.password = json.getString("password");
-        this.email = json.getString("email");
-        this.name = json.getString("name");
-        this.lastName = json.getString("lastname");
-        this.phone = json.getString("phone");
-        this.country = new Country(json.getJSONObject("country"));
-        this.birthdate = Tools.getDateFromStringLong(json.getString("birthdate"));
-        this.gender = new Gender(json.getJSONObject("gender"));
-        this.master = json.getBoolean("master");
-        ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
-        this.rolers = converter.convert(json.getJSONArray("rolers"));
-    }
 }

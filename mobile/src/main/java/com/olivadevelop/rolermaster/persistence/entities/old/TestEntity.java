@@ -47,9 +47,4 @@ public class TestEntity extends BasicEntity {
         this.text = text;
     }
 
-    @Override
-    public void onConstruct(JSONObject json) throws JSONException {
-        this.setKey(json.getInt(FIELD_KEY));
-        this.setText(json.getString(FIELD_TEXTO));
-    }
 }

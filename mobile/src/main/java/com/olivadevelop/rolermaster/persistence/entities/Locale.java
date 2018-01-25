@@ -48,11 +48,4 @@ public class Locale extends BasicEntity {
     public void setTranslation(GenericTrans translation) {
         this.translation = translation;
     }
-
-    @Override
-    public void onConstruct(JSONObject json) throws JSONException {
-        this.idLocale = json.getInt("idLocale");
-        this.codeIso = json.getString("codeISO");
-        this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
-    }
 }
