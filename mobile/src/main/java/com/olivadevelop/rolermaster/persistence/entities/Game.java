@@ -131,6 +131,9 @@ public class Game extends BasicEntity {
     }
 
     public GameStatus getGameStatus() {
+        if (Tools.isNull(gameStatus)) {
+            gameStatus = GameStatus.DRAFT;
+        }
         return gameStatus;
     }
 

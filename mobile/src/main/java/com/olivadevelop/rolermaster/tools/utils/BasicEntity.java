@@ -20,10 +20,6 @@ import java.util.List;
 public abstract class BasicEntity implements Entity {
 
     private static final String QUOTES = "\"";
-    private static final String SERIAL_VERSION_UID = "serialVersionUID";
-    private static final String CHANGE_FIELD = "$change";
-
-    public static final String COMMON_FIELD_TRANS = "translation";
 
     protected BasicEntity() {
     }
@@ -40,15 +36,13 @@ public abstract class BasicEntity implements Entity {
     @Override
     public void toEntity(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
-           /* onConstruct(json);*/
             try {
                 Field[] fields = getClass().getDeclaredFields();
                 if (Tools.isNotNull(fields) && fields.length > 0) {
-                    int count = 0;
                     for (Field field : fields) {
                         field.setAccessible(true);
                         String fName = field.getName();
-                        if (!CHANGE_FIELD.equals(fName) && !SERIAL_VERSION_UID.equals(fName)) {
+                        if (!MapEntities.CHANGE_FIELD.equals(fName) && !MapEntities.SERIAL_VERSION_UID.equals(fName)) {
                             Persistence persistence = field.getAnnotation(Persistence.class);
                             if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
                                 fName = persistence.columnName();
@@ -56,12 +50,15 @@ public abstract class BasicEntity implements Entity {
                             Object value = json.get(fName);
 
                             if (value instanceof Boolean
+                                    || value instanceof Byte
                                     || value instanceof Integer
                                     || value instanceof Long
                                     || value instanceof Float
                                     || value instanceof Double
                                     || value instanceof String) {
                                 field.set(this, value);
+                            /*} else if (value instanceof byte[]) {
+                                field.set(this, ImagePicasso.StringTobase64(value);*/
                             } else if (value instanceof JSONArray) {
                                 ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
                                 field.set(this, converter.convert((JSONArray) value));
@@ -73,12 +70,9 @@ public abstract class BasicEntity implements Entity {
                                         field.set(this, newEntity);
                                     }
                                 }
-                            } else {
-                                // valores null
                             }
                         }
                         field.setAccessible(false);
-                        count++;
                     }
                 }
             } catch (IllegalAccessException e) {
@@ -110,7 +104,7 @@ public abstract class BasicEntity implements Entity {
                 for (Field field : fields) {
                     field.setAccessible(true);
                     String fName = field.getName();
-                    if (CHANGE_FIELD.equals(fName) || SERIAL_VERSION_UID.equals(fName)) {
+                    if (MapEntities.CHANGE_FIELD.equals(fName) || MapEntities.SERIAL_VERSION_UID.equals(fName)) {
                         count++;
                         continue;
                     }
@@ -126,6 +120,7 @@ public abstract class BasicEntity implements Entity {
                         retorno.append(value);
                         retorno.append(QUOTES);
                     } else if (value instanceof Boolean
+                            || value instanceof Byte
                             || value instanceof Integer
                             || value instanceof Long
                             || value instanceof Float
@@ -133,6 +128,8 @@ public abstract class BasicEntity implements Entity {
                         retorno.append(value);
                     } else if (value instanceof List) {
                         retorno.append(value);
+                    } else if (value instanceof byte[]) {
+                        retorno.append(ImagePicasso.base64ToString((byte[]) value));
                     } else if (value instanceof BasicEntity) {
                         retorno.append(value.toString());
                     } else {

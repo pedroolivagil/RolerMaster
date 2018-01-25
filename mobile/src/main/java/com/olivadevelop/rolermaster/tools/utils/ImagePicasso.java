@@ -24,11 +24,6 @@ import java.io.File;
  * RolerMaster
  */
 public class ImagePicasso {
-    private static final ImagePicasso ourInstance = new ImagePicasso();
-
-    public static ImagePicasso getInstance() {
-        return ourInstance;
-    }
 
     private ImagePicasso() {
     }
@@ -79,10 +74,13 @@ public class ImagePicasso {
         }
     }
 
-    private static String base64ToString(byte[] str) {
+    public static String base64ToString(byte[] str) {
         return Base64.encodeToString(str, Base64.DEFAULT);
     }
 
+    public static byte[] StringTobase64(String str) {
+        return Base64.decode(str, Base64.DEFAULT);
+    }
 
     public static Bitmap resizeBitmap(Bitmap b) {
         while (b.getHeight() > 4096 || b.getWidth() > 4096) {
