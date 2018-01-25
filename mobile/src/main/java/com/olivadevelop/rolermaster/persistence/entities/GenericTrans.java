@@ -45,7 +45,7 @@ public class GenericTrans extends BasicEntity {
     }
 
     @Override
-    public void fillEntity(JSONObject json) throws JSONException {
+    public void construct(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
             this.idLocale = json.getInt("idLocale");
             this.text = json.getString("text");

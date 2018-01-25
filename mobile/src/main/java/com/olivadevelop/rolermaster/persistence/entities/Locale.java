@@ -15,10 +15,8 @@ import org.json.JSONObject;
 public class Locale extends BasicEntity {
 
     private Integer idLocale;
-
     @Persistence(columnName = "codeISO")
     private String codeIso;
-
     private GenericTrans translation;
 
     public Locale() {
@@ -53,11 +51,11 @@ public class Locale extends BasicEntity {
     }
 
     @Override
-    public void fillEntity(JSONObject json) throws JSONException {
+    public void construct(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
             this.idLocale = json.getInt("idLocale");
             this.codeIso = json.getString("codeISO");
-            this.translation = new GenericTrans(json.getJSONObject("translation"));
+            this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
         }
     }
 }

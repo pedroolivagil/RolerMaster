@@ -49,7 +49,7 @@ public class TestEntity extends BasicEntity {
     }
 
     @Override
-    public void fillEntity(JSONObject json) throws JSONException {
+    public void construct(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
             this.setKey(json.getInt(FIELD_KEY));
             this.setText(json.getString(FIELD_TEXTO));

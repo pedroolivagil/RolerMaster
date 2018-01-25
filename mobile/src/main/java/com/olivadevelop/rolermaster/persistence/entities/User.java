@@ -2,11 +2,14 @@ package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.utils.ConverterJSONArrayToList;
+import com.olivadevelop.rolermaster.tools.utils.intefraces.Persistence;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -14,35 +17,26 @@ import java.util.Date;
  * RolerMaster
  */
 public class User extends BasicEntity {
+    private boolean master;
+    private List<Integer> rolers;
     private Integer idUser;
     private String username;
     private String password;
     private String email;
     private String name;
-    private String lastname;
+    @Persistence(columnName = "lastname")
+    private String lastName;
     private String phone;
-    private Country country;
     private Date birthdate;
     private Gender gender;
+    private Country country;
 
     public User() {
+        super();
     }
 
     public User(JSONObject json) throws JSONException {
         super(json);
-    }
-
-    public User(Integer idUser, String username, String password, String email, String name, String lastname, String phone, Country country, Date birthdate, Gender gender) {
-        this.idUser = idUser;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.lastname = lastname;
-        this.phone = phone;
-        this.country = country;
-        this.birthdate = birthdate;
-        this.gender = gender;
     }
 
     public Integer getIdUser() {
@@ -85,12 +79,12 @@ public class User extends BasicEntity {
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhone() {
@@ -126,18 +120,21 @@ public class User extends BasicEntity {
     }
 
     @Override
-    public void fillEntity(JSONObject json) throws JSONException {
+    public void construct(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
             this.idUser = json.getInt("idUser");
             this.username = json.getString("username");
             this.password = json.getString("password");
             this.email = json.getString("email");
             this.name = json.getString("name");
-            this.lastname = json.getString("lastname");
+            this.lastName = json.getString("lastname");
             this.phone = json.getString("phone");
             this.country = new Country(json.getJSONObject("country"));
             this.birthdate = Tools.getDateFromStringLong(json.getString("birthdate"));
             this.gender = new Gender(json.getJSONObject("gender"));
+            this.master = json.getBoolean("master");
+            ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
+            this.rolers = converter.convert(json.getJSONArray("rolers"));
         }
     }
 }

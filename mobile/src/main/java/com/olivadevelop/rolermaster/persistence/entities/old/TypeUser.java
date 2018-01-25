@@ -12,7 +12,7 @@ import org.json.JSONObject;
  */
 public class TypeUser implements Entity {
     @Override
-    public void fillEntity(JSONObject json) throws JSONException {
+    public void construct(JSONObject json) throws JSONException {
 
     }
 }

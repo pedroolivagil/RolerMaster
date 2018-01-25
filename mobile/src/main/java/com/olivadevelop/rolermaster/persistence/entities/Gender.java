@@ -14,6 +14,10 @@ import org.json.JSONObject;
 public class Gender extends BasicEntity {
 
 
+    private Integer idGender;
+    private String code;
+    private GenericTrans translation;
+
     public Gender() {
     }
 
@@ -21,9 +25,36 @@ public class Gender extends BasicEntity {
         super(json);
     }
 
+    public Integer getIdGender() {
+        return idGender;
+    }
+
+    public void setIdGender(Integer idGender) {
+        this.idGender = idGender;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public GenericTrans getTranslation() {
+        return translation;
+    }
+
+    public void setTranslation(GenericTrans translation) {
+        this.translation = translation;
+    }
+
     @Override
-    public void fillEntity(JSONObject json) {
+    public void construct(JSONObject json) throws JSONException {
         if (Tools.isNotNull(json)) {
+            this.idGender = json.getInt("idGender");
+            this.code = json.getString("code");
+            this.translation = new GenericTrans(json.getJSONObject(COMMON_FIELD_TRANS));
         }
     }
 }

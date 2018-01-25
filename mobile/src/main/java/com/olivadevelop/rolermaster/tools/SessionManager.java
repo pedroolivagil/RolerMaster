@@ -37,7 +37,7 @@ public class SessionManager {
                 StringBuilder name = new StringBuilder();
                 name.append(user.getName());
                 name.append(" ");
-                name.append(user.getLastname());
+                name.append(user.getLastName());
                 Preferences.getInstance().editor().putInt(Preferences.EnumBundle.SESSION_ID_USER, user.getIdUser()).apply();
                 Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERPASS, user.getPassword()).apply();
                 Preferences.getInstance().editor().putString(Preferences.EnumBundle.SESSION_USERNAME, name.toString()).apply();
