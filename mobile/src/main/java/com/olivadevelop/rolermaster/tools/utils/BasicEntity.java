@@ -1,8 +1,8 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 
 import org.json.JSONArray;
 import org.json.JSONException;

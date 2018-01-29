@@ -5,8 +5,8 @@ import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.ConverterJSONArrayToList;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.utils.QueryBuilder;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.Entity;
-import com.olivadevelop.rolermaster.tools.utils.intefraces._PersistenceMethods;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces._PersistenceMethods;
 
 import org.json.JSONException;
 
