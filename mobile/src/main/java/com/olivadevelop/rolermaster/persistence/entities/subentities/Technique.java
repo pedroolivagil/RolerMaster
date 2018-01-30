@@ -12,10 +12,30 @@ import org.json.JSONObject;
  * RolerMaster
  */
 public class Technique extends BasicEntity implements Hability {
+
+    private Integer points;
+    private String code;
+
     public Technique() {
     }
 
     public Technique(JSONObject json) throws JSONException {
         super(json);
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

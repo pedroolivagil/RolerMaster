@@ -11,10 +11,39 @@ import org.json.JSONObject;
  * RolerMaster
  */
 public class Weapon extends BasicEntity {
+
+    private String name;
+    private Integer difficult;
+    private Integer damage;
+
     public Weapon() {
     }
 
     public Weapon(JSONObject json) throws JSONException {
         super(json);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getDifficult() {
+        return difficult;
+    }
+
+    public void setDifficult(Integer difficult) {
+        this.difficult = difficult;
+    }
+
+    public Integer getDamage() {
+        return damage;
+    }
+
+    public void setDamage(Integer damage) {
+        this.damage = damage;
     }
 }

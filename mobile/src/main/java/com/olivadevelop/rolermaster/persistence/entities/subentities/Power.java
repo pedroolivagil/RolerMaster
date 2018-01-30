@@ -12,10 +12,30 @@ import org.json.JSONObject;
  * RolerMaster
  */
 public class Power extends BasicEntity implements Advantage {
+
+    private Integer points;
+    private String code;
+
     public Power() {
     }
 
     public Power(JSONObject json) throws JSONException {
         super(json);
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
