@@ -2,7 +2,7 @@ package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Advantage;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Attribute;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Hability;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -45,7 +45,7 @@ public class Character extends BasicEntity {
 
     // Skills and points
     private List<Attribute> attributes;
-    private List<Hability> habilities;
+    private List<Ability> abilities;
     private List<Advantage> advantages;
     private List<Virtue> virtues;
     private List<Weapon> weapons;
@@ -220,23 +220,23 @@ public class Character extends BasicEntity {
         this.getAttributes().remove(attribute);
     }
 
-    public List<Hability> getHabilities() {
-        if (Tools.isNull(habilities)) {
-            habilities = new ArrayList<>();
+    public List<Ability> getAbilities() {
+        if (Tools.isNull(abilities)) {
+            abilities = new ArrayList<>();
         }
-        return habilities;
+        return abilities;
     }
 
-    public void setHabilities(List<Hability> habilities) {
-        this.habilities = habilities;
+    public void setAbilities(List<Ability> abilities) {
+        this.abilities = abilities;
     }
 
-    public void addHability(Hability hability) {
-        this.getHabilities().add(hability);
+    public void addHability(Ability ability) {
+        this.getAbilities().add(ability);
     }
 
-    public void removeHability(Hability hability) {
-        this.getHabilities().remove(hability);
+    public void removeHability(Ability ability) {
+        this.getAbilities().remove(ability);
     }
 
     public List<Advantage> getAdvantages() {

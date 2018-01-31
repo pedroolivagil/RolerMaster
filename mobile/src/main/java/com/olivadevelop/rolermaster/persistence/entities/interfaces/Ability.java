@@ -5,5 +5,5 @@ package com.olivadevelop.rolermaster.persistence.entities.interfaces;
  * Created by Oliva on 28/01/2018.
  * RolerMaster
  */
-public interface Hability {
+public interface Ability {
 }
