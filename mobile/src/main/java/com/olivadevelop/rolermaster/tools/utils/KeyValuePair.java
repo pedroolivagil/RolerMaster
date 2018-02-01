@@ -15,6 +15,10 @@ public class KeyValuePair {
         this.label = label;
     }
 
+    public KeyValuePair(Object key, Object label) {
+        this(key, String.valueOf(label));
+    }
+
     public Object getKey() {
         return key;
     }

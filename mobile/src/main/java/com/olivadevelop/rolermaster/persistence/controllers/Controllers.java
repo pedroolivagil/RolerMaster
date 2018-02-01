@@ -7,7 +7,6 @@ package com.olivadevelop.rolermaster.persistence.controllers;
 
 public class Controllers {
     private static final Controllers ourInstance = new Controllers();
-    private TestController testController;
     private UserController userController;
 
     private Controllers() {
@@ -19,17 +18,11 @@ public class Controllers {
     }
 
     public void init() {
-        testController = new TestController();
         userController = new UserController();
     }
 
     public void clear() {
-        testController = null;
         userController = null;
-    }
-
-    public TestController getTestController() {
-        return testController;
     }
 
     public UserController getUserController() {

@@ -29,7 +29,19 @@ public class UserController extends _BasicController<User> implements Controller
 
     @Override
     public User read(Integer idEntity, _RestService.ActionService<User> actionService) {
-        return null;
+        User retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("idUser", idEntity));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.find(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User not found", null);
+        }
+        return retorno;
     }
 
     @Override
@@ -51,23 +63,69 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public List<User> readAll(_RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readAll(_RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            retorno = super.findAll();
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override
-    public List<User> readByIds(List<Integer> ids, _RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readByIds(List<Integer> ids, _RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("idUser", ids));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override
-    public List<User> readAllActives(_RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readAllActives(_RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("flagActive", true));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override
-    public List<User> readAllActivesByIds(_RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readAllActivesByIds(List<Integer> ids, _RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("idUser", ids));
+            values.add(new KeyValuePair("flagActive", true));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override

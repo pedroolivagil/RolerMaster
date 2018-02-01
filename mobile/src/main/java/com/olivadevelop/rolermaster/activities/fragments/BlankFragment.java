@@ -8,15 +8,12 @@ import android.widget.TextView;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.User;
-import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
-import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
-import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
 
 import org.json.JSONException;
 
@@ -99,7 +96,7 @@ public class BlankFragment extends CustomFragment {
         super.actionsFab(v);
         if (SessionManager.getInstance().isLogged()) {
             final TextView blankUsername = findViewById(R.id.blank_username);
-            RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
+            /*RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
                 @Override
                 public void run() {
                     Controllers.getInstance().getTestController().read(1, new _RestService.ActionService<TestEntity>() {
@@ -112,7 +109,7 @@ public class BlankFragment extends CustomFragment {
                         }
                     });
                 }
-            });
+            });*/
             /*RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
                 @Override
                 public void run() {
