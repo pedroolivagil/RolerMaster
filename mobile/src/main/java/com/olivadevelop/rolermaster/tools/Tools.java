@@ -57,30 +57,8 @@ import java.util.UUID;
 
 public abstract class Tools {
 
-    private static final String CRYPT_KEY = "rolermasterolivadevelop";
     private static FloatingActionButton fab;
     private static ScrollView mainScrollView;
-
-    public static final boolean EXPORT_PDF_FULL = true;
-    public static final boolean EXPORT_PDF_PARTIAL = false;
-    public static final int REQUEST_CODE = 1;
-    public static final int INFO_CODE = 1;
-    public static final int WARN_CODE = 2;
-    public static final int ERRO_CODE = 3;
-    public static final int EDAD_MINIMA_COMPRENSION = 8;
-    public static final int YEAR_MIN = 1900;
-    public static final int TIME_SPLASH = 2000; // Miliseconds
-    public static final int TIME_TO_EXIT = 2000; // Miliseconds
-
-    public static final String SERVER = "10.0.3.2";
-    public static final String HOSTNAME = "http://" + SERVER + "/rolermaster/";
-    public static final String SERVICE_URL = HOSTNAME + "www/php/service/";
-
-    // Android app dirs structure
-    public static final String CLIENT_DIR = "clients";
-    public static final String IMAGE_DIR = "img";
-
-    /*public static final String EXTERNAL_DIR = Environment.getExternalStorageDirectory() + "/RolerMasterPictures/";*/
 
     public enum Error {
         ERROR_404(404), ERROR_500(500), ERROR_300(300), ERROR_400(400);
@@ -409,8 +387,8 @@ public abstract class Tools {
      */
     public static List<KeyValuePair> getYears() {
         List<KeyValuePair> retorno = new ArrayList<>();
-        int diff = Calendar.getInstance().get(Calendar.YEAR) - EDAD_MINIMA_COMPRENSION;
-        for (int year = diff; year > YEAR_MIN; year--) {
+        int diff = Calendar.getInstance().get(Calendar.YEAR) - Constant.MINIMUM_AGE_COMPREHENSION;
+        for (int year = diff; year > Constant.YEAR_MIN; year--) {
             retorno.add(new KeyValuePair(year, String.valueOf(year)));
         }
         return retorno;
@@ -453,7 +431,7 @@ public abstract class Tools {
         Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{
                 GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE
         }, true, null, null, null, null);
-        a.startActivityForResult(googlePicker, REQUEST_CODE);
+        a.startActivityForResult(googlePicker, Constant.REQUEST_CODE);
     }
 
     private static boolean isNetworkActive(Context c) {
@@ -468,7 +446,7 @@ public abstract class Tools {
     public static Boolean isNetworkAvailable(Context c) {
         if (isNetworkActive(c)) {
             try {
-                Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 " + SERVER);
+                Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 " + Constant.SERVER);
                 int val = p.waitFor();
                 return (val == 0);
             } catch (Exception e) {
@@ -495,7 +473,7 @@ public abstract class Tools {
     }
 
     public static String encrypt(String str) {
-        String pass = CRYPT_KEY + "" + str;
+        String pass = Constant.CRYPT_KEY + "" + str;
         return getMD5(pass);
     }
 

@@ -3,6 +3,7 @@ package com.olivadevelop.rolermaster.persistence.entities;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Advantage;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Attribute;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -20,6 +21,7 @@ import java.util.List;
  * Created by Oliva on 26/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "CHARACTER")
 public class Character extends BasicEntity {
 
     private Integer idCharacter;

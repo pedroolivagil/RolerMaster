@@ -1,10 +1,6 @@
 package com.olivadevelop.rolermaster.activities.fragments;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
-import com.olivadevelop.rolermaster.persistence.controllers.TestController;
-import com.olivadevelop.rolermaster.persistence.entities.old.TestEntity;
-import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
@@ -14,13 +10,11 @@ import java.util.List;
 
 public class UserSignUpFragment extends CustomFragment {
 
-    private TestController testController;
 
     public UserSignUpFragment() {
         super();
         setIgnoreNavigation(true);
         idView = R.layout.fragment_user_sign_up;
-        testController = Controllers.getInstance().getTestController();
     }
 
     @Override
@@ -35,7 +29,7 @@ public class UserSignUpFragment extends CustomFragment {
         final List<KeyValuePair> values = new ArrayList<>();
         final List<KeyValuePair> values2 = new ArrayList<>();
         final List<KeyValuePair> values3 = new ArrayList<>();
-        testController.readAll(new _RestService.ActionService<TestEntity>() {
+        /*testController.readAll(new _RestService.ActionService<TestEntity>() {
             @Override
             public void run(List<TestEntity> entities) {
                 super.run(entities);
@@ -49,7 +43,7 @@ public class UserSignUpFragment extends CustomFragment {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         // Rellenamos el spinner de los países
         Tools.createSpinner(this.getActivity(), view, R.id.signup_user_country, values);
         // Rellenamos el spinner de los géneros

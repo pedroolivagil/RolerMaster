@@ -15,13 +15,13 @@ public interface ControllerMethods<T> {
 
     T read(String codeEntity, _RestService.ActionService<T> actionService);
 
-    List<T> readAll(_RestService.ActionService<T> actionService);
+    List<T> readAll(_RestService.ActionService<List<T>> actionService);
 
-    List<T> readByIds(List<Integer> ids, _RestService.ActionService<T> actionService);
+    List<T> readByIds(List<Integer> ids, _RestService.ActionService<List<T>> actionService);
 
-    List<T> readAllActives(_RestService.ActionService<T> actionService);
+    List<T> readAllActives(_RestService.ActionService<List<T>> actionService);
 
-    List<T> readAllActivesByIds(_RestService.ActionService<T> actionService);
+    List<T> readAllActivesByIds(List<Integer> ids, _RestService.ActionService<List<T>> actionService);
 
     boolean create(T entity);
 

@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities.subentities;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
  * Created by Oliva on 28/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "WEAPON")
 public class Weapon extends BasicEntity {
 
     private String name;

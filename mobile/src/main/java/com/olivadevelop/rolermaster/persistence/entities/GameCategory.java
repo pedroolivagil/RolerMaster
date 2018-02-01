@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "GAME_CATEGORY")
 public class GameCategory extends BasicEntity {
 
     private Integer idGameCategory;

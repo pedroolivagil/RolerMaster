@@ -2,6 +2,7 @@ package com.olivadevelop.rolermaster.persistence.controllers;
 
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.persistence.managers._RestService;
+import com.olivadevelop.rolermaster.tools.Constant;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
@@ -29,7 +30,19 @@ public class UserController extends _BasicController<User> implements Controller
 
     @Override
     public User read(Integer idEntity, _RestService.ActionService<User> actionService) {
-        return null;
+        User retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("idUser", idEntity));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.find(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User not found", null);
+        }
+        return retorno;
     }
 
     @Override
@@ -51,37 +64,106 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public List<User> readAll(_RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readAll(_RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            retorno = super.findAll();
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override
-    public List<User> readByIds(List<Integer> ids, _RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readByIds(List<Integer> ids, _RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("idUser", ids));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override
-    public List<User> readAllActives(_RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readAllActives(_RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("flagActive", true));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override
-    public List<User> readAllActivesByIds(_RestService.ActionService<User> actionService) {
-        return null;
+    public List<User> readAllActivesByIds(List<Integer> ids, _RestService.ActionService<List<User>> actionService) {
+        List<User> retorno = null;
+        try {
+            List<KeyValuePair> values = new ArrayList<>();
+            values.add(new KeyValuePair("idUser", ids));
+            values.add(new KeyValuePair("flagActive", true));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Users not found", null);
+        }
+        return retorno;
     }
 
     @Override
     public boolean create(User entity) {
-        return false;
+        boolean retorno = false;
+        try {
+            entity.setFlagActive(Constant.FLAG_ACTIVE);
+            entity.setFlagStatus(Constant.FLAG_ACTIVE);
+            super.persist(entity);
+            retorno = true;
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User con not be inserted", null);
+        }
+        return retorno;
     }
 
     @Override
     public boolean update(User entity) {
-        return false;
+        boolean retorno = false;
+        try {
+            super.merge(entity);
+            retorno = true;
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User can not be updated", null);
+        }
+        return retorno;
     }
 
     @Override
     public boolean delete(User entity) {
-        return false;
+        boolean retorno = false;
+        try {
+            super.remove(entity);
+            retorno = true;
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User can not be deleted", null);
+        }
+        return retorno;
     }
 }

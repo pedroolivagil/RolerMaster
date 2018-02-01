@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.persistence.pojo.GenericTrans;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
@@ -11,6 +12,7 @@ import org.json.JSONObject;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "GENDER")
 public class Gender extends BasicEntity {
 
     private Integer idGender;

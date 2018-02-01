@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "GAME")
 public class Game extends BasicEntity {
 
     public enum GameStatus {

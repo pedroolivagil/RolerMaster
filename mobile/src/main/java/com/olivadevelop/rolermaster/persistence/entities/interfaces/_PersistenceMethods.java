@@ -24,13 +24,13 @@ public interface _PersistenceMethods<T> {
 
     List<T> findAllByIds(List<Integer> idsEntity) throws ExecutionException, InterruptedException;
 
-    T findOneByEntity(Entity entity) throws ExecutionException, InterruptedException;
+    T findOneByEntity(T entity) throws ExecutionException, InterruptedException;
 
-    List<T> findByEntity(Entity entity) throws ExecutionException, InterruptedException;
+    List<T> findByEntity(T entity) throws ExecutionException, InterruptedException;
 
-    boolean persist(Entity entity) throws ExecutionException, InterruptedException;
+    boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException;
 
-    boolean merge(Entity entity) throws ExecutionException, InterruptedException;
+    boolean merge(T entity) throws ExecutionException, InterruptedException, JSONException;
 
-    boolean remove(Entity entity) throws ExecutionException, InterruptedException;
+    boolean remove(T entity) throws ExecutionException, InterruptedException, JSONException;
 }

@@ -2,6 +2,7 @@ package com.olivadevelop.rolermaster.persistence.managers;
 
 import android.os.AsyncTask;
 
+import com.olivadevelop.rolermaster.tools.Constant;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
@@ -45,7 +46,7 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
     protected JSONObject doInBackground(RequestBody... formbody) {
         JSONObject retorno = null; // resultado de la petició, contiene la información
         try {
-            URL url = new URL(Tools.SERVICE_URL + this.url);
+            URL url = new URL(Constant.SERVICE_URL + this.url);
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(url)

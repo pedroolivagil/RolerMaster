@@ -1,7 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
+import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,8 +14,11 @@ import java.util.List;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "user")
+@Persistence(collectionName = "USER")
 public class User extends BasicEntity {
+
+    private boolean flagActive;
+    private boolean flagStatus;
     private boolean master;
     private Integer idUser;
     private String username;
@@ -132,5 +135,21 @@ public class User extends BasicEntity {
 
     public void setRolers(List<Integer> rolers) {
         this.rolers = rolers;
+    }
+
+    public boolean isFlagActive() {
+        return flagActive;
+    }
+
+    public void setFlagActive(boolean flagActive) {
+        this.flagActive = flagActive;
+    }
+
+    public boolean isFlagStatus() {
+        return flagStatus;
+    }
+
+    public void setFlagStatus(boolean flagStatus) {
+        this.flagStatus = flagStatus;
     }
 }

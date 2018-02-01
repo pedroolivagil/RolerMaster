@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.persistence.pojo.NotificationPriority;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
@@ -14,6 +15,7 @@ import java.util.Date;
  * Created by Oliva on 26/01/2018.
  */
 
+@Persistence(collectionName = "NOTIFICATION")
 public class Notification extends BasicEntity {
 
     public static final boolean STATUS_READ = true;

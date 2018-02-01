@@ -12,6 +12,7 @@ import org.json.JSONObject;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "LOCALE")
 public class Locale extends BasicEntity {
 
     private Integer idLocale;

@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities.subentities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
  * Created by Oliva on 28/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "TALENT")
 public class Talent extends BasicEntity implements Ability {
 
     private Integer points;

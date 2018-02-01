@@ -10,13 +10,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
-import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
-import static com.olivadevelop.rolermaster.tools.Tools.TIME_SPLASH;
+import static com.olivadevelop.rolermaster.tools.Constant.TIME_SPLASH;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

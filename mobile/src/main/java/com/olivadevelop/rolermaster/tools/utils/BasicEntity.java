@@ -1,8 +1,8 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,8 +47,12 @@ public abstract class BasicEntity implements Entity {
                             if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
                                 fName = persistence.columnName();
                             }
-                            Object value = json.get(fName);
-
+                            Object value = null;
+                            try {
+                                value = json.get(fName);
+                            } catch (Exception e) {
+                                continue;
+                            }
                             if (value instanceof Boolean
                                     || value instanceof Byte
                                     || value instanceof Integer
@@ -89,6 +93,10 @@ public abstract class BasicEntity implements Entity {
 
     @Override
     public String toString() {
+        return toString(true);
+    }
+
+    public String toString(boolean init) {
         StringBuilder retorno = new StringBuilder();
         try {
             Field[] fields = getClass().getDeclaredFields();
@@ -98,7 +106,9 @@ public abstract class BasicEntity implements Entity {
                 if (Tools.isNotNull(persistenceClass) && Tools.isNotNull(persistenceClass.collectionName())) {
                     className = persistenceClass.collectionName();
                 }
-                retorno.append("{");
+                if (init) {
+                    retorno.append("{");
+                }
                 retorno.append(QUOTES).append(className).append(QUOTES).append(":{");
                 int count = 0;
                 for (Field field : fields) {
@@ -112,28 +122,30 @@ public abstract class BasicEntity implements Entity {
                     if (Tools.isNotNull(persistenceField) && Tools.isNotNull(persistenceField.columnName())) {
                         fName = persistenceField.columnName();
                     }
-                    retorno.append(QUOTES).append(fName).append(QUOTES).append(":");
 
                     Object value = field.get(this);
-                    if (value instanceof String) {
-                        retorno.append(QUOTES);
-                        retorno.append(value);
-                        retorno.append(QUOTES);
-                    } else if (value instanceof Boolean
-                            || value instanceof Byte
-                            || value instanceof Integer
-                            || value instanceof Long
-                            || value instanceof Float
-                            || value instanceof Double) {
-                        retorno.append(value);
-                    } else if (value instanceof List) {
-                        retorno.append(value);
-                    } else if (value instanceof byte[]) {
-                        retorno.append(ImagePicasso.base64ToString((byte[]) value));
-                    } else if (value instanceof BasicEntity) {
-                        retorno.append(value.toString());
+                    if (value instanceof BasicEntity) {
+                        retorno.append(((BasicEntity) value).toString(false));
                     } else {
-                        retorno.append(String.valueOf(value));
+                        retorno.append(QUOTES).append(fName).append(QUOTES).append(":");
+                        if (value instanceof String) {
+                            retorno.append(QUOTES);
+                            retorno.append(value);
+                            retorno.append(QUOTES);
+                        } else if (value instanceof Boolean
+                                || value instanceof Byte
+                                || value instanceof Integer
+                                || value instanceof Long
+                                || value instanceof Float
+                                || value instanceof Double) {
+                            retorno.append(value);
+                        } else if (value instanceof List) {
+                            retorno.append(value);
+                        } else if (value instanceof byte[]) {
+                            retorno.append(ImagePicasso.base64ToString((byte[]) value));
+                        } else {
+                            retorno.append(String.valueOf(value));
+                        }
                     }
                     if (count < (fields.length - 3)) {
                         retorno.append(",");
@@ -142,7 +154,9 @@ public abstract class BasicEntity implements Entity {
                     count++;
                 }
                 retorno.append("}");
-                retorno.append("}");
+                if (init) {
+                    retorno.append("}");
+                }
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

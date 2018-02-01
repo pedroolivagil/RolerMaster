@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
@@ -13,6 +14,7 @@ import java.util.Date;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
+@Persistence(collectionName = "RESOURCE")
 public class Resource extends BasicEntity {
 
     private byte[] file;

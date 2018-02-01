@@ -1,12 +1,11 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces._PersistenceMethods;
 import com.olivadevelop.rolermaster.persistence.managers._RestService;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.ConverterJSONArrayToList;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.utils.QueryBuilder;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces._PersistenceMethods;
 
 import org.json.JSONException;
 
@@ -36,7 +35,6 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
         List<KeyValuePair> values = new ArrayList<>();
         values.add(new KeyValuePair("idEntity", String.valueOf(idEntity)));
-
         service = new _RestService("find_entity.php");
         service.execute(getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
         return converter.getNewEntity(service.get());
@@ -75,27 +73,27 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     }
 
     @Override
-    public T findOneByEntity(Entity entity) {
+    public T findOneByEntity(T entity) {
         return null;
     }
 
     @Override
-    public List<T> findByEntity(Entity entity) {
+    public List<T> findByEntity(T entity) {
         return null;
     }
 
     @Override
-    public boolean persist(Entity entity) {
+    public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
         return false;
     }
 
     @Override
-    public boolean merge(Entity entity) {
+    public boolean merge(T entity) throws ExecutionException, InterruptedException, JSONException {
         return false;
     }
 
     @Override
-    public boolean remove(Entity entity) {
+    public boolean remove(T entity) throws ExecutionException, InterruptedException, JSONException {
         return false;
     }
 
