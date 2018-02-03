@@ -1,7 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
 import com.olivadevelop.rolermaster.persistence.entities.User;
-import com.olivadevelop.rolermaster.persistence.managers._RestService;
+import com.olivadevelop.rolermaster.persistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.tools.Constant;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
@@ -29,7 +29,7 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public User read(Integer idEntity, _RestService.ActionService<User> actionService) {
+    public User read(Integer idEntity, ServiceDAO.ActionService<User> actionService) {
         User retorno = null;
         try {
             List<KeyValuePair> values = new ArrayList<>();
@@ -46,7 +46,7 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public User read(String usermail, _RestService.ActionService<User> actionService) {
+    public User read(String usermail, ServiceDAO.ActionService<User> actionService) {
         User retorno = null;
         try {
             List<KeyValuePair> values = new ArrayList<>();
@@ -64,7 +64,7 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public List<User> readAll(_RestService.ActionService<List<User>> actionService) {
+    public List<User> readAll(ServiceDAO.ActionService<List<User>> actionService) {
         List<User> retorno = null;
         try {
             retorno = super.findAll();
@@ -78,7 +78,7 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public List<User> readByIds(List<Integer> ids, _RestService.ActionService<List<User>> actionService) {
+    public List<User> readByIds(List<Integer> ids, ServiceDAO.ActionService<List<User>> actionService) {
         List<User> retorno = null;
         try {
             List<KeyValuePair> values = new ArrayList<>();
@@ -95,7 +95,7 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public List<User> readAllActives(_RestService.ActionService<List<User>> actionService) {
+    public List<User> readAllActives(ServiceDAO.ActionService<List<User>> actionService) {
         List<User> retorno = null;
         try {
             List<KeyValuePair> values = new ArrayList<>();
@@ -112,7 +112,7 @@ public class UserController extends _BasicController<User> implements Controller
     }
 
     @Override
-    public List<User> readAllActivesByIds(List<Integer> ids, _RestService.ActionService<List<User>> actionService) {
+    public List<User> readAllActivesByIds(List<Integer> ids, ServiceDAO.ActionService<List<User>> actionService) {
         List<User> retorno = null;
         try {
             List<KeyValuePair> values = new ArrayList<>();

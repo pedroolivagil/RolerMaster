@@ -1,9 +1,10 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Advantage;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Attribute;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -34,6 +35,7 @@ public class Character extends BasicEntity {
     private Date birthdate;
     private String planet;
     private String home;
+    @RelatedEntity
     private Gender gender;
     private String chronicle;
     private Integer behaviour;
@@ -46,10 +48,15 @@ public class Character extends BasicEntity {
     private String experience;
 
     // Skills and points
+    @RelatedEntity
     private List<Attribute> attributes;
+    @RelatedEntity
     private List<Ability> abilities;
+    @RelatedEntity
     private List<Advantage> advantages;
+    @RelatedEntity
     private List<Virtue> virtues;
+    @RelatedEntity
     private List<Weapon> weapons;
 
     public Character() {

@@ -8,7 +8,7 @@ package com.olivadevelop.rolermaster.tools.utils;
 public class KeyValuePair {
 
     private Object key;
-    private String label;
+    private Object label;
 
     public KeyValuePair(Object key, String label) {
         this.key = key;
@@ -27,8 +27,12 @@ public class KeyValuePair {
         this.key = key;
     }
 
-    public String getLabel() {
+    public Object getLabel() {
         return label;
+    }
+
+    public String getLabelString() {
+        return String.valueOf(label);
     }
 
     public void setLabel(String label) {

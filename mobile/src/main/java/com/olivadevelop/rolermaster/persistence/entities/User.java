@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -29,7 +30,11 @@ public class User extends BasicEntity {
     private String lastName;
     private String phone;
     private Date birthdate;
+    @RelatedEntity
+    //@Persistence(columnName = "idGender")
     private Gender gender;
+    @RelatedEntity
+    //@Persistence(columnName = "idCountry")
     private Country country;
     private List<Integer> rolers;
 

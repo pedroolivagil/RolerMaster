@@ -1,6 +1,6 @@
 package com.olivadevelop.rolermaster.tools.utils.intefraces;
 
-import com.olivadevelop.rolermaster.persistence.managers._RestService;
+import com.olivadevelop.rolermaster.persistence.managers.ServiceDAO;
 
 import java.util.List;
 
@@ -11,17 +11,17 @@ import java.util.List;
 
 public interface ControllerMethods<T> {
 
-    T read(Integer idEntity, _RestService.ActionService<T> actionService);
+    T read(Integer idEntity, ServiceDAO.ActionService<T> actionService);
 
-    T read(String codeEntity, _RestService.ActionService<T> actionService);
+    T read(String codeEntity, ServiceDAO.ActionService<T> actionService);
 
-    List<T> readAll(_RestService.ActionService<List<T>> actionService);
+    List<T> readAll(ServiceDAO.ActionService<List<T>> actionService);
 
-    List<T> readByIds(List<Integer> ids, _RestService.ActionService<List<T>> actionService);
+    List<T> readByIds(List<Integer> ids, ServiceDAO.ActionService<List<T>> actionService);
 
-    List<T> readAllActives(_RestService.ActionService<List<T>> actionService);
+    List<T> readAllActives(ServiceDAO.ActionService<List<T>> actionService);
 
-    List<T> readAllActivesByIds(List<Integer> ids, _RestService.ActionService<List<T>> actionService);
+    List<T> readAllActivesByIds(List<Integer> ids, ServiceDAO.ActionService<List<T>> actionService);
 
     boolean create(T entity);
 

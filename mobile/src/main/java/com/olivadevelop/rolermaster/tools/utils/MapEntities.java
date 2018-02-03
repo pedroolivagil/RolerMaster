@@ -22,7 +22,7 @@ import com.olivadevelop.rolermaster.persistence.entities.subentities.Technique;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Undertone;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
-import com.olivadevelop.rolermaster.persistence.pojo.GenericTrans;
+import com.olivadevelop.rolermaster.persistence.entities.GenericTrans;
 import com.olivadevelop.rolermaster.persistence.pojo.NotificationPriority;
 import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
 

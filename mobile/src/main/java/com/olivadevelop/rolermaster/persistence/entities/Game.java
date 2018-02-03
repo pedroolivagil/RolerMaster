@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
@@ -59,6 +60,7 @@ public class Game extends BasicEntity {
     private GameStatus gameStatus;
     private String history;
     private String location;
+    @RelatedEntity
     private GameCategory gameCategory;
 
     public Game() {

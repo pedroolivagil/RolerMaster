@@ -44,7 +44,17 @@ public class QueryBuilder<T> {
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
         if (Tools.isNotNull(values)) {
             for (KeyValuePair obj : values) {
-                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabel());
+                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabelString());
+            }
+        }
+        return query.build();
+    }
+
+    public FormBody insertQuery(List<KeyValuePair> entities) {
+        FormBody.Builder query = new FormBody.Builder();
+        if (Tools.isNotNull(entities)) {
+            for (KeyValuePair obj : entities) {
+                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabelString());
             }
         }
         return query.build();

@@ -6,7 +6,6 @@ import com.olivadevelop.rolermaster.tools.Constant;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +13,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,18 +26,12 @@ import okhttp3.ResponseBody;
  */
 
 // TODO: en caso de no llegar a extender nunca la clase, cambiar a final y eliminar los métodos action* de preExec y postExec
-public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
+class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
 
-    private ActionService actionService;
     private String url;
 
-    public _RestService(String relativeUrl) {
-        this(relativeUrl, null);
-    }
-
-    public _RestService(String relativeUrl, ActionService action) {
+    _RestService(String relativeUrl) {
         this.url = relativeUrl;
-        this.actionService = action;
     }
 
     @Override
@@ -92,15 +84,12 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject json) {
         super.onPostExecute(json);
-       /* if (Tools.isNotNull(json) && Tools.isNotNull(actionService)) {
-            actionService.run(json);
-        }*/
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread(){
+        RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
             @Override
             public void run() {
 
@@ -108,25 +97,4 @@ public class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
         });
     }
 
-    public static class ActionService<T> implements ActionRolerMaster {
-        public void run(T entity) {
-            if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && Alert.getInstance().getLoadingDialog().isShowing()) {
-                Alert.getInstance().hideLoadingDialog();
-            }
-        }
-
-        public void run(List<T> entities) {
-            if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && Alert.getInstance().getLoadingDialog().isShowing()) {
-                Alert.getInstance().hideLoadingDialog();
-            }
-        }
-
-        public void run(JSONObject json) {
-
-        }
-
-        @Override
-        public void run() {
-        }
-    }
 }

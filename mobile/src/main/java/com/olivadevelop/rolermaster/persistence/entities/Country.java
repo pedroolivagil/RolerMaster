@@ -1,7 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
-import com.olivadevelop.rolermaster.persistence.pojo.GenericTrans;
+import com.olivadevelop.rolermaster.persistence.entities.interfaces.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -18,6 +18,7 @@ public class Country extends BasicEntity {
     private Integer idCountry;
     private String code;
     private GenericTrans translation;
+    @RelatedEntity
     private Locale locale;
 
     public Country() {

@@ -53,7 +53,7 @@ public class SpinnerAdapter extends ArrayAdapter<KeyValuePair> {
         }
         if (Tools.isNotNull(map.getKey())) {
             TextView tvLabel = row.findViewById(R.id.spinner_value);
-            String value = map.getLabel();
+            String value = map.getLabelString();
             tvLabel.setText(value);
         }
         return row;

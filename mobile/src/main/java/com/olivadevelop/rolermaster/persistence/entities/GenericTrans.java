@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.persistence.pojo;
+package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
