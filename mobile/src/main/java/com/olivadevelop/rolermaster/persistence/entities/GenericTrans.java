@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 public class GenericTrans extends BasicEntity {
 
+    private Integer idGenericTrans;
     private Integer idLocale;
     private String text;
 
