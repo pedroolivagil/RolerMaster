@@ -27,16 +27,8 @@ CREATE TABLE user_roler (
     idMaster INT(10) UNSIGNED,
     idRoler  INT(10) UNSIGNED,
     date     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT userroler_user_fk PRIMARY KEY (idMaster, idRoler)
+    CONSTRAINT userroler_pk PRIMARY KEY (idMaster, idRoler)
 );
-
-CREATE TABLE generic_trans (
-    idGenericTrans INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    idLocale       INT UNSIGNED NOT NULL,
-    text           VARCHAR(255) NOT NULL
-);
-CREATE UNIQUE INDEX generictrans_idLocale_uindex
-    ON generic_trans (idLocale, text);
 
 CREATE TABLE country (
     idCountry INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -47,6 +39,13 @@ CREATE TABLE country (
 CREATE UNIQUE INDEX country_codeISO_uindex
     ON country (code);
 
+CREATE TABLE country_trans (
+    idTrans  INT(10) UNSIGNED NOT NULL,
+    idLocale INT(10) UNSIGNED NOT NULL,
+    text     VARCHAR(255)     NOT NULL,
+    CONSTRAINT country_trans_pk PRIMARY KEY (idTrans, idLocale, text)
+);
+
 CREATE TABLE locale (
     idLocale INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     codeISO  INT(10)          NOT NULL,
@@ -55,13 +54,12 @@ CREATE TABLE locale (
 CREATE UNIQUE INDEX locale_codeISO_uindex
     ON locale (codeISO);
 
-CREATE TABLE gender (
-    idGender INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    code     VARCHAR(3)       NOT NULL,
-    idTrans  INT(10) UNSIGNED NOT NULL
+CREATE TABLE locale_trans (
+    idTrans  INT(10) UNSIGNED NOT NULL,
+    idLocale INT(10) UNSIGNED NOT NULL,
+    text     VARCHAR(255)     NOT NULL,
+    CONSTRAINT locale_trans_pk PRIMARY KEY (idTrans, idLocale, text)
 );
-CREATE UNIQUE INDEX gender_code_uindex
-    ON gender (code);
 
 CREATE TABLE resource (
     idResource INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -92,11 +90,57 @@ CREATE TABLE game_category (
 CREATE UNIQUE INDEX game_category_name_uindex
     ON game_category (name, idUser);
 
+CREATE TABLE gender (
+    idGender INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    code     VARCHAR(3)       NOT NULL,
+    idTrans  INT(10) UNSIGNED NOT NULL
+);
+CREATE UNIQUE INDEX gender_code_uindex
+    ON gender (code);
+
+CREATE TABLE gender_trans (
+    idTrans  INT(10) UNSIGNED NOT NULL,
+    idLocale INT(10) UNSIGNED NOT NULL,
+    text     VARCHAR(255)     NOT NULL,
+    CONSTRAINT gender_trans_pk PRIMARY KEY (idTrans, idLocale, text)
+);
+
 CREATE TABLE parameter (
     idParameter INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     category    VARCHAR(255)     NOT NULL,
     idLocale    INT(10) UNSIGNED NOT NULL,
-    idTrans     INT(10) UNSIGNED NOT NULL
+    text        VARCHAR(255)     NOT NULL
 );
 CREATE UNIQUE INDEX parameter_idTrans_uindex
-    ON parameter (idTrans, idLocale, category);
+    ON parameter (idLocale, category, text);
+
+CREATE TABLE game (
+    idGame         INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name           VARCHAR(100)                        NOT NULL,
+    code           VARCHAR(20)                         NOT NULL,
+    maxCharacters  INT(5)                              NOT NULL,
+    date           TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    zoneResource   INT(10) UNSIGNED                    NOT NULL,
+    headerResource INT(10) UNSIGNED                    NOT NULL,
+    status         TINYINT(1) DEFAULT 0                NOT NULL,
+    location       VARCHAR(255)                        NOT NULL,
+    idCategory     INT(10) UNSIGNED                    NOT NULL
+);
+CREATE UNIQUE INDEX game_name_uindex
+    ON game (name);
+CREATE UNIQUE INDEX game_code_uindex
+    ON game (code);
+
+CREATE TABLE user_game (
+    idGame INT(10) UNSIGNED NOT NULL,
+    idUser INT(10) UNSIGNED NOT NULL,
+    date   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT usergame_pk PRIMARY KEY (idGame, idUser)
+);
+
+CREATE TABLE game_resource (
+    idResource INT(10) UNSIGNED NOT NULL,
+    idGame     INT(10) UNSIGNED NOT NULL,
+    date       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT gameresource_pk PRIMARY KEY (idGame, idResource)
+);
