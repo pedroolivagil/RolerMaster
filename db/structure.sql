@@ -40,7 +40,7 @@ CREATE UNIQUE INDEX country_codeISO_uindex
     ON country (code);
 
 CREATE TABLE country_trans (
-    idTrans  INT(10) UNSIGNED NOT NULL,
+    idTrans  INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     idLocale INT(10) UNSIGNED NOT NULL,
     text     VARCHAR(255)     NOT NULL,
     CONSTRAINT country_trans_pk PRIMARY KEY (idTrans, idLocale, text)
@@ -55,7 +55,7 @@ CREATE UNIQUE INDEX locale_codeISO_uindex
     ON locale (codeISO);
 
 CREATE TABLE locale_trans (
-    idTrans  INT(10) UNSIGNED NOT NULL,
+    idTrans  INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     idLocale INT(10) UNSIGNED NOT NULL,
     text     VARCHAR(255)     NOT NULL,
     CONSTRAINT locale_trans_pk PRIMARY KEY (idTrans, idLocale, text)
@@ -99,7 +99,7 @@ CREATE UNIQUE INDEX gender_code_uindex
     ON gender (code);
 
 CREATE TABLE gender_trans (
-    idTrans  INT(10) UNSIGNED NOT NULL,
+    idTrans  INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     idLocale INT(10) UNSIGNED NOT NULL,
     text     VARCHAR(255)     NOT NULL,
     CONSTRAINT gender_trans_pk PRIMARY KEY (idTrans, idLocale, text)
