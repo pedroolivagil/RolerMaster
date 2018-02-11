@@ -144,3 +144,36 @@ CREATE TABLE game_resource (
     date       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT gameresource_pk PRIMARY KEY (idGame, idResource)
 );
+
+CREATE TABLE `character` (
+    idCharacter INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name        VARCHAR(255)     NOT NULL,
+    surname     VARCHAR(255)     NOT NULL,
+    lastname    VARCHAR(255)     NOT NULL,
+    birthdate   DATE             NOT NULL,
+    planet      VARCHAR(255)     NOT NULL,
+    idGender    INT(10) UNSIGNED NOT NULL,
+    chronicle   VARCHAR(255)     NOT NULL,
+    behaviour   INT(10)          NOT NULL,
+    `character` INT(10)          NOT NULL,
+    concept     INT(10)          NOT NULL,
+    humanity    INT(10)          NOT NULL    DEFAULT 1,
+    will        INT(10)          NOT NULL    DEFAULT 1,
+    faith       INT(10)          NOT NULL    DEFAULT 1,
+    health      INT(10)          NOT NULL    DEFAULT 1,
+    experience  VARCHAR(255)     NULL
+);
+
+CREATE TABLE character_game (
+    idGame      INT(10) UNSIGNED NOT NULL,
+    idCharacter INT(10) UNSIGNED NOT NULL,
+    date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT charactergame_pk PRIMARY KEY (idGame, idCharacter)
+);
+
+CREATE TABLE character_user (
+    idUser      INT(10) UNSIGNED NOT NULL,
+    idCharacter INT(10) UNSIGNED NOT NULL,
+    date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT charactergame_pk PRIMARY KEY (idUser, idCharacter)
+);

@@ -122,3 +122,27 @@ FOREIGN KEY (idUser) REFERENCES user (idUser)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
+ALTER TABLE character_game
+    ADD CONSTRAINT charactergame_game_fk
+FOREIGN KEY (idGame) REFERENCES game (idGame)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE character_game
+    ADD CONSTRAINT charactergame_character_fk
+FOREIGN KEY (idCharacter) REFERENCES `character` (idCharacter)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE character_user
+    ADD CONSTRAINT characteruser_user_fk
+FOREIGN KEY (idUser) REFERENCES user (idUser)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE character_user
+    ADD CONSTRAINT characteruser_character_fk
+FOREIGN KEY (idCharacter) REFERENCES `character` (idCharacter)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
