@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.persistence.entities.interfaces;
+package com.olivadevelop.rolermaster.persistence.entities.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces._PersistenceMethods;
 import com.olivadevelop.rolermaster.persistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -11,7 +10,6 @@ import com.olivadevelop.rolermaster.tools.utils.QueryBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -83,22 +81,7 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
 
     @Override
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
-        List<KeyValuePair> values = new ArrayList<>();
-        Field[] fields = entity.getClass().getDeclaredFields();
-        values.add(new KeyValuePair("entity[]", entity));
-        for (Field field : fields) {
-            field.setAccessible(true);
-            RelatedEntity relEnt = field.getAnnotation(RelatedEntity.class);
-            if (Tools.isNotNull(relEnt)) {
-                try {
-                    values.add(new KeyValuePair("entity[]", field.get(field.getDeclaringClass())));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-            field.setAccessible(false);
-        }
-        JSONObject result = ServiceDAO.getInstance().newCall("create.php", getQueryBuilder().insertQuery(values));
+        JSONObject result = ServiceDAO.getInstance().newCall("create.php", getQueryBuilder().insertQuery(entity));
         converter.getNewEntity(result);
         return false;
     }

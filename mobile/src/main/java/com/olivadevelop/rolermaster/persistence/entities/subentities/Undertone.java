@@ -1,7 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities.subentities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Advantage;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;

@@ -1,6 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 

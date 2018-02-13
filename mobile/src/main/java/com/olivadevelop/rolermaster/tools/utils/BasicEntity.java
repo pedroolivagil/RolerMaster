@@ -1,7 +1,8 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Persistence;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONArray;
@@ -127,6 +128,11 @@ public abstract class BasicEntity implements Entity {
 
                     Object value = field.get(this);
                     if (value instanceof BasicEntity) {
+                        // En caso que sea una entidad relacionada, deberá obtenerse la clave ID de la entidad y falsificar el json generado con el nombre de esa propiedad y asignarle el id.
+                        RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
+                        if (Tools.isNotNull(relatedEntity) && Tools.isNotNull(relatedEntity.to())) {
+                            fName = persistenceField.columnName();
+                        }
                         retorno.append(((BasicEntity) value).toString(false));
                     } else {
                         retorno.append(QUOTES).append(fName).append(QUOTES).append(":");

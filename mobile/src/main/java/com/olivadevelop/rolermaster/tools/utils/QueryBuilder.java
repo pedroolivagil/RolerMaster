@@ -1,7 +1,10 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -51,6 +54,34 @@ public class QueryBuilder<T> {
     }
 
     public FormBody insertQuery(List<KeyValuePair> entities) {
+        FormBody.Builder query = new FormBody.Builder();
+        if (Tools.isNotNull(entities)) {
+            for (KeyValuePair obj : entities) {
+                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabelString());
+            }
+        }
+        return query.build();
+    }
+
+    public FormBody insertQuery(T entity) {
+        List<KeyValuePair> values = new ArrayList<>();
+
+        Field[] fields = entity.getClass().getDeclaredFields();
+        values.add(new KeyValuePair("entity[]", entity.toString()));
+        /*for (Field field : fields) {
+            field.setAccessible(true);
+            RelatedEntity relEnt = field.getAnnotation(RelatedEntity.class);
+            if (Tools.isNotNull(relEnt)) {
+                try {
+                    values.add(new KeyValuePair("entity[]", field.get(field.getDeclaringClass())));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            field.setAccessible(false);
+        }*/
+
+
         FormBody.Builder query = new FormBody.Builder();
         if (Tools.isNotNull(entities)) {
             for (KeyValuePair obj : entities) {
