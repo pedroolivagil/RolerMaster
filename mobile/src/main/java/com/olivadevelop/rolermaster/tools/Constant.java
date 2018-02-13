@@ -22,7 +22,7 @@ public abstract class Constant {
 
     public static final String SERVER = "10.0.3.2";
     public static final String HOSTNAME = "http://" + SERVER + "/rolermaster/";
-    public static final String SERVICE_URL = HOSTNAME + "www/php/service/";
+    public static final String SERVICE_URL = HOSTNAME + "www/php/";
 
     // Android app dirs structure
     public static final String CLIENT_DIR = "clients";

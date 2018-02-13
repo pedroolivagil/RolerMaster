@@ -30,11 +30,11 @@ public class User extends BasicEntity {
     private String lastName;
     private String phone;
     private Date birthdate;
-    @RelatedEntity
-    //@Persistence(columnName = "idGender")
+    @RelatedEntity(to = "Gender")
+    @Persistence(columnName = "idGender")
     private Gender gender;
-    @RelatedEntity
-    //@Persistence(columnName = "idCountry")
+    @RelatedEntity(to = "Country")
+    @Persistence(columnName = "idCountry")
     private Country country;
     private List<Integer> rolers;
 

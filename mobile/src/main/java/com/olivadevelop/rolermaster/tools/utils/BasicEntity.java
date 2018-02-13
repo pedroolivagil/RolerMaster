@@ -20,6 +20,7 @@ import java.util.List;
 public abstract class BasicEntity implements Entity {
 
     private static final String QUOTES = "\"";
+    private static final String ENTITY = "entity";
 
     protected BasicEntity() {
     }
@@ -109,6 +110,7 @@ public abstract class BasicEntity implements Entity {
                 if (init) {
                     retorno.append("{");
                 }
+                retorno.append(QUOTES).append(ENTITY).append(QUOTES).append(":").append(QUOTES).append(className).append(QUOTES).append(",");
                 retorno.append(QUOTES).append(className).append(QUOTES).append(":{");
                 int count = 0;
                 for (Field field : fields) {

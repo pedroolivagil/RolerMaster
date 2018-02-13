@@ -48,7 +48,7 @@ CREATE TABLE country_trans (
 
 CREATE TABLE locale (
     idLocale INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    codeISO  INT(10)          NOT NULL,
+    codeISO  VARCHAR(3)       NOT NULL,
     idTrans  INT(10) UNSIGNED NOT NULL
 );
 CREATE UNIQUE INDEX locale_codeISO_uindex
