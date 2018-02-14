@@ -1,7 +1,9 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,9 +16,11 @@ import org.json.JSONObject;
 @Persistence(collectionName = "LOCALE")
 public class Locale extends BasicEntity {
 
+    @Id
     private Integer idLocale;
     @Persistence(columnName = "codeISO")
     private String codeIso;
+    @RelatedEntity(joinColumn = "idTrans")
     private GenericTrans translation;
 
     public Locale() {

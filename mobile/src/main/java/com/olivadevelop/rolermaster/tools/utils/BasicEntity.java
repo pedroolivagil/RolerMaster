@@ -140,7 +140,7 @@ public abstract class BasicEntity implements Entity {
                     /*Object tempValue = field.get(this);*/
                     Object fieldValue = field.get(this);
                     if (fieldValue instanceof BasicEntity) {
-                        if (fullObject) {
+                        if (!fullObject) {
                             // Por cada entidad relacionada, obtenemos su ID a través del @ID de dicha
                             // clase.
 
@@ -164,7 +164,7 @@ public abstract class BasicEntity implements Entity {
                                     fieldRelated.setAccessible(true);
                                     Id pk = fieldRelated.getAnnotation(Id.class);
                                     if (Tools.isNotNull(pk)) {
-                                        id = field.getInt(entity);
+                                        id = (Integer) fieldRelated.get(entity);
                                     }
                                     fieldRelated.setAccessible(false);
                                 }

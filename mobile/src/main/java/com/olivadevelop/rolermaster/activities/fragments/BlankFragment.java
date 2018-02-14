@@ -7,7 +7,9 @@ import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
+import com.olivadevelop.rolermaster.persistence.entities.Locale;
 import com.olivadevelop.rolermaster.persistence.entities.User;
+import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -70,6 +72,22 @@ public class BlankFragment extends CustomFragment {
             }
         } else {
             blankUsername.setText(getString(R.string.blank_guest));
+        }
+
+        LocaleTrans trans = new LocaleTrans();
+        trans.setText("Español");
+        trans.setIdLocale(1);
+        trans.setIdTrans(1);
+
+        Locale es = new Locale();
+        es.setCodeIso("ES");
+        es.setTranslation(trans);
+        es.setIdLocale(1);
+
+        try {
+            Log.e("LOCALE", es.toJSONPersistence().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

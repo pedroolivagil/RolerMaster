@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -12,7 +13,8 @@ import org.json.JSONObject;
 
 public class GenericTrans extends BasicEntity {
 
-    private Integer idGenericTrans;
+    @Id
+    private Integer idTrans;
     private Integer idLocale;
     private String text;
 
@@ -23,9 +25,18 @@ public class GenericTrans extends BasicEntity {
         super(json);
     }
 
-    public GenericTrans(Integer idLocale, String text) {
+    public GenericTrans(Integer idLocale, Integer idTrans, String text) {
         this.idLocale = idLocale;
+        this.idTrans = idTrans;
         this.text = text;
+    }
+
+    public Integer getIdTrans() {
+        return idTrans;
+    }
+
+    public void setIdTrans(Integer idTrans) {
+        this.idTrans = idTrans;
     }
 
     public Integer getIdLocale() {
