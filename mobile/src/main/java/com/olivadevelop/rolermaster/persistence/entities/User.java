@@ -32,9 +32,9 @@ public class User extends BasicEntity {
     private String lastName;
     private String phone;
     private Date birthdate;
-    @RelatedEntity(to = "Gender", joinColumn = "idGender")
+    @RelatedEntity(joinColumn = "idGender")
     private Gender gender;
-    @RelatedEntity(to = "Country", joinColumn = "idCountry")
+    @RelatedEntity(joinColumn = "idCountry")
     private Country country;
     private List<Integer> rolers;
 

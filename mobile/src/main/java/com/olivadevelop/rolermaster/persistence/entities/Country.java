@@ -18,7 +18,7 @@ public class Country extends BasicEntity {
     private Integer idCountry;
     private String code;
     private GenericTrans translation;
-    @RelatedEntity
+    @RelatedEntity(joinColumn = "idLocale")
     private Locale locale;
 
     public Country() {

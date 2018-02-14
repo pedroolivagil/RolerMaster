@@ -1,10 +1,10 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Advantage;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Attribute;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -35,7 +35,7 @@ public class Character extends BasicEntity {
     private Date birthdate;
     private String planet;
     private String home;
-    @RelatedEntity
+    @RelatedEntity(joinColumn = "idGender")
     private Gender gender;
     private String chronicle;
     private Integer behaviour;
@@ -48,15 +48,15 @@ public class Character extends BasicEntity {
     private String experience;
 
     // Skills and points
-    @RelatedEntity
+    /*@RelatedEntity()*/
     private List<Attribute> attributes;
-    @RelatedEntity
+    /*@RelatedEntity*/
     private List<Ability> abilities;
-    @RelatedEntity
+    /*@RelatedEntity*/
     private List<Advantage> advantages;
-    @RelatedEntity
+    /*@RelatedEntity*/
     private List<Virtue> virtues;
-    @RelatedEntity
+    /*@RelatedEntity*/
     private List<Weapon> weapons;
 
     public Character() {

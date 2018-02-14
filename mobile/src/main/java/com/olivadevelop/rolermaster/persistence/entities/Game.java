@@ -60,7 +60,7 @@ public class Game extends BasicEntity {
     private GameStatus gameStatus;
     private String history;
     private String location;
-    @RelatedEntity
+    @RelatedEntity(joinColumn = "idCategory")
     private GameCategory gameCategory;
 
     public Game() {
