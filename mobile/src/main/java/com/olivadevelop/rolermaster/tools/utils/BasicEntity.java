@@ -123,13 +123,11 @@ public abstract class BasicEntity implements Entity {
                 // le pasamos la entidad como parámetro de JSON
                 retorno.put(ENTITY, className);
                 JSONObject jsonEntity = new JSONObject();
-                int count = 0;
                 for (Field field : fields) {
                     field.setAccessible(true);
                     String fName = field.getName();
                     if (MapEntities.CHANGE_FIELD.equals(fName) || MapEntities.SERIAL_VERSION_UID.equals(fName)) {
                         // obviamos esas dos columnas
-                        count++;
                         continue;
                     }
                     Persistence persistenceField = field.getAnnotation(Persistence.class);
@@ -137,7 +135,6 @@ public abstract class BasicEntity implements Entity {
                         fName = persistenceField.columnName();
                     }
 
-                    /*Object tempValue = field.get(this);*/
                     Object fieldValue = field.get(this);
                     if (fieldValue instanceof BasicEntity) {
                         if (!fullObject) {
@@ -155,30 +152,28 @@ public abstract class BasicEntity implements Entity {
                                 if (Tools.isNotNull(relatedEntity.joinColumn())) {
                                     fName = relatedEntity.joinColumn();
                                 }
-                                Integer id = null;
-                            /*Class<?> relEntity = Class.forName(relatedEntity.to());
-                            relEntity.getDeclaredFields()
-                            retorno.append(fName);*/
                                 BasicEntity entity = (BasicEntity) fieldValue;
                                 for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
                                     fieldRelated.setAccessible(true);
+                                    if (MapEntities.CHANGE_FIELD.equals(fieldRelated.getName()) || MapEntities.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
+                                        // obviamos esas dos columnas
+                                        continue;
+                                    }
                                     Id pk = fieldRelated.getAnnotation(Id.class);
                                     if (Tools.isNotNull(pk)) {
-                                        id = (Integer) fieldRelated.get(entity);
+                                        fieldValue = fieldRelated.get(entity);
                                     }
                                     fieldRelated.setAccessible(false);
                                 }
-                                retorno.put(fName, id);
                             } else {
                                 // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
                                 //retorno.append(((BasicEntity) value).toString(false));
-                                retorno.put(fName, fieldValue.toString());
+                                fieldValue = fieldValue.toString();
                             }
                         }
                     }
                     jsonEntity.put(fName, fieldValue);
                     field.setAccessible(false);
-                    count++;
                 }
                 retorno.put(className, jsonEntity);
             }
