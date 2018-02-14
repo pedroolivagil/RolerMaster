@@ -32,11 +32,9 @@ public class User extends BasicEntity {
     private String lastName;
     private String phone;
     private Date birthdate;
-    @RelatedEntity(to = "Gender")
-    @Persistence(columnName = "idGender")
+    @RelatedEntity(to = "Gender", joinColumn = "idGender")
     private Gender gender;
-    @RelatedEntity(to = "Country")
-    @Persistence(columnName = "idCountry")
+    @RelatedEntity(to = "Country", joinColumn = "idCountry")
     private Country country;
     private List<Integer> rolers;
 

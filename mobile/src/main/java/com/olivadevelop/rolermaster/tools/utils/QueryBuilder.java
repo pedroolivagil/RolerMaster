@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import java.lang.reflect.Field;
@@ -67,7 +66,7 @@ public class QueryBuilder<T> {
         List<KeyValuePair> values = new ArrayList<>();
 
         Field[] fields = entity.getClass().getDeclaredFields();
-        values.add(new KeyValuePair("entity[]", entity.toString()));
+        values.add(new KeyValuePair("entity[]", entity));
         /*for (Field field : fields) {
             field.setAccessible(true);
             RelatedEntity relEnt = field.getAnnotation(RelatedEntity.class);
@@ -82,12 +81,13 @@ public class QueryBuilder<T> {
         }*/
 
 
-        FormBody.Builder query = new FormBody.Builder();
+       /* FormBody.Builder query = new FormBody.Builder();
         if (Tools.isNotNull(entities)) {
             for (KeyValuePair obj : entities) {
                 query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabelString());
             }
-        }
-        return query.build();
+        }*/
+        /*return query.build();*/
+        return null;
     }
 }

@@ -14,5 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RelatedEntity {
 
-    String to() default "";
+    String to();
+
+    String joinColumn();
 }

@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
@@ -11,7 +12,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -98,8 +98,19 @@ public abstract class BasicEntity implements Entity {
         return toString(true);
     }
 
-    public String toString(boolean init) {
-        StringBuilder retorno = new StringBuilder();
+    public String toString(boolean fullObject) {
+        return toJSON(fullObject).toString();
+    }
+
+    @Override
+    public JSONObject toJSONPersistence() throws JSONException {
+        return toJSON(false);
+    }
+
+    @Override
+    public JSONObject toJSON(boolean fullObject) {
+        JSONObject retorno = new JSONObject();
+        /*StringBuilder retorno = new StringBuilder();*/
         try {
             Field[] fields = getClass().getDeclaredFields();
             if (Tools.isNotNull(fields) && fields.length > 0) {
@@ -108,16 +119,16 @@ public abstract class BasicEntity implements Entity {
                 if (Tools.isNotNull(persistenceClass) && Tools.isNotNull(persistenceClass.collectionName())) {
                     className = persistenceClass.collectionName();
                 }
-                if (init) {
-                    retorno.append("{");
-                }
-                retorno.append(QUOTES).append(ENTITY).append(QUOTES).append(":").append(QUOTES).append(className).append(QUOTES).append(",");
-                retorno.append(QUOTES).append(className).append(QUOTES).append(":{");
+                // Inicio de objeto JSON
+                // le pasamos la entidad como parámetro de JSON
+                retorno.put(ENTITY, className);
+                JSONObject jsonEntity = new JSONObject();
                 int count = 0;
                 for (Field field : fields) {
                     field.setAccessible(true);
                     String fName = field.getName();
                     if (MapEntities.CHANGE_FIELD.equals(fName) || MapEntities.SERIAL_VERSION_UID.equals(fName)) {
+                        // obviamos esas dos columnas
                         count++;
                         continue;
                     }
@@ -126,49 +137,54 @@ public abstract class BasicEntity implements Entity {
                         fName = persistenceField.columnName();
                     }
 
-                    Object value = field.get(this);
-                    if (value instanceof BasicEntity) {
-                        // En caso que sea una entidad relacionada, deberá obtenerse la clave ID de la entidad y falsificar el json generado con el nombre de esa propiedad y asignarle el id.
-                        RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
-                        if (Tools.isNotNull(relatedEntity) && Tools.isNotNull(relatedEntity.to())) {
-                            fName = persistenceField.columnName();
-                        }
-                        retorno.append(((BasicEntity) value).toString(false));
-                    } else {
-                        retorno.append(QUOTES).append(fName).append(QUOTES).append(":");
-                        if (value instanceof String) {
-                            retorno.append(QUOTES);
-                            retorno.append(value);
-                            retorno.append(QUOTES);
-                        } else if (value instanceof Boolean
-                                || value instanceof Byte
-                                || value instanceof Integer
-                                || value instanceof Long
-                                || value instanceof Float
-                                || value instanceof Double) {
-                            retorno.append(value);
-                        } else if (value instanceof List) {
-                            retorno.append(value);
-                        } else if (value instanceof byte[]) {
-                            retorno.append(ImagePicasso.base64ToString((byte[]) value));
-                        } else {
-                            retorno.append(String.valueOf(value));
+                    /*Object tempValue = field.get(this);*/
+                    Object fieldValue = field.get(this);
+                    if (fieldValue instanceof BasicEntity) {
+                        if (fullObject) {
+                            // Por cada entidad relacionada, obtenemos su ID a través del @ID de dicha
+                            // clase.
+
+                            // Usaremos el join column definido en la clase padre para almacenar la
+                            // información.
+
+                            // En caso de que no exista joincolumn, usaremos el nombre de la propiedad
+                            // ID de la clase relacionada, en caso contrario dejaremos el nombre de la
+                            // propiedad de la clase padre.
+                            RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
+                            if (Tools.isNotNull(relatedEntity)) {
+                                if (Tools.isNotNull(relatedEntity.joinColumn())) {
+                                    fName = relatedEntity.joinColumn();
+                                }
+                                Integer id = null;
+                            /*Class<?> relEntity = Class.forName(relatedEntity.to());
+                            relEntity.getDeclaredFields()
+                            retorno.append(fName);*/
+                                BasicEntity entity = (BasicEntity) fieldValue;
+                                for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
+                                    fieldRelated.setAccessible(true);
+                                    Id pk = fieldRelated.getAnnotation(Id.class);
+                                    if (Tools.isNotNull(pk)) {
+                                        id = field.getInt(entity);
+                                    }
+                                    fieldRelated.setAccessible(false);
+                                }
+                                retorno.put(fName, id);
+                            } else {
+                                // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
+                                //retorno.append(((BasicEntity) value).toString(false));
+                                retorno.put(fName, fieldValue.toString());
+                            }
                         }
                     }
-                    if (count < (fields.length - 3)) {
-                        retorno.append(",");
-                    }
+                    jsonEntity.put(fName, fieldValue);
                     field.setAccessible(false);
                     count++;
                 }
-                retorno.append("}");
-                if (init) {
-                    retorno.append("}");
-                }
+                retorno.put(className, jsonEntity);
             }
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException | JSONException e) {
             e.printStackTrace();
         }
-        return retorno.toString();
+        return retorno;
     }
 }
