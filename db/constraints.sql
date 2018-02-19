@@ -32,15 +32,15 @@ ALTER TABLE user
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
-ALTER TABLE gender
+ALTER TABLE gender_trans
     ADD CONSTRAINT gender_gendertrans_fk
-FOREIGN KEY (idTrans) REFERENCES gender_trans (idTrans)
+FOREIGN KEY (idGender) REFERENCES gender (idGender)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
-ALTER TABLE locale
+ALTER TABLE locale_trans
     ADD CONSTRAINT locale_localetrans_fk
-FOREIGN KEY (idTrans) REFERENCES locale_trans (idTrans)
+FOREIGN KEY (idLocale) REFERENCES locale (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
@@ -50,9 +50,9 @@ FOREIGN KEY (idLocale) REFERENCES locale (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
-ALTER TABLE country
+ALTER TABLE country_trans
     ADD CONSTRAINT country_countrytrans_fk
-FOREIGN KEY (idTrans) REFERENCES country_trans (idTrans)
+FOREIGN KEY (idCountry) REFERENCES country (idCountry)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 

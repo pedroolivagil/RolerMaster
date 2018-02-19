@@ -26,40 +26,47 @@ ALTER TABLE user
 CREATE TABLE user_roler (
     idMaster INT(10) UNSIGNED,
     idRoler  INT(10) UNSIGNED,
-    date     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dateTime     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT userroler_pk PRIMARY KEY (idMaster, idRoler)
 );
 
 CREATE TABLE country (
     idCountry INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     code      VARCHAR(3)       NOT NULL,
-    idTrans   INT(10) UNSIGNED NOT NULL,
     idLocale  INT(10) UNSIGNED NOT NULL
 );
 CREATE UNIQUE INDEX country_codeISO_uindex
     ON country (code);
 
 CREATE TABLE country_trans (
-    idTrans  INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    idTrans  INT(10) UNSIGNED  PRIMARY KEY AUTO_INCREMENT,
+    idCountry INT(10) UNSIGNED NOT NULL,
     idLocale INT(10) UNSIGNED NOT NULL,
-    text     VARCHAR(255)     NOT NULL,
-    CONSTRAINT country_trans_pk PRIMARY KEY (idTrans, idLocale, text)
+    text     VARCHAR(255)     NOT NULL
 );
+CREATE UNIQUE INDEX countrytrans_country_uindex
+      ON country_trans (idCountry);
+CREATE UNIQUE INDEX countrytrans_locale_uindex
+      ON country_trans (idLocale);
+CREATE UNIQUE INDEX countrytrans_text_uindex
+      ON country_trans (text);
 
 CREATE TABLE locale (
     idLocale INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    codeISO  VARCHAR(3)       NOT NULL,
-    idTrans  INT(10) UNSIGNED NOT NULL
+    codeISO  VARCHAR(3)       NOT NULL
 );
 CREATE UNIQUE INDEX locale_codeISO_uindex
     ON locale (codeISO);
 
 CREATE TABLE locale_trans (
-    idTrans  INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    idTrans  INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     idLocale INT(10) UNSIGNED NOT NULL,
-    text     VARCHAR(255)     NOT NULL,
-    CONSTRAINT locale_trans_pk PRIMARY KEY (idTrans, idLocale, text)
+    text     VARCHAR(255)     NOT NULL
 );
+CREATE UNIQUE INDEX localetrans_locale_uindex
+      ON locale_trans (idLocale);
+CREATE UNIQUE INDEX localetrans_text_uindex
+      ON locale_trans (text);
 
 CREATE TABLE resource (
     idResource INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -92,18 +99,23 @@ CREATE UNIQUE INDEX game_category_name_uindex
 
 CREATE TABLE gender (
     idGender INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    code     VARCHAR(3)       NOT NULL,
-    idTrans  INT(10) UNSIGNED NOT NULL
+    code     VARCHAR(3)       NOT NULL
 );
 CREATE UNIQUE INDEX gender_code_uindex
     ON gender (code);
 
 CREATE TABLE gender_trans (
-    idTrans  INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    idTrans  INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    idGender INT(10) UNSIGNED NOT NULL,
     idLocale INT(10) UNSIGNED NOT NULL,
-    text     VARCHAR(255)     NOT NULL,
-    CONSTRAINT gender_trans_pk PRIMARY KEY (idTrans, idLocale, text)
+    text     VARCHAR(255)     NOT NULL
 );
+CREATE UNIQUE INDEX gendertrans_gender_uindex
+      ON gender_trans (idGender);
+CREATE UNIQUE INDEX gendertrans_locale_uindex
+      ON gender_trans (idLocale);
+CREATE UNIQUE INDEX gendertrans_text_uindex
+      ON gender_trans (text);
 
 CREATE TABLE parameter (
     idParameter INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
