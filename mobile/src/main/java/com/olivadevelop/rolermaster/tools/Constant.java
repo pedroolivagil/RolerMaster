@@ -20,8 +20,10 @@ public abstract class Constant {
     public static final int YEAR_MIN = 1900;
     public static final int TIME_SPLASH = 2000; // Miliseconds
 
-    public static final String SERVER = "10.0.3.2";
-    public static final String HOSTNAME = "http://" + SERVER + "/rolermaster/";
+    /*public static final String SERVER = "10.0.3.2";*/     //Genymotion
+    public static final String SERVER = "172.16.4.73";      // Physical device
+    public static final String PORT = ":80";                // Physical device
+    public static final String HOSTNAME = "http://" + SERVER + PORT + "/rolermaster/";
     public static final String SERVICE_URL = HOSTNAME + "www/php/";
 
     // Android app dirs structure
