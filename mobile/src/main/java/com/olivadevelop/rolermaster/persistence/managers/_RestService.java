@@ -51,30 +51,30 @@ class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
                 retorno = new JSONObject(result);
             }
             response.close();
-        } catch (SocketTimeoutException e) {
+        } catch (final SocketTimeoutException e) {
             RolerMasterThread.getInstance().newThread(0, new RolerMasterThread.ActionThread() {
                 @Override
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
-                    Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "TimeOutException", null);
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "TimeOutException.\n\n" + e.getMessage(), null);
                 }
             });
-        } catch (IOException | JSONException e) {
+        } catch (final IOException | JSONException e) {
             e.printStackTrace();
             Alert.getInstance().getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
-                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "ServiceException", null);
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "ServiceException.\n\n" + e.getMessage(), null);
                 }
             });
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             Alert.getInstance().getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
-                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "GenericException", null);
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "GenericException.\n\n" + e.getMessage(), null);
                 }
             });
         }
