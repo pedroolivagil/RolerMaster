@@ -23,7 +23,6 @@ import java.util.List;
 
 public abstract class BasicEntity implements Entity {
 
-    private static final String QUOTES = "\"";
     private static final String ENTITY = "entity";
 
     protected BasicEntity() {
@@ -142,15 +141,6 @@ public abstract class BasicEntity implements Entity {
                     if (fieldValue instanceof BasicEntity) {
                         BasicEntity entity = (BasicEntity) fieldValue;
                         if (!fullObject) {
-                            // Por cada entidad relacionada, obtenemos su ID a través del @ID de dicha
-                            // clase.
-
-                            // Usaremos el join column definido en la clase padre para almacenar la
-                            // información.
-
-                            // En caso de que no exista joincolumn, usaremos el nombre de la propiedad
-                            // ID de la clase relacionada, en caso contrario dejaremos el nombre de la
-                            // propiedad de la clase padre.
                             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
                             if (Tools.isNotNull(relatedEntity)) {
                                 if (Tools.isNotNull(relatedEntity.joinColumn())) {

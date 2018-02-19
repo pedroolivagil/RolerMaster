@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 
 import org.json.JSONException;

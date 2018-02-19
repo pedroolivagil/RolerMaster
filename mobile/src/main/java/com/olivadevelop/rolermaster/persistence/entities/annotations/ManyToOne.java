@@ -7,16 +7,10 @@ import java.lang.annotation.Target;
 
 /**
  * Copyright OlivaDevelop 2014-2018
- * Created by Oliva on 23/01/2018.
+ * Created by Oliva on 19/02/2018.
  */
 
-@Target(value = {ElementType.FIELD, ElementType.TYPE})
+@Target(value = {ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Persistence {
-
-    String columnName() default "";
-
-    String collectionName() default "";
-
-    boolean unique() default false;
+public @interface ManyToOne {
 }

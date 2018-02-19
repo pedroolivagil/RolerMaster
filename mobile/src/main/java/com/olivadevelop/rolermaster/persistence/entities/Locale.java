@@ -1,13 +1,15 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.ManyToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -19,11 +21,13 @@ public class Locale extends BasicEntity {
 
     @Id
     private Integer idLocale;
-    @Persistence(columnName = "codeISO")
-    @Unique
+
+    @Persistence(columnName = "codeISO", unique = true)
     private String codeIso;
-    @RelatedEntity(joinColumn = "idTrans")
-    private LocaleTrans translation;
+
+    @ManyToOne
+    @RelatedEntity(joinColumn = "idLocale")
+    private List<LocaleTrans> translations;
 
     public Locale() {
     }
@@ -48,11 +52,11 @@ public class Locale extends BasicEntity {
         this.codeIso = codeIso;
     }
 
-    public LocaleTrans getTranslation() {
-        return translation;
+    public List<LocaleTrans> getTranslations() {
+        return translations;
     }
 
-    public void setTranslation(LocaleTrans translation) {
-        this.translation = translation;
+    public void setTranslations(List<LocaleTrans> translations) {
+        this.translations = translations;
     }
 }
