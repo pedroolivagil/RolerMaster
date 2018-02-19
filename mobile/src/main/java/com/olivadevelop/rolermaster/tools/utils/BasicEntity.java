@@ -156,7 +156,9 @@ public abstract class BasicEntity implements Entity {
                                 if (Tools.isNotNull(relatedEntity.joinColumn())) {
                                     fName = relatedEntity.joinColumn();
                                 }
-                                for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
+                                Field[] fieldsRelatedEntity = entity.getClass().getDeclaredFields();
+                                /*if (Tools.isNotNull(fieldsRelatedEntity)) {*/
+                                for (Field fieldRelated : fieldsRelatedEntity) {
                                     fieldRelated.setAccessible(true);
                                     if (MapEntities.CHANGE_FIELD.equals(fieldRelated.getName()) || MapEntities.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
                                         // obviamos esas dos columnas
@@ -168,6 +170,10 @@ public abstract class BasicEntity implements Entity {
                                     }
                                     fieldRelated.setAccessible(false);
                                 }
+                               /* } else {
+                                    // Es una clase extendida, por lo intentaremos acceder a su clase padre, acceder a sus propiedades y generar la entidad con el nombre de la clase hija
+                                    Log.e("SUPERCLASS", "" + entity.getClass().getSuperclass());
+                                }*/
                             } else {
                                 // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
                                 //retorno.append(((BasicEntity) value).toString(false));

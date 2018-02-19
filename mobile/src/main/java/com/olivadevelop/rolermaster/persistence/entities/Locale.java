@@ -23,7 +23,7 @@ public class Locale extends BasicEntity {
     @Unique
     private String codeIso;
     @RelatedEntity(joinColumn = "idTrans")
-    private GenericTrans translation;
+    private LocaleTrans translation;
 
     public Locale() {
     }
@@ -48,11 +48,11 @@ public class Locale extends BasicEntity {
         this.codeIso = codeIso;
     }
 
-    public GenericTrans getTranslation() {
+    public LocaleTrans getTranslation() {
         return translation;
     }
 
-    public void setTranslation(GenericTrans translation) {
+    public void setTranslation(LocaleTrans translation) {
         this.translation = translation;
     }
 }

@@ -6,6 +6,7 @@ import org.json.JSONException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -69,6 +70,7 @@ public class QueryBuilder<T> {
         try {
             List<BasicEntity> retorno = new ArrayList<>();
             getJsonEntities(retorno, (BasicEntity) entity);
+            Collections.reverse(retorno);
             for (BasicEntity bEnti : retorno) {
                 query.add("entity[]", bEnti.toJSONPersistence().toString());
             }

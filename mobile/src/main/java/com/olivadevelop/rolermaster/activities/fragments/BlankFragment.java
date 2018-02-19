@@ -9,6 +9,7 @@ import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.GenericTrans;
 import com.olivadevelop.rolermaster.persistence.entities.Locale;
+import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
@@ -74,7 +75,7 @@ public class BlankFragment extends CustomFragment {
             blankUsername.setText(getString(R.string.blank_guest));
         }
 
-        /*GenericTrans trans = new GenericTrans();
+        LocaleTrans trans = new LocaleTrans();
         trans.setText("Español");
         trans.setIdLocale(1);
         trans.setIdTrans(1);
@@ -84,7 +85,7 @@ public class BlankFragment extends CustomFragment {
         es.setTranslation(trans);
         es.setIdLocale(1);
 
-        Controllers.getInstance().getLocaleController().create(es);*/
+        Controllers.getInstance().getLocaleController().create(es);
     }
 
     @Override
