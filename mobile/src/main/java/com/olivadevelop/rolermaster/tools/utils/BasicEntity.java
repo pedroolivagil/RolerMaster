@@ -3,6 +3,7 @@ package com.olivadevelop.rolermaster.tools.utils;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
@@ -12,6 +13,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -137,6 +140,7 @@ public abstract class BasicEntity implements Entity {
 
                     Object fieldValue = field.get(this);
                     if (fieldValue instanceof BasicEntity) {
+                        BasicEntity entity = (BasicEntity) fieldValue;
                         if (!fullObject) {
                             // Por cada entidad relacionada, obtenemos su ID a través del @ID de dicha
                             // clase.
@@ -152,7 +156,6 @@ public abstract class BasicEntity implements Entity {
                                 if (Tools.isNotNull(relatedEntity.joinColumn())) {
                                     fName = relatedEntity.joinColumn();
                                 }
-                                BasicEntity entity = (BasicEntity) fieldValue;
                                 for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
                                     fieldRelated.setAccessible(true);
                                     if (MapEntities.CHANGE_FIELD.equals(fieldRelated.getName()) || MapEntities.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
@@ -168,16 +171,64 @@ public abstract class BasicEntity implements Entity {
                             } else {
                                 // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
                                 //retorno.append(((BasicEntity) value).toString(false));
-                                fieldValue = fieldValue.toString();
+                                fieldValue = entity.toJSONPersistence();
                             }
                         }
                     }
-                    jsonEntity.put(fName, fieldValue);
+                    if (fieldValue != null) {
+                        jsonEntity.put(fName, fieldValue);
+                    } else {
+                        jsonEntity.put(fName, "null");
+                    }
                     field.setAccessible(false);
                 }
                 retorno.put(className, jsonEntity);
             }
         } catch (IllegalAccessException | JSONException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean retorno = true;
+        try {
+            BasicEntity entity = (BasicEntity) obj;
+            List<Object> valuesObj = new ArrayList<>();
+            List<Object> valuesThis = new ArrayList<>();
+            for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
+                fieldRelated.setAccessible(true);
+                Id pk = fieldRelated.getAnnotation(Id.class);
+                Unique unique = fieldRelated.getAnnotation(Unique.class);
+                if (Tools.isNotNull(pk) || Tools.isNotNull(unique)) {
+                    valuesObj.add(fieldRelated.get(obj));
+                }
+                fieldRelated.setAccessible(false);
+            }
+            for (Field fieldRelated : this.getClass().getDeclaredFields()) {
+                fieldRelated.setAccessible(true);
+                Id pk = fieldRelated.getAnnotation(Id.class);
+                Unique unique = fieldRelated.getAnnotation(Unique.class);
+                if (Tools.isNotNull(pk) || Tools.isNotNull(unique)) {
+                    valuesThis.add(fieldRelated.get(this));
+                }
+                fieldRelated.setAccessible(false);
+            }
+            /*for (int x = 0; x < valuesObj.size(); x++) {
+                if (!valuesObj.get(x).equals(valuesThis.get(x))) {
+                    retorno = false;
+                }
+            }*/
+            for (Object value1 : valuesThis) {
+                for (Object value2 : valuesObj) {
+                    if (value2.getClass().equals(value1.getClass()) && !value2.equals(value1)) {
+                        retorno = false;
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            retorno = super.equals(obj);
             e.printStackTrace();
         }
         return retorno;

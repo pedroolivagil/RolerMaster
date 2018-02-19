@@ -2,6 +2,8 @@ package com.olivadevelop.rolermaster.tools.utils;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 
+import org.json.JSONException;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,32 +64,29 @@ public class QueryBuilder<T> {
         return query.build();
     }
 
-    public FormBody insertQuery(T entity) {
-        List<KeyValuePair> values = new ArrayList<>();
+    public FormBody insertQuery(T entity) throws JSONException {
+        FormBody.Builder query = new FormBody.Builder();
+        try {
+            List<BasicEntity> retorno = new ArrayList<>();
+            getJsonEntities(retorno, (BasicEntity) entity);
+            for (BasicEntity bEnti : retorno) {
+                query.add("entity[]", bEnti.toJSONPersistence().toString());
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return query.build();
+    }
 
-        Field[] fields = entity.getClass().getDeclaredFields();
-        values.add(new KeyValuePair("entity[]", entity));
-        /*for (Field field : fields) {
+    private void getJsonEntities(List<BasicEntity> retorno, BasicEntity entity) throws JSONException, IllegalAccessException {
+        for (Field field : entity.getClass().getDeclaredFields()) {
             field.setAccessible(true);
-            RelatedEntity relEnt = field.getAnnotation(RelatedEntity.class);
-            if (Tools.isNotNull(relEnt)) {
-                try {
-                    values.add(new KeyValuePair("entity[]", field.get(field.getDeclaringClass())));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+            Object fieldValue = field.get(entity);
+            if (fieldValue instanceof BasicEntity) {
+                getJsonEntities(retorno, (BasicEntity) fieldValue);
             }
             field.setAccessible(false);
-        }*/
-
-
-       /* FormBody.Builder query = new FormBody.Builder();
-        if (Tools.isNotNull(entities)) {
-            for (KeyValuePair obj : entities) {
-                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabelString());
-            }
-        }*/
-        /*return query.build();*/
-        return null;
+        }
+        retorno.add(entity);
     }
 }

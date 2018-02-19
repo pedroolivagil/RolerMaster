@@ -3,6 +3,7 @@ package com.olivadevelop.rolermaster.persistence.entities;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -24,9 +25,12 @@ public class User extends BasicEntity {
     private boolean master;
     @Id
     private Integer idUser;
+    @Unique
     private String username;
     private String password;
+    @Unique
     private String email;
+    @Unique
     private String name;
     @Persistence(columnName = "lastname")
     private String lastName;

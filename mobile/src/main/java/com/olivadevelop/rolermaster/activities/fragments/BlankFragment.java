@@ -73,7 +73,6 @@ public class BlankFragment extends CustomFragment {
         } else {
             blankUsername.setText(getString(R.string.blank_guest));
         }
-
         GenericTrans trans = new GenericTrans();
         trans.setText("Español");
         trans.setIdLocale(1);
@@ -84,12 +83,7 @@ public class BlankFragment extends CustomFragment {
         es.setTranslation(trans);
         es.setIdLocale(1);
 
-        try {
-            Log.e("LOCALE", es.toJSONPersistence().toString());
-            Log.e("LOCALE_TRANS", trans.toJSONPersistence().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Controllers.getInstance().getLocaleController().create(es);
     }
 
     @Override

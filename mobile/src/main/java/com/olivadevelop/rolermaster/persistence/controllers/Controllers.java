@@ -7,8 +7,10 @@ package com.olivadevelop.rolermaster.persistence.controllers;
 
 public class Controllers {
     private static final Controllers ourInstance = new Controllers();
+
     private UserController userController;
     private CountryController countryController;
+    private LocaleController localeController;
 
     private Controllers() {
         init();
@@ -21,11 +23,13 @@ public class Controllers {
     public void init() {
         userController = new UserController();
         countryController = new CountryController();
+        localeController = new LocaleController();
     }
 
     public void clear() {
         userController = null;
         countryController = null;
+        localeController = null;
     }
 
     public UserController getUserController() {
@@ -34,5 +38,9 @@ public class Controllers {
 
     public CountryController getCountryController() {
         return countryController;
+    }
+
+    public LocaleController getLocaleController() {
+        return localeController;
     }
 }
