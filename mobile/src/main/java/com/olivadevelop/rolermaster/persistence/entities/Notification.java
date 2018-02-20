@@ -1,12 +1,12 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.pojo.NotificationPriority;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +19,7 @@ import java.util.Date;
  */
 
 @Persistence(collectionName = "notification")
-public class Notification extends BasicEntity {
+public class Notification extends _BasicEntity {
 
     public static final boolean STATUS_READ = true;
     public static final boolean STATUS_UNREAD = false;

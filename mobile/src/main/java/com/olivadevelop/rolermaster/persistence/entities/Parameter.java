@@ -1,10 +1,10 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +15,7 @@ import org.json.JSONObject;
  * RolerMaster
  */
 @Persistence(collectionName = "parameter")
-public class Parameter extends BasicEntity {
+public class Parameter extends _BasicEntity {
 
     @Id
     private Integer idParameter;

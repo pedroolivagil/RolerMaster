@@ -1,8 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.entities.subentities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Attribute;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +13,7 @@ import org.json.JSONObject;
  * RolerMaster
  */
 @Persistence(collectionName = "MENTAL")
-public class Mental extends BasicEntity implements Attribute {
+public class Mental extends _BasicEntity implements Attribute {
 
     private Integer points;
     private String code;

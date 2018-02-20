@@ -1,11 +1,10 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.ManyToOne;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToMany;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +17,7 @@ import java.util.List;
  * RolerMaster
  */
 @Persistence(collectionName = "locale")
-public class Locale extends BasicEntity {
+public class Locale extends _BasicEntity {
 
     @Id
     private Integer idLocale;

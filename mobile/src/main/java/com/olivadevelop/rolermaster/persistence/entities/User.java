@@ -1,11 +1,11 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Unique;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +19,7 @@ import java.util.List;
  * RolerMaster
  */
 @Persistence(collectionName = "user")
-public class User extends BasicEntity {
+public class User extends _BasicEntity {
 
     private boolean flagActive;
     private boolean flagStatus;

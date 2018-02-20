@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.persistence.utils.KeyValuePair;
 
 import java.util.List;
 

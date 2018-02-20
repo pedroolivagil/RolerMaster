@@ -1,20 +1,20 @@
-package com.olivadevelop.rolermaster.tools.utils;
+package com.olivadevelop.rolermaster.tools.persistence.utils;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.ManyToMany;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.ManyToOne;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.ManyToMany;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.ManyToOne;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToMany;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.tools.utils.RolerMasterException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 import static com.olivadevelop.rolermaster.tools.utils.RolerMasterException.TypeException.PERSISTENCE;
 import static com.olivadevelop.rolermaster.tools.utils.RolerMasterException.TypeException.RELATIONSHIP;
@@ -24,7 +24,7 @@ import static com.olivadevelop.rolermaster.tools.utils.RolerMasterException.Type
  * Created by Oliva on 19/02/2018.
  */
 
-public class JSONPersistence<T extends BasicEntity> {
+public class JSONPersistence<T extends _BasicEntity> {
     private static final String ENTITY = "entity";
 
     /**
@@ -61,7 +61,7 @@ public class JSONPersistence<T extends BasicEntity> {
         for (Field field : fields) {
             field.setAccessible(true);
             String fName = field.getName();
-            if (MapEntities.CHANGE_FIELD.equals(fName) || MapEntities.SERIAL_VERSION_UID.equals(fName)) {
+            if (_BasicEntity.CHANGE_FIELD.equals(fName) || _BasicEntity.SERIAL_VERSION_UID.equals(fName)) {
                 // obviamos esas dos columnas
                 continue;
             }
@@ -90,8 +90,8 @@ public class JSONPersistence<T extends BasicEntity> {
 
     private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, RolerMasterException {
        /* Object fieldValue = field.get(this);
-        if (fieldValue instanceof BasicEntity) {
-            BasicEntity entity = (BasicEntity) fieldValue;
+        if (fieldValue instanceof _BasicEntity) {
+            _BasicEntity entity = (_BasicEntity) fieldValue;
             if (!fullObject) {
                 RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
                 if (Tools.isNotNull(relatedEntity)) {
@@ -118,7 +118,7 @@ public class JSONPersistence<T extends BasicEntity> {
                                 }*//*
                 } else {
                     // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
-                    //retorno.append(((BasicEntity) value).toString(false));
+                    //retorno.append(((_BasicEntity) value).toString(false));
                     fieldValue = entity.toJSONPersistence();
                 }
             }
@@ -134,7 +134,7 @@ public class JSONPersistence<T extends BasicEntity> {
             ManyToMany manyToMany = field.getAnnotation(ManyToMany.class);
             if (Tools.isNotNull(oneToOne)) {
                 // Si es una relación uno a uno o uno a muchos, directamente podemos transformar en una Entity para obtener su identificador
-                BasicEntity entity = (BasicEntity) value;
+                _BasicEntity entity = (_BasicEntity) value;
                 retorno = new KeyValuePair<>();
                 if (Tools.isNotNull(relatedEntity.joinColumn())) {
                     retorno.setKey(relatedEntity.joinColumn());
@@ -143,7 +143,8 @@ public class JSONPersistence<T extends BasicEntity> {
                 }
                 for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
                     fieldRelated.setAccessible(true);
-                    if (MapEntities.CHANGE_FIELD.equals(fieldRelated.getName()) || MapEntities.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
+                    if (_BasicEntity.CHANGE_FIELD.equals(fieldRelated.getName())
+                            || _BasicEntity.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
                         // obviamos esas dos columnas
                         continue;
                     }
@@ -163,7 +164,7 @@ public class JSONPersistence<T extends BasicEntity> {
                 // Si es una relación muchos a uno o muchos a muchos, transformarmamos en una List<Entity> para asignar el identificador del padre a cada entidad.
                 List<Entity> lista = (List<Entity>) value;
                 for (Entity ent : lista) {
-                    BasicEntity entity = (BasicEntity) ent;
+                    _BasicEntity entity = (_BasicEntity) ent;
                 }*/
             } else {
                 throw new RolerMasterException(RELATIONSHIP);

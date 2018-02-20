@@ -34,7 +34,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.AccountPicker;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
-import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.tools.persistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.utils.SpinnerAdapter;
 
 import java.lang.reflect.Field;

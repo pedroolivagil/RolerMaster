@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools.utils.intefraces;
+package com.olivadevelop.rolermaster.tools.persistence.interfaces;
 
 import org.json.JSONObject;
 

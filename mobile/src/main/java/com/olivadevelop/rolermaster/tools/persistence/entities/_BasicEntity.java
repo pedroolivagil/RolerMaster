@@ -1,18 +1,18 @@
-package com.olivadevelop.rolermaster.tools.utils;
+package com.olivadevelop.rolermaster.tools.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
-import com.olivadevelop.rolermaster.persistence.entities.interfaces.Entity;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.persistence.utils.ConverterJSONArrayToList;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Unique;
+import com.olivadevelop.rolermaster.tools.persistence.interfaces.Entity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +21,16 @@ import java.util.List;
  * Created by Oliva on 19/01/2018.
  */
 
-public abstract class BasicEntity implements Entity {
+public abstract class _BasicEntity implements Entity {
 
     private static final String ENTITY = "entity";
+    public static final String SERIAL_VERSION_UID = "serialVersionUID";
+    public static final String CHANGE_FIELD = "$change";
 
-    protected BasicEntity() {
+    protected _BasicEntity() {
     }
 
-    public BasicEntity(JSONObject json) throws JSONException {
+    public _BasicEntity(JSONObject json) throws JSONException {
         toEntity(json);
     }
 
@@ -46,7 +48,7 @@ public abstract class BasicEntity implements Entity {
                     for (Field field : fields) {
                         field.setAccessible(true);
                         String fName = field.getName();
-                        if (!MapEntities.CHANGE_FIELD.equals(fName) && !MapEntities.SERIAL_VERSION_UID.equals(fName)) {
+                        if (!CHANGE_FIELD.equals(fName) && !SERIAL_VERSION_UID.equals(fName)) {
                             Persistence persistence = field.getAnnotation(Persistence.class);
                             if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
                                 fName = persistence.columnName();
@@ -71,13 +73,13 @@ public abstract class BasicEntity implements Entity {
                                 ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
                                 field.set(this, converter.convert((JSONArray) value));
                             } else if (value instanceof JSONObject) {
-                                Class entity = MapEntities.findByString(fName);
+                                /*Class entity = MapEntities.findByString(fName);
                                 if (Tools.isNotNull(entity)) {
                                     Object newEntity = entity.getConstructor(JSONObject.class).newInstance(value);
                                     if (Tools.isNotNull(newEntity)) {
                                         field.set(this, newEntity);
                                     }
-                                }
+                                }*/
                             }
                         }
                         field.setAccessible(false);
@@ -85,12 +87,12 @@ public abstract class BasicEntity implements Entity {
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-            } catch (NoSuchMethodException e) {
+            /*} catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                e.printStackTrace();*/
             }
         }
     }
@@ -112,7 +114,6 @@ public abstract class BasicEntity implements Entity {
     @Override
     public JSONObject toJSON(boolean fullObject) {
         JSONObject retorno = new JSONObject();
-        /*StringBuilder retorno = new StringBuilder();*/
         try {
             Field[] fields = getClass().getDeclaredFields();
             if (Tools.isNotNull(fields) && fields.length > 0) {
@@ -128,7 +129,7 @@ public abstract class BasicEntity implements Entity {
                 for (Field field : fields) {
                     field.setAccessible(true);
                     String fName = field.getName();
-                    if (MapEntities.CHANGE_FIELD.equals(fName) || MapEntities.SERIAL_VERSION_UID.equals(fName)) {
+                    if (CHANGE_FIELD.equals(fName) || SERIAL_VERSION_UID.equals(fName)) {
                         // obviamos esas dos columnas
                         continue;
                     }
@@ -138,8 +139,8 @@ public abstract class BasicEntity implements Entity {
                     }
 
                     Object fieldValue = field.get(this);
-                    if (fieldValue instanceof BasicEntity) {
-                        BasicEntity entity = (BasicEntity) fieldValue;
+                    if (fieldValue instanceof _BasicEntity) {
+                        _BasicEntity entity = (_BasicEntity) fieldValue;
                         if (!fullObject) {
                             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
                             if (Tools.isNotNull(relatedEntity)) {
@@ -150,7 +151,7 @@ public abstract class BasicEntity implements Entity {
                                 /*if (Tools.isNotNull(fieldsRelatedEntity)) {*/
                                 for (Field fieldRelated : fieldsRelatedEntity) {
                                     fieldRelated.setAccessible(true);
-                                    if (MapEntities.CHANGE_FIELD.equals(fieldRelated.getName()) || MapEntities.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
+                                    if (CHANGE_FIELD.equals(fieldRelated.getName()) || SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
                                         // obviamos esas dos columnas
                                         continue;
                                     }
@@ -166,7 +167,7 @@ public abstract class BasicEntity implements Entity {
                                 }*/
                             } else {
                                 // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
-                                //retorno.append(((BasicEntity) value).toString(false));
+                                //retorno.append(((_BasicEntity) value).toString(false));
                                 fieldValue = entity.toJSONPersistence();
                             }
                         }
@@ -190,7 +191,7 @@ public abstract class BasicEntity implements Entity {
     public boolean equals(Object obj) {
         boolean retorno = true;
         try {
-            BasicEntity entity = (BasicEntity) obj;
+            _BasicEntity entity = (_BasicEntity) obj;
             List<Object> valuesObj = new ArrayList<>();
             List<Object> valuesThis = new ArrayList<>();
             for (Field fieldRelated : entity.getClass().getDeclaredFields()) {

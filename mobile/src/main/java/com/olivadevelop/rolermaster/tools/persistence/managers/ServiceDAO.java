@@ -1,9 +1,9 @@
-package com.olivadevelop.rolermaster.persistence.managers;
+package com.olivadevelop.rolermaster.tools.persistence.managers;
 
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.Service;
+import com.olivadevelop.rolermaster.tools.persistence.interfaces.Service;
 
 import org.json.JSONObject;
 
@@ -19,7 +19,7 @@ import okhttp3.FormBody;
  */
 public class ServiceDAO implements Service {
 
-    public static final Service service = new ServiceDAO();
+    private static final Service service = new ServiceDAO();
 
     public static Service getInstance() {
         return service;

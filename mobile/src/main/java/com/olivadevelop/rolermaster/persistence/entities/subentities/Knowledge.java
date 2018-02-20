@@ -1,8 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.entities.subentities;
 
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
-import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
-import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +13,7 @@ import org.json.JSONObject;
  * RolerMaster
  */
 @Persistence(collectionName = "KNOWLEDGE")
-public class Knowledge extends BasicEntity implements Ability {
+public class Knowledge extends _BasicEntity implements Ability {
 
     private Integer points;
     private String code;

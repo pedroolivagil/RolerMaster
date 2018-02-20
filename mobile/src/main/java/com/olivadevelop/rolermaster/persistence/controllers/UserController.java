@@ -1,13 +1,14 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
 import com.olivadevelop.rolermaster.persistence.entities.User;
-import com.olivadevelop.rolermaster.persistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.tools.Constant;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.persistence.controllers._BasicController;
+import com.olivadevelop.rolermaster.tools.persistence.interfaces.ControllerMethods;
+import com.olivadevelop.rolermaster.tools.persistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.tools.persistence.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.tools.persistence.utils.QueryBuilder;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
-import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
-import com.olivadevelop.rolermaster.tools.utils.QueryBuilder;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.ControllerMethods;
 
 import org.json.JSONException;
 
@@ -32,8 +33,8 @@ public class UserController extends _BasicController<User> implements Controller
     public User read(Integer idEntity, ServiceDAO.ActionService<User> actionService) {
         User retorno = null;
         try {
-            List<KeyValuePair> values = new ArrayList<>();
-            values.add(new KeyValuePair("idUser", idEntity));
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("idUser", idEntity));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
@@ -49,9 +50,9 @@ public class UserController extends _BasicController<User> implements Controller
     public User read(String usermail, ServiceDAO.ActionService<User> actionService) {
         User retorno = null;
         try {
-            List<KeyValuePair> values = new ArrayList<>();
-            values.add(new KeyValuePair("username", usermail));
-            values.add(new KeyValuePair("email", usermail));
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("username", usermail));
+            values.add(new KeyValuePair<>("email", usermail));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
@@ -81,8 +82,8 @@ public class UserController extends _BasicController<User> implements Controller
     public List<User> readByIds(List<Integer> ids, ServiceDAO.ActionService<List<User>> actionService) {
         List<User> retorno = null;
         try {
-            List<KeyValuePair> values = new ArrayList<>();
-            values.add(new KeyValuePair("idUser", ids));
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("idUser", ids));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
@@ -98,8 +99,8 @@ public class UserController extends _BasicController<User> implements Controller
     public List<User> readAllActives(ServiceDAO.ActionService<List<User>> actionService) {
         List<User> retorno = null;
         try {
-            List<KeyValuePair> values = new ArrayList<>();
-            values.add(new KeyValuePair("flagActive", true));
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("flagActive", true));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
@@ -115,9 +116,9 @@ public class UserController extends _BasicController<User> implements Controller
     public List<User> readAllActivesByIds(List<Integer> ids, ServiceDAO.ActionService<List<User>> actionService) {
         List<User> retorno = null;
         try {
-            List<KeyValuePair> values = new ArrayList<>();
-            values.add(new KeyValuePair("idUser", ids));
-            values.add(new KeyValuePair("flagActive", true));
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("idUser", ids));
+            values.add(new KeyValuePair<>("flagActive", true));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {

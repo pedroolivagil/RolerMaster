@@ -1,11 +1,11 @@
-package com.olivadevelop.rolermaster.persistence.controllers;
+package com.olivadevelop.rolermaster.tools.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.interfaces._PersistenceMethods;
-import com.olivadevelop.rolermaster.persistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.ConverterJSONArrayToList;
-import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
-import com.olivadevelop.rolermaster.tools.utils.QueryBuilder;
+import com.olivadevelop.rolermaster.tools.persistence.interfaces._PersistenceMethods;
+import com.olivadevelop.rolermaster.tools.persistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.tools.persistence.utils.ConverterJSONArrayToList;
+import com.olivadevelop.rolermaster.tools.persistence.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.tools.persistence.utils.QueryBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,15 +26,15 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     private QueryBuilder<T> queryBuilder;
     private ConverterJSONArrayToList<T> converter;
 
-    _BasicController(Class<T> entity) {
+    public _BasicController(Class<T> entity) {
         this.entity = entity;
         this.queryBuilder = new QueryBuilder<>(entity);
         this.converter = new ConverterJSONArrayToList<>(entity);
     }
 
     public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
-        List<KeyValuePair> values = new ArrayList<>();
-        values.add(new KeyValuePair("idEntity", String.valueOf(idEntity)));
+        List<KeyValuePair<String, ?>> values = new ArrayList<>();
+        values.add(new KeyValuePair<>("idEntity", idEntity));
         JSONObject result = ServiceDAO.getInstance().newCall("read.php", getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
         return converter.getNewEntity(result);
     }
@@ -96,11 +96,11 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
         return false;
     }
 
-    Class<T> getEntity() {
+    protected Class<T> getEntity() {
         return entity;
     }
 
-    QueryBuilder<T> getQueryBuilder() {
+    protected QueryBuilder<T> getQueryBuilder() {
         return queryBuilder;
     }
 }

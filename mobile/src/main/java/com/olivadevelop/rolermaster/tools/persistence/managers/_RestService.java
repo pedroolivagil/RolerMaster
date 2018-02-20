@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.persistence.managers;
+package com.olivadevelop.rolermaster.tools.persistence.managers;
 
 import android.os.AsyncTask;
 

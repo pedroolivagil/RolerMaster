@@ -3,7 +3,7 @@ package com.olivadevelop.rolermaster.activities.fragments;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
-import com.olivadevelop.rolermaster.tools.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.tools.persistence.utils.KeyValuePair;
 
 import java.util.ArrayList;
 import java.util.List;

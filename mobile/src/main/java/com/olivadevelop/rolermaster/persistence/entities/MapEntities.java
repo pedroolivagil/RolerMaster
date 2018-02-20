@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools.utils;
+package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.Character;
 import com.olivadevelop.rolermaster.persistence.entities.Country;
@@ -35,9 +35,6 @@ public abstract class MapEntities {
 
     public static final String COMMON_FIELD_TRANS = "translation";
     public static final String COMMON_FIELD_PRIORITY = "priority";
-
-    static final String SERIAL_VERSION_UID = "serialVersionUID";
-    static final String CHANGE_FIELD = "$change";
 
     private static Class GAME = Game.class;
     private static Class GAME_CATEGORY = GameCategory.class;

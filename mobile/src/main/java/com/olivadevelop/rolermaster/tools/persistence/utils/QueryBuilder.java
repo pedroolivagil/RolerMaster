@@ -1,7 +1,8 @@
-package com.olivadevelop.rolermaster.tools.utils;
+package com.olivadevelop.rolermaster.tools.persistence.utils;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
 
 import org.json.JSONException;
 
@@ -44,7 +45,7 @@ public class QueryBuilder<T> {
     private static final String TYPE_QUERY = "typeQuery";
     private static final String ENTITY_QUERY = "entityQuery";
 
-    public FormBody createQuery(TypeQuery typeQuery, List<KeyValuePair> values) {
+    public FormBody createQuery(TypeQuery typeQuery, List<KeyValuePair<String, ?>> values) {
         FormBody.Builder query = new FormBody.Builder();
         query.add(ENTITY_QUERY, entity.getSimpleName());
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
@@ -56,7 +57,7 @@ public class QueryBuilder<T> {
         return query.build();
     }
 
-    public FormBody insertQuery(List<KeyValuePair> entities) {
+    public FormBody insertQuery(List<KeyValuePair<String, ?>> entities) {
         FormBody.Builder query = new FormBody.Builder();
         if (Tools.isNotNull(entities)) {
             for (KeyValuePair obj : entities) {
@@ -69,10 +70,10 @@ public class QueryBuilder<T> {
     public FormBody insertQuery(T entity) throws JSONException {
         FormBody.Builder query = new FormBody.Builder();
         try {
-            List<BasicEntity> retorno = new ArrayList<>();
-            getJsonEntities(retorno, (BasicEntity) entity);
+            List<_BasicEntity> retorno = new ArrayList<>();
+            getJsonEntities(retorno, (_BasicEntity) entity);
             Collections.reverse(retorno);
-            for (BasicEntity bEnti : retorno) {
+            for (_BasicEntity bEnti : retorno) {
                 query.add("entity[]", bEnti.toJSONPersistence().toString());
             }
         } catch (IllegalAccessException e) {
@@ -81,13 +82,13 @@ public class QueryBuilder<T> {
         return query.build();
     }
 
-    private void getJsonEntities(List<BasicEntity> retorno, BasicEntity entity) throws JSONException, IllegalAccessException {
+    private void getJsonEntities(List<_BasicEntity> retorno, _BasicEntity entity) throws JSONException, IllegalAccessException {
         for (Field field : entity.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             Object fieldValue = field.get(entity);
             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
             if (Tools.isNotNull(relatedEntity)) {
-                getJsonEntities(retorno, (BasicEntity) fieldValue);
+                getJsonEntities(retorno, (_BasicEntity) fieldValue);
             }
             field.setAccessible(false);
         }
