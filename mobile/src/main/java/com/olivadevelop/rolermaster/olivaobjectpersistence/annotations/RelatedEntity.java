@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools.persistence.annotations;
+package com.olivadevelop.rolermaster.olivaobjectpersistence.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,10 +7,16 @@ import java.lang.annotation.Target;
 
 /**
  * Copyright OlivaDevelop 2014-2018
- * Created by Oliva on 19/02/2018.
+ * Created by Oliva on 03/02/2018.
+ * RolerMaster
  */
-
 @Target(value = {ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OneToMany {
+public @interface RelatedEntity {
+
+    /*String to();*/
+
+    String joinColumn();
+
+    boolean preference() default false;
 }

@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools.persistence.annotations;
+package com.olivadevelop.rolermaster.olivaobjectpersistence.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 
 @Target(value = {ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OneToOne {
+public @interface ManyToOne {
 }

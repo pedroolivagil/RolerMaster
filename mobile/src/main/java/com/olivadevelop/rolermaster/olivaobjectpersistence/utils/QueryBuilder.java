@@ -1,8 +1,8 @@
-package com.olivadevelop.rolermaster.tools.persistence.utils;
+package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 
 import org.json.JSONException;
 

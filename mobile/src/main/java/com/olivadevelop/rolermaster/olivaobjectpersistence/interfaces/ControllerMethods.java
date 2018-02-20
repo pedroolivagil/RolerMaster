@@ -1,6 +1,6 @@
-package com.olivadevelop.rolermaster.tools.persistence.interfaces;
+package com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces;
 
-import com.olivadevelop.rolermaster.tools.persistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 
 import java.util.List;
 

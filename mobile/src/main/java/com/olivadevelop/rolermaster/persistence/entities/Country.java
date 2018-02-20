@@ -1,12 +1,12 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToMany;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.OneToOne;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.Unique;
-import com.olivadevelop.rolermaster.tools.persistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

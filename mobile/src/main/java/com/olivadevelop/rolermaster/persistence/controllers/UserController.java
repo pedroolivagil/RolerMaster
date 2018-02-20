@@ -3,11 +3,11 @@ package com.olivadevelop.rolermaster.persistence.controllers;
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.Constant;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.persistence.controllers._BasicController;
-import com.olivadevelop.rolermaster.tools.persistence.interfaces.ControllerMethods;
-import com.olivadevelop.rolermaster.tools.persistence.managers.ServiceDAO;
-import com.olivadevelop.rolermaster.tools.persistence.utils.KeyValuePair;
-import com.olivadevelop.rolermaster.tools.persistence.utils.QueryBuilder;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.controllers._BasicController;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ControllerMethods;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 
 import org.json.JSONException;

@@ -1,12 +1,12 @@
-package com.olivadevelop.rolermaster.tools.persistence.entities;
+package com.olivadevelop.rolermaster.olivaobjectpersistence.entities;
 
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.persistence.utils.ConverterJSONArrayToList;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.Id;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.tools.persistence.annotations.Unique;
-import com.olivadevelop.rolermaster.tools.persistence.interfaces.Entity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ConverterJSONArrayToList;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
