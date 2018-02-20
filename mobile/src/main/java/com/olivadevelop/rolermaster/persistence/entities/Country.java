@@ -1,24 +1,37 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "COUNTRY")
+@Persistence(collectionName = "country")
 public class Country extends BasicEntity {
 
+    @Id
     private Integer idCountry;
+    @Unique
     private String code;
-    private GenericTrans translation;
-    @RelatedEntity(joinColumn = "idLocale")
+
+    @OneToMany
+    @RelatedEntity(joinColumn = "idCountry")
+    private List<CountryTrans> translation;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "idLocale", preference = true)
     private Locale locale;
 
     public Country() {
@@ -45,11 +58,11 @@ public class Country extends BasicEntity {
         this.code = code;
     }
 
-    public GenericTrans getTranslation() {
+    public List<CountryTrans> getTranslation() {
         return translation;
     }
 
-    public void setTranslation(GenericTrans translation) {
+    public void setTranslation(List<CountryTrans> translation) {
         this.translation = translation;
     }
 

@@ -1,7 +1,11 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
@@ -16,7 +20,7 @@ import java.util.List;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "GAME")
+@Persistence(collectionName = "game")
 public class Game extends BasicEntity {
 
     public enum GameStatus {
@@ -49,17 +53,25 @@ public class Game extends BasicEntity {
         }
     }
 
+    @Id
     private Integer idGame;
     private String name;
+    @Unique
     private String code;
     private Integer maxCharacters;
     private Date date;
     private Resource headerResource;
     private Resource locationResource;
-    private List<Integer> resources;
+
+    @OneToMany
+    @RelatedEntity(joinColumn = "idResource")
+    private List<Resource> resources;
+
     private GameStatus gameStatus;
     private String history;
     private String location;
+
+    @OneToOne
     @RelatedEntity(joinColumn = "idCategory")
     private GameCategory gameCategory;
 
@@ -126,11 +138,11 @@ public class Game extends BasicEntity {
         this.locationResource = locationResource;
     }
 
-    public List<Integer> getResources() {
+    public List<Resource> getResources() {
         return resources;
     }
 
-    public void setResources(List<Integer> resources) {
+    public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
 

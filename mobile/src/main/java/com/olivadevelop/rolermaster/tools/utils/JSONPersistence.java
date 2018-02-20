@@ -155,16 +155,16 @@ public class JSONPersistence<T extends BasicEntity> {
                     }
                     fieldRelated.setAccessible(false);
                 }
-            } else if (Tools.isNotNull(oneToMany)) {
+           /* } else if (Tools.isNotNull(oneToMany)) {
                 // no hacemos nada, es decir, se omite la relación puesto que es la entidad relacionada quien tendrá el identificador del padre
             } else if (Tools.isNotNull(manyToOne)) {
                 // no hacemos nada, es decir, se omite la relación puesto que es la entidad relacionada (padre) quien tendrá el identificador del hijo
             } else if (Tools.isNotNull(manyToMany)) {
-                // Si es una relación muchos a uno o muchos a muchos, transformarmamos en una List<Entity> para obtener sus identificadores
+                // Si es una relación muchos a uno o muchos a muchos, transformarmamos en una List<Entity> para asignar el identificador del padre a cada entidad.
                 List<Entity> lista = (List<Entity>) value;
                 for (Entity ent : lista) {
                     BasicEntity entity = (BasicEntity) ent;
-                }
+                }*/
             } else {
                 throw new RolerMasterException(RELATIONSHIP);
             }

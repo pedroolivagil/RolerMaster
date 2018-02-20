@@ -1,6 +1,9 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.pojo.NotificationPriority;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
@@ -15,16 +18,25 @@ import java.util.Date;
  * Created by Oliva on 26/01/2018.
  */
 
-@Persistence(collectionName = "NOTIFICATION")
+@Persistence(collectionName = "notification")
 public class Notification extends BasicEntity {
 
     public static final boolean STATUS_READ = true;
     public static final boolean STATUS_UNREAD = false;
 
     private boolean status;
+
+    @Id
     private Integer idNotification;
-    private Integer fromUserId;
-    private Integer toUserId;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "fromUserId")
+    private User fromUser;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "toUserId")
+    private User toUser;
+
     private Date date;
     private String title;
     private String body;
@@ -53,20 +65,20 @@ public class Notification extends BasicEntity {
         this.idNotification = idNotification;
     }
 
-    public Integer getFromUserId() {
-        return fromUserId;
+    public User getFromUser() {
+        return fromUser;
     }
 
-    public void setFromUserId(Integer fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
     }
 
-    public Integer getToUserId() {
-        return toUserId;
+    public User getToUser() {
+        return toUser;
     }
 
-    public void setToUserId(Integer toUserId) {
-        this.toUserId = toUserId;
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     public Date getDate() {

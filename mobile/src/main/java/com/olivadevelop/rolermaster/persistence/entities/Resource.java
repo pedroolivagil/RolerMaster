@@ -1,6 +1,9 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
@@ -14,12 +17,18 @@ import java.util.Date;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "RESOURCE")
+@Persistence(collectionName = "resource")
 public class Resource extends BasicEntity {
 
     private byte[] file;
+
+    @Id
     private Integer idResource;
-    private Integer idUserUpload;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "idUserUpload")
+    private User userUpload;
+
     private String code;
     private Date date;
     private TypeResource typeResource;
@@ -47,12 +56,12 @@ public class Resource extends BasicEntity {
         this.idResource = idResource;
     }
 
-    public Integer getIdUserUpload() {
-        return idUserUpload;
+    public User getUserUpload() {
+        return userUpload;
     }
 
-    public void setIdUserUpload(Integer idUserUpload) {
-        this.idUserUpload = idUserUpload;
+    public void setUserUpload(User userUpload) {
+        this.userUpload = userUpload;
     }
 
     public String getCode() {

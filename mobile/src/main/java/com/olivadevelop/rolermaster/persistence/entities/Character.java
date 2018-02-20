@@ -1,5 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
@@ -22,11 +25,15 @@ import java.util.List;
  * Created by Oliva on 26/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "CHARACTER")
+@Persistence(collectionName = "character")
 public class Character extends BasicEntity {
 
+    @Id
     private Integer idCharacter;
-    private Integer idUser;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "idUser")
+    private User user;
 
     // Character data
     private String name;
@@ -35,8 +42,11 @@ public class Character extends BasicEntity {
     private Date birthdate;
     private String planet;
     private String home;
+
+    @OneToOne
     @RelatedEntity(joinColumn = "idGender")
     private Gender gender;
+
     private String chronicle;
     private Integer behaviour;
     private Integer character;
@@ -48,15 +58,24 @@ public class Character extends BasicEntity {
     private String experience;
 
     // Skills and points
-    /*@RelatedEntity()*/
+    @OneToMany
+    @RelatedEntity(joinColumn = "idAttribute")
     private List<Attribute> attributes;
-    /*@RelatedEntity*/
+
+    @OneToMany
+    @RelatedEntity(joinColumn = "idAbility")
     private List<Ability> abilities;
-    /*@RelatedEntity*/
+
+    @OneToMany
+    @RelatedEntity(joinColumn = "idAdvantage")
     private List<Advantage> advantages;
-    /*@RelatedEntity*/
+
+    @OneToMany
+    @RelatedEntity(joinColumn = "idVirtue")
     private List<Virtue> virtues;
-    /*@RelatedEntity*/
+
+    @OneToMany
+    @RelatedEntity(joinColumn = "idWeapon")
     private List<Weapon> weapons;
 
     public Character() {
@@ -74,12 +93,12 @@ public class Character extends BasicEntity {
         this.idCharacter = idCharacter;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

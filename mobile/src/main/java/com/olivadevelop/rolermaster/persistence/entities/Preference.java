@@ -1,6 +1,9 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -16,8 +19,13 @@ import java.util.Date;
 @Persistence(collectionName = "PREFERENCE")
 public class Preference extends BasicEntity {
 
+    @Id
     private Integer idPreference;
-    private Integer idUser;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "idUser")
+    private User user;
+
     private String key;
     private String value;
     private Date date;
@@ -37,12 +45,12 @@ public class Preference extends BasicEntity {
         this.idPreference = idPreference;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getKey() {

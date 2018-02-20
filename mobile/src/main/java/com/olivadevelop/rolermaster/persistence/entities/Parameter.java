@@ -1,6 +1,9 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -11,13 +14,19 @@ import org.json.JSONObject;
  * Created by Oliva on 28/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "PARAMETER")
+@Persistence(collectionName = "parameter")
 public class Parameter extends BasicEntity {
 
+    @Id
     private Integer idParameter;
-    private Integer idLocale;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "idLocale")
+    private Locale locale;
+
     private String category;
-    private GenericTrans translation;
+
+    private String text;
 
     public Parameter() {
     }
@@ -34,12 +43,12 @@ public class Parameter extends BasicEntity {
         this.idParameter = idParameter;
     }
 
-    public Integer getIdLocale() {
-        return idLocale;
+    public Locale getLocale() {
+        return locale;
     }
 
-    public void setIdLocale(Integer idLocale) {
-        this.idLocale = idLocale;
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
     public String getCategory() {
@@ -50,11 +59,11 @@ public class Parameter extends BasicEntity {
         this.category = category;
     }
 
-    public GenericTrans getTranslation() {
-        return translation;
+    public String getText() {
+        return text;
     }
 
-    public void setTranslation(GenericTrans translation) {
-        this.translation = translation;
+    public void setText(String text) {
+        this.text = text;
     }
 }

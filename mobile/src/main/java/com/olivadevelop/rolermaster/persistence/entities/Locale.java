@@ -2,6 +2,7 @@ package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.ManyToOne;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
@@ -25,7 +26,7 @@ public class Locale extends BasicEntity {
     @Persistence(columnName = "codeISO", unique = true)
     private String codeIso;
 
-    @ManyToOne
+    @OneToMany
     @RelatedEntity(joinColumn = "idLocale")
     private List<LocaleTrans> translations;
 

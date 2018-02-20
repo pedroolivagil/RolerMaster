@@ -1,6 +1,10 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -11,11 +15,17 @@ import org.json.JSONObject;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "GAME_CATEGORY")
+@Persistence(collectionName = "game_category")
 public class GameCategory extends BasicEntity {
 
+    @Id
     private Integer idGameCategory;
-    private Integer idUser;
+
+    @OneToOne
+    @RelatedEntity(joinColumn = "idUser")
+    private User user;
+
+    @Unique
     private String name;
 
     public GameCategory() {
@@ -33,12 +43,12 @@ public class GameCategory extends BasicEntity {
         this.idGameCategory = idGameCategory;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

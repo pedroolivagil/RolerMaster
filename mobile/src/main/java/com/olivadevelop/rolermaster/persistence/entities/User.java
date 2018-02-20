@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Unique;
@@ -17,30 +18,40 @@ import java.util.List;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
-@Persistence(collectionName = "USER")
+@Persistence(collectionName = "user")
 public class User extends BasicEntity {
 
     private boolean flagActive;
     private boolean flagStatus;
     private boolean master;
+
     @Id
     private Integer idUser;
+
     @Unique
     private String username;
     private String password;
+
     @Unique
     private String email;
+
     @Unique
     private String name;
+
     @Persistence(columnName = "lastname")
     private String lastName;
     private String phone;
     private Date birthdate;
+
+    @OneToOne
     @RelatedEntity(joinColumn = "idGender")
     private Gender gender;
+
+    @OneToOne
     @RelatedEntity(joinColumn = "idCountry")
     private Country country;
-    private List<Integer> rolers;
+
+    private List<User> rolers;
 
     public User() {
         super();
@@ -138,11 +149,11 @@ public class User extends BasicEntity {
         this.master = master;
     }
 
-    public List<Integer> getRolers() {
+    public List<User> getRolers() {
         return rolers;
     }
 
-    public void setRolers(List<Integer> rolers) {
+    public void setRolers(List<User> rolers) {
         this.rolers = rolers;
     }
 
