@@ -1,5 +1,7 @@
 package com.olivadevelop.rolermaster.tools.persistence.interfaces;
 
+import com.olivadevelop.rolermaster.tools.persistence.managers.ServiceURL;
+
 import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
@@ -13,5 +15,5 @@ import okhttp3.FormBody;
  */
 public interface Service {
 
-    JSONObject newCall(String url, FormBody body) throws ExecutionException, InterruptedException;
+    JSONObject newCall(ServiceURL url, FormBody body) throws ExecutionException, InterruptedException;
 }

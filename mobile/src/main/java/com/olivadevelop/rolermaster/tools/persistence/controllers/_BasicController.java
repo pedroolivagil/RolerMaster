@@ -3,6 +3,7 @@ package com.olivadevelop.rolermaster.tools.persistence.controllers;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.persistence.interfaces._PersistenceMethods;
 import com.olivadevelop.rolermaster.tools.persistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.tools.persistence.managers.ServiceURL;
 import com.olivadevelop.rolermaster.tools.persistence.utils.ConverterJSONArrayToList;
 import com.olivadevelop.rolermaster.tools.persistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.tools.persistence.utils.QueryBuilder;
@@ -35,7 +36,7 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
         List<KeyValuePair<String, ?>> values = new ArrayList<>();
         values.add(new KeyValuePair<>("idEntity", idEntity));
-        JSONObject result = ServiceDAO.getInstance().newCall("read.php", getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
+        JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
         return converter.getNewEntity(result);
     }
 
@@ -43,7 +44,7 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     public T find(FormBody query) throws ExecutionException, InterruptedException, JSONException {
         T retorno = null;
         if (Tools.isNotNull(query)) {
-            JSONObject result = ServiceDAO.getInstance().newCall("read.php", query);
+            JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, query);
             retorno = converter.getNewEntity(result);
         }
         return retorno;
@@ -58,7 +59,7 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
     public List<T> findAll(FormBody query) throws ExecutionException, InterruptedException, JSONException {
         List<T> retorno = null;
         if (Tools.isNotNull(query)) {
-            JSONObject result = ServiceDAO.getInstance().newCall("read.php", query);
+            JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, query);
             retorno = converter.getNewListEntities(result);
         }
         return retorno;
@@ -81,7 +82,7 @@ public class _BasicController<T> implements _PersistenceMethods<T> {
 
     @Override
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
-        JSONObject result = ServiceDAO.getInstance().newCall("create.php", getQueryBuilder().insertQuery(entity));
+        JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insertQuery(entity));
         converter.getNewEntity(result);
         return false;
     }

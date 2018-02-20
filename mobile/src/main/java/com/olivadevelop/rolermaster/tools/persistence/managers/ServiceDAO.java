@@ -1,9 +1,9 @@
 package com.olivadevelop.rolermaster.tools.persistence.managers;
 
 import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.tools.persistence.interfaces.Service;
 import com.olivadevelop.rolermaster.tools.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
-import com.olivadevelop.rolermaster.tools.persistence.interfaces.Service;
 
 import org.json.JSONObject;
 
@@ -29,8 +29,8 @@ public class ServiceDAO implements Service {
     }
 
     @Override
-    public JSONObject newCall(String url, FormBody body) throws ExecutionException, InterruptedException {
-        _RestService service = new _RestService(url);
+    public JSONObject newCall(ServiceURL url, FormBody body) throws ExecutionException, InterruptedException {
+        _RestService service = new _RestService(url.getUrl());
         service.execute(body);
         return service.get();
     }
