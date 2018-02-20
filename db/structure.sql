@@ -51,12 +51,12 @@ CREATE UNIQUE INDEX countrytrans_locale_uindex
 CREATE UNIQUE INDEX countrytrans_text_uindex
       ON country_trans (text);
 
-CREATE TABLE locale (
+CREATE TABLE localeGroup (
     idLocale INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     codeISO  VARCHAR(3)       NOT NULL
 );
 CREATE UNIQUE INDEX locale_codeISO_uindex
-    ON locale (codeISO);
+    ON localeGroup (codeISO);
 
 CREATE TABLE locale_trans (
     idTrans  INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,

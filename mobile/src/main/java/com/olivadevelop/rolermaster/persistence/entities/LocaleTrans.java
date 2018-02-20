@@ -1,7 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToMany;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Persistence;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,44 +15,24 @@ import org.json.JSONObject;
 @Persistence(collectionName = "locale_trans")
 public class LocaleTrans extends GenericTrans {
 
-    public LocaleTrans() {
+    @OneToOne
+    @RelatedEntity(joinColumn = "idLocaleGroup", preference = true)
+    private Locale localeGroup;
+
+    public LocaleTrans(Locale localeGroup) {
+        this.localeGroup = localeGroup;
     }
 
-    public LocaleTrans(JSONObject json) throws JSONException {
+    public LocaleTrans(JSONObject json, Locale localeGroup) throws JSONException {
         super(json);
+        this.localeGroup = localeGroup;
     }
 
-    public LocaleTrans(Integer idLocale, Integer idTrans, String text) {
-        super(idLocale, idTrans, text);
+    public Locale getLocaleGroup() {
+        return localeGroup;
     }
 
-    @Override
-    public Integer getIdTrans() {
-        return super.getIdTrans();
-    }
-
-    @Override
-    public void setIdTrans(Integer idTrans) {
-        super.setIdTrans(idTrans);
-    }
-
-    @Override
-    public Integer getIdLocale() {
-        return super.getIdLocale();
-    }
-
-    @Override
-    public void setIdLocale(Integer idLocale) {
-        super.setIdLocale(idLocale);
-    }
-
-    @Override
-    public String getText() {
-        return super.getText();
-    }
-
-    @Override
-    public void setText(String text) {
-        super.setText(text);
+    public void setLocaleGroup(Locale localeGroup) {
+        this.localeGroup = localeGroup;
     }
 }

@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.tools.utils;
 
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class QueryBuilder<T> {
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
         if (Tools.isNotNull(values)) {
             for (KeyValuePair obj : values) {
-                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabelString());
+                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getValueAsString());
             }
         }
         return query.build();
@@ -59,7 +60,7 @@ public class QueryBuilder<T> {
         FormBody.Builder query = new FormBody.Builder();
         if (Tools.isNotNull(entities)) {
             for (KeyValuePair obj : entities) {
-                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getLabelString());
+                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getValueAsString());
             }
         }
         return query.build();
@@ -84,7 +85,8 @@ public class QueryBuilder<T> {
         for (Field field : entity.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             Object fieldValue = field.get(entity);
-            if (fieldValue instanceof BasicEntity) {
+            RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
+            if (Tools.isNotNull(relatedEntity)) {
                 getJsonEntities(retorno, (BasicEntity) fieldValue);
             }
             field.setAccessible(false);

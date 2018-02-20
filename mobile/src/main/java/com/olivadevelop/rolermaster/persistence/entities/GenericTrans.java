@@ -1,6 +1,8 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.persistence.entities.annotations.Id;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.OneToOne;
+import com.olivadevelop.rolermaster.persistence.entities.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.tools.utils.BasicEntity;
 
 import org.json.JSONException;
@@ -15,7 +17,9 @@ public class GenericTrans extends BasicEntity {
 
     @Id
     private Integer idTrans;
-    private Integer idLocale;
+    @OneToOne
+    @RelatedEntity(joinColumn = "idLocale", preference = true)
+    private Locale locale;
     private String text;
 
     public GenericTrans() {
@@ -23,12 +27,6 @@ public class GenericTrans extends BasicEntity {
 
     public GenericTrans(JSONObject json) throws JSONException {
         super(json);
-    }
-
-    public GenericTrans(Integer idLocale, Integer idTrans, String text) {
-        this.idLocale = idLocale;
-        this.idTrans = idTrans;
-        this.text = text;
     }
 
     public Integer getIdTrans() {
@@ -39,12 +37,12 @@ public class GenericTrans extends BasicEntity {
         this.idTrans = idTrans;
     }
 
-    public Integer getIdLocale() {
-        return idLocale;
+    public Locale getLocaleGroup() {
+        return locale;
     }
 
-    public void setIdLocale(Integer idLocale) {
-        this.idLocale = idLocale;
+    public void setLocaleGroup(Locale localeGroup) {
+        this.locale = localeGroup;
     }
 
     public String getText() {

@@ -47,13 +47,13 @@ CREATE TABLE country (
 CREATE UNIQUE INDEX country_codeISO_uindex
     ON country (code);
 
-CREATE TABLE locale (
+CREATE TABLE localeGroup (
     idLocale INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     codeISO  INT(10)          NOT NULL,
     idTrans  INT(10) UNSIGNED NOT NULL
 );
 CREATE UNIQUE INDEX locale_codeISO_uindex
-    ON locale (codeISO);
+    ON localeGroup (codeISO);
 
 CREATE TABLE gender (
     idGender INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,

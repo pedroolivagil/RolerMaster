@@ -7,7 +7,7 @@ package com.olivadevelop.rolermaster.tools.utils;
 
 public class RolerMasterException extends Exception {
     public enum TypeException {
-        PERSISTENCE, CODE
+        PERSISTENCE, RELATIONSHIP
     }
 
     private TypeException typeException;

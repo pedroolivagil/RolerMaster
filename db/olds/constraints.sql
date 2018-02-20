@@ -37,19 +37,19 @@ ALTER TABLE user
 -- relaciones con LOCALE
 ALTER TABLE generic_trans
     ADD CONSTRAINT generictrans_locale_idLocale_fk
-FOREIGN KEY (idLocale) REFERENCES rolermaster.locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES rolermaster.localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 ALTER TABLE parameter
     ADD CONSTRAINT parameter_locale_idLocale_fk
-FOREIGN KEY (idLocale) REFERENCES rolermaster.locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES rolermaster.localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 ALTER TABLE country
     ADD CONSTRAINT country_locale_idLocale_fk
-FOREIGN KEY (idLocale) REFERENCES rolermaster.locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES rolermaster.localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 

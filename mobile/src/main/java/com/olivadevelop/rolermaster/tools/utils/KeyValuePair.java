@@ -5,37 +5,36 @@ package com.olivadevelop.rolermaster.tools.utils;
  * Created by Oliva on 03/01/2018.
  */
 
-public class KeyValuePair {
+public class KeyValuePair<K, V> {
 
-    private Object key;
-    private Object label;
+    private K key;
+    private V value;
 
-    public KeyValuePair(Object key, String label) {
+    public KeyValuePair() {
+    }
+
+    public KeyValuePair(K key, V value) {
         this.key = key;
-        this.label = label;
+        this.value = value;
     }
 
-    public KeyValuePair(Object key, Object label) {
-        this(key, String.valueOf(label));
-    }
-
-    public Object getKey() {
+    public K getKey() {
         return key;
     }
 
-    public void setKey(Object key) {
+    public void setKey(K key) {
         this.key = key;
     }
 
-    public Object getLabel() {
-        return label;
+    public V getValue() {
+        return value;
     }
 
-    public String getLabelString() {
-        return String.valueOf(label);
+    public void setValue(V value) {
+        this.value = value;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public String getValueAsString() {
+        return String.valueOf(value);
     }
 }

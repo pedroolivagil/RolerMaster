@@ -40,13 +40,13 @@ FOREIGN KEY (idGender) REFERENCES gender (idGender)
 
 ALTER TABLE locale_trans
     ADD CONSTRAINT locale_localetrans_fk
-FOREIGN KEY (idLocale) REFERENCES locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 ALTER TABLE country
     ADD CONSTRAINT country_locale_fk
-FOREIGN KEY (idLocale) REFERENCES locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
@@ -58,19 +58,19 @@ FOREIGN KEY (idCountry) REFERENCES country (idCountry)
 
 ALTER TABLE country_trans
     ADD CONSTRAINT countrytrans_locale_fk
-FOREIGN KEY (idLocale) REFERENCES locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 ALTER TABLE gender_trans
     ADD CONSTRAINT gendertrans_locale_fk
-FOREIGN KEY (idLocale) REFERENCES locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 ALTER TABLE parameter
     ADD CONSTRAINT parameter_locale_fk
-FOREIGN KEY (idLocale) REFERENCES locale (idLocale)
+FOREIGN KEY (idLocale) REFERENCES localeGroup (idLocale)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
