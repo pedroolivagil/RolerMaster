@@ -84,8 +84,8 @@ public class BlankFragment extends CustomFragment {
         trans.setIdTrans(1);
 
         es.addTranslation(trans);
-
-        Controllers.getInstance().getLocaleController().create(es);
+/*
+        Controllers.getInstance().getLocaleController().create(es);*/
     }
 
     @Override

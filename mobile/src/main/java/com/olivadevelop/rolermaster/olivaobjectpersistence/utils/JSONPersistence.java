@@ -1,6 +1,5 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.ManyToMany;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.ManyToOne;
@@ -9,6 +8,7 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterException;
 
 import org.json.JSONException;
@@ -27,8 +27,14 @@ import static com.olivadevelop.rolermaster.tools.utils.RolerMasterException.Type
 public class JSONPersistence<T extends _BasicEntity> {
     private static final String ENTITY = "entity";
 
+    private Class<T> entityClass;
+
+    public JSONPersistence(Class<T> entity) {
+        this.entityClass = entity;
+    }
+
     /**
-     * Persistimos una sola entidad, sin importar las entidades relacionadas, solo guardaremos sus respectivos ID para relacionarlos
+     * Persistimos o actualizamos una sola entidad, sin importar las entidades relacionadas, solo guardaremos sus respectivos ID para relacionarlos
      *
      * @param entity
      * @return
@@ -55,6 +61,15 @@ public class JSONPersistence<T extends _BasicEntity> {
         return retorno;
     }
 
+    /**
+     * complementa el método persistenceJSONObject para mejor visibilidad. Transforma la entidad a JSON
+     *
+     * @param entity
+     * @return
+     * @throws IllegalAccessException
+     * @throws JSONException
+     * @throws RolerMasterException
+     */
     private JSONObject transformToJSON(T entity) throws IllegalAccessException, JSONException, RolerMasterException {
         JSONObject retorno = new JSONObject();
         Field[] fields = getClass().getDeclaredFields();
@@ -88,41 +103,16 @@ public class JSONPersistence<T extends _BasicEntity> {
         return retorno;
     }
 
+    /**
+     * Obtiene el valor de una propiedad de la entidad y, en caso de que sea una entidad relacionada enlazamos el id
+     *
+     * @param field
+     * @param entityMaster
+     * @return
+     * @throws IllegalAccessException
+     * @throws RolerMasterException
+     */
     private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, RolerMasterException {
-       /* Object fieldValue = field.get(this);
-        if (fieldValue instanceof _BasicEntity) {
-            _BasicEntity entity = (_BasicEntity) fieldValue;
-            if (!fullObject) {
-                RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
-                if (Tools.isNotNull(relatedEntity)) {
-                    if (Tools.isNotNull(relatedEntity.joinColumn())) {
-                        fName = relatedEntity.joinColumn();
-                    }
-                    Field[] fieldsRelatedEntity = entity.getClass().getDeclaredFields();
-                                *//*if (Tools.isNotNull(fieldsRelatedEntity)) {*//*
-                    for (Field fieldRelated : fieldsRelatedEntity) {
-                        fieldRelated.setAccessible(true);
-                        if (MapEntities.CHANGE_FIELD.equals(fieldRelated.getName()) || MapEntities.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
-                            // obviamos esas dos columnas
-                            continue;
-                        }
-                        Id pk = fieldRelated.getAnnotation(Id.class);
-                        if (Tools.isNotNull(pk)) {
-                            fieldValue = fieldRelated.get(entity);
-                        }
-                        fieldRelated.setAccessible(false);
-                    }
-                               *//* } else {
-                                    // Es una clase extendida, por lo intentaremos acceder a su clase padre, acceder a sus propiedades y generar la entidad con el nombre de la clase hija
-                                    Log.e("SUPERCLASS", "" + entity.getClass().getSuperclass());
-                                }*//*
-                } else {
-                    // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
-                    //retorno.append(((_BasicEntity) value).toString(false));
-                    fieldValue = entity.toJSONPersistence();
-                }
-            }
-        }*/
         KeyValuePair<String, Object> retorno = null;
         Object value = field.get(entityMaster);
         RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);

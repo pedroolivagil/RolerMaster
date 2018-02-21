@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.controllers;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces._PersistenceMethods;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
@@ -21,7 +22,7 @@ import okhttp3.FormBody;
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 03/01/2018.
  */
-public class _BasicController<T> implements _PersistenceMethods<T> {
+public class _BasicController<T extends _BasicEntity> implements _PersistenceMethods<T> {
 
     private Class<T> entity;
     private QueryBuilder<T> queryBuilder;

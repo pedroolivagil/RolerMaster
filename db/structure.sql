@@ -6,10 +6,10 @@ CREATE TABLE user (
     email      VARCHAR(255)          NOT NULL,
     name       VARCHAR(50)           NOT NULL,
     lastname   VARCHAR(150),
-    idCountry  INT(10) UNSIGNED      NOT NULL,
+    idCountry  INT(10) UNSIGNED,
     phone      VARCHAR(16),
     birthdate  DATE                  NOT NULL,
-    idGender   INTEGER UNSIGNED      NOT NULL,
+    idGender   INTEGER UNSIGNED,
     isMaster   BOOLEAN               NOT NULL,
     flagActive BOOLEAN DEFAULT TRUE  NOT NULL,
     flagStatus BOOLEAN DEFAULT FALSE NOT NULL
@@ -33,23 +33,19 @@ CREATE TABLE user_roler (
 CREATE TABLE country (
     idCountry INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     code      VARCHAR(3)       NOT NULL,
-    idLocale  INT(10) UNSIGNED NOT NULL
+    idLocale  INT(10) UNSIGNED
 );
 CREATE UNIQUE INDEX country_codeISO_uindex
     ON country (code);
 
 CREATE TABLE country_trans (
     idTrans  INT(10) UNSIGNED  PRIMARY KEY AUTO_INCREMENT,
-    idCountry INT(10) UNSIGNED NOT NULL,
-    idLocale INT(10) UNSIGNED NOT NULL,
+    idCountry INT(10) UNSIGNED,
+    idLocale INT(10) UNSIGNED,
     text     VARCHAR(255)     NOT NULL
 );
 CREATE UNIQUE INDEX countrytrans_country_uindex
-      ON country_trans (idCountry);
-CREATE UNIQUE INDEX countrytrans_locale_uindex
-      ON country_trans (idLocale);
-CREATE UNIQUE INDEX countrytrans_text_uindex
-      ON country_trans (text);
+      ON country_trans (idCountry,idLocale,text);
 
 CREATE TABLE localeGroup (
     idLocale INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -60,13 +56,12 @@ CREATE UNIQUE INDEX locale_codeISO_uindex
 
 CREATE TABLE locale_trans (
     idTrans  INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    idLocale INT(10) UNSIGNED NOT NULL,
+    idLocale INT(10) UNSIGNED,
+    idLocaleGroup INT(10) UNSIGNED,
     text     VARCHAR(255)     NOT NULL
 );
 CREATE UNIQUE INDEX localetrans_locale_uindex
-      ON locale_trans (idLocale);
-CREATE UNIQUE INDEX localetrans_text_uindex
-      ON locale_trans (text);
+      ON locale_trans (idLocale,idLocaleGroup,text);
 
 CREATE TABLE resource (
     idResource INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -74,14 +69,14 @@ CREATE TABLE resource (
     type       TINYINT(1)       NOT NULL,
     file       TEXT             NOT NULL,
     date       TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP,
-    idUser     INT(10) UNSIGNED NOT NULL
+    idUser     INT(10) UNSIGNED
 );
 CREATE UNIQUE INDEX resource_code_uindex
     ON resource (code);
 
 CREATE TABLE preference (
     idPrefs INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    idUser  INT(10) UNSIGNED NOT NULL,
+    idUser  INT(10) UNSIGNED,
     p_key   VARCHAR(20)      NOT NULL,
     p_value VARCHAR(150)     NOT NULL,
     date    TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
@@ -91,7 +86,7 @@ CREATE UNIQUE INDEX preference_idUser_uindex
 
 CREATE TABLE game_category (
     idCategory INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    idUser     INT(10) UNSIGNED NOT NULL,
+    idUser     INT(10) UNSIGNED,
     name       VARCHAR(200)     NOT NULL
 );
 CREATE UNIQUE INDEX game_category_name_uindex
@@ -106,21 +101,17 @@ CREATE UNIQUE INDEX gender_code_uindex
 
 CREATE TABLE gender_trans (
     idTrans  INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    idGender INT(10) UNSIGNED NOT NULL,
-    idLocale INT(10) UNSIGNED NOT NULL,
+    idGender INT(10) UNSIGNED,
+    idLocale INT(10) UNSIGNED,
     text     VARCHAR(255)     NOT NULL
 );
 CREATE UNIQUE INDEX gendertrans_gender_uindex
-      ON gender_trans (idGender);
-CREATE UNIQUE INDEX gendertrans_locale_uindex
-      ON gender_trans (idLocale);
-CREATE UNIQUE INDEX gendertrans_text_uindex
-      ON gender_trans (text);
+      ON gender_trans (idGender,idLocale,text);
 
 CREATE TABLE parameter (
     idParameter INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     category    VARCHAR(255)     NOT NULL,
-    idLocale    INT(10) UNSIGNED NOT NULL,
+    idLocale    INT(10) UNSIGNED,
     text        VARCHAR(255)     NOT NULL
 );
 CREATE UNIQUE INDEX parameter_idTrans_uindex
@@ -136,7 +127,7 @@ CREATE TABLE game (
     headerResource INT(10) UNSIGNED                    NOT NULL,
     status         TINYINT(1) DEFAULT 0                NOT NULL,
     location       VARCHAR(255)                        NOT NULL,
-    idCategory     INT(10) UNSIGNED                    NOT NULL
+    idCategory     INT(10) UNSIGNED
 );
 CREATE UNIQUE INDEX game_name_uindex
     ON game (name);
@@ -164,7 +155,7 @@ CREATE TABLE `character` (
     lastname    VARCHAR(255)     NOT NULL,
     birthdate   DATE             NOT NULL,
     planet      VARCHAR(255)     NOT NULL,
-    idGender    INT(10) UNSIGNED NOT NULL,
+    idGender    INT(10) UNSIGNED,
     chronicle   VARCHAR(255)     NOT NULL,
     behaviour   INT(10)          NOT NULL,
     `character` INT(10)          NOT NULL,

@@ -18,7 +18,7 @@ import okhttp3.FormBody;
  * Created by Oliva on 23/01/2018.
  */
 
-public class QueryBuilder<T> {
+public class QueryBuilder<T extends _BasicEntity> {
 
     public enum TypeQuery {
         FIND_ALL(0), FIND_ONE(1);
@@ -36,10 +36,12 @@ public class QueryBuilder<T> {
 
     private Class<T> entity;
     private ConverterJSONArrayToList<T> converter;
+    private JSONPersistence<T> jsonPersistence;
 
     public QueryBuilder(Class<T> entity) {
         this.entity = entity;
         this.converter = new ConverterJSONArrayToList<>(entity);
+        this.jsonPersistence =new JSONPersistence<>(entity);
     }
 
     private static final String TYPE_QUERY = "typeQuery";
