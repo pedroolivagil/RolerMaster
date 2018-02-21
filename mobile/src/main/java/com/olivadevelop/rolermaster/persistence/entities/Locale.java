@@ -5,10 +5,12 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +32,7 @@ public class Locale extends _BasicEntity {
     private List<LocaleTrans> translations;
 
     public Locale() {
+        super();
     }
 
     public Locale(JSONObject json) throws JSONException {
@@ -53,10 +56,23 @@ public class Locale extends _BasicEntity {
     }
 
     public List<LocaleTrans> getTranslations() {
+        if (Tools.isNull(translations)) {
+            this.translations = new ArrayList<>();
+        }
         return translations;
     }
 
     public void setTranslations(List<LocaleTrans> translations) {
         this.translations = translations;
+    }
+
+    public void addTranslation(LocaleTrans translation) {
+        this.getTranslations().add(translation);
+        translation.setLocaleGroup(this);
+    }
+
+    public void removeTranslation(LocaleTrans translation) {
+        this.getTranslations().remove(translation);
+        translation.setLocaleGroup(null);
     }
 }

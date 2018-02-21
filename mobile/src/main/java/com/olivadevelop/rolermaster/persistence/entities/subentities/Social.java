@@ -19,6 +19,7 @@ public class Social extends _BasicEntity implements Attribute {
     private String code;
 
     public Social() {
+        super();
     }
 
     public Social(JSONObject json) throws JSONException {

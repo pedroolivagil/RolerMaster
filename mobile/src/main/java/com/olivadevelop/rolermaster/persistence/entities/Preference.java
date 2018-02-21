@@ -31,6 +31,7 @@ public class Preference extends _BasicEntity {
     private Date date;
 
     public Preference() {
+        super();
     }
 
     public Preference(JSONObject json) throws JSONException {

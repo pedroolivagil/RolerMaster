@@ -79,6 +79,7 @@ public class Character extends _BasicEntity {
     private List<Weapon> weapons;
 
     public Character() {
+        super();
     }
 
     public Character(JSONObject json) throws JSONException {

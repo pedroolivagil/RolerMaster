@@ -29,6 +29,7 @@ public class Parameter extends _BasicEntity {
     private String text;
 
     public Parameter() {
+        super();
     }
 
     public Parameter(JSONObject json) throws JSONException {

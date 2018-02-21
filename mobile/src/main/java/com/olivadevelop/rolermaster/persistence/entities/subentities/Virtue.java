@@ -18,6 +18,7 @@ public class Virtue extends _BasicEntity {
     private String code;
 
     public Virtue() {
+        super();
     }
 
     public Virtue(JSONObject json) throws JSONException {

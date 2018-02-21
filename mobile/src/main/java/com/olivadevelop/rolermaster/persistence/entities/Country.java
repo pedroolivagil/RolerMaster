@@ -35,6 +35,7 @@ public class Country extends _BasicEntity {
     private Locale locale;
 
     public Country() {
+        super();
     }
 
 

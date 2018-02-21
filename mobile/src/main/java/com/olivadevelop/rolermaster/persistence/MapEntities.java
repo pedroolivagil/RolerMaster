@@ -1,10 +1,11 @@
-package com.olivadevelop.rolermaster.persistence.entities;
+package com.olivadevelop.rolermaster.persistence;
 
 import com.olivadevelop.rolermaster.persistence.entities.Character;
 import com.olivadevelop.rolermaster.persistence.entities.Country;
 import com.olivadevelop.rolermaster.persistence.entities.Game;
 import com.olivadevelop.rolermaster.persistence.entities.GameCategory;
 import com.olivadevelop.rolermaster.persistence.entities.Gender;
+import com.olivadevelop.rolermaster.persistence.entities.GenericTrans;
 import com.olivadevelop.rolermaster.persistence.entities.Locale;
 import com.olivadevelop.rolermaster.persistence.entities.Notification;
 import com.olivadevelop.rolermaster.persistence.entities.Parameter;
@@ -22,7 +23,6 @@ import com.olivadevelop.rolermaster.persistence.entities.subentities.Technique;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Undertone;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
-import com.olivadevelop.rolermaster.persistence.entities.GenericTrans;
 import com.olivadevelop.rolermaster.persistence.pojo.NotificationPriority;
 import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
 
@@ -33,8 +33,8 @@ import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
  */
 public abstract class MapEntities {
 
-    public static final String COMMON_FIELD_TRANS = "translation";
-    public static final String COMMON_FIELD_PRIORITY = "priority";
+    private static final String COMMON_FIELD_TRANS = "translation";
+    private static final String COMMON_FIELD_PRIORITY = "priority";
 
     private static Class GAME = Game.class;
     private static Class GAME_CATEGORY = GameCategory.class;

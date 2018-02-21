@@ -19,6 +19,7 @@ public class Power extends _BasicEntity implements Advantage {
     private String code;
 
     public Power() {
+        super();
     }
 
     public Power(JSONObject json) throws JSONException {

@@ -20,6 +20,7 @@ public class CountryTrans extends _BasicEntity {
     private Country country;
 
     public CountryTrans() {
+        super();
     }
 
     public CountryTrans(JSONObject json) throws JSONException {

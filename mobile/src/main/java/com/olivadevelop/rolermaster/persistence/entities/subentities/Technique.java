@@ -19,6 +19,7 @@ public class Technique extends _BasicEntity implements Ability {
     private String code;
 
     public Technique() {
+        super();
     }
 
     public Technique(JSONObject json) throws JSONException {

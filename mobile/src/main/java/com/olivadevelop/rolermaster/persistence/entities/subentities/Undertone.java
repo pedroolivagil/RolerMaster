@@ -19,6 +19,7 @@ public class Undertone extends _BasicEntity implements Advantage {
     private String code;
 
     public Undertone() {
+        super();
     }
 
     public Undertone(JSONObject json) throws JSONException {

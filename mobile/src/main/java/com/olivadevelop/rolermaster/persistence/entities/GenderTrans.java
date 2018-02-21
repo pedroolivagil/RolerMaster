@@ -20,6 +20,7 @@ public class GenderTrans extends GenericTrans {
     private Gender gender;
 
     public GenderTrans() {
+        super();
     }
 
     public GenderTrans(JSONObject json) throws JSONException {

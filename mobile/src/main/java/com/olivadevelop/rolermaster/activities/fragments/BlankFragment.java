@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
-import com.olivadevelop.rolermaster.persistence.entities.GenericTrans;
 import com.olivadevelop.rolermaster.persistence.entities.Locale;
 import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
 import com.olivadevelop.rolermaster.persistence.entities.User;
@@ -75,15 +74,16 @@ public class BlankFragment extends CustomFragment {
             blankUsername.setText(getString(R.string.blank_guest));
         }
 
-        LocaleTrans trans = new LocaleTrans();
-        trans.setText("Español");
-        trans.setIdLocale(1);
-        trans.setIdTrans(1);
-
         Locale es = new Locale();
         es.setCodeIso("ES");
-        es.setTranslation(trans);
         es.setIdLocale(1);
+
+        LocaleTrans trans = new LocaleTrans();
+        trans.setText("Español");
+        trans.setLocale(es);
+        trans.setIdTrans(1);
+
+        es.addTranslation(trans);
 
         Controllers.getInstance().getLocaleController().create(es);
     }

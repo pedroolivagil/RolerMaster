@@ -76,6 +76,7 @@ public class Game extends _BasicEntity {
     private GameCategory gameCategory;
 
     public Game() {
+        super();
     }
 
     public Game(JSONObject json) throws JSONException {

@@ -19,6 +19,7 @@ public class Physical extends _BasicEntity implements Attribute {
     private String code;
 
     public Physical() {
+        super();
     }
 
     public Physical(JSONObject json) throws JSONException {

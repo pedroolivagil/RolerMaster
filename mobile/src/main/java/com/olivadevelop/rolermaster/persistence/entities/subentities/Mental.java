@@ -19,6 +19,7 @@ public class Mental extends _BasicEntity implements Attribute {
     private String code;
 
     public Mental() {
+        super();
     }
 
     public Mental(JSONObject json) throws JSONException {

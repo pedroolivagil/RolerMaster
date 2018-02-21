@@ -43,6 +43,7 @@ public class Notification extends _BasicEntity {
     private NotificationPriority priority;
 
     public Notification() {
+        super();
     }
 
     public Notification(JSONObject json) throws JSONException {

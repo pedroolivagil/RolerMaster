@@ -19,6 +19,7 @@ public class Merit extends _BasicEntity implements Advantage {
     private String code;
 
     public Merit() {
+        super();
     }
 
     public Merit(JSONObject json) throws JSONException {

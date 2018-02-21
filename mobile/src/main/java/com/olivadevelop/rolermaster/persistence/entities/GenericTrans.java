@@ -26,6 +26,7 @@ public class GenericTrans extends _BasicEntity {
     private String text;
 
     GenericTrans() {
+        super();
     }
 
     GenericTrans(JSONObject json) throws JSONException {
@@ -40,12 +41,12 @@ public class GenericTrans extends _BasicEntity {
         this.idTrans = idTrans;
     }
 
-    public Locale getLocaleGroup() {
+    public Locale getLocale() {
         return locale;
     }
 
-    public void setLocaleGroup(Locale localeGroup) {
-        this.locale = localeGroup;
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
     public String getText() {

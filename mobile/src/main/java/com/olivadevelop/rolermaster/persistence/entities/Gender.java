@@ -31,6 +31,7 @@ public class Gender extends _BasicEntity {
     private List<GenderTrans> translation;
 
     public Gender() {
+        super();
     }
 
     public Gender(JSONObject json) throws JSONException {

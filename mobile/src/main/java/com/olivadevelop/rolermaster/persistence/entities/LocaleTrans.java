@@ -19,13 +19,12 @@ public class LocaleTrans extends GenericTrans {
     @RelatedEntity(joinColumn = "idLocaleGroup", preference = true)
     private Locale localeGroup;
 
-    public LocaleTrans(Locale localeGroup) {
-        this.localeGroup = localeGroup;
+    public LocaleTrans() {
+        super();
     }
 
-    public LocaleTrans(JSONObject json, Locale localeGroup) throws JSONException {
+    public LocaleTrans(JSONObject json) throws JSONException {
         super(json);
-        this.localeGroup = localeGroup;
     }
 
     public Locale getLocaleGroup() {

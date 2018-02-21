@@ -19,6 +19,7 @@ public class Talent extends _BasicEntity implements Ability {
     private String code;
 
     public Talent() {
+        super();
     }
 
     public Talent(JSONObject json) throws JSONException {

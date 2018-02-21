@@ -19,6 +19,7 @@ public class Weapon extends _BasicEntity {
     private Integer damage;
 
     public Weapon() {
+        super();
     }
 
     public Weapon(JSONObject json) throws JSONException {

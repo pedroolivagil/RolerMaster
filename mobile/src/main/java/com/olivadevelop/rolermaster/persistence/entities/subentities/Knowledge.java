@@ -19,6 +19,7 @@ public class Knowledge extends _BasicEntity implements Ability {
     private String code;
 
     public Knowledge() {
+        super();
     }
 
     public Knowledge(JSONObject json) throws JSONException {

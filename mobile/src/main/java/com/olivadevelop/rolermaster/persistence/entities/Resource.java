@@ -34,6 +34,7 @@ public class Resource extends _BasicEntity {
     private TypeResource typeResource;
 
     public Resource() {
+        super();
     }
 
     public Resource(JSONObject json) throws JSONException {

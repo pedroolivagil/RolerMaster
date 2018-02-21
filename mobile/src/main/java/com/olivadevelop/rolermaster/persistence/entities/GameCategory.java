@@ -29,6 +29,7 @@ public class GameCategory extends _BasicEntity {
     private String name;
 
     public GameCategory() {
+        super();
     }
 
     public GameCategory(JSONObject json) throws JSONException {
