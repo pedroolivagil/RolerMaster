@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.persistence.pojo;
+package com.olivadevelop.rolermaster.persistence.enums;
 
 /**
  * Copyright OlivaDevelop 2014-2018

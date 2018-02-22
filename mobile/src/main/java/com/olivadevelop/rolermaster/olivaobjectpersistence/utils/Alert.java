@@ -1,4 +1,4 @@
-package com.olivadevelop.rolermaster.tools.utils;
+package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
 import android.app.Activity;
 import android.support.annotation.StringRes;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ActionOlivaDevelop;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -164,7 +164,7 @@ public class Alert {
         return loadingDialog;
     }
 
-    public static class ActionAlert implements ActionRolerMaster {
+    public static class ActionAlert implements ActionOlivaDevelop {
         @Override
         public void run() {
 

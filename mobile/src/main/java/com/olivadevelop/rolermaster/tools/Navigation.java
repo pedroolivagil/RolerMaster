@@ -21,7 +21,7 @@ import com.olivadevelop.rolermaster.activities.fragments.UserSignUpFragment;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.CustomList;
 import com.olivadevelop.rolermaster.tools.utils.KeyValuePairClass;
-import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopThread;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +82,7 @@ public class Navigation {
     }
 
     public void navigateActivityThread(final Class fragmentClass, final Context c, final int time, final ProgressBar progressBar, final boolean loadingAlert) {
-        final RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
+        final OlivaDevelopThread.ActionThread action = new OlivaDevelopThread.ActionThread() {
             @Override
             public void run() {
                 Navigation.getInstance().navigate(c, fragmentClass);
@@ -95,18 +95,18 @@ public class Navigation {
                 }
             }
         };
-        RolerMasterThread.getInstance().newThread(time, action, progressBar);
+        OlivaDevelopThread.getInstance().newThread(time, action, progressBar);
     }
 
     public void navigateFragmentThread(final Class fragmentClass, int time, final ProgressBar progressBar) {
-        RolerMasterThread.ActionThread action = new RolerMasterThread.ActionThread() {
+        OlivaDevelopThread.ActionThread action = new OlivaDevelopThread.ActionThread() {
             @Override
             public void run() {
                 super.run();
                 Navigation.getInstance().navigate(fragmentClass);
             }
         };
-        RolerMasterThread.getInstance().newThread(time, action, progressBar);
+        OlivaDevelopThread.getInstance().newThread(time, action, progressBar);
     }
 
     public void navigate(Class fragmentClass, Bundle args) {

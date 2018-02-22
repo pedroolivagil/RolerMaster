@@ -15,7 +15,7 @@ import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.BooleanSettingsView;
 import com.olivadevelop.rolermaster.tools.layouts.ItemSettingsView;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 

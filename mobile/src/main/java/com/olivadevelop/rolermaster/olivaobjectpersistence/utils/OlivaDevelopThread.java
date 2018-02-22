@@ -1,10 +1,10 @@
-package com.olivadevelop.rolermaster.tools.utils;
+package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
 import android.content.Context;
 import android.widget.ProgressBar;
 
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ActionOlivaDevelop;
 
 import static com.google.android.gms.internal.zzahn.runOnUiThread;
 
@@ -13,18 +13,18 @@ import static com.google.android.gms.internal.zzahn.runOnUiThread;
  * Created by Oliva on 15/01/2018.
  */
 
-public class RolerMasterThread {
-    private static final RolerMasterThread ourInstance = new RolerMasterThread();
+public class OlivaDevelopThread {
+    private static final OlivaDevelopThread ourInstance = new OlivaDevelopThread();
     private Context context;
 
-    private RolerMasterThread() {
+    private OlivaDevelopThread() {
     }
 
     public void setContext(Context context) {
         this.context = context;
     }
 
-    public static RolerMasterThread getInstance() {
+    public static OlivaDevelopThread getInstance() {
         return ourInstance;
     }
 
@@ -94,7 +94,7 @@ public class RolerMasterThread {
         }.start();
     }
 
-    public static class ActionThread implements ActionRolerMaster {
+    public static class ActionThread implements ActionOlivaDevelop {
         @Override
         public void run() {
         }

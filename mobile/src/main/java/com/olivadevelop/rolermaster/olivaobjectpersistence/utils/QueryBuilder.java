@@ -1,5 +1,7 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
+import android.util.Log;
+
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -71,9 +73,12 @@ public class QueryBuilder<T extends _BasicEntity> {
             getJsonEntities(retorno, (_BasicEntity) entity);
             Collections.reverse(retorno);
             for (_BasicEntity bEnti : retorno) {
-                query.add("entity[]", bEnti.toJSONPersistence().toString());
+                query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti).toString());
+                Log.e("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti).toString());
             }
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (OlivaDevelopException e) {
             e.printStackTrace();
         }
         return query.build();

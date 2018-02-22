@@ -21,10 +21,9 @@ import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
-import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
 
 import static com.olivadevelop.rolermaster.tools.Tools.Logger;
 import static com.olivadevelop.rolermaster.tools.Tools.isNotNull;

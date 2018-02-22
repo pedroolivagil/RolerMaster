@@ -8,7 +8,7 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Controller
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 
 import org.json.JSONException;
 
