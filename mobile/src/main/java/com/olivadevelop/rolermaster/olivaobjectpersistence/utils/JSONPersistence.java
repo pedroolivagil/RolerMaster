@@ -18,10 +18,10 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.olivadevelop.rolermaster.tools.utils.RolerMasterException.TypeException.PERSISTENCE;
-import static com.olivadevelop.rolermaster.tools.utils.RolerMasterException.TypeException.RELATIONSHIP;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -33,6 +33,11 @@ public class JSONPersistence<T extends _BasicEntity> {
 
     private Class<T> entityClass;
 
+    /*JSONPersistence(Class<T> entity) {
+        this.entityClass = entity;
+    }*/
+
+    //TODO: para el test lo dejamos publico
     public JSONPersistence(Class<T> entity) {
         this.entityClass = entity;
     }
@@ -47,10 +52,10 @@ public class JSONPersistence<T extends _BasicEntity> {
     public JSONObject persistenceJSONObject(T entity) throws RolerMasterException {
         JSONObject retorno = new JSONObject();
         try {
-            Field[] fields = getClass().getDeclaredFields();
+            Field[] fields = entity.getClass().getDeclaredFields();
             if (Tools.isNotNull(fields) && fields.length > 0) {
-                Persistence persistenceClass = getClass().getAnnotation(Persistence.class);
-                String className = getClass().getSimpleName();
+                Persistence persistenceClass = entity.getClass().getAnnotation(Persistence.class);
+                String className = entity.getClass().getSimpleName();
                 if (Tools.isNotNull(persistenceClass) && Tools.isNotNull(persistenceClass.collectionName())) {
                     className = persistenceClass.collectionName();
                 }
@@ -66,7 +71,7 @@ public class JSONPersistence<T extends _BasicEntity> {
     }
 
     /**
-     * complementa el método persistenceJSONObject para mejor visibilidad. Transforma la entidad a JSON
+     * Complementa el método persistenceJSONObject para mejor visibilidad. Transforma la entidad a JSON
      *
      * @param entity
      * @return
@@ -76,7 +81,11 @@ public class JSONPersistence<T extends _BasicEntity> {
      */
     private JSONObject transformToJSON(T entity) throws IllegalAccessException, JSONException, RolerMasterException {
         JSONObject retorno = new JSONObject();
-        Field[] fields = getClass().getDeclaredFields();
+        Field[] fields1 = entity.getClass().getDeclaredFields();
+        Field[] fields2 = entity.getClass().getSuperclass().getDeclaredFields();
+        List<Field> fields = new ArrayList<>();
+        fields.addAll(Arrays.asList(fields1));
+        fields.addAll(Arrays.asList(fields2));
         for (Field field : fields) {
             field.setAccessible(true);
             String fName = field.getName();
@@ -99,8 +108,6 @@ public class JSONPersistence<T extends _BasicEntity> {
             KeyValuePair<String, Object> fieldValue = getValueFromField(field, entity);
             if (fieldValue != null) {
                 retorno.put(fieldValue.getKey(), fieldValue.getValue());
-            } else {
-                retorno.put(fName, "null");
             }
             field.setAccessible(false);
         }
@@ -108,6 +115,7 @@ public class JSONPersistence<T extends _BasicEntity> {
     }
 
     /**
+     * Complementa el método persistenceJSONObject para mejor visibilidad.
      * Obtiene el valor de una propiedad de la entidad y, en caso de que sea una entidad relacionada enlazamos el id
      *
      * @param field
@@ -160,13 +168,23 @@ public class JSONPersistence<T extends _BasicEntity> {
                 for (Entity ent : lista) {
                     _BasicEntity entity = (_BasicEntity) ent;
                 }*/
-            } else {
+            } /*else {
                 throw new RolerMasterException(RELATIONSHIP);
+            }*/
+        } else {
+            retorno = new KeyValuePair<>();
+            Persistence persistence = field.getAnnotation(Persistence.class);
+            if (Tools.isNotNull(persistence)) {
+                retorno.setKey(persistence.columnName());
+            } else {
+                retorno.setKey(field.getName());
             }
+            retorno.setValue(value);
         }
         return retorno;
     }
 
+    @Deprecated
     public List<T> convert(JSONArray array) throws JSONException {
         List<T> retorno = new ArrayList<>();
         if (Tools.isNotNull(array)) {
@@ -182,6 +200,13 @@ public class JSONPersistence<T extends _BasicEntity> {
         return retorno;
     }
 
+    /**
+     * Transforma un JSON a una entidad
+     *
+     * @param json
+     * @return
+     * @throws JSONException
+     */
     public T getNewEntity(JSONObject json) throws JSONException {
         return parseJsonToEntity(json, this.entityClass);
     }

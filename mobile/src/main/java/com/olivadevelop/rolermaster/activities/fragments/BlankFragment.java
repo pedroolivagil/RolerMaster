@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.JSONPersistence;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.Locale;
 import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
@@ -16,6 +17,7 @@ import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
+import com.olivadevelop.rolermaster.tools.utils.RolerMasterException;
 
 import org.json.JSONException;
 
@@ -76,7 +78,7 @@ public class BlankFragment extends CustomFragment {
 
         Locale es = new Locale();
         es.setCodeIso("ES");
-        es.setIdLocale(1);
+        es.setIdLocale(2);
 
         LocaleTrans trans = new LocaleTrans();
         trans.setText("Español");
@@ -84,8 +86,15 @@ public class BlankFragment extends CustomFragment {
         trans.setIdTrans(1);
 
         es.addTranslation(trans);
-/*
-        Controllers.getInstance().getLocaleController().create(es);*/
+
+        /*Controllers.getInstance().getLocaleController().create(es);*/
+
+        try {
+            JSONPersistence<LocaleTrans> jsonPersistence = new JSONPersistence<>(LocaleTrans.class);
+            Log.e("ENTITY PERSIT", jsonPersistence.persistenceJSONObject(trans).toString());
+        } catch (RolerMasterException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
