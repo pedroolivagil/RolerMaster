@@ -93,18 +93,6 @@ public class JSONPersistence<T extends _BasicEntity> {
                 // obviamos esas dos columnas
                 continue;
             }
-            Persistence persistenceField = field.getAnnotation(Persistence.class);
-            if (Tools.isNotNull(persistenceField)) {
-                if (Tools.isNotNull(persistenceField.unique())) {
-                    if (Tools.isNull(field.get(entity))) {
-                        // Si es único, no puede ser nulo, cancelamos la operación
-                        throw new RolerMasterException(PERSISTENCE);
-                    }
-                }
-                if (Tools.isNotNull(persistenceField.columnName())) {
-                    fName = persistenceField.columnName();
-                }
-            }
             KeyValuePair<String, Object> fieldValue = getValueFromField(field, entity);
             if (fieldValue != null) {
                 retorno.put(fieldValue.getKey(), fieldValue.getValue());
@@ -127,6 +115,17 @@ public class JSONPersistence<T extends _BasicEntity> {
     private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, RolerMasterException {
         KeyValuePair<String, Object> retorno = null;
         Object value = field.get(entityMaster);
+        // comprobamos si es único y si está vacío
+        Persistence persistenceField = field.getAnnotation(Persistence.class);
+        if (Tools.isNotNull(persistenceField)) {
+            if (Tools.isNotNull(persistenceField.unique())) {
+                if (Tools.isNull(value)) {
+                    // Si es único, no puede ser nulo, cancelamos la operación
+                    throw new RolerMasterException(PERSISTENCE);
+                }
+            }
+        }
+        //Buscamos la relación
         RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
         if (Tools.isNotNull(relatedEntity)) {
             // Ahora debemos obtener el tipo de relación.
@@ -168,9 +167,7 @@ public class JSONPersistence<T extends _BasicEntity> {
                 for (Entity ent : lista) {
                     _BasicEntity entity = (_BasicEntity) ent;
                 }*/
-            } /*else {
-                throw new RolerMasterException(RELATIONSHIP);
-            }*/
+            }
         } else {
             retorno = new KeyValuePair<>();
             Persistence persistence = field.getAnnotation(Persistence.class);
