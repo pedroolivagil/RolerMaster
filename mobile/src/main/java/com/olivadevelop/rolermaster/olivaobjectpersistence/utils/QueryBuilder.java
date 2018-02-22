@@ -1,8 +1,8 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 
@@ -35,13 +35,11 @@ public class QueryBuilder<T extends _BasicEntity> {
     }
 
     private Class<T> entity;
-    private ConverterJSONArrayToList<T> converter;
     private JSONPersistence<T> jsonPersistence;
 
     public QueryBuilder(Class<T> entity) {
         this.entity = entity;
-        this.converter = new ConverterJSONArrayToList<>(entity);
-        this.jsonPersistence =new JSONPersistence<>(entity);
+        this.jsonPersistence = new JSONPersistence<>(entity);
     }
 
     private static final String TYPE_QUERY = "typeQuery";
@@ -53,22 +51,19 @@ public class QueryBuilder<T extends _BasicEntity> {
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
         if (Tools.isNotNull(values)) {
             for (KeyValuePair obj : values) {
-                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getValueAsString());
+                query.add(this.jsonPersistence.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getValueAsString());
             }
         }
         return query.build();
     }
 
-    public FormBody insertQuery(List<KeyValuePair<String, ?>> entities) {
-        FormBody.Builder query = new FormBody.Builder();
-        if (Tools.isNotNull(entities)) {
-            for (KeyValuePair obj : entities) {
-                query.add(converter.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getValueAsString());
-            }
-        }
-        return query.build();
-    }
-
+    /**
+     * Crea una query para enviar el objeto a la bbdd
+     *
+     * @param entity
+     * @return
+     * @throws JSONException
+     */
     public FormBody insertQuery(T entity) throws JSONException {
         FormBody.Builder query = new FormBody.Builder();
         try {
@@ -95,5 +90,9 @@ public class QueryBuilder<T extends _BasicEntity> {
             field.setAccessible(false);
         }
         retorno.add(entity);
+    }
+
+    public JSONPersistence<T> getJsonPersistence() {
+        return jsonPersistence;
     }
 }

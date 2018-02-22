@@ -1,12 +1,11 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.entities;
 
-import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ConverterJSONArrayToList;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,11 +67,15 @@ public abstract class _BasicEntity implements Entity {
                                     || value instanceof String) {
                                 field.set(this, value);
                             /*} else if (value instanceof byte[]) {
+                            // TODO: los byte[] agregados a la bbdd, se almacenan como strings, por el momento. Valorar si es correcto o buscar una forma más adecuada para hacer el cast como una anotación o algo
                                 field.set(this, ImagePicasso.StringTobase64(value);*/
                             } else if (value instanceof JSONArray) {
-                                ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
-                                field.set(this, converter.convert((JSONArray) value));
+                                // TODO: Revisar porque ya no se almacena una lista de id, sino de objetos, por lo que rara (o ninguna) vez entrará aquí para cargar una entidad
+                               /* ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
+                                JSONPersistence<Integer> converter = new
+                                field.set(this, converter.convert((JSONArray) value));*/
                             } else if (value instanceof JSONObject) {
+                                // TODO: Revisar para completar la carga del objeto mediante la entidad relacionada
                                 /*Class entity = MapEntities.findByString(fName);
                                 if (Tools.isNotNull(entity)) {
                                     Object newEntity = entity.getConstructor(JSONObject.class).newInstance(value);

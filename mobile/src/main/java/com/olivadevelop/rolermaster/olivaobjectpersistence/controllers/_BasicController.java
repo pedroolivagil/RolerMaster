@@ -1,13 +1,12 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.controllers;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces._PersistenceMethods;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceURL;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ConverterJSONArrayToList;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,19 +25,17 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     private Class<T> entity;
     private QueryBuilder<T> queryBuilder;
-    private ConverterJSONArrayToList<T> converter;
 
     public _BasicController(Class<T> entity) {
         this.entity = entity;
         this.queryBuilder = new QueryBuilder<>(entity);
-        this.converter = new ConverterJSONArrayToList<>(entity);
     }
 
     public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
         List<KeyValuePair<String, ?>> values = new ArrayList<>();
         values.add(new KeyValuePair<>("idEntity", idEntity));
         JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
-        return converter.getNewEntity(result);
+        return this.queryBuilder.getJsonPersistence().getNewEntity(result);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         T retorno = null;
         if (Tools.isNotNull(query)) {
             JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, query);
-            retorno = converter.getNewEntity(result);
+            retorno = this.queryBuilder.getJsonPersistence().getNewEntity(result);
         }
         return retorno;
     }
@@ -61,7 +58,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         List<T> retorno = null;
         if (Tools.isNotNull(query)) {
             JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, query);
-            retorno = converter.getNewListEntities(result);
+            retorno = this.queryBuilder.getJsonPersistence().getNewListEntities(result);
         }
         return retorno;
     }
@@ -84,7 +81,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
     @Override
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
         JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insertQuery(entity));
-        converter.getNewEntity(result);
+        this.queryBuilder.getJsonPersistence().getNewEntity(result);
         return false;
     }
 
