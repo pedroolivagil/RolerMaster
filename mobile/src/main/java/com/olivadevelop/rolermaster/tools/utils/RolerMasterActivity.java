@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopThread;
 import com.olivadevelop.rolermaster.tools.AdsAdMob;
 import com.olivadevelop.rolermaster.tools.Navigation;
 
@@ -79,7 +81,7 @@ public class RolerMasterActivity extends AppCompatActivity implements Navigation
         Alert.getInstance().setActivity(this);
         Alert.getInstance().setLoadingDialog();
         Navigation.getInstance().setFragmentManager(getSupportFragmentManager());
-        RolerMasterThread.getInstance().setContext(this);
+        OlivaDevelopThread.getInstance().setContext(this);
         AdsAdMob.getInstance().initialize(this);
         Preferences.getInstance().init(this);
     }

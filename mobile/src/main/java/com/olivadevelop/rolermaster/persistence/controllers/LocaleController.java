@@ -4,7 +4,7 @@ import com.olivadevelop.rolermaster.persistence.entities.Locale;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.controllers._BasicController;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ControllerMethods;
 
 import org.json.JSONException;

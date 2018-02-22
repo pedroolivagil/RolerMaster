@@ -4,7 +4,7 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.persistence.pojo.NotificationPriority;
+import com.olivadevelop.rolermaster.persistence.enums.NotificationPriority;
 import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 

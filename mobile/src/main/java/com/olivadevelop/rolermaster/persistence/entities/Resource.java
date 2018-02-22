@@ -4,7 +4,7 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
+import com.olivadevelop.rolermaster.persistence.enums.TypeResource;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 
 import org.json.JSONException;

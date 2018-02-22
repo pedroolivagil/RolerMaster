@@ -6,7 +6,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.JSONPersistence;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.Locale;
 import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
@@ -17,7 +19,6 @@ import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.Preferences;
-import com.olivadevelop.rolermaster.tools.utils.RolerMasterException;
 
 import org.json.JSONException;
 
@@ -77,7 +78,7 @@ public class BlankFragment extends CustomFragment {
         }
 
         Locale es = new Locale();
-        es.setCodeIso("ES");
+        es.setCodeIso(null);
         es.setIdLocale(2);
 
         LocaleTrans trans = new LocaleTrans();
@@ -90,11 +91,12 @@ public class BlankFragment extends CustomFragment {
         /*Controllers.getInstance().getLocaleController().create(es);*/
 
         try {
-            JSONPersistence<LocaleTrans> jsonPersistence = new JSONPersistence<>(LocaleTrans.class);
-            Log.e("ENTITY PERSIT", jsonPersistence.persistenceJSONObject(trans).toString());
-        } catch (RolerMasterException e) {
-            e.printStackTrace();
+            JSONPersistence<Locale> jsonPersistence = new JSONPersistence<>(Locale.class);
+            Log.e("ENTITY PERSIT", jsonPersistence.persistenceJSONObject(es).toString());
+        } catch (OlivaDevelopException e) {
+            Alert.getInstance().errorDialog(e.getMessage(), null);
         }
+
     }
 
     @Override
@@ -120,7 +122,7 @@ public class BlankFragment extends CustomFragment {
         super.actionsFab(v);
         if (SessionManager.getInstance().isLogged()) {
             final TextView blankUsername = findViewById(R.id.blank_username);
-            /*RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
+            /*OlivaDevelopThread.getInstance().newThread(new OlivaDevelopThread.ActionThread() {
                 @Override
                 public void run() {
                     Controllers.getInstance().getTestController().read(1, new _RestService.ActionService<TestEntity>() {
@@ -134,7 +136,7 @@ public class BlankFragment extends CustomFragment {
                     });
                 }
             });*/
-            /*RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
+            /*OlivaDevelopThread.getInstance().newThread(new OlivaDevelopThread.ActionThread() {
                 @Override
                 public void run() {
                     Controllers.getInstance().getTestController().readAll(new _RestService.ActionService<TestEntity>() {

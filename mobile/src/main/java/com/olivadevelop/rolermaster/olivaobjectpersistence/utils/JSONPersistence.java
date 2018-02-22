@@ -9,7 +9,6 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persisten
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.RolerMasterException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.olivadevelop.rolermaster.tools.utils.RolerMasterException.TypeException.PERSISTENCE;
+import static com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException.TypeException.UNIQUE_NOT_NULL;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -47,9 +46,9 @@ public class JSONPersistence<T extends _BasicEntity> {
      *
      * @param entity
      * @return
-     * @throws RolerMasterException
+     * @throws OlivaDevelopException
      */
-    public JSONObject persistenceJSONObject(T entity) throws RolerMasterException {
+    public JSONObject persistenceJSONObject(T entity) throws OlivaDevelopException {
         JSONObject retorno = new JSONObject();
         try {
             Field[] fields = entity.getClass().getDeclaredFields();
@@ -77,9 +76,9 @@ public class JSONPersistence<T extends _BasicEntity> {
      * @return
      * @throws IllegalAccessException
      * @throws JSONException
-     * @throws RolerMasterException
+     * @throws OlivaDevelopException
      */
-    private JSONObject transformToJSON(T entity) throws IllegalAccessException, JSONException, RolerMasterException {
+    private JSONObject transformToJSON(T entity) throws IllegalAccessException, JSONException, OlivaDevelopException {
         JSONObject retorno = new JSONObject();
         Field[] fields1 = entity.getClass().getDeclaredFields();
         Field[] fields2 = entity.getClass().getSuperclass().getDeclaredFields();
@@ -110,9 +109,9 @@ public class JSONPersistence<T extends _BasicEntity> {
      * @param entityMaster
      * @return
      * @throws IllegalAccessException
-     * @throws RolerMasterException
+     * @throws OlivaDevelopException
      */
-    private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, RolerMasterException {
+    private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, OlivaDevelopException {
         KeyValuePair<String, Object> retorno = null;
         Object value = field.get(entityMaster);
         // comprobamos si es único y si está vacío
@@ -121,7 +120,7 @@ public class JSONPersistence<T extends _BasicEntity> {
             if (Tools.isNotNull(persistenceField.unique())) {
                 if (Tools.isNull(value)) {
                     // Si es único, no puede ser nulo, cancelamos la operación
-                    throw new RolerMasterException(PERSISTENCE);
+                    throw new OlivaDevelopException(UNIQUE_NOT_NULL);
                 }
             }
         }
@@ -169,6 +168,7 @@ public class JSONPersistence<T extends _BasicEntity> {
                 }*/
             }
         } else {
+            // Si no hay relatedEntity, es un valor primitivo, por lo que lo añadimos tal cual
             retorno = new KeyValuePair<>();
             Persistence persistence = field.getAnnotation(Persistence.class);
             if (Tools.isNotNull(persistence)) {

@@ -23,8 +23,8 @@ import com.olivadevelop.rolermaster.persistence.entities.subentities.Technique;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Undertone;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
-import com.olivadevelop.rolermaster.persistence.pojo.NotificationPriority;
-import com.olivadevelop.rolermaster.persistence.pojo.TypeResource;
+import com.olivadevelop.rolermaster.persistence.enums.NotificationPriority;
+import com.olivadevelop.rolermaster.persistence.enums.TypeResource;
 
 /**
  * Copyright OlivaDevelop 2014-2018

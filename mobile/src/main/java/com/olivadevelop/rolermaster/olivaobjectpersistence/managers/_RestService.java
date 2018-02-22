@@ -4,8 +4,8 @@ import android.os.AsyncTask;
 
 import com.olivadevelop.rolermaster.tools.Constant;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
-import com.olivadevelop.rolermaster.tools.utils.RolerMasterThread;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopThread;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +52,7 @@ class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
             }
             response.close();
         } catch (final SocketTimeoutException e) {
-            RolerMasterThread.getInstance().newThread(0, new RolerMasterThread.ActionThread() {
+            OlivaDevelopThread.getInstance().newThread(0, new OlivaDevelopThread.ActionThread() {
                 @Override
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
@@ -89,7 +89,7 @@ class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        RolerMasterThread.getInstance().newThread(new RolerMasterThread.ActionThread() {
+        OlivaDevelopThread.getInstance().newThread(new OlivaDevelopThread.ActionThread() {
             @Override
             public void run() {
 

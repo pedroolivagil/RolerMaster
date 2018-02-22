@@ -33,8 +33,9 @@ import android.widget.Toast;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.AccountPicker;
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
+import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.SpinnerAdapter;
 
 import java.lang.reflect.Field;
@@ -55,23 +56,11 @@ import java.util.UUID;
  * RolerMaster
  */
 
-public abstract class Tools {
+public abstract class Tools extends ToolsOlivaDevelop {
 
     private static FloatingActionButton fab;
     private static ScrollView mainScrollView;
 
-    public enum Error {
-        ERROR_404(404), ERROR_500(500), ERROR_300(300), ERROR_400(400);
-        private int val;
-
-        Error(int val) {
-            this.val = val;
-        }
-
-        public int getVal() {
-            return val;
-        }
-    }
 
     public static FloatingActionButton getFab() {
         return fab;
@@ -162,40 +151,6 @@ public abstract class Tools {
         customSnackBar(v, text, c.getActivity(), icon);
     }
 
-    public static boolean isNull(Object object) {
-        return object == null || (object instanceof String && object.toString().trim().equals(""));
-    }
-
-    public static boolean isNotNull(Object obj) {
-        return !isNull(obj);
-    }
-
-    public static boolean isNull(TextView view) {
-        return view == null || view.getText() == null || view.getText().toString().equals("");
-    }
-
-    public static boolean isNotNull(TextView view) {
-        return !isNull(view);
-    }
-
-    public static boolean isNotNull(EditText view) {
-        return !isNull(view) && isNotNull(view.getText()) && isNotNull(view.getText().toString().trim());
-    }
-
-    public static boolean isEmailValid(EditText email) {
-        return isNotNull(email) && isEmailValid(email.getText().toString().trim());
-    }
-
-    public static boolean isEmailValid(String... emails) {
-        boolean retorno = false;
-        for (String email : emails) {
-            if (!TextUtils.isEmpty(email.trim()) && Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
-                retorno = true;
-                break;
-            }
-        }
-        return retorno;
-    }
 
     public static void createSpinner(Activity a, View view, @IdRes int idSpinner, List<KeyValuePair> values) {
         createSpinnerBase(a, view, idSpinner, R.layout.custom_spinner, values, 0);

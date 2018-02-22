@@ -1,9 +1,9 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.managers;
 
-import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ActionOlivaDevelop;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Service;
-import com.olivadevelop.rolermaster.tools.utils.Alert;
-import com.olivadevelop.rolermaster.tools.utils.intefraces.ActionRolerMaster;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONObject;
 
@@ -35,7 +35,7 @@ public class ServiceDAO implements Service {
         return service.get();
     }
 
-    public static class ActionService<T> implements ActionRolerMaster {
+    public static class ActionService<T> implements ActionOlivaDevelop {
         public void run(T entity) {
             if (Tools.isNotNull(Alert.getInstance().getLoadingDialog()) && Alert.getInstance().getLoadingDialog().isShowing()) {
                 Alert.getInstance().hideLoadingDialog();
