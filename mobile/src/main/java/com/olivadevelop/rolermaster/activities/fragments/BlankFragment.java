@@ -78,7 +78,7 @@ public class BlankFragment extends CustomFragment {
         }
 
         Locale es = new Locale();
-        es.setCodeIso(null);
+        es.setCodeIso("ES");
         es.setIdLocale(2);
 
         LocaleTrans trans = new LocaleTrans();

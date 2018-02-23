@@ -1,26 +1,15 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.ManyToMany;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.ManyToOne;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.*;
+import java.util.*;
 
-import static com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException.TypeException.UNIQUE_NOT_NULL;
+import static com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException.TypeException.*;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -42,7 +31,8 @@ public class JSONPersistence<T extends _BasicEntity> {
     }
 
     /**
-     * Persistimos o actualizamos una sola entidad, sin importar las entidades relacionadas, solo guardaremos sus respectivos ID para relacionarlos
+     * Persistimos o actualizamos una sola entidad, sin importar las entidades relacionadas, solo
+     * guardaremos sus respectivos ID para relacionarlos
      *
      * @param entity
      * @return
@@ -70,7 +60,8 @@ public class JSONPersistence<T extends _BasicEntity> {
     }
 
     /**
-     * Complementa el método persistenceJSONObject para mejor visibilidad. Transforma la entidad a JSON
+     * Complementa el método persistenceJSONObject para mejor visibilidad. Transforma la entidad a
+     * JSON
      *
      * @param entity
      * @return
@@ -88,10 +79,6 @@ public class JSONPersistence<T extends _BasicEntity> {
         for (Field field : fields) {
             field.setAccessible(true);
             String fName = field.getName();
-            if (_BasicEntity.CHANGE_FIELD.equals(fName) || _BasicEntity.SERIAL_VERSION_UID.equals(fName)) {
-                // obviamos esas dos columnas
-                continue;
-            }
             KeyValuePair<String, Object> fieldValue = getValueFromField(field, entity);
             if (fieldValue != null) {
                 retorno.put(fieldValue.getKey(), fieldValue.getValue());
@@ -102,8 +89,8 @@ public class JSONPersistence<T extends _BasicEntity> {
     }
 
     /**
-     * Complementa el método persistenceJSONObject para mejor visibilidad.
-     * Obtiene el valor de una propiedad de la entidad y, en caso de que sea una entidad relacionada enlazamos el id
+     * Complementa el método persistenceJSONObject para mejor visibilidad. Obtiene el valor de una
+     * propiedad de la entidad y, en caso de que sea una entidad relacionada enlazamos el id
      *
      * @param field
      * @param entityMaster
@@ -114,48 +101,48 @@ public class JSONPersistence<T extends _BasicEntity> {
     private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, OlivaDevelopException {
         KeyValuePair<String, Object> retorno = null;
         Object value = field.get(entityMaster);
-        // comprobamos si es único y si está vacío
-        Persistence persistenceField = field.getAnnotation(Persistence.class);
-        if (Tools.isNotNull(persistenceField)) {
-            if (Tools.isNotNull(persistenceField.unique())) {
-                if (Tools.isNull(value)) {
-                    // Si es único, no puede ser nulo, cancelamos la operación
-                    throw new OlivaDevelopException(UNIQUE_NOT_NULL);
+        if (!_BasicEntity.CHANGE_FIELD.equals(field.getName()) && !_BasicEntity.SERIAL_VERSION_UID.equals(field.getName())
+                && !_BasicEntity.CHANGE_FIELD.equals(value) && !_BasicEntity.SERIAL_VERSION_UID.equals(value)) {
+            // comprobamos si es único y si está vacío
+            Persistence persistenceField = field.getAnnotation(Persistence.class);
+            if (Tools.isNotNull(persistenceField)) {
+                if (Tools.isNotNull(persistenceField.unique())) {
+                    if (Tools.isNull(value)) {
+                        // Si es único, no puede ser nulo, cancelamos la operación
+                        throw new OlivaDevelopException(UNIQUE_NOT_NULL);
+                    }
                 }
             }
-        }
-        //Buscamos la relación
-        RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
-        if (Tools.isNotNull(relatedEntity)) {
-            // Ahora debemos obtener el tipo de relación.
-            OneToOne oneToOne = field.getAnnotation(OneToOne.class);
-            OneToMany oneToMany = field.getAnnotation(OneToMany.class);
-            ManyToOne manyToOne = field.getAnnotation(ManyToOne.class);
-            ManyToMany manyToMany = field.getAnnotation(ManyToMany.class);
-            if (Tools.isNotNull(oneToOne)) {
-                // Si es una relación uno a uno o uno a muchos, directamente podemos transformar en una Entity para obtener su identificador
-                _BasicEntity entity = (_BasicEntity) value;
-                retorno = new KeyValuePair<>();
-                if (Tools.isNotNull(relatedEntity.joinColumn())) {
-                    retorno.setKey(relatedEntity.joinColumn());
-                } else {
-                    retorno.setKey(field.getName());
-                }
-                for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
-                    fieldRelated.setAccessible(true);
-                    if (_BasicEntity.CHANGE_FIELD.equals(fieldRelated.getName())
-                            || _BasicEntity.SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
-                        // obviamos esas dos columnas
-                        continue;
+            //Buscamos la relación
+            RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
+            if (Tools.isNotNull(relatedEntity)) {
+                // Ahora debemos obtener el tipo de relación.
+                OneToOne oneToOne = field.getAnnotation(OneToOne.class);
+                OneToMany oneToMany = field.getAnnotation(OneToMany.class);
+                ManyToOne manyToOne = field.getAnnotation(ManyToOne.class);
+                ManyToMany manyToMany = field.getAnnotation(ManyToMany.class);
+                if (Tools.isNotNull(oneToOne)) {
+                    // Si es una relación uno a uno o uno a muchos, directamente podemos transformar en una Entity para obtener su identificador
+                    _BasicEntity entity = (_BasicEntity) value;
+                    retorno = new KeyValuePair<>();
+                    if (Tools.isNotNull(relatedEntity.joinColumn())) {
+                        retorno.setKey(relatedEntity.joinColumn());
+                    } else {
+                        retorno.setKey(field.getName());
                     }
-                    Id pk = fieldRelated.getAnnotation(Id.class);
-                    if (Tools.isNotNull(pk)) {
-                        retorno.setValue(fieldRelated.get(entity));
+                    for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
+                        fieldRelated.setAccessible(true);
+                        if (!_BasicEntity.CHANGE_FIELD.equals(fieldRelated.getName()) && !_BasicEntity.SERIAL_VERSION_UID.equals(fieldRelated.getName())
+                                && !_BasicEntity.CHANGE_FIELD.equals(fieldRelated.get(entity)) && !_BasicEntity.SERIAL_VERSION_UID.equals(fieldRelated.get(entity))) {
+                            Id pk = fieldRelated.getAnnotation(Id.class);
+                            if (Tools.isNotNull(pk)) {
+                                retorno.setValue(fieldRelated.get(entity));
+                                fieldRelated.setAccessible(false);
+                                break;
+                            }
+                        }
                         fieldRelated.setAccessible(false);
-                        break;
                     }
-                    fieldRelated.setAccessible(false);
-                }
            /* } else if (Tools.isNotNull(oneToMany)) {
                 // no hacemos nada, es decir, se omite la relación puesto que es la entidad relacionada quien tendrá el identificador del padre
             } else if (Tools.isNotNull(manyToOne)) {
@@ -166,17 +153,18 @@ public class JSONPersistence<T extends _BasicEntity> {
                 for (Entity ent : lista) {
                     _BasicEntity entity = (_BasicEntity) ent;
                 }*/
-            }
-        } else {
-            // Si no hay relatedEntity, es un valor primitivo, por lo que lo añadimos tal cual
-            retorno = new KeyValuePair<>();
-            Persistence persistence = field.getAnnotation(Persistence.class);
-            if (Tools.isNotNull(persistence)) {
-                retorno.setKey(persistence.columnName());
+                }
             } else {
-                retorno.setKey(field.getName());
+                // Si no hay relatedEntity, es un valor primitivo, por lo que lo añadimos tal cual
+                retorno = new KeyValuePair<>();
+                Persistence persistence = field.getAnnotation(Persistence.class);
+                if (Tools.isNotNull(persistence)) {
+                    retorno.setKey(persistence.columnName());
+                } else {
+                    retorno.setKey(field.getName());
+                }
+                retorno.setValue(value);
             }
-            retorno.setValue(value);
         }
         return retorno;
     }

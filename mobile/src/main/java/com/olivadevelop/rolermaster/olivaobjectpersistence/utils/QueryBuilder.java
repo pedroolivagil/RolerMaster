@@ -2,16 +2,13 @@ package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
 import android.util.Log;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
-import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import okhttp3.FormBody;
 
@@ -51,7 +48,7 @@ public class QueryBuilder<T extends _BasicEntity> {
         FormBody.Builder query = new FormBody.Builder();
         query.add(ENTITY_QUERY, entity.getSimpleName());
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
-        if (Tools.isNotNull(values)) {
+        if (ToolsOlivaDevelop.isNotNull(values)) {
             for (KeyValuePair obj : values) {
                 query.add(this.jsonPersistence.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getValueAsString());
             }
@@ -70,7 +67,7 @@ public class QueryBuilder<T extends _BasicEntity> {
         FormBody.Builder query = new FormBody.Builder();
         try {
             List<_BasicEntity> retorno = new ArrayList<>();
-            getJsonEntities(retorno, (_BasicEntity) entity);
+            createPersistenceList(retorno, entity);
             Collections.reverse(retorno);
             for (_BasicEntity bEnti : retorno) {
                 query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti).toString());
@@ -84,13 +81,35 @@ public class QueryBuilder<T extends _BasicEntity> {
         return query.build();
     }
 
-    private void getJsonEntities(List<_BasicEntity> retorno, _BasicEntity entity) throws JSONException, IllegalAccessException {
+    /**
+     * Obtenemos las entidades relacionadas y las entidades relacionadas de las relacionadas. Cada
+     * entidad relacionada aumentará el subnivel, siempre que sea una OneToMany, que será el orden
+     * de inserción a la lista final de entidades.
+     *
+     * @param retorno
+     * @param entity
+     * @throws JSONException
+     * @throws IllegalAccessException
+     */
+    private void createPersistenceList(List<_BasicEntity> retorno, _BasicEntity entity) throws JSONException, IllegalAccessException {
         for (Field field : entity.getClass().getDeclaredFields()) {
+            if (_BasicEntity.CHANGE_FIELD.equals(field.getName()) || _BasicEntity.SERIAL_VERSION_UID.equals(field.getName())) {
+                // obviamos esas dos columnas
+                continue;
+            }
             field.setAccessible(true);
             Object fieldValue = field.get(entity);
             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
-            if (Tools.isNotNull(relatedEntity)) {
-                getJsonEntities(retorno, (_BasicEntity) fieldValue);
+            OneToOne oneToOne = field.getAnnotation(OneToOne.class);
+            OneToMany oneToMany = field.getAnnotation(OneToMany.class);
+            if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
+                if (ToolsOlivaDevelop.isNotNull(oneToOne)) {
+                    createPersistenceList(retorno, (_BasicEntity) fieldValue);
+                } else if (ToolsOlivaDevelop.isNotNull(oneToMany)) {
+                    /*for (_BasicEntity value : (List<_BasicEntity>) fieldValue) {
+                        createPersistenceList(retorno, value);
+                    }*/
+                }
             }
             field.setAccessible(false);
         }

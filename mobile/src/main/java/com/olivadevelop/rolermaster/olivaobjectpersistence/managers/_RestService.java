@@ -2,15 +2,13 @@ package com.olivadevelop.rolermaster.olivaobjectpersistence.managers;
 
 import android.os.AsyncTask;
 
-import com.olivadevelop.rolermaster.tools.Constant;
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopThread;
+import com.olivadevelop.rolermaster.tools.Constant;
+import com.olivadevelop.rolermaster.tools.Tools;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
@@ -25,8 +23,7 @@ import okhttp3.ResponseBody;
  * Created by Oliva on 18/01/2018.
  */
 
-// TODO: en caso de no llegar a extender nunca la clase, cambiar a final y eliminar los métodos action* de preExec y postExec
-class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
+final class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
 
     private String url;
 
@@ -36,7 +33,7 @@ class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(RequestBody... formbody) {
-        JSONObject retorno = null; // resultado de la petició, contiene la información
+        JSONObject retorno = null;
         try {
             URL url = new URL(Constant.SERVICE_URL + this.url);
             OkHttpClient client = new OkHttpClient();
@@ -57,15 +54,6 @@ class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
                     Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "TimeOutException.\n\n" + e.getMessage(), null);
-                }
-            });
-        } catch (final IOException | JSONException e) {
-            e.printStackTrace();
-            Alert.getInstance().getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Alert.getInstance().hideLoadingDialog();
-                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "ServiceException.\n\n" + e.getMessage(), null);
                 }
             });
         } catch (final Exception e) {
