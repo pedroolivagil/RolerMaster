@@ -1,9 +1,6 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -13,4 +10,6 @@ import java.lang.annotation.Target;
 @Target(value = {ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OneToOne {
+
+    boolean canPersist() default true;
 }

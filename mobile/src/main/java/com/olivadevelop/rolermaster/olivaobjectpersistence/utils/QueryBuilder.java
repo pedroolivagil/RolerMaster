@@ -66,12 +66,13 @@ public class QueryBuilder<T extends _BasicEntity> {
     public FormBody insertQuery(T entity) throws JSONException {
         FormBody.Builder query = new FormBody.Builder();
         try {
-            List<_BasicEntity> retorno = new ArrayList<>();
-            createPersistenceList(retorno, entity);
-            Collections.reverse(retorno);
-            for (_BasicEntity bEnti : retorno) {
-                query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti).toString());
-                Log.e("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti).toString());
+            List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
+            Integer levelPersistence = 0;
+            createPersistenceList(retorno, entity, levelPersistence);
+            /*Collections.reverse(retorno);*/
+            for (KeyValuePair<Integer, _BasicEntity> bEnti : retorno) {
+                query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
+                Log.e("entity[] (" + bEnti.getKey() + ")", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -91,35 +92,26 @@ public class QueryBuilder<T extends _BasicEntity> {
      * @throws JSONException
      * @throws IllegalAccessException
      */
-    private void createPersistenceList(List<_BasicEntity> retorno, _BasicEntity entity) throws JSONException, IllegalAccessException {
+    private void createPersistenceList(List<KeyValuePair<Integer, _BasicEntity>> retorno, _BasicEntity entity, Integer levelPersistence) throws JSONException, IllegalAccessException {
         for (Field field : entity.getClass().getDeclaredFields()) {
-            if (_BasicEntity.CHANGE_FIELD.equals(field.getName()) || _BasicEntity.SERIAL_VERSION_UID.equals(field.getName())) {
-                // obviamos esas dos columnas
-                continue;
-            }
             field.setAccessible(true);
-            Object fieldValue = field.get(entity);
             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
             OneToOne oneToOne = field.getAnnotation(OneToOne.class);
             OneToMany oneToMany = field.getAnnotation(OneToMany.class);
             if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
-                if (ToolsOlivaDevelop.isNotNull(oneToOne)) {
-                    if (!retorno.contains(entity)) {
-                        createPersistenceList(retorno, (_BasicEntity) fieldValue);
-                    }
+                Object fieldValue = field.get(entity);
+                levelPersistence++;
+                if (ToolsOlivaDevelop.isNotNull(oneToOne) && oneToOne.canPersist()) {
+                    createPersistenceList(retorno, (_BasicEntity) fieldValue, levelPersistence);
                 } else if (ToolsOlivaDevelop.isNotNull(oneToMany)) {
                     for (_BasicEntity value : (List<_BasicEntity>) fieldValue) {
-                        createPersistenceList(retorno, value);
+                        createPersistenceList(retorno, value, levelPersistence);
                     }
-                    /*List<_BasicEntity> fieldList = (List<_BasicEntity>) fieldValue;
-                    for (int x = 0; ((x < fieldList.size())); x++) {
-
-                    }*/
                 }
             }
             field.setAccessible(false);
         }
-        retorno.add(entity);
+        retorno.add(new KeyValuePair<>(levelPersistence, entity));
     }
 
     public JSONPersistence<T> getJsonPersistence() {

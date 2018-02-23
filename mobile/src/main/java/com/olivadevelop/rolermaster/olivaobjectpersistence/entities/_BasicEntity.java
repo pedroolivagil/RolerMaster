@@ -99,11 +99,11 @@ public abstract class _BasicEntity implements Entity {
             }
         }
     }
-
+/*
     @Override
     public String toString() {
         return toString(true);
-    }
+    }*/
 
     public String toString(boolean fullObject) {
         return toJSON(fullObject).toString();

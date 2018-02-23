@@ -15,7 +15,7 @@ import org.json.JSONObject;
 @Persistence(collectionName = "locale_trans")
 public class LocaleTrans extends GenericTrans {
 
-    @OneToOne
+    @OneToOne(canPersist = false)
     @RelatedEntity(joinColumn = "idLocaleGroup", preference = true)
     private Locale localeGroup;
 

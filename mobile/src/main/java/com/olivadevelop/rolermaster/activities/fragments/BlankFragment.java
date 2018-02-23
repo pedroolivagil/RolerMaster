@@ -2,23 +2,14 @@ package com.olivadevelop.rolermaster.activities.fragments;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.JSONPersistence;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
-import com.olivadevelop.rolermaster.persistence.entities.Locale;
-import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
-import com.olivadevelop.rolermaster.persistence.entities.User;
-import com.olivadevelop.rolermaster.tools.Navigation;
-import com.olivadevelop.rolermaster.tools.SessionManager;
-import com.olivadevelop.rolermaster.tools.Tools;
+import com.olivadevelop.rolermaster.persistence.entities.*;
+import com.olivadevelop.rolermaster.tools.*;
 import com.olivadevelop.rolermaster.tools.layouts.RolerMasterCardView;
-import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
-import com.olivadevelop.rolermaster.tools.utils.Preferences;
+import com.olivadevelop.rolermaster.tools.utils.*;
 
 import org.json.JSONException;
 
@@ -79,14 +70,24 @@ public class BlankFragment extends CustomFragment {
 
         Locale es = new Locale();
         es.setCodeIso("ES");
-        es.setIdLocale(2);
+        es.setIdLocale(1);
 
-        LocaleTrans trans = new LocaleTrans();
-        trans.setText("Español");
-        trans.setLocale(es);
-        trans.setIdTrans(1);
+        Locale en = new Locale();
+        en.setCodeIso("EN");
+        en.setIdLocale(2);
 
-        es.addTranslation(trans);
+        LocaleTrans trans1 = new LocaleTrans();
+        trans1.setText("Español");
+        trans1.setLocale(es);
+        trans1.setIdTrans(1);
+
+        LocaleTrans trans2 = new LocaleTrans();
+        trans2.setText("Spanish");
+        trans2.setLocale(en);
+        trans2.setIdTrans(2);
+
+        es.addTranslation(trans1);
+        es.addTranslation(trans2);
 
         Controllers.getInstance().getLocaleController().create(es);
 /*

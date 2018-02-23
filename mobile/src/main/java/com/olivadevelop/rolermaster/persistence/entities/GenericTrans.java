@@ -19,7 +19,7 @@ public class GenericTrans extends _BasicEntity {
     @Id
     private Integer idTrans;
 
-    @OneToOne
+    @OneToOne(canPersist = false)
     @RelatedEntity(joinColumn = "idLocale", preference = true)
     private Locale locale;
 
