@@ -122,23 +122,25 @@ public class JSONPersistence<T extends _BasicEntity> {
                 if (Tools.isNotNull(oneToOne)) {
                     // Si es una relación uno a uno o uno a muchos, directamente podemos transformar en una Entity para obtener su identificador
                     _BasicEntity entity = (_BasicEntity) value;
-                    retorno = new KeyValuePair<>();
-                    if (Tools.isNotNull(relatedEntity.joinColumn())) {
-                        retorno.setKey(relatedEntity.joinColumn());
-                    } else {
-                        retorno.setKey(field.getName());
-                    }
-                    for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
-                        fieldRelated.setAccessible(true);
-                        if (!ignoreField(fieldRelated, entity)) {
-                            Id pk = fieldRelated.getAnnotation(Id.class);
-                            if (Tools.isNotNull(pk)) {
-                                retorno.setValue(fieldRelated.get(entity));
-                                fieldRelated.setAccessible(false);
-                                break;
-                            }
+                    if (ToolsOlivaDevelop.isNotNull(entity)) {
+                        retorno = new KeyValuePair<>();
+                        if (Tools.isNotNull(relatedEntity.joinColumn())) {
+                            retorno.setKey(relatedEntity.joinColumn());
+                        } else {
+                            retorno.setKey(field.getName());
                         }
-                        fieldRelated.setAccessible(false);
+                        for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
+                            fieldRelated.setAccessible(true);
+                            if (!ignoreField(fieldRelated, entity)) {
+                                Id pk = fieldRelated.getAnnotation(Id.class);
+                                if (Tools.isNotNull(pk)) {
+                                    retorno.setValue(fieldRelated.get(entity));
+                                    fieldRelated.setAccessible(false);
+                                    break;
+                                }
+                            }
+                            fieldRelated.setAccessible(false);
+                        }
                     }
            /* } else if (Tools.isNotNull(oneToMany)) {
                 // no hacemos nada, es decir, se omite la relación puesto que es la entidad relacionada quien tendrá el identificador del padre

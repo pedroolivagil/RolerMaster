@@ -1,17 +1,12 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.tools.Tools;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -28,7 +23,7 @@ public class Country extends _BasicEntity {
 
     @OneToMany
     @RelatedEntity(joinColumn = "idCountry")
-    private List<CountryTrans> translation;
+    private List<CountryTrans> translations;
 
     @OneToOne
     @RelatedEntity(joinColumn = "idLocale", preference = true)
@@ -59,19 +54,32 @@ public class Country extends _BasicEntity {
         this.code = code;
     }
 
-    public List<CountryTrans> getTranslation() {
-        return translation;
-    }
-
-    public void setTranslation(List<CountryTrans> translation) {
-        this.translation = translation;
-    }
-
     public Locale getLocale() {
         return locale;
     }
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    public List<CountryTrans> getTranslations() {
+        if (Tools.isNull(translations)) {
+            this.translations = new ArrayList<>();
+        }
+        return translations;
+    }
+
+    public void setTranslations(List<CountryTrans> translations) {
+        this.translations = translations;
+    }
+
+    public void addTranslation(CountryTrans translation) {
+        this.getTranslations().add(translation);
+        translation.setCountry(this);
+    }
+
+    public void removeTranslation(CountryTrans translation) {
+        this.getTranslations().remove(translation);
+        translation.setCountry(null);
     }
 }

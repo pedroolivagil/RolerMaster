@@ -89,7 +89,27 @@ public class BlankFragment extends CustomFragment {
         es.addTranslation(trans1);
         es.addTranslation(trans2);
 
-        Controllers.getInstance().getLocaleController().create(es);
+        Country countryES = new Country();
+        countryES.setLocale(es);
+        countryES.setIdCountry(1);
+        countryES.setCode("ES");
+
+        CountryTrans cEs = new CountryTrans();
+        cEs.setCountry(countryES);
+        cEs.setText("España");
+        cEs.setLocale(es);
+        cEs.setIdTrans(1);
+
+        CountryTrans cEn = new CountryTrans();
+        cEn.setCountry(countryES);
+        cEn.setText("Spain");
+        cEn.setLocale(en);
+        cEn.setIdTrans(2);
+
+        countryES.addTranslation(cEs);
+        countryES.addTranslation(cEn);
+
+        Controllers.getInstance().getCountryController().create(countryES);
 /*
         try {
             JSONPersistence<Locale> jsonPersistence = new JSONPersistence<>(Locale.class);
