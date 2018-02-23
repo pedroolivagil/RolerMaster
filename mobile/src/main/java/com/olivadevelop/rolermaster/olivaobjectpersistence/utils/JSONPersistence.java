@@ -100,10 +100,9 @@ public class JSONPersistence<T extends _BasicEntity> {
      */
     private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, OlivaDevelopException {
         KeyValuePair<String, Object> retorno = null;
-        Object value = field.get(entityMaster);
-        if (!_BasicEntity.CHANGE_FIELD.equals(field.getName()) && !_BasicEntity.SERIAL_VERSION_UID.equals(field.getName())
-                && !_BasicEntity.CHANGE_FIELD.equals(value) && !_BasicEntity.SERIAL_VERSION_UID.equals(value)) {
+        if (!ignoreField(field, entityMaster)) {
             // comprobamos si es único y si está vacío
+            Object value = field.get(entityMaster);
             Persistence persistenceField = field.getAnnotation(Persistence.class);
             if (Tools.isNotNull(persistenceField)) {
                 if (Tools.isNotNull(persistenceField.unique())) {
@@ -132,8 +131,7 @@ public class JSONPersistence<T extends _BasicEntity> {
                     }
                     for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
                         fieldRelated.setAccessible(true);
-                        if (!_BasicEntity.CHANGE_FIELD.equals(fieldRelated.getName()) && !_BasicEntity.SERIAL_VERSION_UID.equals(fieldRelated.getName())
-                                && !_BasicEntity.CHANGE_FIELD.equals(fieldRelated.get(entity)) && !_BasicEntity.SERIAL_VERSION_UID.equals(fieldRelated.get(entity))) {
+                        if (!ignoreField(fieldRelated, entity)) {
                             Id pk = fieldRelated.getAnnotation(Id.class);
                             if (Tools.isNotNull(pk)) {
                                 retorno.setValue(fieldRelated.get(entity));
@@ -284,5 +282,12 @@ public class JSONPersistence<T extends _BasicEntity> {
             }
         }
         return retorno;
+    }
+
+    private boolean ignoreField(Field field, _BasicEntity entity) throws IllegalAccessException {
+        return _BasicEntity.CHANGE_FIELD.equals(field.getName())
+                || _BasicEntity.SERIAL_VERSION_UID.equals(field.getName())
+                || _BasicEntity.CHANGE_FIELD.equals(field.get(entity))
+                || _BasicEntity.SERIAL_VERSION_UID.equals(field.get(entity));
     }
 }

@@ -104,10 +104,16 @@ public class QueryBuilder<T extends _BasicEntity> {
             OneToMany oneToMany = field.getAnnotation(OneToMany.class);
             if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
                 if (ToolsOlivaDevelop.isNotNull(oneToOne)) {
-                    createPersistenceList(retorno, (_BasicEntity) fieldValue);
+                    if (!retorno.contains(entity)) {
+                        createPersistenceList(retorno, (_BasicEntity) fieldValue);
+                    }
                 } else if (ToolsOlivaDevelop.isNotNull(oneToMany)) {
-                    /*for (_BasicEntity value : (List<_BasicEntity>) fieldValue) {
+                    for (_BasicEntity value : (List<_BasicEntity>) fieldValue) {
                         createPersistenceList(retorno, value);
+                    }
+                    /*List<_BasicEntity> fieldList = (List<_BasicEntity>) fieldValue;
+                    for (int x = 0; ((x < fieldList.size())); x++) {
+
                     }*/
                 }
             }
