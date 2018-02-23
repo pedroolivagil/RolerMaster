@@ -1,15 +1,25 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.ManyToMany;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.ManyToOne;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException.TypeException.*;
+import static com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException.TypeException.UNIQUE_NOT_NULL;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -21,12 +31,8 @@ public class JSONPersistence<T extends _BasicEntity> {
 
     private Class<T> entityClass;
 
-    /*JSONPersistence(Class<T> entity) {
-        this.entityClass = entity;
-    }*/
-
     //TODO: para el test lo dejamos publico
-    public JSONPersistence(Class<T> entity) {
+    JSONPersistence(Class<T> entity) {
         this.entityClass = entity;
     }
 
@@ -41,8 +47,8 @@ public class JSONPersistence<T extends _BasicEntity> {
     public JSONObject persistenceJSONObject(T entity) throws OlivaDevelopException {
         JSONObject retorno = new JSONObject();
         try {
-            Field[] fields = entity.getClass().getDeclaredFields();
-            if (Tools.isNotNull(fields) && fields.length > 0) {
+            List<Field> fields = ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true);
+            if (Tools.isNotNull(fields) && fields.size() > 0) {
                 Persistence persistenceClass = entity.getClass().getAnnotation(Persistence.class);
                 String className = entity.getClass().getSimpleName();
                 if (Tools.isNotNull(persistenceClass) && Tools.isNotNull(persistenceClass.collectionName())) {
@@ -71,12 +77,7 @@ public class JSONPersistence<T extends _BasicEntity> {
      */
     private JSONObject transformToJSON(T entity) throws IllegalAccessException, JSONException, OlivaDevelopException {
         JSONObject retorno = new JSONObject();
-        Field[] fields1 = entity.getClass().getDeclaredFields();
-        Field[] fields2 = entity.getClass().getSuperclass().getDeclaredFields();
-        List<Field> fields = new ArrayList<>();
-        fields.addAll(Arrays.asList(fields1));
-        fields.addAll(Arrays.asList(fields2));
-        for (Field field : fields) {
+        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
             field.setAccessible(true);
             KeyValuePair<String, Object> fieldValue = getValueFromField(field, entity);
             if (fieldValue != null) {

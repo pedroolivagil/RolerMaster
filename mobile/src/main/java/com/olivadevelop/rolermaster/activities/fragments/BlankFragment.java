@@ -70,41 +70,34 @@ public class BlankFragment extends CustomFragment {
 
         Locale es = new Locale();
         es.setCodeIso("ES");
-        es.setIdLocale(1);
 
         Locale en = new Locale();
         en.setCodeIso("EN");
-        en.setIdLocale(2);
 
         LocaleTrans trans1 = new LocaleTrans();
         trans1.setText("Español");
         trans1.setLocale(es);
-        trans1.setIdTrans(1);
 
         LocaleTrans trans2 = new LocaleTrans();
         trans2.setText("Spanish");
         trans2.setLocale(en);
-        trans2.setIdTrans(2);
 
         es.addTranslation(trans1);
         es.addTranslation(trans2);
 
         Country countryES = new Country();
         countryES.setLocale(es);
-        countryES.setIdCountry(1);
         countryES.setCode("ES");
 
         CountryTrans cEs = new CountryTrans();
         cEs.setCountry(countryES);
         cEs.setText("España");
         cEs.setLocale(es);
-        cEs.setIdTrans(1);
 
         CountryTrans cEn = new CountryTrans();
         cEn.setCountry(countryES);
         cEn.setText("Spain");
         cEn.setLocale(en);
-        cEn.setIdTrans(2);
 
         countryES.addTranslation(cEs);
         countryES.addTranslation(cEn);

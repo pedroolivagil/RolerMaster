@@ -80,8 +80,8 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     @Override
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
-        getQueryBuilder().insertQuery(entity);
-       /* JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insertQuery(entity));
+        getQueryBuilder().insert(entity);
+       /* JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insert(entity));
         this.queryBuilder.getJsonPersistence().getNewEntity(result);*/
         return false;
     }

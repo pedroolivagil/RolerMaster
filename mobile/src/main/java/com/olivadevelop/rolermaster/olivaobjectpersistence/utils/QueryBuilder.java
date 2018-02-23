@@ -2,13 +2,16 @@ package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
 import android.util.Log;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 
 import org.json.JSONException;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.FormBody;
 
@@ -63,7 +66,32 @@ public class QueryBuilder<T extends _BasicEntity> {
      * @return
      * @throws JSONException
      */
-    public FormBody insertQuery(T entity) throws JSONException {
+    public FormBody insert(T entity) throws JSONException {
+        FormBody.Builder query = new FormBody.Builder();
+        try {
+            List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
+            Integer levelPersistence = 0;
+            createPersistenceList(retorno, entity, levelPersistence);
+            for (KeyValuePair<Integer, _BasicEntity> bEnti : retorno) {
+                query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
+                Log.e("entity[] (" + bEnti.getKey() + ")", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (OlivaDevelopException e) {
+            e.printStackTrace();
+        }
+        return query.build();
+    }
+
+    /**
+     * Crea una query para enviar el objeto a la bbdd
+     *
+     * @param entity
+     * @return
+     * @throws JSONException
+     */
+    public FormBody update(T entity) throws JSONException {
         FormBody.Builder query = new FormBody.Builder();
         try {
             List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
@@ -116,4 +144,5 @@ public class QueryBuilder<T extends _BasicEntity> {
     public JSONPersistence<T> getJsonPersistence() {
         return jsonPersistence;
     }
+
 }

@@ -5,6 +5,13 @@ import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 22/02/2018.
@@ -57,5 +64,18 @@ public class ToolsOlivaDevelop {
             }
         }
         return retorno;
+    }
+
+    public static List<Field> getAllFieldsFromEntity(Entity entity) {
+        return getAllFieldsFromEntity(entity, false);
+    }
+
+    public static List<Field> getAllFieldsFromEntity(Entity entity, boolean withSuperClass) {
+        List<Field> fields = new ArrayList<>();
+        fields.addAll(Arrays.asList(entity.getClass().getDeclaredFields()));
+        if (withSuperClass) {
+            fields.addAll(Arrays.asList(entity.getClass().getSuperclass().getDeclaredFields()));
+        }
+        return fields;
     }
 }
