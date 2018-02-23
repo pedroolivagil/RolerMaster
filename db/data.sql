@@ -1,0 +1,2 @@
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('user', '1', '1', '9223372036854775807', '1', '0');
+-- INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('', '1', '1', '9223372036854775807', '1', '0');
