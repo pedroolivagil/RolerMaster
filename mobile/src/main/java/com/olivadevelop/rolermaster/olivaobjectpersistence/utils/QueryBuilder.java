@@ -69,7 +69,6 @@ public class QueryBuilder<T extends _BasicEntity> {
             List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
             Integer levelPersistence = 0;
             createPersistenceList(retorno, entity, levelPersistence);
-            /*Collections.reverse(retorno);*/
             for (KeyValuePair<Integer, _BasicEntity> bEnti : retorno) {
                 query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
                 Log.e("entity[] (" + bEnti.getKey() + ")", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());

@@ -1,19 +1,13 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.entities;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -22,7 +16,7 @@ import java.util.List;
 
 public abstract class _BasicEntity implements Entity {
 
-    private static final String ENTITY = "entity";
+    public static final String ENTITY = "entity";
     public static final String SERIAL_VERSION_UID = "serialVersionUID";
     public static final String CHANGE_FIELD = "$change";
 

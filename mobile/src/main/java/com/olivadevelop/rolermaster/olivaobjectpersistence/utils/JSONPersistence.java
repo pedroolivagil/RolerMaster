@@ -78,7 +78,6 @@ public class JSONPersistence<T extends _BasicEntity> {
         fields.addAll(Arrays.asList(fields2));
         for (Field field : fields) {
             field.setAccessible(true);
-            String fName = field.getName();
             KeyValuePair<String, Object> fieldValue = getValueFromField(field, entity);
             if (fieldValue != null) {
                 retorno.put(fieldValue.getKey(), fieldValue.getValue());
@@ -287,7 +286,9 @@ public class JSONPersistence<T extends _BasicEntity> {
     private boolean ignoreField(Field field, _BasicEntity entity) throws IllegalAccessException {
         return _BasicEntity.CHANGE_FIELD.equals(field.getName())
                 || _BasicEntity.SERIAL_VERSION_UID.equals(field.getName())
+                || _BasicEntity.ENTITY.equals(field.getName())
                 || _BasicEntity.CHANGE_FIELD.equals(field.get(entity))
-                || _BasicEntity.SERIAL_VERSION_UID.equals(field.get(entity));
+                || _BasicEntity.SERIAL_VERSION_UID.equals(field.get(entity))
+                || _BasicEntity.ENTITY.equals(field.get(entity));
     }
 }
