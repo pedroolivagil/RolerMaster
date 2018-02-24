@@ -1,2 +1,13 @@
 INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('user', '1', '1', '9223372036854775807', '1', '0');
--- INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('character', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('country', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('country_trans', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('game', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('game_category', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('gender', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('gender_trans', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('locale', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('locale_trans', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('parameter', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('preference', '1', '1', '9223372036854775807', '1', '0');
+INSERT INTO _sequence (name, increment, min_value, max_value, cur_value, cycle) VALUES ('resource', '1', '1', '9223372036854775807', '1', '0');

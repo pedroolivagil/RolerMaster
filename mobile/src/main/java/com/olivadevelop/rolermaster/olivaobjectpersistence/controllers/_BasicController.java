@@ -1,16 +1,20 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.controllers;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces._PersistenceMethods;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceURL;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -25,10 +29,12 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     private Class<T> entity;
     private QueryBuilder<T> queryBuilder;
+    private _SequenceController<T> _sequenceController;
 
     public _BasicController(Class<T> entity) {
         this.entity = entity;
         this.queryBuilder = new QueryBuilder<>(entity);
+        this._sequenceController = new _SequenceController<>(entity);
     }
 
     public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
@@ -80,6 +86,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     @Override
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
+        entity = generateIds(entity);
         getQueryBuilder().insert(entity);
        /* JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insert(entity));
         this.queryBuilder.getJsonPersistence().getNewEntity(result);*/
@@ -102,5 +109,28 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     protected QueryBuilder<T> getQueryBuilder() {
         return queryBuilder;
+    }
+
+    private T generateIds(T entity) throws InterruptedException, ExecutionException, JSONException {
+        try {
+            for (Field f : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
+                f.setAccessible(true);
+                Id pk = f.getAnnotation(Id.class);
+                RelatedEntity relatedEntity = f.getAnnotation(RelatedEntity.class);
+                if (ToolsOlivaDevelop.isNotNull(pk)) {
+                    // generamos la secuencia de la entidad.
+                    f.set(entity, this._sequenceController.getNextval(entity));
+                } else if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
+                    // volvemos a ejecutar la fucnión con la entidad relacionada
+                    if (!(f.get(entity) instanceof List)) {
+                        generateIds((T) f.get(entity));
+                    }
+                }
+                f.setAccessible(false);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return entity;
     }
 }

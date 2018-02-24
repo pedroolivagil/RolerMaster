@@ -59,6 +59,16 @@ public class QueryBuilder<T extends _BasicEntity> {
         return query.build();
     }
 
+    public FormBody createSimpleQuery(List<KeyValuePair<String, Object>> values) {
+        FormBody.Builder query = new FormBody.Builder();
+        if (ToolsOlivaDevelop.isNotNull(values)) {
+            for (KeyValuePair<String, ?> obj : values) {
+                query.add(obj.getKey(), obj.getValueAsString());
+            }
+        }
+        return query.build();
+    }
+
     /**
      * Crea una query para enviar el objeto a la bbdd
      *

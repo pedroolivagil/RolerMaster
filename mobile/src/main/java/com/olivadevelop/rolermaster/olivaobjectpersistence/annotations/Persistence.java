@@ -18,5 +18,7 @@ public @interface Persistence {
 
     String collectionName() default "";
 
+    String secuenceName() default "";
+
     boolean unique() default false;
 }

@@ -9,7 +9,8 @@ public enum ServiceURL {
     READ("read.php"),
     CREATE("create.php"),
     DELETE("delete.php"),
-    UPDATE("update.php");
+    UPDATE("update.php"),
+    SEQUENCE("sequence.php");
 
     private String url;
 
