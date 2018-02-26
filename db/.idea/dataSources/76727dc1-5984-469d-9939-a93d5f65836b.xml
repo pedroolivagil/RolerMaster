@@ -11,5 +11,748 @@
     <schema id="5" parent="1" name="performance_schema"/>
     <schema id="6" parent="1" name="phpmyadmin"/>
     <schema id="7" parent="1" name="test"/>
+    <table id="8" parent="2" name="_sequence"/>
+    <table id="9" parent="2" name="character"/>
+    <table id="10" parent="2" name="character_game"/>
+    <table id="11" parent="2" name="character_user"/>
+    <table id="12" parent="2" name="country"/>
+    <table id="13" parent="2" name="country_trans"/>
+    <table id="14" parent="2" name="game"/>
+    <table id="15" parent="2" name="game_category"/>
+    <table id="16" parent="2" name="game_resource"/>
+    <table id="17" parent="2" name="gender"/>
+    <table id="18" parent="2" name="gender_trans"/>
+    <table id="19" parent="2" name="locale"/>
+    <table id="20" parent="2" name="locale_trans"/>
+    <table id="21" parent="2" name="parameter"/>
+    <table id="22" parent="2" name="preference"/>
+    <table id="23" parent="2" name="resource"/>
+    <table id="24" parent="2" name="user"/>
+    <table id="25" parent="2" name="user_game"/>
+    <table id="26" parent="2" name="user_roler"/>
+    <column id="27" parent="8" name="name">
+      <Position>1</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="8" name="increment">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="29" parent="8" name="min_value">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="30" parent="8" name="max_value">
+      <Position>4</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;9223372036854775807&apos;</DefaultExpression>
+    </column>
+    <column id="31" parent="8" name="cur_value">
+      <Position>5</Position>
+      <DataType>bigint(20)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="32" parent="8" name="cycle">
+      <Position>6</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <key id="33" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="34" parent="9" name="idCharacter">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="9" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="9" name="surname">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="9" name="lastname">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="9" name="birthdate">
+      <Position>5</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="9" name="planet">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="40" parent="9" name="idGender">
+      <Position>7</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="41" parent="9" name="chronicle">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="9" name="behaviour">
+      <Position>9</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="9" name="character">
+      <Position>10</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="9" name="concept">
+      <Position>11</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="9" name="humanity">
+      <Position>12</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="46" parent="9" name="will">
+      <Position>13</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="47" parent="9" name="faith">
+      <Position>14</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="48" parent="9" name="health">
+      <Position>15</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="49" parent="9" name="experience">
+      <Position>16</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="50" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idCharacter</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="51" parent="10" name="idGame">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="10" name="idCharacter">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="10" name="date">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="54" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idGame
+idCharacter</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="55" parent="11" name="idUser">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="11" name="idCharacter">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="11" name="date">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="58" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idUser
+idCharacter</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="59" parent="12" name="idCountry">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="12" name="code">
+      <Position>2</Position>
+      <DataType>varchar(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="12" name="idLocale">
+      <Position>3</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <index id="62" parent="12" name="country_codeISO_uindex">
+      <ColNames>code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="63" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idCountry</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="64" parent="12" name="country_codeISO_uindex">
+      <ColNames>code</ColNames>
+      <UnderlyingIndexName>country_codeISO_uindex</UnderlyingIndexName>
+    </key>
+    <column id="65" parent="13" name="idTrans">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="13" name="idCountry">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="67" parent="13" name="idLocale">
+      <Position>3</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="68" parent="13" name="text">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="69" parent="13" name="countrytrans_country_uindex">
+      <ColNames>idCountry
+idLocale
+text</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="70" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idTrans</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="71" parent="13" name="countrytrans_country_uindex">
+      <ColNames>idCountry
+idLocale
+text</ColNames>
+      <UnderlyingIndexName>countrytrans_country_uindex</UnderlyingIndexName>
+    </key>
+    <column id="72" parent="14" name="idGame">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="14" name="name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="14" name="code">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="14" name="maxCharacters">
+      <Position>4</Position>
+      <DataType>int(5)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="14" name="date">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="77" parent="14" name="zoneResource">
+      <Position>6</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="78" parent="14" name="headerResource">
+      <Position>7</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="79" parent="14" name="status">
+      <Position>8</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="80" parent="14" name="location">
+      <Position>9</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="81" parent="14" name="idCategory">
+      <Position>10</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <index id="82" parent="14" name="game_code_uindex">
+      <ColNames>code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="83" parent="14" name="game_name_uindex">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="84" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idGame</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="85" parent="14" name="game_name_uindex">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>game_name_uindex</UnderlyingIndexName>
+    </key>
+    <key id="86" parent="14" name="game_code_uindex">
+      <ColNames>code</ColNames>
+      <UnderlyingIndexName>game_code_uindex</UnderlyingIndexName>
+    </key>
+    <column id="87" parent="15" name="idCategory">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="88" parent="15" name="idUser">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="89" parent="15" name="name">
+      <Position>3</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="90" parent="15" name="game_category_name_uindex">
+      <ColNames>name
+idUser</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="91" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idCategory</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="92" parent="15" name="game_category_name_uindex">
+      <ColNames>name
+idUser</ColNames>
+      <UnderlyingIndexName>game_category_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="93" parent="16" name="idResource">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="94" parent="16" name="idGame">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="95" parent="16" name="date">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="96" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idGame
+idResource</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="97" parent="17" name="idGender">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="98" parent="17" name="code">
+      <Position>2</Position>
+      <DataType>varchar(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="99" parent="17" name="gender_code_uindex">
+      <ColNames>code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="100" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idGender</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="101" parent="17" name="gender_code_uindex">
+      <ColNames>code</ColNames>
+      <UnderlyingIndexName>gender_code_uindex</UnderlyingIndexName>
+    </key>
+    <column id="102" parent="18" name="idTrans">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="103" parent="18" name="idGender">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="104" parent="18" name="idLocale">
+      <Position>3</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="105" parent="18" name="text">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="106" parent="18" name="gendertrans_gender_uindex">
+      <ColNames>idGender
+idLocale
+text</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="107" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idTrans</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="108" parent="18" name="gendertrans_gender_uindex">
+      <ColNames>idGender
+idLocale
+text</ColNames>
+      <UnderlyingIndexName>gendertrans_gender_uindex</UnderlyingIndexName>
+    </key>
+    <column id="109" parent="19" name="idLocale">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="110" parent="19" name="codeISO">
+      <Position>2</Position>
+      <DataType>varchar(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="111" parent="19" name="locale_codeISO_uindex">
+      <ColNames>codeISO</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="112" parent="19" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idLocale</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="113" parent="19" name="locale_codeISO_uindex">
+      <ColNames>codeISO</ColNames>
+      <UnderlyingIndexName>locale_codeISO_uindex</UnderlyingIndexName>
+    </key>
+    <column id="114" parent="20" name="idTrans">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="115" parent="20" name="idLocale">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="116" parent="20" name="idLocaleGroup">
+      <Position>3</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="117" parent="20" name="text">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="118" parent="20" name="localetrans_locale_uindex">
+      <ColNames>idLocale
+idLocaleGroup
+text</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="119" parent="20" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idTrans</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="120" parent="20" name="localetrans_locale_uindex">
+      <ColNames>idLocale
+idLocaleGroup
+text</ColNames>
+      <UnderlyingIndexName>localetrans_locale_uindex</UnderlyingIndexName>
+    </key>
+    <column id="121" parent="21" name="idParameter">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="122" parent="21" name="category">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="123" parent="21" name="idLocale">
+      <Position>3</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="124" parent="21" name="text">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="125" parent="21" name="parameter_idTrans_uindex">
+      <ColNames>idLocale
+category
+text</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="126" parent="21" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idParameter</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="127" parent="21" name="parameter_idTrans_uindex">
+      <ColNames>idLocale
+category
+text</ColNames>
+      <UnderlyingIndexName>parameter_idTrans_uindex</UnderlyingIndexName>
+    </key>
+    <column id="128" parent="22" name="idPrefs">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="129" parent="22" name="idUser">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="130" parent="22" name="p_key">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="131" parent="22" name="p_value">
+      <Position>4</Position>
+      <DataType>varchar(150)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="132" parent="22" name="date">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <index id="133" parent="22" name="preference_idUser_uindex">
+      <ColNames>idUser
+p_key</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="134" parent="22" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idPrefs</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="135" parent="22" name="preference_idUser_uindex">
+      <ColNames>idUser
+p_key</ColNames>
+      <UnderlyingIndexName>preference_idUser_uindex</UnderlyingIndexName>
+    </key>
+    <column id="136" parent="23" name="idResource">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="137" parent="23" name="code">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="138" parent="23" name="type">
+      <Position>3</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="139" parent="23" name="file">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="140" parent="23" name="date">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="141" parent="23" name="idUser">
+      <Position>6</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <index id="142" parent="23" name="resource_code_uindex">
+      <ColNames>code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="143" parent="23" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idResource</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="144" parent="23" name="resource_code_uindex">
+      <ColNames>code</ColNames>
+      <UnderlyingIndexName>resource_code_uindex</UnderlyingIndexName>
+    </key>
+    <column id="145" parent="24" name="idUser">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="146" parent="24" name="username">
+      <Position>2</Position>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="147" parent="24" name="pass">
+      <Position>3</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="148" parent="24" name="email">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="149" parent="24" name="name">
+      <Position>5</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="150" parent="24" name="lastname">
+      <Position>6</Position>
+      <DataType>varchar(150)|0</DataType>
+    </column>
+    <column id="151" parent="24" name="idCountry">
+      <Position>7</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="152" parent="24" name="phone">
+      <Position>8</Position>
+      <DataType>varchar(16)|0</DataType>
+    </column>
+    <column id="153" parent="24" name="birthdate">
+      <Position>9</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="154" parent="24" name="idGender">
+      <Position>10</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="155" parent="24" name="isMaster">
+      <Position>11</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="156" parent="24" name="flagActive">
+      <Position>12</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="157" parent="24" name="flagStatus">
+      <Position>13</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="158" parent="24" name="idCountry">
+      <ColNames>idCountry</ColNames>
+    </index>
+    <index id="159" parent="24" name="idGender">
+      <ColNames>idGender</ColNames>
+    </index>
+    <index id="160" parent="24" name="user_email_uindex">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="161" parent="24" name="user_username_uindex">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="162" parent="24" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idUser</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="163" parent="24" name="user_username_uindex">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>user_username_uindex</UnderlyingIndexName>
+    </key>
+    <key id="164" parent="24" name="user_email_uindex">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>user_email_uindex</UnderlyingIndexName>
+    </key>
+    <column id="165" parent="25" name="idGame">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="166" parent="25" name="idUser">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="167" parent="25" name="date">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="168" parent="25" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idGame
+idUser</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="169" parent="26" name="idMaster">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="170" parent="26" name="idRoler">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="171" parent="26" name="dateTime">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="172" parent="26" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idMaster
+idRoler</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>
