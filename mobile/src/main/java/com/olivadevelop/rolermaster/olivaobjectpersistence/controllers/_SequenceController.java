@@ -23,9 +23,11 @@ import java.util.concurrent.ExecutionException;
  */
 final class _SequenceController<T extends _BasicEntity> {
     private QueryBuilder<T> queryBuilder;
+    private JSONObject retorno;
 
     _SequenceController(Class entity) {
         this.queryBuilder = new QueryBuilder<>(entity);
+        retorno = new JSONObject();
     }
 
     /**
@@ -34,7 +36,7 @@ final class _SequenceController<T extends _BasicEntity> {
      * @param entity
      * @return
      */
-    synchronized JSONObject getSequence(T entity) throws ExecutionException, InterruptedException, JSONException {
+    private synchronized void getSequence(T entity) throws ExecutionException, InterruptedException, JSONException {
         KeyValuePair<String, Object> query = new KeyValuePair<>();
         query.setKey("nameSequence");
         Persistence persistence = entity.getClass().getAnnotation(Persistence.class);
@@ -45,20 +47,19 @@ final class _SequenceController<T extends _BasicEntity> {
             nameSequence = entity.getClass().getSimpleName().toLowerCase().trim();
         }
         query.setValue(nameSequence);
-        JSONObject retorno = ServiceDAO.getInstance().newCall(ServiceURL.SEQUENCE, this.queryBuilder.createSimpleQuery(Collections.singletonList(query)));
-        notify();
-        return retorno;
+        retorno = ServiceDAO.getInstance().newCall(ServiceURL.SEQUENCE, this.queryBuilder.createSimpleQuery(Collections.singletonList(query)));
     }
 
-    synchronized Integer getNextval(JSONObject retorno) throws ExecutionException, InterruptedException, JSONException {
-        wait();
-        Log.e("RETORNO", retorno.toString());
+    private synchronized Integer getNextval() throws ExecutionException, InterruptedException, JSONException {
+        while (retorno.toString().equals("{}")) {
+            Log.e(this.getClass().getSimpleName(), "Obteniendo ID generado...");
+        }
         return retorno.getInt("sequence");
     }
 
     Integer getNextval(T entity) throws InterruptedException, ExecutionException, JSONException {
-        JSONObject sequence = getSequence(entity);
-        return getNextval(sequence);
+        getSequence(entity);
+        return getNextval();
     }
 
 }
