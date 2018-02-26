@@ -6,6 +6,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopThread;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.Country;
 import com.olivadevelop.rolermaster.persistence.entities.CountryTrans;
@@ -117,8 +119,18 @@ public class BlankFragment extends CustomFragment {
         countryES.addTranslation(cEn);
 
         //Controllers.getInstance().getCountryController().create(countryES);
-        Country c = Controllers.getInstance().getCountryController().read(1, null);
-        Log.e("CountryRead", c.toString());
+        OlivaDevelopThread.getInstance().newThread(new OlivaDevelopThread.ActionThread() {
+            @Override
+            public void run() {
+                Controllers.getInstance().getCountryController().read(1, new ServiceDAO.ActionService<Country>() {
+                    @Override
+                    public void run(Country entity) {
+                        super.run(entity);
+                        Log.e("CountryRead", entity.toString());
+                    }
+                });
+            }
+        });
     }
 
     @Override
