@@ -5,6 +5,7 @@ import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
 
 import java.lang.reflect.Field;
@@ -81,5 +82,16 @@ public class ToolsOlivaDevelop {
             }
         } while (next);
         return fields;
+    }
+
+    public static KeyValuePair<String, Object> getPkFromEntity(Entity entity) throws IllegalAccessException {
+        KeyValuePair<String, Object> retorno = null;
+        for (Field field : getAllFieldsFromEntity(entity)) {
+            Id pk = field.getAnnotation(Id.class);
+            if (ToolsOlivaDevelop.isNotNull(pk)) {
+                retorno = new KeyValuePair<>(field.getName(), field.get(entity));
+            }
+        }
+        return retorno;
     }
 }

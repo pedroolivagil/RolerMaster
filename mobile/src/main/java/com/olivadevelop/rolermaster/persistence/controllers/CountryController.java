@@ -4,13 +4,18 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.controllers._BasicCon
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ControllerMethods;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
 import com.olivadevelop.rolermaster.persistence.entities.Country;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import okhttp3.FormBody;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -25,32 +30,102 @@ public class CountryController extends _BasicController<Country> implements Cont
 
     @Override
     public Country read(Integer idEntity, ServiceDAO.ActionService<Country> actionService) {
-        return null;
+        Country retorno = null;
+        try {
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("idCountry", idEntity));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.find(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
+        }
+        return retorno;
     }
 
     @Override
     public Country read(String codeEntity, ServiceDAO.ActionService<Country> actionService) {
-        return null;
+        Country retorno = null;
+        try {
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("code", codeEntity));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.find(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
+        }
+        return retorno;
     }
 
     @Override
     public List<Country> readAll(ServiceDAO.ActionService<List<Country>> actionService) {
-        return null;
+        List<Country> retorno = null;
+        try {
+            retorno = super.findAll();
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
+        }
+        return retorno;
     }
 
     @Override
     public List<Country> readByIds(List<Integer> ids, ServiceDAO.ActionService<List<Country>> actionService) {
-        return null;
+        List<Country> retorno = null;
+        try {
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("idCountry", ids));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
+        }
+        return retorno;
     }
 
     @Override
     public List<Country> readAllActives(ServiceDAO.ActionService<List<Country>> actionService) {
-        return null;
+        List<Country> retorno = null;
+        try {
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("flagActive", true));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
+        }
+        return retorno;
     }
 
     @Override
     public List<Country> readAllActivesByIds(List<Integer> ids, ServiceDAO.ActionService<List<Country>> actionService) {
-        return null;
+        List<Country> retorno = null;
+        try {
+            List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>("idCountry", ids));
+            values.add(new KeyValuePair<>("flagActive", true));
+            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            retorno = super.findAll(query);
+            if (Tools.isNotNull(actionService)) {
+                actionService.run(retorno);
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
+        }
+        return retorno;
     }
 
     @Override
