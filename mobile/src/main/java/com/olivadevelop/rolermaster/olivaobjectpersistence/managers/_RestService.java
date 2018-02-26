@@ -9,6 +9,7 @@ import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONObject;
 
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
@@ -54,6 +55,15 @@ final class _RestService extends AsyncTask<RequestBody, Void, JSONObject> {
                 public void run() {
                     Alert.getInstance().hideLoadingDialog();
                     Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "TimeOutException.\n\n" + e.getMessage(), null);
+                }
+            });
+        } catch (final ConnectException e) {
+            e.printStackTrace();
+            Alert.getInstance().getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Alert.getInstance().hideLoadingDialog();
+                    Alert.getInstance().errorDialog(Tools.Error.ERROR_400, "ConnectException.\n\n" + e.getMessage(), null);
                 }
             });
         } catch (final Exception e) {

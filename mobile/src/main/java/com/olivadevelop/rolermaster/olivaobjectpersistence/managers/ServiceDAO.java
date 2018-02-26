@@ -5,6 +5,7 @@ import android.util.Log;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ActionOlivaDevelop;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Service;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONObject;
@@ -38,7 +39,7 @@ public final class ServiceDAO implements Service {
         service.execute(body);
         retorno = service.get();
         int operations = 0;
-        while (retorno.toString().equals("{}") && operations < 100) {
+        while ((ToolsOlivaDevelop.isNull(retorno) || retorno.toString().equals("{}")) && operations < 500) {
             Log.e(this.getClass().getSimpleName(), "Obteniendo ID generado...");
             operations++;
         }

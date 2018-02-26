@@ -116,7 +116,8 @@ public abstract class _BasicEntity implements Entity {
                                 }
                                 field.set(this, entities);
                             } else if (value instanceof JSONObject) {
-                                _BasicEntity elem = (_BasicEntity) value.getClass().getConstructor(JSONObject.class).newInstance(value);
+                                Class<?> b = field.get(this).getClass();
+                                _BasicEntity elem = (_BasicEntity) b.getConstructor(JSONObject.class).newInstance(value);
                                 field.set(this, elem);
                             }
                         }

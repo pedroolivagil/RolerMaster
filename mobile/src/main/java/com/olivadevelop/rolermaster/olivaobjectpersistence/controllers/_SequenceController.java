@@ -52,11 +52,16 @@ final class _SequenceController<T extends _BasicEntity> {
 
     private synchronized Integer getNextval() throws ExecutionException, InterruptedException, JSONException {
         int operations = 0;
-        while (retorno.toString().equals("{}") && operations < 100) {
+        while ((ToolsOlivaDevelop.isNull(retorno) || retorno.toString().equals("{}")) && operations < 500) {
             Log.e(this.getClass().getSimpleName(), "Obteniendo ID generado...");
             operations++;
         }
-        return retorno.getInt("sequence");
+        Integer id = null;
+        try {
+            id = retorno.getInt("sequence");
+        } catch (Exception e) {
+        }
+        return id;
     }
 
     Integer getNextval(T entity) throws InterruptedException, ExecutionException, JSONException {
