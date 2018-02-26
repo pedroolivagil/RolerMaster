@@ -116,7 +116,9 @@ public class BlankFragment extends CustomFragment {
         countryES.addTranslation(cEs);
         countryES.addTranslation(cEn);
 
-        Controllers.getInstance().getCountryController().create(countryES);
+        //Controllers.getInstance().getCountryController().create(countryES);
+        Country c = Controllers.getInstance().getCountryController().read(1, null);
+        Log.e("CountryRead", c.toString());
     }
 
     @Override
