@@ -141,7 +141,10 @@ public class QueryBuilder<T extends _BasicEntity> {
                 Object fieldValue = field.get(entity);
                 levelPersistence++;
                 if (ToolsOlivaDevelop.isNotNull(oneToOne) && oneToOne.canPersist()) {
-                    createPersistenceList(retorno, (_BasicEntity) fieldValue, levelPersistence);
+                    _BasicEntity basicEntity = (_BasicEntity) field.get(entity);
+                    if (!basicEntity.isPersisted()) {
+                        createPersistenceList(retorno, (_BasicEntity) fieldValue, levelPersistence);
+                    }
                 } else if (ToolsOlivaDevelop.isNotNull(oneToMany)) {
                     for (_BasicEntity value : (List<_BasicEntity>) fieldValue) {
                         createPersistenceList(retorno, value, levelPersistence);

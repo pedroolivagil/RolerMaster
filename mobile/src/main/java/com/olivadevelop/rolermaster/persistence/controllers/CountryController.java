@@ -57,8 +57,7 @@ public class CountryController extends _BasicController<Country> implements Cont
     public boolean create(Country entity) {
         boolean retorno = false;
         try {
-            super.persist(entity);
-            retorno = true;
+            retorno = super.persist(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "country con not be inserted", null);
         }

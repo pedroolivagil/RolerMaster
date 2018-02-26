@@ -1,5 +1,7 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.controllers;
 
+import android.util.Log;
+
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
@@ -32,7 +34,7 @@ final class _SequenceController<T extends _BasicEntity> {
      * @param entity
      * @return
      */
-    Integer getNextval(T entity) throws ExecutionException, InterruptedException, JSONException {
+    synchronized JSONObject getSequence(T entity) throws ExecutionException, InterruptedException, JSONException {
         KeyValuePair<String, Object> query = new KeyValuePair<>();
         query.setKey("nameSequence");
         Persistence persistence = entity.getClass().getAnnotation(Persistence.class);
@@ -43,7 +45,20 @@ final class _SequenceController<T extends _BasicEntity> {
             nameSequence = entity.getClass().getSimpleName().toLowerCase().trim();
         }
         query.setValue(nameSequence);
-        JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.SEQUENCE, this.queryBuilder.createSimpleQuery(Collections.singletonList(query)));
-        return result.getInt("sequence");
+        JSONObject retorno = ServiceDAO.getInstance().newCall(ServiceURL.SEQUENCE, this.queryBuilder.createSimpleQuery(Collections.singletonList(query)));
+        notify();
+        return retorno;
     }
+
+    synchronized Integer getNextval(JSONObject retorno) throws ExecutionException, InterruptedException, JSONException {
+        wait();
+        Log.e("RETORNO", retorno.toString());
+        return retorno.getInt("sequence");
+    }
+
+    Integer getNextval(T entity) throws InterruptedException, ExecutionException, JSONException {
+        JSONObject sequence = getSequence(entity);
+        return getNextval(sequence);
+    }
+
 }

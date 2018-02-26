@@ -1,5 +1,7 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.controllers;
 
+import android.util.Log;
+
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
@@ -7,6 +9,7 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces._Persisten
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceURL;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -86,11 +89,17 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     @Override
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
-        entity = generateIds(entity);
-        getQueryBuilder().insert(entity);
+        boolean retortno = false;
+        try {
+            entity = generateIds(entity);
+            getQueryBuilder().insert(entity);
+            retortno = true;
+        } catch (OlivaDevelopException e) {
+            Log.e("ERROR", e.getMessage());
+        }
        /* JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insert(entity));
         this.queryBuilder.getJsonPersistence().getNewEntity(result);*/
-        return false;
+        return retortno;
     }
 
     @Override
@@ -111,25 +120,29 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         return queryBuilder;
     }
 
-    private T generateIds(T entity) throws InterruptedException, ExecutionException, JSONException {
+    private T generateIds(T entity) throws InterruptedException, ExecutionException, JSONException, OlivaDevelopException {
         try {
-            for (Field f : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
-                f.setAccessible(true);
-                Id pk = f.getAnnotation(Id.class);
-                RelatedEntity relatedEntity = f.getAnnotation(RelatedEntity.class);
-                if (ToolsOlivaDevelop.isNotNull(pk)) {
-                    _BasicEntity basicEntity = (_BasicEntity) f.get(entity);
-                    // generamos la secuencia de la entidad.
-                    if (ToolsOlivaDevelop.isNotNull(basicEntity) && !basicEntity.isPersisted()) {
-                        f.set(entity, this._sequenceController.getNextval(entity));
+            if (!entity.isPersisted()) {
+                for (Field f : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
+                    f.setAccessible(true);
+                    Id pk = f.getAnnotation(Id.class);
+                    RelatedEntity relatedEntity = f.getAnnotation(RelatedEntity.class);
+                    if (ToolsOlivaDevelop.isNotNull(pk)) {
+                        // generamos la secuencia de la entidad.
+                        Integer newId = this._sequenceController.getNextval(entity);
+                        if (ToolsOlivaDevelop.isNotNull(newId)) {
+                            f.set(entity, newId);
+                        } else {
+                            throw new OlivaDevelopException(OlivaDevelopException.TypeException.PERSISTENCE, "ID is null");
+                        }
+                    } else if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
+                        // volvemos a ejecutar la fucnión con la entidad relacionada
+                        if (!(f.get(entity) instanceof List)) {
+                            generateIds((T) f.get(entity));
+                        }
                     }
-                } else if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
-                    // volvemos a ejecutar la fucnión con la entidad relacionada
-                    if (!(f.get(entity) instanceof List)) {
-                        generateIds((T) f.get(entity));
-                    }
+                    f.setAccessible(false);
                 }
-                f.setAccessible(false);
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
