@@ -13,4 +13,6 @@ import java.lang.annotation.Target;
 @Target(value = {ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OneToMany {
+
+    Class forClass();
 }

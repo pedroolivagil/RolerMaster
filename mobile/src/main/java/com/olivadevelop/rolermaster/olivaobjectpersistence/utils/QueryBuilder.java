@@ -137,7 +137,7 @@ public class QueryBuilder<T extends _BasicEntity> {
      * @throws IllegalAccessException
      */
     private void createPersistenceList(List<KeyValuePair<Integer, _BasicEntity>> retorno, _BasicEntity entity, Integer levelPersistence) throws JSONException, IllegalAccessException {
-        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
+        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity)) {
             field.setAccessible(true);
             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
             OneToOne oneToOne = field.getAnnotation(OneToOne.class);

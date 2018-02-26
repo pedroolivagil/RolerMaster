@@ -4,6 +4,7 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONArray;
@@ -71,22 +72,25 @@ public abstract class _BasicEntity implements Entity {
         // El Objeto 1 no tiene por que tener relación con el Objeto 3, pero este depende del Objeto 2.
         if (Tools.isNotNull(json)) {
             try {
-                Field[] fields = getClass().getDeclaredFields();
-                if (Tools.isNotNull(fields) && fields.length > 0) {
+                // recuperamos las propiedades
+                //Field[] fields = getClass().getDeclaredFields();
+                List<Field> fields = ToolsOlivaDevelop.getAllFieldsFromEntity(this);
+                if (Tools.isNotNull(fields)) {
                     for (Field field : fields) {
                         field.setAccessible(true);
                         String fName = field.getName();
                         if (!ignoreField(field, this)) {
+                            // Obtenemos el nombre de la propiedad que se le pasa por el JSON,
+                            // por defecto será el nombre de la propiedad Java (el nombre en una
+                            // lista será el nombre de la clase relacionada en plural)
                             Persistence persistence = field.getAnnotation(Persistence.class);
                             if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
                                 fName = persistence.columnName();
                             }
-                            Object value;
-                            try {
-                                value = json.get(fName);
-                            } catch (Exception e) {
-                                continue;
-                            }
+                            // Obtenemos el valor del JSON, que puede ser de cualquier tipo
+                            Object value = json.get(fName);
+
+                            // Si el valor es alguno de los primitivos, es decir, no es una lista ni una entidad
                             if (value instanceof Boolean
                                     || value instanceof Byte
                                     || value instanceof Integer
@@ -100,6 +104,12 @@ public abstract class _BasicEntity implements Entity {
                                 field.set(this, ImagePicasso.StringTobase64(value);*/
                             } else if (value instanceof JSONArray) {
                                 // TODO: Revisar porque ya no se almacena una lista de id, sino de objetos, por lo hay que añadir cada valor a su listra correspondiente
+                                // Si es un array, debemos generar un objeto por cada elemento del array y asignarlo a la lista
+                                JSONArray jsonArray = (JSONArray) value;
+                                for (int x = 0; x < jsonArray.length(); x++) {
+                                    JSONObject jObj = jsonArray.getJSONObject(x);
+                                    Entity elem = Class.forName(jObj.getJSONObject(ENTITY)).getConstructor(JSONObject.class).newInstance(jObj);
+                                }
                                /* ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
                                 JSONPersistence<Integer> converter = new
                                 field.set(this, converter.convert((JSONArray) value));*/
@@ -137,7 +147,7 @@ public abstract class _BasicEntity implements Entity {
             _BasicEntity entity = (_BasicEntity) obj;
             List<Object> valuesObj = new ArrayList<>();
             List<Object> valuesThis = new ArrayList<>();
-            for (Field fieldRelated : Tools.getAllFieldsFromEntity(entity, true)) {
+            for (Field fieldRelated : Tools.getAllFieldsFromEntity(entity)) {
                 fieldRelated.setAccessible(true);
                 Id pk = fieldRelated.getAnnotation(Id.class);
                 Unique unique = fieldRelated.getAnnotation(Unique.class);
@@ -146,7 +156,7 @@ public abstract class _BasicEntity implements Entity {
                 }
                 fieldRelated.setAccessible(false);
             }
-            for (Field fieldRelated : Tools.getAllFieldsFromEntity(this, true)) {
+            for (Field fieldRelated : Tools.getAllFieldsFromEntity(this)) {
                 fieldRelated.setAccessible(true);
                 Id pk = fieldRelated.getAnnotation(Id.class);
                 Unique unique = fieldRelated.getAnnotation(Unique.class);

@@ -75,7 +75,7 @@ public class JSONPersistence<T extends _BasicEntity> {
     public JSONObject persistenceJSONObject(T entity) throws OlivaDevelopException {
         JSONObject retorno = new JSONObject();
         try {
-            List<Field> fields = ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true);
+            List<Field> fields = ToolsOlivaDevelop.getAllFieldsFromEntity(entity);
             if (Tools.isNotNull(fields) && fields.size() > 0) {
                 Persistence persistenceClass = entity.getClass().getAnnotation(Persistence.class);
                 String className = entity.getClass().getSimpleName();
@@ -105,7 +105,7 @@ public class JSONPersistence<T extends _BasicEntity> {
      */
     private JSONObject transformToJSON(T entity) throws IllegalAccessException, JSONException, OlivaDevelopException {
         JSONObject retorno = new JSONObject();
-        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
+        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity)) {
             field.setAccessible(true);
             KeyValuePair<String, Object> fieldValue = getValueFromField(field, entity);
             if (fieldValue != null) {

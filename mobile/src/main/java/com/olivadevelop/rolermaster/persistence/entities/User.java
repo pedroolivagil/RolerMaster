@@ -2,6 +2,7 @@ package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
@@ -53,6 +54,8 @@ public class User extends _BasicEntity {
     @RelatedEntity(joinColumn = "idCountry")
     private Country country;
 
+    @OneToMany(forClass = User.class)
+    @RelatedEntity(joinColumn = "idUser")
     private List<User> rolers;
 
     public User() {

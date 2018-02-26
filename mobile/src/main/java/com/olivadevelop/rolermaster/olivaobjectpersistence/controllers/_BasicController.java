@@ -131,7 +131,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
     private T generateIds(T entity, Mode mode) throws InterruptedException, ExecutionException, JSONException, OlivaDevelopException {
         try {
             if ((!entity.isPersisted() && Mode.PERSIST.equals(mode)) || Mode.MERGE.equals(mode)) {
-                for (Field f : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
+                for (Field f : ToolsOlivaDevelop.getAllFieldsFromEntity(entity)) {
                     f.setAccessible(true);
                     Id pk = f.getAnnotation(Id.class);
                     RelatedEntity relatedEntity = f.getAnnotation(RelatedEntity.class);

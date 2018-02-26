@@ -14,10 +14,6 @@ public interface Entity extends Serializable {
 
     void toEntity(JSONObject json) throws JSONException;
 
-    JSONObject toJSONPersistence() throws JSONException;
-
-    JSONObject toJSON(boolean fullObject) throws JSONException;
-
     String generateCode();
 
 }

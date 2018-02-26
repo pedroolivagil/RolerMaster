@@ -67,25 +67,19 @@ public class ToolsOlivaDevelop {
     }
 
     public static List<Field> getAllFieldsFromEntity(Entity entity) {
-        return getAllFieldsFromEntity(entity, false);
-    }
-
-    public static List<Field> getAllFieldsFromEntity(Entity entity, boolean withSuperClass) {
         List<Field> fields = new ArrayList<>();
         fields.addAll(Arrays.asList(entity.getClass().getDeclaredFields()));
-        if (withSuperClass) {
-            Class<?> e = entity.getClass().getSuperclass();
-            boolean next = true;
-            do {
-                com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity ent = e.getAnnotation(com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity.class);
-                if (isNotNull(ent)) {
-                    fields.addAll(Arrays.asList(e.getDeclaredFields()));
-                    e = e.getSuperclass();
-                } else {
-                    next = false;
-                }
-            } while (next);
-        }
+        Class<?> e = entity.getClass().getSuperclass();
+        boolean next = true;
+        do {
+            com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity ent = e.getAnnotation(com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity.class);
+            if (isNotNull(ent)) {
+                fields.addAll(Arrays.asList(e.getDeclaredFields()));
+                e = e.getSuperclass();
+            } else {
+                next = false;
+            }
+        } while (next);
         return fields;
     }
 }
