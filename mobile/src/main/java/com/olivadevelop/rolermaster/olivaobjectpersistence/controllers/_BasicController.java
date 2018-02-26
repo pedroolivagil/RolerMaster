@@ -91,7 +91,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
         boolean retortno = false;
         try {
-            entity = generateIds(entity);
+            entity = generateIds(entity, Mode.PERSIST);
             getQueryBuilder().insert(entity);
             retortno = true;
         } catch (OlivaDevelopException e) {
@@ -104,7 +104,15 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     @Override
     public boolean merge(T entity) throws ExecutionException, InterruptedException, JSONException {
-        return false;
+        boolean retortno = false;
+        try {
+            entity = generateIds(entity, Mode.MERGE);
+            getQueryBuilder().update(entity);
+            retortno = true;
+        } catch (OlivaDevelopException e) {
+            Log.e("ERROR", e.getMessage());
+        }
+        return retortno;
     }
 
     @Override
@@ -120,9 +128,9 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         return queryBuilder;
     }
 
-    private T generateIds(T entity) throws InterruptedException, ExecutionException, JSONException, OlivaDevelopException {
+    private T generateIds(T entity, Mode mode) throws InterruptedException, ExecutionException, JSONException, OlivaDevelopException {
         try {
-            if (!entity.isPersisted()) {
+            if ((!entity.isPersisted() && Mode.PERSIST.equals(mode)) || Mode.MERGE.equals(mode)) {
                 for (Field f : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
                     f.setAccessible(true);
                     Id pk = f.getAnnotation(Id.class);
@@ -138,7 +146,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
                     } else if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
                         // volvemos a ejecutar la fucnión con la entidad relacionada
                         if (!(f.get(entity) instanceof List)) {
-                            generateIds((T) f.get(entity));
+                            generateIds((T) f.get(entity), mode);
                         }
                     }
                     f.setAccessible(false);
@@ -148,5 +156,9 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
             e.printStackTrace();
         }
         return entity;
+    }
+
+    public enum Mode {
+        PERSIST, MERGE, DELETE
     }
 }

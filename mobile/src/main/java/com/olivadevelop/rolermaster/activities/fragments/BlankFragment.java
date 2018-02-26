@@ -77,11 +77,12 @@ public class BlankFragment extends CustomFragment {
         }
 
         Locale es = new Locale();
-        es.setPersisted(true);
+        /*es.setPersisted(true);*/
         es.setIdLocale(1);
         es.setCodeIso("ES");
 
         Locale en = new Locale();
+        /*en.setPersisted(true);*/
         en.setIdLocale(2);
         en.setCodeIso("EN");
 
@@ -113,7 +114,7 @@ public class BlankFragment extends CustomFragment {
         countryES.addTranslation(cEs);
         countryES.addTranslation(cEn);
 
-        Controllers.getInstance().getCountryController().create(countryES);
+        Controllers.getInstance().getCountryController().update(countryES);
 /*
         try {
             JSONPersistence<Locale> jsonPersistence = new JSONPersistence<>(Locale.class);

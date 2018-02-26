@@ -1,14 +1,14 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.User;
-import com.olivadevelop.rolermaster.tools.Constant;
-import com.olivadevelop.rolermaster.tools.Tools;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.controllers._BasicController;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ControllerMethods;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
+import com.olivadevelop.rolermaster.persistence.entities.User;
+import com.olivadevelop.rolermaster.tools.Constant;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 
@@ -136,8 +136,7 @@ public class UserController extends _BasicController<User> implements Controller
         try {
             entity.setFlagActive(Constant.FLAG_ACTIVE);
             entity.setFlagStatus(Constant.FLAG_ACTIVE);
-            super.persist(entity);
-            retorno = true;
+            retorno = super.persist(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User con not be inserted", null);
         }
@@ -148,8 +147,7 @@ public class UserController extends _BasicController<User> implements Controller
     public boolean update(User entity) {
         boolean retorno = false;
         try {
-            super.merge(entity);
-            retorno = true;
+            retorno = super.merge(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User can not be updated", null);
         }
@@ -160,8 +158,7 @@ public class UserController extends _BasicController<User> implements Controller
     public boolean delete(User entity) {
         boolean retorno = false;
         try {
-            super.remove(entity);
-            retorno = true;
+            retorno = super.remove(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "User can not be deleted", null);
         }

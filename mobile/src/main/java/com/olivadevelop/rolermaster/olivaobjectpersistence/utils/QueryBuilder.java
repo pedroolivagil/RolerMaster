@@ -77,6 +77,7 @@ public class QueryBuilder<T extends _BasicEntity> {
      * @throws JSONException
      */
     public FormBody insert(T entity) throws JSONException {
+        Log.e(this.getClass().getSimpleName(), "Insert()");
         FormBody.Builder query = new FormBody.Builder();
         try {
             List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
@@ -104,6 +105,7 @@ public class QueryBuilder<T extends _BasicEntity> {
      * @throws JSONException
      */
     public FormBody update(T entity) throws JSONException {
+        Log.e(this.getClass().getSimpleName(), "Update()");
         FormBody.Builder query = new FormBody.Builder();
         try {
             List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
@@ -132,7 +134,7 @@ public class QueryBuilder<T extends _BasicEntity> {
      * @throws IllegalAccessException
      */
     private void createPersistenceList(List<KeyValuePair<Integer, _BasicEntity>> retorno, _BasicEntity entity, Integer levelPersistence) throws JSONException, IllegalAccessException {
-        for (Field field : entity.getClass().getDeclaredFields()) {
+        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity, true)) {
             field.setAccessible(true);
             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
             OneToOne oneToOne = field.getAnnotation(OneToOne.class);

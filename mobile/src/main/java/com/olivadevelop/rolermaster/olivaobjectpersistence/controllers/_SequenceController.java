@@ -51,8 +51,10 @@ final class _SequenceController<T extends _BasicEntity> {
     }
 
     private synchronized Integer getNextval() throws ExecutionException, InterruptedException, JSONException {
-        while (retorno.toString().equals("{}")) {
+        int operations = 0;
+        while (retorno.toString().equals("{}") && operations < 100) {
             Log.e(this.getClass().getSimpleName(), "Obteniendo ID generado...");
+            operations++;
         }
         return retorno.getInt("sequence");
     }

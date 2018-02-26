@@ -1,11 +1,11 @@
 package com.olivadevelop.rolermaster.persistence.controllers;
 
-import com.olivadevelop.rolermaster.persistence.entities.Country;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.controllers._BasicController;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
-import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ControllerMethods;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
+import com.olivadevelop.rolermaster.persistence.entities.Country;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 
@@ -59,18 +59,30 @@ public class CountryController extends _BasicController<Country> implements Cont
         try {
             retorno = super.persist(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
-            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "country con not be inserted", null);
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country con not be inserted", null);
         }
         return retorno;
     }
 
     @Override
     public boolean update(Country entity) {
-        return false;
+        boolean retorno = false;
+        try {
+            retorno = super.merge(entity);
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country con not be updated", null);
+        }
+        return retorno;
     }
 
     @Override
     public boolean delete(Country entity) {
-        return false;
+        boolean retorno = false;
+        try {
+            retorno = super.remove(entity);
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country con not be deleted", null);
+        }
+        return retorno;
     }
 }
