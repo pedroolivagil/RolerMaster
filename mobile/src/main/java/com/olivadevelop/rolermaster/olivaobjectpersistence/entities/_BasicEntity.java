@@ -1,6 +1,7 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.entities;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
@@ -12,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,25 +105,19 @@ public abstract class _BasicEntity implements Entity {
                             // TODO: los byte[] agregados a la bbdd, se almacenan como strings, por el momento. Valorar si es correcto o buscar una forma más adecuada para hacer el cast como una anotación o algo
                                 field.set(this, ImagePicasso.StringTobase64(value);*/
                             } else if (value instanceof JSONArray) {
-                                // TODO: Revisar porque ya no se almacena una lista de id, sino de objetos, por lo hay que añadir cada valor a su listra correspondiente
                                 // Si es un array, debemos generar un objeto por cada elemento del array y asignarlo a la lista
                                 JSONArray jsonArray = (JSONArray) value;
+                                OneToMany oneToMany = field.getAnnotation(OneToMany.class);
+                                List<_BasicEntity> entities = new ArrayList<>();
                                 for (int x = 0; x < jsonArray.length(); x++) {
                                     JSONObject jObj = jsonArray.getJSONObject(x);
-                                    Entity elem = Class.forName(jObj.getJSONObject(ENTITY)).getConstructor(JSONObject.class).newInstance(jObj);
+                                    _BasicEntity elem = (_BasicEntity) oneToMany.mappingClass().getConstructor(JSONObject.class).newInstance(jObj);
+                                    entities.add(elem);
                                 }
-                               /* ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
-                                JSONPersistence<Integer> converter = new
-                                field.set(this, converter.convert((JSONArray) value));*/
+                                field.set(this, entities);
                             } else if (value instanceof JSONObject) {
-                                // TODO: Revisar para completar la carga del objeto mediante la entidad relacionada
-                                /*Class entity = MapEntities.findByString(fName);
-                                if (Tools.isNotNull(entity)) {
-                                    Object newEntity = entity.getConstructor(JSONObject.class).newInstance(value);
-                                    if (Tools.isNotNull(newEntity)) {
-                                        field.set(this, newEntity);
-                                    }
-                                }*/
+                                _BasicEntity elem = (_BasicEntity) value.getClass().getConstructor(JSONObject.class).newInstance(value);
+                                field.set(this, elem);
                             }
                         }
                         field.setAccessible(false);
@@ -129,12 +125,12 @@ public abstract class _BasicEntity implements Entity {
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-            /*} catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                e.printStackTrace();*/
+                e.printStackTrace();
             }
         }
     }

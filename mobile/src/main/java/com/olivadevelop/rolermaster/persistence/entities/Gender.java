@@ -28,7 +28,7 @@ public class Gender extends _BasicEntity {
     @Unique
     private String code;
 
-    @OneToMany
+    @OneToMany(mappingClass = GenderTrans.class)
     @RelatedEntity(joinColumn = "idGender")
     private List<GenderTrans> translation;
 

@@ -60,23 +60,23 @@ public class Character extends _BasicEntity {
     private String experience;
 
     // Skills and points
-    @OneToMany
+    @OneToMany(mappingClass = Attribute.class)
     @RelatedEntity(joinColumn = "idAttribute")
     private List<Attribute> attributes;
 
-    @OneToMany
+    @OneToMany(mappingClass = Ability.class)
     @RelatedEntity(joinColumn = "idAbility")
     private List<Ability> abilities;
 
-    @OneToMany
+    @OneToMany(mappingClass = Advantage.class)
     @RelatedEntity(joinColumn = "idAdvantage")
     private List<Advantage> advantages;
 
-    @OneToMany
+    @OneToMany(mappingClass = Virtue.class)
     @RelatedEntity(joinColumn = "idVirtue")
     private List<Virtue> virtues;
 
-    @OneToMany
+    @OneToMany(mappingClass = Weapon.class)
     @RelatedEntity(joinColumn = "idWeapon")
     private List<Weapon> weapons;
 

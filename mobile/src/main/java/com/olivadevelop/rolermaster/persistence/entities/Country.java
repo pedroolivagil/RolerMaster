@@ -22,7 +22,7 @@ public class Country extends _BasicEntity {
     @Unique
     private String code;
 
-    @OneToMany
+    @OneToMany(mappingClass = CountryTrans.class)
     @RelatedEntity(joinColumn = "idCountry")
     private List<CountryTrans> translations;
 

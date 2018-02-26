@@ -29,7 +29,7 @@ public class Locale extends _BasicEntity {
     @Persistence(columnName = "codeISO", unique = true)
     private String codeIso;
 
-    @OneToMany
+    @OneToMany(mappingClass = LocaleTrans.class)
     @RelatedEntity(joinColumn = "idLocale")
     private List<LocaleTrans> translations;
 

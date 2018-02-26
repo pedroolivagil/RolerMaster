@@ -54,7 +54,7 @@ public class User extends _BasicEntity {
     @RelatedEntity(joinColumn = "idCountry")
     private Country country;
 
-    @OneToMany(forClass = User.class)
+    @OneToMany(mappingClass = User.class)
     @RelatedEntity(joinColumn = "idUser")
     private List<User> rolers;
 
