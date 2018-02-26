@@ -2,7 +2,6 @@ package com.olivadevelop.rolermaster.olivaobjectpersistence.entities;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
 import com.olivadevelop.rolermaster.tools.Tools;
@@ -59,7 +58,7 @@ public abstract class _BasicEntity implements Entity {
                     for (Field field : fields) {
                         field.setAccessible(true);
                         String fName = field.getName();
-                        if (!CHANGE_FIELD.equals(fName) && !SERIAL_VERSION_UID.equals(fName)) {
+                        if (!ignoreField(field, this)) {
                             Persistence persistence = field.getAnnotation(Persistence.class);
                             if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
                                 fName = persistence.columnName();
@@ -82,7 +81,7 @@ public abstract class _BasicEntity implements Entity {
                             // TODO: los byte[] agregados a la bbdd, se almacenan como strings, por el momento. Valorar si es correcto o buscar una forma más adecuada para hacer el cast como una anotación o algo
                                 field.set(this, ImagePicasso.StringTobase64(value);*/
                             } else if (value instanceof JSONArray) {
-                                // TODO: Revisar porque ya no se almacena una lista de id, sino de objetos, por lo que rara (o ninguna) vez entrará aquí para cargar una entidad
+                                // TODO: Revisar porque ya no se almacena una lista de id, sino de objetos, por lo hay que añadir cada valor a su listra correspondiente
                                /* ConverterJSONArrayToList<Integer> converter = new ConverterJSONArrayToList<>(Integer.class);
                                 JSONPersistence<Integer> converter = new
                                 field.set(this, converter.convert((JSONArray) value));*/
@@ -111,96 +110,7 @@ public abstract class _BasicEntity implements Entity {
             }
         }
     }
-/*
-    @Override
-    public String toString() {
-        return toString(true);
-    }*/
 
-    public String toString(boolean fullObject) {
-        return toJSON(fullObject).toString();
-    }
-
-    @Override
-    public JSONObject toJSONPersistence() throws JSONException {
-        return toJSON(false);
-    }
-
-    @Override
-    public JSONObject toJSON(boolean fullObject) {
-        JSONObject retorno = new JSONObject();
-        try {
-            Field[] fields = getClass().getDeclaredFields();
-            if (Tools.isNotNull(fields) && fields.length > 0) {
-                Persistence persistenceClass = getClass().getAnnotation(Persistence.class);
-                String className = getClass().getSimpleName();
-                if (Tools.isNotNull(persistenceClass) && Tools.isNotNull(persistenceClass.collectionName())) {
-                    className = persistenceClass.collectionName();
-                }
-                // Inicio de objeto JSON
-                // le pasamos la entidad como parámetro de JSON
-                retorno.put(ENTITY, className);
-                JSONObject jsonEntity = new JSONObject();
-                for (Field field : fields) {
-                    field.setAccessible(true);
-                    String fName = field.getName();
-                    if (CHANGE_FIELD.equals(fName) || SERIAL_VERSION_UID.equals(fName)) {
-                        // obviamos esas dos columnas
-                        continue;
-                    }
-                    Persistence persistenceField = field.getAnnotation(Persistence.class);
-                    if (Tools.isNotNull(persistenceField) && Tools.isNotNull(persistenceField.columnName())) {
-                        fName = persistenceField.columnName();
-                    }
-
-                    Object fieldValue = field.get(this);
-                    if (fieldValue instanceof _BasicEntity) {
-                        _BasicEntity entity = (_BasicEntity) fieldValue;
-                        if (!fullObject) {
-                            RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
-                            if (Tools.isNotNull(relatedEntity)) {
-                                if (Tools.isNotNull(relatedEntity.joinColumn())) {
-                                    fName = relatedEntity.joinColumn();
-                                }
-                                Field[] fieldsRelatedEntity = entity.getClass().getDeclaredFields();
-                                /*if (Tools.isNotNull(fieldsRelatedEntity)) {*/
-                                for (Field fieldRelated : fieldsRelatedEntity) {
-                                    fieldRelated.setAccessible(true);
-                                    if (CHANGE_FIELD.equals(fieldRelated.getName()) || SERIAL_VERSION_UID.equals(fieldRelated.getName())) {
-                                        // obviamos esas dos columnas
-                                        continue;
-                                    }
-                                    Id pk = fieldRelated.getAnnotation(Id.class);
-                                    if (Tools.isNotNull(pk)) {
-                                        fieldValue = fieldRelated.get(entity);
-                                    }
-                                    fieldRelated.setAccessible(false);
-                                }
-                               /* } else {
-                                    // Es una clase extendida, por lo intentaremos acceder a su clase padre, acceder a sus propiedades y generar la entidad con el nombre de la clase hija
-                                    Log.e("SUPERCLASS", "" + entity.getClass().getSuperclass());
-                                }*/
-                            } else {
-                                // si fullobject es true, ponemos to-do el objeto en el json, incluyendo las entidades relacionadas
-                                //retorno.append(((_BasicEntity) value).toString(false));
-                                fieldValue = entity.toJSONPersistence();
-                            }
-                        }
-                    }
-                    if (fieldValue != null) {
-                        jsonEntity.put(fName, fieldValue);
-                    } else {
-                        jsonEntity.put(fName, "null");
-                    }
-                    field.setAccessible(false);
-                }
-                retorno.put(className, jsonEntity);
-            }
-        } catch (IllegalAccessException | JSONException e) {
-            e.printStackTrace();
-        }
-        return retorno;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -209,7 +119,7 @@ public abstract class _BasicEntity implements Entity {
             _BasicEntity entity = (_BasicEntity) obj;
             List<Object> valuesObj = new ArrayList<>();
             List<Object> valuesThis = new ArrayList<>();
-            for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
+            for (Field fieldRelated : Tools.getAllFieldsFromEntity(entity, true)) {
                 fieldRelated.setAccessible(true);
                 Id pk = fieldRelated.getAnnotation(Id.class);
                 Unique unique = fieldRelated.getAnnotation(Unique.class);
@@ -218,7 +128,7 @@ public abstract class _BasicEntity implements Entity {
                 }
                 fieldRelated.setAccessible(false);
             }
-            for (Field fieldRelated : this.getClass().getDeclaredFields()) {
+            for (Field fieldRelated : Tools.getAllFieldsFromEntity(this, true)) {
                 fieldRelated.setAccessible(true);
                 Id pk = fieldRelated.getAnnotation(Id.class);
                 Unique unique = fieldRelated.getAnnotation(Unique.class);
@@ -227,11 +137,7 @@ public abstract class _BasicEntity implements Entity {
                 }
                 fieldRelated.setAccessible(false);
             }
-            /*for (int x = 0; x < valuesObj.size(); x++) {
-                if (!valuesObj.get(x).equals(valuesThis.get(x))) {
-                    retorno = false;
-                }
-            }*/
+
             for (Object value1 : valuesThis) {
                 for (Object value2 : valuesObj) {
                     if (value2.getClass().equals(value1.getClass()) && !value2.equals(value1)) {
@@ -244,5 +150,16 @@ public abstract class _BasicEntity implements Entity {
             e.printStackTrace();
         }
         return retorno;
+    }
+
+    private boolean ignoreField(Field field, _BasicEntity entity) throws IllegalAccessException {
+        return CHANGE_FIELD.equals(field.getName())
+                || SERIAL_VERSION_UID.equals(field.getName())
+                || ENTITY.equals(field.getName())
+                || PERSISTED.equals(field.getName())
+                || CHANGE_FIELD.equals(field.get(entity))
+                || SERIAL_VERSION_UID.equals(field.get(entity))
+                || ENTITY.equals(field.get(entity))
+                || PERSISTED.equals(field.get(entity));
     }
 }

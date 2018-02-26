@@ -117,14 +117,6 @@ public class BlankFragment extends CustomFragment {
         countryES.addTranslation(cEn);
 
         Controllers.getInstance().getCountryController().create(countryES);
-/*
-        try {
-            JSONPersistence<Locale> jsonPersistence = new JSONPersistence<>(Locale.class);
-            Log.e("ENTITY PERSIT", jsonPersistence.persistenceJSONObject(es).toString());
-        } catch (OlivaDevelopException e) {
-            Alert.getInstance().errorDialog(e.getMessage(), null);
-        }*/
-
     }
 
     @Override
