@@ -49,8 +49,26 @@ public abstract class _BasicEntity implements Entity {
         return null;
     }
 
+    /**
+     * Convertimos el JSON a Entity.
+     *
+     * @param json
+     * @throws JSONException
+     */
     @Override
     public void toEntity(JSONObject json) throws JSONException {
+        // Se transformará cada valor a su tipo y se asignará a su propiedad correspondiente.
+        // Cada KEY del JSONObject principal, corresponderá con el nombre de las columna de la BBDD
+        // por lo que habrá que buscar la propiedad que coincida por nombre o por JoinColumn de la
+        // RelatedEntity. Si la relación es una OneToMany, una lista, se debe crear un objeto, a
+        // través del constructor JSONObject, por cada elemento de la lista e insertarlo a dicha
+        // lista. Si es una relación oneToOne, se carga el objeto directamente a través del
+        // constructor JSONObject de cada Entity.
+
+        // El proceso debe ser completo, es decir, que debe cargar todas las relaciones, no solo un
+        // nivel, ejemplo:
+        // Objeto 1 -> relación con Objeto 2 -> relación con Objeto 3
+        // El Objeto 1 no tiene por que tener relación con el Objeto 3, pero este depende del Objeto 2.
         if (Tools.isNotNull(json)) {
             try {
                 Field[] fields = getClass().getDeclaredFields();
