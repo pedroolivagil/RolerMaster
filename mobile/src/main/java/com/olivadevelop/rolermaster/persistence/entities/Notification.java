@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
@@ -17,7 +18,7 @@ import java.util.Date;
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 26/01/2018.
  */
-
+@Entity
 @Persistence(collectionName = "notification")
 public class Notification extends _BasicEntity {
 

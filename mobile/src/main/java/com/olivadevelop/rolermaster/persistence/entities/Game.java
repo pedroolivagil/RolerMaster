@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
@@ -20,6 +21,7 @@ import java.util.List;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
+@Entity
 @Persistence(collectionName = "game")
 public class Game extends _BasicEntity {
 

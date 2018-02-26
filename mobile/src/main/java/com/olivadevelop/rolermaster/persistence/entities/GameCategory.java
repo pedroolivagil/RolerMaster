@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
  * Created by Oliva on 25/01/2018.
  * RolerMaster
  */
+@Entity
 @Persistence(collectionName = "game_category")
 public class GameCategory extends _BasicEntity {
 

@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
@@ -16,6 +17,7 @@ import java.util.Date;
  * Created by Oliva on 26/01/2018.
  */
 
+@Entity
 @Persistence(collectionName = "PREFERENCE")
 public class Preference extends _BasicEntity {
 

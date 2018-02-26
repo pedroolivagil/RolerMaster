@@ -1,17 +1,18 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Ability;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Advantage;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Attribute;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Virtue;
 import com.olivadevelop.rolermaster.persistence.entities.subentities.Weapon;
 import com.olivadevelop.rolermaster.tools.Tools;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ import java.util.List;
  * Created by Oliva on 26/01/2018.
  * RolerMaster
  */
+@Entity
 @Persistence(collectionName = "character")
 public class Character extends _BasicEntity {
 

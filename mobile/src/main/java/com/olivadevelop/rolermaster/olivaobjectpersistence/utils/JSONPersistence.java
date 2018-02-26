@@ -290,8 +290,10 @@ public class JSONPersistence<T extends _BasicEntity> {
         return _BasicEntity.CHANGE_FIELD.equals(field.getName())
                 || _BasicEntity.SERIAL_VERSION_UID.equals(field.getName())
                 || _BasicEntity.ENTITY.equals(field.getName())
+                || _BasicEntity.PERSISTED.equals(field.getName())
                 || _BasicEntity.CHANGE_FIELD.equals(field.get(entity))
                 || _BasicEntity.SERIAL_VERSION_UID.equals(field.get(entity))
-                || _BasicEntity.ENTITY.equals(field.get(entity));
+                || _BasicEntity.ENTITY.equals(field.get(entity))
+                || _BasicEntity.PERSISTED.equals(field.get(entity));
     }
 }

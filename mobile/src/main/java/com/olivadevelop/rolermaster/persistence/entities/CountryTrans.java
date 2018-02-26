@@ -8,6 +8,7 @@ import org.json.*;
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 02/01/2018.
  */
+@Entity
 @Persistence(collectionName = "country_trans")
 public class CountryTrans extends GenericTrans {
 

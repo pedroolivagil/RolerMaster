@@ -1,30 +1,43 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.entities;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 19/01/2018.
  */
-
+@com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity
 public abstract class _BasicEntity implements Entity {
 
     public static final String ENTITY = "entity";
     public static final String SERIAL_VERSION_UID = "serialVersionUID";
     public static final String CHANGE_FIELD = "$change";
+    public static final String PERSISTED = "_persisted";
+
+    private boolean _persisted = false;
 
     protected _BasicEntity() {
     }
 
     public _BasicEntity(JSONObject json) throws JSONException {
         toEntity(json);
+    }
+
+    public boolean isPersisted() {
+        return _persisted;
     }
 
     @Override
@@ -46,7 +59,7 @@ public abstract class _BasicEntity implements Entity {
                             if (Tools.isNotNull(persistence) && Tools.isNotNull(persistence.columnName())) {
                                 fName = persistence.columnName();
                             }
-                            Object value = null;
+                            Object value;
                             try {
                                 value = json.get(fName);
                             } catch (Exception e) {

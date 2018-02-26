@@ -13,6 +13,7 @@ import java.util.*;
  * Created by Oliva on 15/01/2018.
  * RolerMaster
  */
+@Entity
 @Persistence(collectionName = "country")
 public class Country extends _BasicEntity {
 

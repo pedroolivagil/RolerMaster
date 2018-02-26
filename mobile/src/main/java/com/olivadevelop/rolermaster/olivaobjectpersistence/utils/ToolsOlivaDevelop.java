@@ -74,7 +74,17 @@ public class ToolsOlivaDevelop {
         List<Field> fields = new ArrayList<>();
         fields.addAll(Arrays.asList(entity.getClass().getDeclaredFields()));
         if (withSuperClass) {
-            fields.addAll(Arrays.asList(entity.getClass().getSuperclass().getDeclaredFields()));
+            Class<?> e = entity.getClass().getSuperclass();
+            boolean next = true;
+            do {
+                com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity ent = e.getAnnotation(com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity.class);
+                if (isNotNull(ent)) {
+                    fields.addAll(Arrays.asList(e.getDeclaredFields()));
+                    e = e.getSuperclass();
+                } else {
+                    next = false;
+                }
+            } while (next);
         }
         return fields;
     }

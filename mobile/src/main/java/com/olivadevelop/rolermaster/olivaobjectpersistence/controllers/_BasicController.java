@@ -118,8 +118,11 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
                 Id pk = f.getAnnotation(Id.class);
                 RelatedEntity relatedEntity = f.getAnnotation(RelatedEntity.class);
                 if (ToolsOlivaDevelop.isNotNull(pk)) {
+                    _BasicEntity basicEntity = (_BasicEntity) f.get(entity);
                     // generamos la secuencia de la entidad.
-                    f.set(entity, this._sequenceController.getNextval(entity));
+                    if (ToolsOlivaDevelop.isNotNull(basicEntity) && !basicEntity.isPersisted()) {
+                        f.set(entity, this._sequenceController.getNextval(entity));
+                    }
                 } else if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
                     // volvemos a ejecutar la fucnión con la entidad relacionada
                     if (!(f.get(entity) instanceof List)) {

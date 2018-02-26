@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities.subentities;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.persistence.entities.interfaces.Advantage;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
@@ -12,6 +13,7 @@ import org.json.JSONObject;
  * Created by Oliva on 28/01/2018.
  * RolerMaster
  */
+@Entity
 @Persistence(collectionName = "POWER")
 public class Power extends _BasicEntity implements Advantage {
 

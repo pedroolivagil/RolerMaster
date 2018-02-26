@@ -1,5 +1,6 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
  * Copyright OlivaDevelop 2014-2018
  * Created by Oliva on 02/01/2018.
  */
+@Entity
 @Persistence(collectionName = "generic_trans")
 public class GenericTrans extends _BasicEntity {
 

@@ -83,8 +83,10 @@ public class QueryBuilder<T extends _BasicEntity> {
             Integer levelPersistence = 0;
             createPersistenceList(retorno, entity, levelPersistence);
             for (KeyValuePair<Integer, _BasicEntity> bEnti : retorno) {
-                query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
-                Log.e("entity[] (" + bEnti.getKey() + ")", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
+                if (!bEnti.getValue().isPersisted()) {
+                    query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
+                    Log.e("entity[] (" + bEnti.getKey() + ")", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
+                }
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
