@@ -37,6 +37,34 @@ public class JSONPersistence<T extends _BasicEntity> {
     }
 
     /**
+     * Obtiene el nombre de persistencia asignado a una propiedad de una entidad
+     *
+     * @param fieldName
+     * @return
+     */
+    public String getPersistenceFieldName(String fieldName) {
+        String retorno = fieldName;
+        try {
+            if (Tools.isNotNull(this.entityClass)) {
+                Field field = this.entityClass.getDeclaredField(fieldName);
+                Persistence persistence = field.getAnnotation(Persistence.class);
+                if (Tools.isNotNull(persistence)) {
+                    String fn = persistence.columnName();
+                    if (Tools.isNotNull(fn)) {
+                        retorno = fn;
+                    } else {
+                        if (Tools.isNotNull(field.getName())) {
+                            retorno = field.getName();
+                        }
+                    }
+                }
+            }
+        } catch (NoSuchFieldException e) {
+        }
+        return retorno;
+    }
+
+    /**
      * Persistimos o actualizamos una sola entidad, sin importar las entidades relacionadas, solo
      * guardaremos sus respectivos ID para relacionarlos
      *
@@ -169,22 +197,6 @@ public class JSONPersistence<T extends _BasicEntity> {
         return retorno;
     }
 
-    @Deprecated
-    public List<T> convert(JSONArray array) throws JSONException {
-        List<T> retorno = new ArrayList<>();
-        if (Tools.isNotNull(array)) {
-            for (int x = 0; x < array.length(); x++) {
-                Object value = array.get(x);
-                if (value instanceof JSONObject) {
-                    retorno = parseJsonToListEntity((JSONObject) value, this.entityClass);
-                } else {
-                    retorno.add((T) value);
-                }
-            }
-        }
-        return retorno;
-    }
-
     /**
      * Transforma un JSON a una entidad
      *
@@ -192,41 +204,8 @@ public class JSONPersistence<T extends _BasicEntity> {
      * @return
      * @throws JSONException
      */
-    public T getNewEntity(JSONObject json) throws JSONException {
+    public T getEntity(JSONObject json) throws JSONException {
         return parseJsonToEntity(json, this.entityClass);
-    }
-
-    /**
-     * Transforma un JSON a una lista de entidades
-     *
-     * @param json
-     * @return
-     * @throws JSONException
-     */
-    public List<T> getNewListEntities(JSONObject json) throws JSONException {
-        return parseJsonToListEntity(json, this.entityClass);
-    }
-
-    public String getPersistenceFieldName(String fieldName) {
-        String retorno = fieldName;
-        try {
-            if (Tools.isNotNull(this.entityClass)) {
-                Field field = this.entityClass.getDeclaredField(fieldName);
-                Persistence persistence = field.getAnnotation(Persistence.class);
-                if (Tools.isNotNull(persistence)) {
-                    String fn = persistence.columnName();
-                    if (Tools.isNotNull(fn)) {
-                        retorno = fn;
-                    } else {
-                        if (Tools.isNotNull(field.getName())) {
-                            retorno = field.getName();
-                        }
-                    }
-                }
-            }
-        } catch (NoSuchFieldException e) {
-        }
-        return retorno;
     }
 
     /**
@@ -243,6 +222,17 @@ public class JSONPersistence<T extends _BasicEntity> {
             retorno = constructObject(array, entity, 0);
         }
         return retorno;
+    }
+
+    /**
+     * Transforma un JSON a una lista de entidades
+     *
+     * @param json
+     * @return
+     * @throws JSONException
+     */
+    public List<T> getListEntities(JSONObject json) throws JSONException {
+        return parseJsonToListEntity(json, this.entityClass);
     }
 
     /**

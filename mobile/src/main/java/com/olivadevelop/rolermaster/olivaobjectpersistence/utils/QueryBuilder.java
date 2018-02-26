@@ -53,8 +53,8 @@ public class QueryBuilder<T extends _BasicEntity> {
         query.add(ENTITY_QUERY, entity.getSimpleName());
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
         if (ToolsOlivaDevelop.isNotNull(values)) {
-            for (KeyValuePair obj : values) {
-                query.add(this.jsonPersistence.getPersistenceFieldName(String.valueOf(obj.getKey())), obj.getValueAsString());
+            for (KeyValuePair<String, ?> obj : values) {
+                query.add(this.jsonPersistence.getPersistenceFieldName(obj.getKey()), obj.getValueAsString());
             }
         }
         return query.build();

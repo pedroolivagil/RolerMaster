@@ -44,7 +44,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         List<KeyValuePair<String, ?>> values = new ArrayList<>();
         values.add(new KeyValuePair<>("idEntity", idEntity));
         JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
-        return this.queryBuilder.getJsonPersistence().getNewEntity(result);
+        return this.queryBuilder.getJsonPersistence().getEntity(result);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         T retorno = null;
         if (Tools.isNotNull(query)) {
             JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, query);
-            retorno = this.queryBuilder.getJsonPersistence().getNewEntity(result);
+            retorno = this.queryBuilder.getJsonPersistence().getEntity(result);
         }
         return retorno;
     }
@@ -67,7 +67,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         List<T> retorno = null;
         if (Tools.isNotNull(query)) {
             JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, query);
-            retorno = this.queryBuilder.getJsonPersistence().getNewListEntities(result);
+            retorno = this.queryBuilder.getJsonPersistence().getListEntities(result);
         }
         return retorno;
     }
@@ -98,7 +98,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
             Log.e("ERROR", e.getMessage());
         }
        /* JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insert(entity));
-        this.queryBuilder.getJsonPersistence().getNewEntity(result);*/
+        this.queryBuilder.getJsonPersistence().getEntity(result);*/
         return retortno;
     }
 

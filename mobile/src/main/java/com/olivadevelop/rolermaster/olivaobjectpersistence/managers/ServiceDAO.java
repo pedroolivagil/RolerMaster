@@ -1,5 +1,7 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.managers;
 
+import android.util.Log;
+
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.ActionOlivaDevelop;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Service;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Alert;
@@ -17,9 +19,10 @@ import okhttp3.FormBody;
  * Created by Oliva on 02/02/2018.
  * RolerMaster
  */
-public class ServiceDAO implements Service {
+public final class ServiceDAO implements Service {
 
     private static final Service service = new ServiceDAO();
+    private JSONObject retorno;
 
     public static Service getInstance() {
         return service;
@@ -30,9 +33,16 @@ public class ServiceDAO implements Service {
 
     @Override
     public JSONObject newCall(ServiceURL url, FormBody body) throws ExecutionException, InterruptedException {
+        retorno = new JSONObject();
         _RestService service = new _RestService(url.getUrl());
         service.execute(body);
-        return service.get();
+        retorno = service.get();
+        int operations = 0;
+        while (retorno.toString().equals("{}") && operations < 100) {
+            Log.e(this.getClass().getSimpleName(), "Obteniendo ID generado...");
+            operations++;
+        }
+        return retorno;
     }
 
     public static class ActionService<T> implements ActionOlivaDevelop {
