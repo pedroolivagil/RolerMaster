@@ -11,6 +11,7 @@ import org.json.JSONException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -83,6 +84,7 @@ public class QueryBuilder<T extends _BasicEntity> {
             List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
             Integer levelPersistence = 0;
             createPersistenceList(retorno, entity, levelPersistence);
+            Collections.reverse(retorno);
             for (KeyValuePair<Integer, _BasicEntity> bEnti : retorno) {
                 if (!bEnti.getValue().isPersisted()) {
                     query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
@@ -111,6 +113,7 @@ public class QueryBuilder<T extends _BasicEntity> {
             List<KeyValuePair<Integer, _BasicEntity>> retorno = new ArrayList<>();
             Integer levelPersistence = 0;
             createPersistenceList(retorno, entity, levelPersistence);
+            Collections.reverse(retorno);
             for (KeyValuePair<Integer, _BasicEntity> bEnti : retorno) {
                 query.add("entity[]", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
                 Log.e("entity[] (" + bEnti.getKey() + ")", this.jsonPersistence.persistenceJSONObject((T) bEnti.getValue()).toString());
@@ -143,10 +146,7 @@ public class QueryBuilder<T extends _BasicEntity> {
                 Object fieldValue = field.get(entity);
                 levelPersistence++;
                 if (ToolsOlivaDevelop.isNotNull(oneToOne) && oneToOne.canPersist()) {
-                    _BasicEntity basicEntity = (_BasicEntity) field.get(entity);
-                    if (!basicEntity.isPersisted()) {
-                        createPersistenceList(retorno, (_BasicEntity) fieldValue, levelPersistence);
-                    }
+                    createPersistenceList(retorno, (_BasicEntity) fieldValue, levelPersistence);
                 } else if (ToolsOlivaDevelop.isNotNull(oneToMany)) {
                     for (_BasicEntity value : (List<_BasicEntity>) fieldValue) {
                         createPersistenceList(retorno, value, levelPersistence);
