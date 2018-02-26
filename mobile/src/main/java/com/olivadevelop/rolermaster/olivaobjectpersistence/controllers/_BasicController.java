@@ -89,30 +89,25 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     @Override
     public boolean persist(T entity) throws ExecutionException, InterruptedException, JSONException {
-        boolean retortno = false;
+        boolean retorno = false;
         try {
             entity = generateIds(entity, Mode.PERSIST);
             getQueryBuilder().insert(entity);
-            retortno = true;
+            retorno = true;
         } catch (OlivaDevelopException e) {
             Log.e("ERROR", e.getMessage());
         }
        /* JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insert(entity));
         this.queryBuilder.getJsonPersistence().getEntity(result);*/
-        return retortno;
+        return retorno;
     }
 
     @Override
     public boolean merge(T entity) throws ExecutionException, InterruptedException, JSONException {
-        boolean retortno = false;
-        try {
-            entity = generateIds(entity, Mode.MERGE);
-            getQueryBuilder().update(entity);
-            retortno = true;
-        } catch (OlivaDevelopException e) {
-            Log.e("ERROR", e.getMessage());
-        }
-        return retortno;
+        boolean retorno = false;
+        getQueryBuilder().update(entity);
+        retorno = true;
+        return retorno;
     }
 
     @Override

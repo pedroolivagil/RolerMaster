@@ -164,7 +164,6 @@ public class JSONPersistence<T extends _BasicEntity> {
                                 Id pk = fieldRelated.getAnnotation(Id.class);
                                 if (Tools.isNotNull(pk)) {
                                     retorno.setValue(fieldRelated.get(entity));
-                                    fieldRelated.setAccessible(false);
                                     break;
                                 }
                             }
