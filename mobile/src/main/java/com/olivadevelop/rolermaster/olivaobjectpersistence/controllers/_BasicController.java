@@ -34,6 +34,8 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
     private QueryBuilder<T> queryBuilder;
     private _SequenceController<T> _sequenceController;
 
+    private final static String OK = "ok";
+
     public _BasicController(Class<T> entity) {
         this.entity = entity;
         this.queryBuilder = new QueryBuilder<>(entity);
@@ -93,27 +95,34 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         boolean retorno = false;
         try {
             entity = generateIds(entity, Mode.PERSIST);
-            getQueryBuilder().insert(entity);
-            retorno = true;
+            JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insert(entity));
+            if (result.getString("result").equals(OK)) {
+                retorno = true;
+            }
         } catch (OlivaDevelopException e) {
             Log.e("ERROR", e.getMessage());
         }
-       /* JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.CREATE, getQueryBuilder().insert(entity));
-        this.queryBuilder.getJsonPersistence().getEntity(result);*/
         return retorno;
     }
 
     @Override
     public boolean merge(T entity) throws ExecutionException, InterruptedException, JSONException {
         boolean retorno = false;
-        getQueryBuilder().update(entity);
-        retorno = true;
+        JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.UPDATE, getQueryBuilder().update(entity));
+        if (result.getString("result").equals(OK)) {
+            retorno = true;
+        }
         return retorno;
     }
 
     @Override
     public boolean remove(T entity) throws ExecutionException, InterruptedException, JSONException {
-        return false;
+        boolean retorno = false;
+        /*JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.UPDATE, getQueryBuilder().delete(entity));
+        if (result.getString("result").equals(OK)) {
+            retorno = true;
+        }*/
+        return retorno;
     }
 
     protected Class<T> getEntity() {

@@ -6,10 +6,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopThread;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
-import com.olivadevelop.rolermaster.persistence.entities.Country;
+import com.olivadevelop.rolermaster.persistence.entities.Locale;
+import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
@@ -75,61 +74,41 @@ public class BlankFragment extends CustomFragment {
             blankUsername.setText(getString(R.string.blank_guest));
         }
 
-        /*Locale es = new Locale();
-        es.setPersisted(true);
-        es.setIdLocale(1);
+        Locale es = new Locale();
         es.setCodeIso("ES");
 
         Locale en = new Locale();
-        en.setPersisted(true);
-        en.setIdLocale(2);
         en.setCodeIso("EN");
 
-        LocaleTrans trans1 = new LocaleTrans();
-        trans1.setPersisted(true);
-        trans1.setText("Español");
-        trans1.setLocale(es);
+        Controllers.getInstance().getLocaleController().create(es);
+        Controllers.getInstance().getLocaleController().create(en);
 
-        LocaleTrans trans2 = new LocaleTrans();
-        trans2.setPersisted(true);
-        trans2.setText("Spanish");
-        trans2.setLocale(en);
+        es = Controllers.getInstance().getLocaleController().read("ES", null);
+        en = Controllers.getInstance().getLocaleController().read("EN", null);
 
-        es.addTranslation(trans1);
-        es.addTranslation(trans2);
+        LocaleTrans es1 = new LocaleTrans();
+        es1.setText("Español");
+        es1.setIdLocale(es.getIdLocale());
+        LocaleTrans es2 = new LocaleTrans();
+        es2.setText("Spanish");
+        es2.setIdLocale(en.getIdLocale());
 
-        Country countryES = new Country();
-        countryES.setLocale(es);
-        countryES.setCode("ES");
+        LocaleTrans en1 = new LocaleTrans();
+        en1.setText("Inglés");
+        en1.setIdLocale(es.getIdLocale());
+        LocaleTrans en2 = new LocaleTrans();
+        en2.setText("English");
+        en2.setIdLocale(en.getIdLocale());
 
-        CountryTrans cEs = new CountryTrans();
-        cEs.setCountry(countryES);
-        cEs.setText("España");
-        cEs.setLocale(es);
+        es.addTranslation(es1);
+        es.addTranslation(es2);
 
-        CountryTrans cEn = new CountryTrans();
-        cEn.setCountry(countryES);
-        cEn.setText("Spain");
-        cEn.setLocale(en);
+        en.addTranslation(en1);
+        en.addTranslation(en2);
 
-        countryES.addTranslation(cEs);
-        countryES.addTranslation(cEn);*/
+        Controllers.getInstance().getLocaleController().update(es);
+        Controllers.getInstance().getLocaleController().update(en);
 
-        //Controllers.getInstance().getCountryController().create(countryES);
-        OlivaDevelopThread.getInstance().newThread(new OlivaDevelopThread.ActionThread() {
-            @Override
-            public void run() {
-                Controllers.getInstance().getCountryController().read(1, new ServiceDAO.ActionService<Country>() {
-                    @Override
-                    public void run(Country entity) {
-                        super.run(entity);
-                        if (Tools.isNotNull(entity)) {
-                            Log.e("CountryRead", entity.toString());
-                        }
-                    }
-                });
-            }
-        });
     }
 
     @Override

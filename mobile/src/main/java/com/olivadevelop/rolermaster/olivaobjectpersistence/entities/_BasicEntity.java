@@ -44,11 +44,6 @@ public abstract class _BasicEntity implements Entity {
         return _persisted;
     }
 
-    //TODO: borrar al terminar pruebas
-    public void setPersisted(boolean _persisted) {
-        this._persisted = _persisted;
-    }
-
     @Override
     public String generateCode() {
         return null;
