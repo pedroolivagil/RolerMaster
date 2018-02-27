@@ -83,7 +83,7 @@ public abstract class _BasicEntity implements Entity {
                     for (Field field : fields) {
                         field.setAccessible(true);
                         String fName = field.getName();
-                        if (!ignoreField(field, this)) {
+                        if (!Utils.ignoreField(field, this, false)) {
                             // Obtenemos el nombre de la propiedad que se le pasa por el JSON,
                             // por defecto será el nombre de la propiedad Java (el nombre en una
                             // lista será el nombre de la clase relacionada en plural)
@@ -184,7 +184,7 @@ public abstract class _BasicEntity implements Entity {
             List<Field> fields = Utils.getAllFieldsFromEntity(this);
             for (Field field : fields) {
                 field.setAccessible(true);
-                if (!ignoreField(field, this)) {
+                if (!Utils.ignoreField(field, this, false)) {
                     RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
                     if (Utils.isNotNull(relatedEntity)) {
                         OneToOne oneToOne = field.getAnnotation(OneToOne.class);
@@ -219,16 +219,5 @@ public abstract class _BasicEntity implements Entity {
     @Override
     public String toString() {
         return toJSON().toString();
-    }
-
-    private boolean ignoreField(Field field, _BasicEntity entity) throws IllegalAccessException {
-        return CHANGE_FIELD.equals(field.getName())
-                || SERIAL_VERSION_UID.equals(field.getName())
-                || ENTITY.equals(field.getName())
-                || PERSISTED.equals(field.getName())
-                || CHANGE_FIELD.equals(field.get(entity))
-                || SERIAL_VERSION_UID.equals(field.get(entity))
-                || ENTITY.equals(field.get(entity))
-                || PERSISTED.equals(field.get(entity));
     }
 }

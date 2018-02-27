@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
 
 import java.lang.reflect.Field;
@@ -90,6 +91,37 @@ public class Utils {
             Id pk = field.getAnnotation(Id.class);
             if (Utils.isNotNull(pk)) {
                 retorno = new KeyValuePair<>(field.getName(), field.get(entity));
+            }
+        }
+        return retorno;
+    }
+
+    /**
+     * Devuelve true si el nombre o el valor de la propiedad coincide con los que queremos omitir
+     *
+     * @param field
+     * @param entity
+     * @param fullIgnore
+     * @return
+     * @throws IllegalAccessException
+     */
+    public static boolean ignoreField(Field field, _BasicEntity entity, boolean fullIgnore) throws IllegalAccessException {
+        boolean retorno = false;
+        List<Boolean> list = new ArrayList<>();
+        list.add(_BasicEntity.CHANGE_FIELD.equals(field.getName()));
+        list.add(_BasicEntity.CHANGE_FIELD.equals(field.get(entity)));
+        list.add(_BasicEntity.SERIAL_VERSION_UID.equals(field.getName()));
+        list.add(_BasicEntity.SERIAL_VERSION_UID.equals(field.get(entity)));
+        list.add(_BasicEntity.ENTITY.equals(field.getName()));
+        list.add(_BasicEntity.ENTITY.equals(field.get(entity)));
+        if (fullIgnore) {
+            list.add(_BasicEntity.PERSISTED.equals(field.getName()));
+            list.add(_BasicEntity.PERSISTED.equals(field.get(entity)));
+        }
+        for (Boolean bool : list) {
+            if (bool) {
+                retorno = true;
+                break;
             }
         }
         return retorno;

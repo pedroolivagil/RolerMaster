@@ -128,7 +128,7 @@ public class JSONPersistence<T extends _BasicEntity> {
      */
     private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, OlivaDevelopException {
         KeyValuePair<String, Object> retorno = null;
-        if (!ignoreField(field, entityMaster)) {
+        if (!Utils.ignoreField(field, entityMaster, true)) {
             // comprobamos si es único y si está vacío
             Object value = field.get(entityMaster);
             Persistence persistenceField = field.getAnnotation(Persistence.class);
@@ -160,7 +160,7 @@ public class JSONPersistence<T extends _BasicEntity> {
                         }
                         for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
                             fieldRelated.setAccessible(true);
-                            if (!ignoreField(fieldRelated, entity)) {
+                            if (!Utils.ignoreField(fieldRelated, entity, true)) {
                                 Id pk = fieldRelated.getAnnotation(Id.class);
                                 if (Tools.isNotNull(pk)) {
                                     retorno.setValue(fieldRelated.get(entity));
@@ -273,16 +273,5 @@ public class JSONPersistence<T extends _BasicEntity> {
             }
         }
         return retorno;
-    }
-
-    private boolean ignoreField(Field field, _BasicEntity entity) throws IllegalAccessException {
-        return _BasicEntity.CHANGE_FIELD.equals(field.getName())
-                || _BasicEntity.SERIAL_VERSION_UID.equals(field.getName())
-                || _BasicEntity.ENTITY.equals(field.getName())
-                || _BasicEntity.PERSISTED.equals(field.getName())
-                || _BasicEntity.CHANGE_FIELD.equals(field.get(entity))
-                || _BasicEntity.SERIAL_VERSION_UID.equals(field.get(entity))
-                || _BasicEntity.ENTITY.equals(field.get(entity))
-                || _BasicEntity.PERSISTED.equals(field.get(entity));
     }
 }
