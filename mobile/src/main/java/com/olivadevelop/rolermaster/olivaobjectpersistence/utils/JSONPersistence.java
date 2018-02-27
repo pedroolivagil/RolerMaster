@@ -75,7 +75,7 @@ public class JSONPersistence<T extends _BasicEntity> {
     public JSONObject persistenceJSONObject(T entity) throws OlivaDevelopException {
         JSONObject retorno = new JSONObject();
         try {
-            List<Field> fields = ToolsOlivaDevelop.getAllFieldsFromEntity(entity);
+            List<Field> fields = Utils.getAllFieldsFromEntity(entity);
             if (Tools.isNotNull(fields) && fields.size() > 0) {
                 Persistence persistenceClass = entity.getClass().getAnnotation(Persistence.class);
                 String className = entity.getClass().getSimpleName();
@@ -105,7 +105,7 @@ public class JSONPersistence<T extends _BasicEntity> {
      */
     private JSONObject transformToJSON(T entity) throws IllegalAccessException, JSONException, OlivaDevelopException {
         JSONObject retorno = new JSONObject();
-        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity)) {
+        for (Field field : Utils.getAllFieldsFromEntity(entity)) {
             field.setAccessible(true);
             KeyValuePair<String, Object> fieldValue = getValueFromField(field, entity);
             if (fieldValue != null) {
@@ -151,7 +151,7 @@ public class JSONPersistence<T extends _BasicEntity> {
                 if (Tools.isNotNull(oneToOne)) {
                     // Si es una relación uno a uno o uno a muchos, directamente podemos transformar en una Entity para obtener su identificador
                     _BasicEntity entity = (_BasicEntity) value;
-                    if (ToolsOlivaDevelop.isNotNull(entity)) {
+                    if (Utils.isNotNull(entity)) {
                         retorno = new KeyValuePair<>();
                         if (Tools.isNotNull(relatedEntity.joinColumn())) {
                             retorno.setKey(relatedEntity.joinColumn());

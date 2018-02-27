@@ -15,4 +15,7 @@ import java.lang.annotation.Target;
 public @interface OneToOne {
 
     boolean canPersist() default true;
+
+    Class<?> mappingClass();
+
 }

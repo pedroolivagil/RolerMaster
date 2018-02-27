@@ -46,11 +46,11 @@ public class User extends _BasicEntity {
     private String phone;
     private Date birthdate;
 
-    @OneToOne
+    @OneToOne(mappingClass = Gender.class)
     @RelatedEntity(joinColumn = "idGender")
     private Gender gender;
 
-    @OneToOne
+    @OneToOne(mappingClass = Country.class)
     @RelatedEntity(joinColumn = "idCountry")
     private Country country;
 

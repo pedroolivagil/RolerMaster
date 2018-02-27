@@ -10,9 +10,6 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopThread;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.Country;
-import com.olivadevelop.rolermaster.persistence.entities.CountryTrans;
-import com.olivadevelop.rolermaster.persistence.entities.Locale;
-import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
@@ -78,7 +75,7 @@ public class BlankFragment extends CustomFragment {
             blankUsername.setText(getString(R.string.blank_guest));
         }
 
-        Locale es = new Locale();
+        /*Locale es = new Locale();
         es.setPersisted(true);
         es.setIdLocale(1);
         es.setCodeIso("ES");
@@ -116,7 +113,7 @@ public class BlankFragment extends CustomFragment {
         cEn.setLocale(en);
 
         countryES.addTranslation(cEs);
-        countryES.addTranslation(cEn);
+        countryES.addTranslation(cEn);*/
 
         //Controllers.getInstance().getCountryController().create(countryES);
         OlivaDevelopThread.getInstance().newThread(new OlivaDevelopThread.ActionThread() {
@@ -126,7 +123,9 @@ public class BlankFragment extends CustomFragment {
                     @Override
                     public void run(Country entity) {
                         super.run(entity);
-                        Log.e("CountryRead", entity.toString());
+                        if (Tools.isNotNull(entity)) {
+                            Log.e("CountryRead", entity.toString());
+                        }
                     }
                 });
             }

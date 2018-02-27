@@ -5,8 +5,8 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
-import com.olivadevelop.rolermaster.persistence.enums.TypeResource;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.persistence.enums.TypeResource;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +27,7 @@ public class Resource extends _BasicEntity {
     @Id
     private Integer idResource;
 
-    @OneToOne
+    @OneToOne(mappingClass = User.class)
     @RelatedEntity(joinColumn = "idUserUpload")
     private User userUpload;
 

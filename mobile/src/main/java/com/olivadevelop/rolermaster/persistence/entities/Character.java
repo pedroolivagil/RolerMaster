@@ -33,7 +33,7 @@ public class Character extends _BasicEntity {
     @Id
     private Integer idCharacter;
 
-    @OneToOne
+    @OneToOne(mappingClass = User.class)
     @RelatedEntity(joinColumn = "idUser")
     private User user;
 
@@ -45,7 +45,7 @@ public class Character extends _BasicEntity {
     private String planet;
     private String home;
 
-    @OneToOne
+    @OneToOne(mappingClass = Gender.class)
     @RelatedEntity(joinColumn = "idGender")
     private Gender gender;
 

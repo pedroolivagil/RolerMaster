@@ -1,9 +1,7 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,9 +15,10 @@ import org.json.JSONObject;
 @Persistence(collectionName = "gender_trans")
 public class GenderTrans extends GenericTrans {
 
-    @OneToOne
-    @RelatedEntity(joinColumn = "idGender", preference = true)
-    private Gender gender;
+    /*    @OneToOne
+        @RelatedEntity(joinColumn = "idGender", preference = true)
+        private Gender gender;*/
+    private Integer idGender;
 
     public GenderTrans() {
         super();
@@ -28,12 +27,20 @@ public class GenderTrans extends GenericTrans {
     public GenderTrans(JSONObject json) throws JSONException {
         super(json);
     }
-
+/*
     public Gender getGender() {
         return gender;
     }
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }*/
+
+    public Integer getIdGender() {
+        return idGender;
+    }
+
+    public void setIdGender(Integer idGender) {
+        this.idGender = idGender;
     }
 }

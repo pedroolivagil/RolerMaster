@@ -22,7 +22,7 @@ public class Parameter extends _BasicEntity {
     @Id
     private Integer idParameter;
 
-    @OneToOne
+    @OneToOne(mappingClass = Locale.class)
     @RelatedEntity(joinColumn = "idLocale")
     private Locale locale;
 

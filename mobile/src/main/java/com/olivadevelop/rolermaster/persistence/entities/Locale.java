@@ -70,11 +70,13 @@ public class Locale extends _BasicEntity {
 
     public void addTranslation(LocaleTrans translation) {
         this.getTranslations().add(translation);
-        translation.setLocaleGroup(this);
+        /*translation.setLocaleGroup(this);*/
+        translation.setIdLocaleGroup(getIdLocale());
     }
 
     public void removeTranslation(LocaleTrans translation) {
         this.getTranslations().remove(translation);
-        translation.setLocaleGroup(null);
+        /*translation.setLocaleGroup(null);*/
+        translation.setIdLocaleGroup(null);
     }
 }

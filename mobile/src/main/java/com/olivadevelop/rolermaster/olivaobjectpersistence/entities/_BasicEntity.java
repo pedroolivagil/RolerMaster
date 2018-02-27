@@ -2,10 +2,12 @@ package com.olivadevelop.rolermaster.olivaobjectpersistence.entities;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Utils;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONArray;
@@ -76,7 +78,7 @@ public abstract class _BasicEntity implements Entity {
             try {
                 // recuperamos las propiedades
                 //Field[] fields = getClass().getDeclaredFields();
-                List<Field> fields = ToolsOlivaDevelop.getAllFieldsFromEntity(this);
+                List<Field> fields = Utils.getAllFieldsFromEntity(this);
                 if (Tools.isNotNull(fields)) {
                     for (Field field : fields) {
                         field.setAccessible(true);
@@ -116,8 +118,8 @@ public abstract class _BasicEntity implements Entity {
                                 }
                                 field.set(this, entities);
                             } else if (value instanceof JSONObject) {
-                                Class<?> b = field.get(this).getClass();
-                                _BasicEntity elem = (_BasicEntity) b.getConstructor(JSONObject.class).newInstance(value);
+                                OneToOne oneToOne = field.getAnnotation(OneToOne.class);
+                                _BasicEntity elem = (_BasicEntity) oneToOne.mappingClass().getConstructor(JSONObject.class).newInstance(value);
                                 field.set(this, elem);
                             }
                         }
@@ -135,7 +137,6 @@ public abstract class _BasicEntity implements Entity {
             }
         }
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -175,6 +176,49 @@ public abstract class _BasicEntity implements Entity {
             e.printStackTrace();
         }
         return retorno;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject retorno = new JSONObject();
+        try {
+            List<Field> fields = Utils.getAllFieldsFromEntity(this);
+            for (Field field : fields) {
+                field.setAccessible(true);
+                if (!ignoreField(field, this)) {
+                    RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
+                    if (Utils.isNotNull(relatedEntity)) {
+                        OneToOne oneToOne = field.getAnnotation(OneToOne.class);
+                        OneToMany oneToMany = field.getAnnotation(OneToMany.class);
+                        if (Utils.isNotNull(oneToOne)) {
+                            retorno.put(field.getName(), ((_BasicEntity) field.get(this)).toJSON());
+                        } else if (Utils.isNotNull(oneToMany)) {
+                            JSONArray array = new JSONArray();
+                            List<_BasicEntity> list = (List<_BasicEntity>) field.get(this);
+                            if (Utils.isNotNull(list)) {
+                                for (_BasicEntity b : list) {
+                                    array.put(b.toJSON());
+                                }
+                            }
+                            retorno.put(field.getName(), array);
+                        }
+                    } else {
+                        // Si no hay anotación de relación, es un valor primitivo
+                        retorno.put(field.getName(), field.get(this));
+                    }
+                }
+                field.setAccessible(false);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    @Override
+    public String toString() {
+        return toJSON().toString();
     }
 
     private boolean ignoreField(Field field, _BasicEntity entity) throws IllegalAccessException {

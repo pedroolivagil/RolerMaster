@@ -1,12 +1,20 @@
 package com.olivadevelop.rolermaster.persistence.entities;
 
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.*;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToMany;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.tools.Tools;
 
-import org.json.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright OlivaDevelop 2014-2018
@@ -26,7 +34,7 @@ public class Country extends _BasicEntity {
     @RelatedEntity(joinColumn = "idCountry")
     private List<CountryTrans> translations;
 
-    @OneToOne
+    @OneToOne(mappingClass = Locale.class)
     @RelatedEntity(joinColumn = "idLocale", preference = true)
     private Locale locale;
 
@@ -76,11 +84,13 @@ public class Country extends _BasicEntity {
 
     public void addTranslation(CountryTrans translation) {
         this.getTranslations().add(translation);
-        translation.setCountry(this);
+        /*translation.setCountry(this);*/
+        translation.setIdCountry(getIdCountry());
     }
 
     public void removeTranslation(CountryTrans translation) {
         this.getTranslations().remove(translation);
-        translation.setCountry(null);
+        /*translation.setCountry(null);*/
+        translation.setIdCountry(null);
     }
 }

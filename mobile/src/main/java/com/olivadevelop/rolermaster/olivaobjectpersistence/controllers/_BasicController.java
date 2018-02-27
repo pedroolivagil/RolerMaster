@@ -11,7 +11,7 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceURL;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.OlivaDevelopException;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Utils;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
@@ -42,9 +42,10 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     public T find(Integer idEntity) throws ExecutionException, InterruptedException, JSONException {
         List<KeyValuePair<String, ?>> values = new ArrayList<>();
-        values.add(new KeyValuePair<>("idEntity", idEntity));
-        JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
-        return this.queryBuilder.getJsonPersistence().getEntity(result);
+        values.add(new KeyValuePair<>("idEntity", idEntity));/*
+        JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, );
+        return this.queryBuilder.getJsonPersistence().getEntity(result);*/
+        return find(getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
     }
 
     @Override
@@ -126,19 +127,19 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
     private T generateIds(T entity, Mode mode) throws InterruptedException, ExecutionException, JSONException, OlivaDevelopException {
         try {
             if ((!entity.isPersisted() && Mode.PERSIST.equals(mode)) || Mode.MERGE.equals(mode)) {
-                for (Field f : ToolsOlivaDevelop.getAllFieldsFromEntity(entity)) {
+                for (Field f : Utils.getAllFieldsFromEntity(entity)) {
                     f.setAccessible(true);
                     Id pk = f.getAnnotation(Id.class);
                     RelatedEntity relatedEntity = f.getAnnotation(RelatedEntity.class);
-                    if (ToolsOlivaDevelop.isNotNull(pk)) {
+                    if (Utils.isNotNull(pk)) {
                         // generamos la secuencia de la entidad.
                         Integer newId = this._sequenceController.getNextval(entity);
-                        if (ToolsOlivaDevelop.isNotNull(newId)) {
+                        if (Utils.isNotNull(newId)) {
                             f.set(entity, newId);
                         } else {
                             throw new OlivaDevelopException(OlivaDevelopException.TypeException.PERSISTENCE, "ID is null");
                         }
-                    } else if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
+                    } else if (Utils.isNotNull(relatedEntity)) {
                         // volvemos a ejecutar la fucnión con la entidad relacionada
                         if (!(f.get(entity) instanceof List)) {
                             generateIds((T) f.get(entity), mode);

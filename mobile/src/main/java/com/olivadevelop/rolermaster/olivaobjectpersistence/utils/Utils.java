@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Oliva on 22/02/2018.
  */
 
-public class ToolsOlivaDevelop {
+public class Utils {
     public enum Error {
         ERROR_404(404), ERROR_500(500), ERROR_300(300), ERROR_400(400);
         private int val;
@@ -88,7 +88,7 @@ public class ToolsOlivaDevelop {
         KeyValuePair<String, Object> retorno = null;
         for (Field field : getAllFieldsFromEntity(entity)) {
             Id pk = field.getAnnotation(Id.class);
-            if (ToolsOlivaDevelop.isNotNull(pk)) {
+            if (Utils.isNotNull(pk)) {
                 retorno = new KeyValuePair<>(field.getName(), field.get(entity));
             }
         }

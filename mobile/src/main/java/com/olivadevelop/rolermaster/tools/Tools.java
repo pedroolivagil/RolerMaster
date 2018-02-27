@@ -14,16 +14,13 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -34,7 +31,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.AccountPicker;
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Utils;
 import com.olivadevelop.rolermaster.tools.utils.CustomFragment;
 import com.olivadevelop.rolermaster.tools.utils.SpinnerAdapter;
 
@@ -56,7 +53,7 @@ import java.util.UUID;
  * RolerMaster
  */
 
-public abstract class Tools extends ToolsOlivaDevelop {
+public abstract class Tools extends Utils {
 
     private static FloatingActionButton fab;
     private static ScrollView mainScrollView;

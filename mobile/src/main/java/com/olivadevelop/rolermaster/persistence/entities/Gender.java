@@ -7,10 +7,12 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persisten
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public class Gender extends _BasicEntity {
 
     @OneToMany(mappingClass = GenderTrans.class)
     @RelatedEntity(joinColumn = "idGender")
-    private List<GenderTrans> translation;
+    private List<GenderTrans> translations;
 
     public Gender() {
         super();
@@ -56,11 +58,26 @@ public class Gender extends _BasicEntity {
         this.code = code;
     }
 
-    public List<GenderTrans> getTranslation() {
-        return translation;
+    public List<GenderTrans> getTranslations() {
+        if (Tools.isNull(translations)) {
+            this.translations = new ArrayList<>();
+        }
+        return translations;
     }
 
-    public void setTranslation(List<GenderTrans> translation) {
-        this.translation = translation;
+    public void setTranslation(List<GenderTrans> translations) {
+        this.translations = translations;
+    }
+
+    public void addTranslation(GenderTrans translation) {
+        this.getTranslations().add(translation);
+        /*translation.setGender(this);*/
+        translation.setIdGender(getIdGender());
+    }
+
+    public void removeTranslation(GenderTrans translation) {
+        this.getTranslations().remove(translation);
+        /*translation.setGender(null);*/
+        translation.setIdGender(null);
     }
 }

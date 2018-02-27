@@ -40,7 +40,8 @@ public class CountryController extends _BasicController<Country> implements Cont
                 actionService.run(retorno);
             }
         } catch (InterruptedException | ExecutionException | JSONException e) {
-            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
+            e.printStackTrace();
+            Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found" + e.getMessage(), null);
         }
         return retorno;
     }
@@ -57,6 +58,7 @@ public class CountryController extends _BasicController<Country> implements Cont
                 actionService.run(retorno);
             }
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
         }
         return retorno;
@@ -71,6 +73,7 @@ public class CountryController extends _BasicController<Country> implements Cont
                 actionService.run(retorno);
             }
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
         }
         return retorno;
@@ -88,6 +91,7 @@ public class CountryController extends _BasicController<Country> implements Cont
                 actionService.run(retorno);
             }
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
         }
         return retorno;
@@ -105,6 +109,7 @@ public class CountryController extends _BasicController<Country> implements Cont
                 actionService.run(retorno);
             }
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
         }
         return retorno;
@@ -123,6 +128,7 @@ public class CountryController extends _BasicController<Country> implements Cont
                 actionService.run(retorno);
             }
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country not found", null);
         }
         return retorno;
@@ -134,6 +140,7 @@ public class CountryController extends _BasicController<Country> implements Cont
         try {
             retorno = super.persist(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country con not be inserted", null);
         }
         return retorno;
@@ -145,6 +152,7 @@ public class CountryController extends _BasicController<Country> implements Cont
         try {
             retorno = super.merge(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country con not be updated", null);
         }
         return retorno;
@@ -156,6 +164,7 @@ public class CountryController extends _BasicController<Country> implements Cont
         try {
             retorno = super.remove(entity);
         } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
             Alert.getInstance().errorDialog(Tools.Error.ERROR_500, "Country con not be deleted", null);
         }
         return retorno;

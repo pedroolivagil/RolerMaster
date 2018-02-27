@@ -30,11 +30,11 @@ public class Notification extends _BasicEntity {
     @Id
     private Integer idNotification;
 
-    @OneToOne
+    @OneToOne(mappingClass = User.class)
     @RelatedEntity(joinColumn = "fromUserId")
     private User fromUser;
 
-    @OneToOne
+    @OneToOne(mappingClass = User.class)
     @RelatedEntity(joinColumn = "toUserId")
     private User toUser;
 

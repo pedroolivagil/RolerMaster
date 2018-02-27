@@ -24,7 +24,7 @@ public class Preference extends _BasicEntity {
     @Id
     private Integer idPreference;
 
-    @OneToOne
+    @OneToOne(mappingClass = User.class)
     @RelatedEntity(joinColumn = "idUser")
     private User user;
 

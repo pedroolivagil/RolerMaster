@@ -23,7 +23,7 @@ public class GameCategory extends _BasicEntity {
     @Id
     private Integer idGameCategory;
 
-    @OneToOne
+    @OneToOne(mappingClass = User.class)
     @RelatedEntity(joinColumn = "idUser")
     private User user;
 

@@ -2,9 +2,7 @@ package com.olivadevelop.rolermaster.persistence.entities;
 
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Entity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Id;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.OneToOne;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 
 import org.json.JSONException;
@@ -21,9 +19,10 @@ public class GenericTrans extends _BasicEntity {
     @Id
     private Integer idTrans;
 
-    @OneToOne(canPersist = false)
+    /*@OneToOne(canPersist = false)
     @RelatedEntity(joinColumn = "idLocale", preference = true)
-    private Locale locale;
+    private Locale locale;*/
+    private Integer idLocale;
 
     private String text;
 
@@ -42,13 +41,21 @@ public class GenericTrans extends _BasicEntity {
     public void setIdTrans(Integer idTrans) {
         this.idTrans = idTrans;
     }
-
+/*
     public Locale getLocale() {
         return locale;
     }
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }*/
+
+    public Integer getIdLocale() {
+        return idLocale;
+    }
+
+    public void setIdLocale(Integer idLocale) {
+        this.idLocale = idLocale;
     }
 
     public String getText() {

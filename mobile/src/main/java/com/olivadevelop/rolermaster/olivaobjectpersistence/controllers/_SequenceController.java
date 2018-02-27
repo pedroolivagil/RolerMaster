@@ -1,14 +1,12 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.controllers;
 
-import android.util.Log;
-
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceURL;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.KeyValuePair;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.QueryBuilder;
-import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.ToolsOlivaDevelop;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +39,7 @@ final class _SequenceController<T extends _BasicEntity> {
         query.setKey("nameSequence");
         Persistence persistence = entity.getClass().getAnnotation(Persistence.class);
         String nameSequence;
-        if (ToolsOlivaDevelop.isNotNull(persistence) && ToolsOlivaDevelop.isNotNull(persistence.secuenceName())) {
+        if (Utils.isNotNull(persistence) && Utils.isNotNull(persistence.secuenceName())) {
             nameSequence = persistence.secuenceName();
         } else {
             nameSequence = entity.getClass().getSimpleName().toLowerCase().trim();
@@ -52,7 +50,7 @@ final class _SequenceController<T extends _BasicEntity> {
 
     private synchronized Integer getNextval() throws ExecutionException, InterruptedException, JSONException {
         int operations = 0;
-        while ((ToolsOlivaDevelop.isNull(retorno) || retorno.toString().equals("{}")) && operations < 500) {
+        while ((Utils.isNull(retorno) || retorno.toString().equals("{}")) && operations < 500) {
             operations++;
         }
         Integer id = null;

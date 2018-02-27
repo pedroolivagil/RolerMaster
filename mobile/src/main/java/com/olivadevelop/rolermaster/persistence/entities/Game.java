@@ -73,7 +73,7 @@ public class Game extends _BasicEntity {
     private String history;
     private String location;
 
-    @OneToOne
+    @OneToOne(mappingClass = GameCategory.class)
     @RelatedEntity(joinColumn = "idCategory")
     private GameCategory gameCategory;
 

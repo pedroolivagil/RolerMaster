@@ -52,7 +52,7 @@ public class QueryBuilder<T extends _BasicEntity> {
         FormBody.Builder query = new FormBody.Builder();
         query.add(ENTITY_QUERY, entity.getSimpleName());
         query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
-        if (ToolsOlivaDevelop.isNotNull(values)) {
+        if (Utils.isNotNull(values)) {
             for (KeyValuePair<String, ?> obj : values) {
                 query.add(this.jsonPersistence.getPersistenceFieldName(obj.getKey()), obj.getValueAsString());
             }
@@ -62,7 +62,7 @@ public class QueryBuilder<T extends _BasicEntity> {
 
     public FormBody createSimpleQuery(List<KeyValuePair<String, Object>> values) {
         FormBody.Builder query = new FormBody.Builder();
-        if (ToolsOlivaDevelop.isNotNull(values)) {
+        if (Utils.isNotNull(values)) {
             for (KeyValuePair<String, ?> obj : values) {
                 query.add(obj.getKey(), obj.getValueAsString());
             }
@@ -137,17 +137,17 @@ public class QueryBuilder<T extends _BasicEntity> {
      * @throws IllegalAccessException
      */
     private void createPersistenceList(List<KeyValuePair<Integer, _BasicEntity>> retorno, _BasicEntity entity, Integer levelPersistence) throws JSONException, IllegalAccessException {
-        for (Field field : ToolsOlivaDevelop.getAllFieldsFromEntity(entity)) {
+        for (Field field : Utils.getAllFieldsFromEntity(entity)) {
             field.setAccessible(true);
             RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
             OneToOne oneToOne = field.getAnnotation(OneToOne.class);
             OneToMany oneToMany = field.getAnnotation(OneToMany.class);
-            if (ToolsOlivaDevelop.isNotNull(relatedEntity)) {
+            if (Utils.isNotNull(relatedEntity)) {
                 Object fieldValue = field.get(entity);
                 levelPersistence++;
-                if (ToolsOlivaDevelop.isNotNull(oneToOne) && oneToOne.canPersist()) {
+                if (Utils.isNotNull(oneToOne) && oneToOne.canPersist()) {
                     createPersistenceList(retorno, (_BasicEntity) fieldValue, levelPersistence);
-                } else if (ToolsOlivaDevelop.isNotNull(oneToMany)) {
+                } else if (Utils.isNotNull(oneToMany)) {
                     for (_BasicEntity value : (List<_BasicEntity>) fieldValue) {
                         createPersistenceList(retorno, value, levelPersistence);
                     }

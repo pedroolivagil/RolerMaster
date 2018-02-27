@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 
 import com.olivadevelop.rolermaster.R;
 import com.olivadevelop.rolermaster.tools.Navigation;
-import com.olivadevelop.rolermaster.tools.SessionManager;
 import com.olivadevelop.rolermaster.tools.utils.RolerMasterActivity;
 
 import static com.olivadevelop.rolermaster.tools.Constant.TIME_SPLASH;
@@ -107,7 +106,7 @@ public class SplashActivity extends RolerMasterActivity {
         progressBar.setProgress(0);
         final Context c = this;
 
-        SessionManager.getInstance().autologin();
+        /*SessionManager.getInstance().autologin();*/
         Navigation.getInstance().navigateActivityThread(Navigation.Page.HOME_ACTIVITY, c, TIME_SPLASH, progressBar);
     }
 
