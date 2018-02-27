@@ -51,6 +51,7 @@ public class CountryController extends _BasicController<Country> implements Cont
         Country retorno = null;
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>(FILTER, codeEntity));
             values.add(new KeyValuePair<>("code", codeEntity));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);

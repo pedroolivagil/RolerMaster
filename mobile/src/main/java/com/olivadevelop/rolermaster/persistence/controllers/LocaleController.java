@@ -12,6 +12,7 @@ import com.olivadevelop.rolermaster.tools.Tools;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -51,6 +52,7 @@ public class LocaleController extends _BasicController<Locale> implements Contro
         Locale retorno = null;
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
+            values.add(new KeyValuePair<>(FILTER, Collections.singletonList("codeISO")));
             values.add(new KeyValuePair<>("codeISO", codeEntity));
             FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);

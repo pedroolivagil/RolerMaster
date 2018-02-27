@@ -34,7 +34,8 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
     private QueryBuilder<T> queryBuilder;
     private _SequenceController<T> _sequenceController;
 
-    private final static String OK = "ok";
+    protected final static String OK = "ok";
+    protected static final String FILTER = "filter[]";
 
     public _BasicController(Class<T> entity) {
         this.entity = entity;

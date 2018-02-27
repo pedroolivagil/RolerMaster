@@ -6,9 +6,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.olivadevelop.rolermaster.R;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.managers.ServiceDAO;
 import com.olivadevelop.rolermaster.persistence.controllers.Controllers;
 import com.olivadevelop.rolermaster.persistence.entities.Locale;
-import com.olivadevelop.rolermaster.persistence.entities.LocaleTrans;
 import com.olivadevelop.rolermaster.persistence.entities.User;
 import com.olivadevelop.rolermaster.tools.Navigation;
 import com.olivadevelop.rolermaster.tools.SessionManager;
@@ -74,7 +74,7 @@ public class BlankFragment extends CustomFragment {
             blankUsername.setText(getString(R.string.blank_guest));
         }
 
-        Locale es = new Locale();
+       /* Locale es = new Locale();
         es.setCodeIso("ES");
 
         Locale en = new Locale();
@@ -107,7 +107,17 @@ public class BlankFragment extends CustomFragment {
         en.addTranslation(en2);
 
         Controllers.getInstance().getLocaleController().update(es);
-        Controllers.getInstance().getLocaleController().update(en);
+        Controllers.getInstance().getLocaleController().update(en);*/
+
+        Controllers.getInstance().getLocaleController().read("ES", new ServiceDAO.ActionService<Locale>() {
+            @Override
+            public void run(Locale entity) {
+                super.run(entity);
+                if (entity != null) {
+                    Log.e("Locale", entity.toString());
+                }
+            }
+        });
 
     }
 
