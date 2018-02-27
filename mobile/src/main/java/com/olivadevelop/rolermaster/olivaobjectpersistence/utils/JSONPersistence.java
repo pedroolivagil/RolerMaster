@@ -128,7 +128,7 @@ public class JSONPersistence<T extends _BasicEntity> {
      */
     private KeyValuePair<String, Object> getValueFromField(Field field, T entityMaster) throws IllegalAccessException, OlivaDevelopException {
         KeyValuePair<String, Object> retorno = null;
-        if (!Utils.ignoreField(field, entityMaster, true)) {
+        if (!Utils.ignoreField(field, entityMaster)) {
             // comprobamos si es único y si está vacío
             Object value = field.get(entityMaster);
             Persistence persistenceField = field.getAnnotation(Persistence.class);
@@ -160,7 +160,7 @@ public class JSONPersistence<T extends _BasicEntity> {
                         }
                         for (Field fieldRelated : entity.getClass().getDeclaredFields()) {
                             fieldRelated.setAccessible(true);
-                            if (!Utils.ignoreField(fieldRelated, entity, true)) {
+                            if (!Utils.ignoreField(fieldRelated, entity)) {
                                 Id pk = fieldRelated.getAnnotation(Id.class);
                                 if (Tools.isNotNull(pk)) {
                                     retorno.setValue(fieldRelated.get(entity));

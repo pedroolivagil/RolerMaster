@@ -83,7 +83,7 @@ public abstract class _BasicEntity implements Entity {
                     for (Field field : fields) {
                         field.setAccessible(true);
                         String fName = field.getName();
-                        if (!Utils.ignoreField(field, this, false)) {
+                        if (!Utils.ignoreField(field, this)) {
                             // Obtenemos el nombre de la propiedad que se le pasa por el JSON,
                             // por defecto será el nombre de la propiedad Java (el nombre en una
                             // lista será el nombre de la clase relacionada en plural)
@@ -184,7 +184,7 @@ public abstract class _BasicEntity implements Entity {
             List<Field> fields = Utils.getAllFieldsFromEntity(this);
             for (Field field : fields) {
                 field.setAccessible(true);
-                if (!Utils.ignoreField(field, this, false)) {
+                if (!Utils.ignoreField(field, this)) {
                     RelatedEntity relatedEntity = field.getAnnotation(RelatedEntity.class);
                     if (Utils.isNotNull(relatedEntity)) {
                         OneToOne oneToOne = field.getAnnotation(OneToOne.class);

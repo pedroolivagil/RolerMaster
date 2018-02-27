@@ -101,11 +101,10 @@ public class Utils {
      *
      * @param field
      * @param entity
-     * @param fullIgnore
      * @return
      * @throws IllegalAccessException
      */
-    public static boolean ignoreField(Field field, _BasicEntity entity, boolean fullIgnore) throws IllegalAccessException {
+    public static boolean ignoreField(Field field, _BasicEntity entity) throws IllegalAccessException {
         boolean retorno = false;
         List<Boolean> list = new ArrayList<>();
         list.add(_BasicEntity.CHANGE_FIELD.equals(field.getName()));
@@ -114,10 +113,7 @@ public class Utils {
         list.add(_BasicEntity.SERIAL_VERSION_UID.equals(field.get(entity)));
         list.add(_BasicEntity.ENTITY.equals(field.getName()));
         list.add(_BasicEntity.ENTITY.equals(field.get(entity)));
-        if (fullIgnore) {
-            list.add(_BasicEntity.PERSISTED.equals(field.getName()));
-            list.add(_BasicEntity.PERSISTED.equals(field.get(entity)));
-        }
+        list.add(_BasicEntity.PERSISTED.equals(field.get(entity)));
         for (Boolean bool : list) {
             if (bool) {
                 retorno = true;
