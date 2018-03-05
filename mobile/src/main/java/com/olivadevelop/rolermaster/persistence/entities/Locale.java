@@ -31,14 +31,16 @@ public class Locale extends _BasicEntity {
 
     @OneToMany(mappingClass = LocaleTrans.class)
     @RelatedEntity(joinColumn = "idLocale")
-    private List<LocaleTrans> translations;
+    private List<LocaleTrans> localeTrans;
 
     public Locale() {
         super();
+        getLocaleTrans();
     }
 
     public Locale(JSONObject json) throws JSONException {
         super(json);
+        getLocaleTrans();
     }
 
     public Integer getIdLocale() {
@@ -57,26 +59,26 @@ public class Locale extends _BasicEntity {
         this.codeIso = codeIso;
     }
 
-    public List<LocaleTrans> getTranslations() {
-        if (Tools.isNull(translations)) {
-            this.translations = new ArrayList<>();
+    public List<LocaleTrans> getLocaleTrans() {
+        if (Tools.isNull(localeTrans)) {
+            this.localeTrans = new ArrayList<>();
         }
-        return translations;
+        return localeTrans;
     }
 
-    public void setTranslations(List<LocaleTrans> translations) {
-        this.translations = translations;
+    public void setLocaleTrans(List<LocaleTrans> localeTrans) {
+        this.localeTrans = localeTrans;
     }
 
-    public void addTranslation(LocaleTrans translation) {
-        this.getTranslations().add(translation);
+    public void addLocaleTrans(LocaleTrans localeTrans) {
+        this.getLocaleTrans().add(localeTrans);
         /*translation.setLocaleGroup(this);*/
-        translation.setIdLocaleGroup(getIdLocale());
+        localeTrans.setIdLocaleGroup(getIdLocale());
     }
 
-    public void removeTranslation(LocaleTrans translation) {
-        this.getTranslations().remove(translation);
+    public void removeLocaleTrans(LocaleTrans localeTrans) {
+        this.getLocaleTrans().remove(localeTrans);
         /*translation.setLocaleGroup(null);*/
-        translation.setIdLocaleGroup(null);
+        localeTrans.setIdLocaleGroup(null);
     }
 }

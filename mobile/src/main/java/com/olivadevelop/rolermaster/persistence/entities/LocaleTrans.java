@@ -14,10 +14,6 @@ import org.json.JSONObject;
 @Entity
 @Persistence(collectionName = "locale_trans")
 public class LocaleTrans extends GenericTrans {
-/*
-    @OneToOne(canPersist = false)
-    @RelatedEntity(joinColumn = "idLocaleGroup", preference = true)
-    private Locale localeGroup;*/
 
     private Integer idLocaleGroup;
 
@@ -28,14 +24,6 @@ public class LocaleTrans extends GenericTrans {
     public LocaleTrans(JSONObject json) throws JSONException {
         super(json);
     }
-/*
-    public Locale getLocaleGroup() {
-        return localeGroup;
-    }
-
-    public void setLocaleGroup(Locale localeGroup) {
-        this.localeGroup = localeGroup;
-    }*/
 
     public Integer getIdLocaleGroup() {
         return idLocaleGroup;

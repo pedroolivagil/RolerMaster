@@ -51,7 +51,7 @@ public class QueryBuilder<T extends _BasicEntity> {
     public FormBody createQuery(TypeQuery typeQuery, List<KeyValuePair<String, ?>> values) {
         FormBody.Builder query = new FormBody.Builder();
         query.add(ENTITY_QUERY, entity.getSimpleName());
-        query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
+        // query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));
         if (Utils.isNotNull(values)) {
             for (KeyValuePair<String, ?> obj : values) {
                 query.add(this.jsonPersistence.getPersistenceFieldName(obj.getKey()), obj.getValueAsString());

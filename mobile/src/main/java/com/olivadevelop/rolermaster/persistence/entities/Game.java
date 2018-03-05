@@ -8,11 +8,13 @@ import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persisten
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.RelatedEntity;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Unique;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.utils.Utils;
 import com.olivadevelop.rolermaster.tools.Tools;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -79,10 +81,12 @@ public class Game extends _BasicEntity {
 
     public Game() {
         super();
+        getResources();
     }
 
     public Game(JSONObject json) throws JSONException {
         super(json);
+        getResources();
     }
 
     public Integer getIdGame() {
@@ -142,6 +146,9 @@ public class Game extends _BasicEntity {
     }
 
     public List<Resource> getResources() {
+        if (Utils.isNull(this.resources)) {
+            this.resources = new ArrayList<>();
+        }
         return resources;
     }
 
