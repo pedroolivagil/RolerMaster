@@ -35,10 +35,12 @@ public class Locale extends _BasicEntity {
 
     public Locale() {
         super();
+        getTranslations();
     }
 
     public Locale(JSONObject json) throws JSONException {
         super(json);
+        getTranslations();
     }
 
     public Integer getIdLocale() {

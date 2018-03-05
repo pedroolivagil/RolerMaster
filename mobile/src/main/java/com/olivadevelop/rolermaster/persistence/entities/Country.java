@@ -40,11 +40,12 @@ public class Country extends _BasicEntity {
 
     public Country() {
         super();
+        getTranslations();
     }
-
 
     public Country(JSONObject json) throws JSONException {
         super(json);
+        getTranslations();
     }
 
     public Integer getIdCountry() {
