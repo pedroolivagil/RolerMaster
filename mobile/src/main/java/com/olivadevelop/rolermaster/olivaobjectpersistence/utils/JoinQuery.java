@@ -1,6 +1,8 @@
 package com.olivadevelop.rolermaster.olivaobjectpersistence.utils;
 
+import com.olivadevelop.rolermaster.olivaobjectpersistence.annotations.Persistence;
 import com.olivadevelop.rolermaster.olivaobjectpersistence.entities._BasicEntity;
+import com.olivadevelop.rolermaster.olivaobjectpersistence.interfaces.Entity;
 
 import okhttp3.FormBody;
 
@@ -11,38 +13,47 @@ import okhttp3.FormBody;
  */
 class JoinQuery<T extends _BasicEntity> {
 
-    private Class<T> entity;
-    private Class<T> entityJoin;
+    private Entity entity;
+    private Entity entityJoin;
 
-    public JoinQuery(Class<T> entity, Class<T> entityJoin) {
+    public JoinQuery(Entity entity, Entity entityJoin) {
         this.entity = entity;
         this.entityJoin = entityJoin;
     }
 
-    public Class<T> getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 
-    public void setEntity(Class<T> entity) {
+    public void setEntity(Entity entity) {
         this.entity = entity;
     }
 
-    public Class<T> getEntityJoin() {
+    public Entity getEntityJoin() {
         return entityJoin;
     }
 
-    public void setEntityJoin(Class<T> entityJoin) {
+    public void setEntityJoin(Entity entityJoin) {
         this.entityJoin = entityJoin;
     }
 
-    public FormBody.Builder toForm(FormBody.Builder query) {
-        if (Utils.isNull(query)) {
-            query = new FormBody.Builder();
+    public FormBody.Builder toForm(FormBody.Builder query, boolean restrict) {
+        try {
+            if (Utils.isNull(query)) {
+                query = new FormBody.Builder();
+            }
+            String tableName = entity.getClass().getAnnotation(Persistence.class).collectionName();
+            String tablePk = Utils.getPkFromEntity(entity).getKey();
+            String joinTableName = entityJoin.getClass().getAnnotation(Persistence.class).collectionName();
+            String joinTablePk = Utils.getPkFromEntity(entityJoin).getKey();
+            query.add("join[][entityParent]", tableName);
+            query.add("join[][entityJoin]", joinTableName);
+            query.add("join[][pkParent]", tablePk);
+            query.add("join[][pkJoin]", joinTablePk);
+            query.add("join[][restrict]", String.valueOf(restrict));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-        query.add("", "");
-        query.add("", "");
-        query.add("", "");
-        query.add("", "");
         return query;
     }
 }

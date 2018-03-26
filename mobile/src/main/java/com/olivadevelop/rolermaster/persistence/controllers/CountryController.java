@@ -34,7 +34,7 @@ public class CountryController extends _BasicController<Country> implements Cont
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("idCountry", idEntity));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -53,7 +53,7 @@ public class CountryController extends _BasicController<Country> implements Cont
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>(FILTER, codeEntity));
             values.add(new KeyValuePair<>("code", codeEntity));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -86,7 +86,7 @@ public class CountryController extends _BasicController<Country> implements Cont
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("idCountry", ids));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -104,7 +104,7 @@ public class CountryController extends _BasicController<Country> implements Cont
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("flagActive", true));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -123,7 +123,7 @@ public class CountryController extends _BasicController<Country> implements Cont
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("idCountry", ids));
             values.add(new KeyValuePair<>("flagActive", true));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);

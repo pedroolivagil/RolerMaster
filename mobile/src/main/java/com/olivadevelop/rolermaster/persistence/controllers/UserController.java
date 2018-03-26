@@ -35,7 +35,7 @@ public class UserController extends _BasicController<User> implements Controller
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("idUser", idEntity));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -53,7 +53,7 @@ public class UserController extends _BasicController<User> implements Controller
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("username", usermail));
             values.add(new KeyValuePair<>("email", usermail));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -84,7 +84,7 @@ public class UserController extends _BasicController<User> implements Controller
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("idUser", ids));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -101,7 +101,7 @@ public class UserController extends _BasicController<User> implements Controller
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("flagActive", true));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -119,7 +119,7 @@ public class UserController extends _BasicController<User> implements Controller
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("idUser", ids));
             values.add(new KeyValuePair<>("flagActive", true));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.findAll(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);

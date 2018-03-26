@@ -35,7 +35,7 @@ public class LocaleController extends _BasicController<Locale> implements Contro
         try {
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>("idLocale", idEntity));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);
@@ -54,7 +54,7 @@ public class LocaleController extends _BasicController<Locale> implements Contro
             List<KeyValuePair<String, ?>> values = new ArrayList<>();
             values.add(new KeyValuePair<>(FILTER, Collections.singletonList("codeISO")));
             values.add(new KeyValuePair<>("codeISO", codeEntity));
-            FormBody query = getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values);
+            FormBody query = getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values);
             retorno = super.find(query);
             if (Tools.isNotNull(actionService)) {
                 actionService.run(retorno);

@@ -48,7 +48,7 @@ public class QueryBuilder<T extends _BasicEntity> {
     private static final String TYPE_QUERY = "typeQuery";
     private static final String ENTITY_QUERY = "entityQuery";
 
-    public FormBody createQuery(TypeQuery typeQuery, List<KeyValuePair<String, ?>> values) {
+    public FormBody query(TypeQuery typeQuery, List<KeyValuePair<String, ?>> values) {
         FormBody.Builder query = new FormBody.Builder();
         query.add(ENTITY_QUERY, entity.getSimpleName());
         // query.add(TYPE_QUERY, String.valueOf(typeQuery.getVal()));

@@ -48,7 +48,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
         values.add(new KeyValuePair<>("idEntity", idEntity));/*
         JSONObject result = ServiceDAO.getInstance().newCall(ServiceURL.READ, );
         return this.queryBuilder.getJsonPersistence().getEntity(result);*/
-        return find(getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ONE, values));
+        return find(getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ONE, values));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class _BasicController<T extends _BasicEntity> implements _PersistenceMet
 
     @Override
     public List<T> findAll() throws ExecutionException, InterruptedException, JSONException {
-        return findAll(getQueryBuilder().createQuery(QueryBuilder.TypeQuery.FIND_ALL, null));
+        return findAll(getQueryBuilder().query(QueryBuilder.TypeQuery.FIND_ALL, null));
     }
 
     @Override
